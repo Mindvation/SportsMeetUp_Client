@@ -6,37 +6,36 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    Text,
-    View
+    StyleSheet
 } from 'react-native';
+import WelcomePage from './WelcomePage';
+import Navigator from 'react-native-deprecated-custom-components';
 
 export default class setup extends Component {
     render() {
+        var defaultName = 'WelcomePage';
+        var defaultComponment = WelcomePage;
+
         return (
-            <View style={[styles.container]}>
-                <Text>Logon Page</Text>
-            </View>
+            <Navigator.Navigator
+                initialRoute={{ name:defaultName,component:defaultComponment}}
+                configureScene={(route)=>{
+                    var conf = Navigator.Navigator.SceneConfigs.HorizontalSwipeJump;
+                    conf.gestures = { pop: false };
+                    return conf;
+                }}
+                renderScene={(route, navigator) => {
+                    let Component = route.component;
+                    if(route.component){
+                        return <Component {...route.params} navigator={navigator} />
+                    }
+                }}
+            />
 
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#77d4ff',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
+
 });
