@@ -32,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Contents.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Contents.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Images.xcassets/LaunchImage.launchimage/Contents.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="448">
-              <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+              <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -52,21 +52,35 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Logon.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="21" column="5" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="21" selection-end-column="5" />
+              <folding>
+                <element signature="e#89#130#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Register.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="608">
+              <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+              <folding>
+                <element signature="e#89#130#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="192">
               <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppDelegate.m" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/AppDelegate.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="608">
-              <caret line="34" column="22" lean-forward="false" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -96,7 +110,7 @@
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="96">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,9 +136,9 @@
       <find>ic_launcher</find>
       <find>Navigator</find>
       <find>fontStyle</find>
-      <find>SplashScreen</find>
       <find>ReactActivity</find>
       <find>layout_height</find>
+      <find>SplashScreen</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -154,12 +168,13 @@
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/build.gradle" />
         <option value="$PROJECT_DIR$/SportsMeetUp/package.json" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/setup.js" />
-        <option value="$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/AppDelegate.m" />
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainActivity.java" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/WelcomePage.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/register/Register.js" />
       </list>
     </option>
   </component>
@@ -179,7 +194,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/SportsMeetUp/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -270,6 +285,13 @@
               <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="logon" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="register" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
@@ -556,15 +578,15 @@
       <workItem from="1500346835117" duration="1556000" />
       <workItem from="1500351951639" duration="89000" />
       <workItem from="1500358344733" duration="14291000" />
-      <workItem from="1500428269581" duration="11453000" />
+      <workItem from="1500428269581" duration="12957000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29195000" />
+    <option name="totallyTimeSpent" value="30699000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16174921" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -610,7 +632,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SportsMeet/index.ios.js" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/android/app/build.gradle" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/js/setup.js" />
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainActivity.java" />
@@ -713,6 +734,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2112">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -741,16 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/settings.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -774,8 +788,8 @@
         <state relative-caret-position="448">
           <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#89#130#0" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#89#130#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -847,7 +861,7 @@
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -870,8 +884,28 @@
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Images.xcassets/LaunchImage.launchimage/Contents.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="448">
-          <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="21" column="5" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="e#89#130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+          <folding>
+            <element signature="e#89#130#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

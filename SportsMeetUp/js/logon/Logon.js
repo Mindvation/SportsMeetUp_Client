@@ -13,11 +13,22 @@ import {
     View
 } from 'react-native';
 
-import SplashScreen from 'react-native-splash-screen'
+import Register from '../register/Register'
 
-export default class setup extends Component {
+export default class Logon extends Component {
+    constructor(props){
+        super(props);
+        this.state = {};
+    }
+
     _signUp() {
-
+        const { navigator } = this.props;
+        if(navigator){
+            navigator.push({
+                name:'RegisterComponent',
+                component:Register,
+            })
+        }
     }
 
     _logIn() {
