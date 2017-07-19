@@ -19,72 +19,55 @@
     <favorites_list name="SportsMeetUp_Client" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="proguard-rules.pro" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/proguard-rules.pro">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="16" column="20" lean-forward="false" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="103" column="9" lean-forward="true" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Logon.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="75" column="16" lean-forward="true" selection-start-line="75" selection-start-column="16" selection-end-line="75" selection-end-column="16" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#89#130#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="WelcomePage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/WelcomePage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="20" column="52" lean-forward="false" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
+            <state relative-caret-position="-456">
+              <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#27#66#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setup.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/setup.js">
+      <file leaf-file-name="Contents.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Images.xcassets/LaunchImage.launchimage/Contents.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="26" column="41" lean-forward="false" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#89#130#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="448">
+              <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="382">
+              <caret line="26" column="28" lean-forward="false" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppDelegate.m" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/AppDelegate.m">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="608">
+              <caret line="34" column="22" lean-forward="false" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -92,8 +75,38 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="11" column="61" lean-forward="false" selection-start-line="11" selection-start-column="61" selection-end-line="11" selection-end-column="61" />
+            <state relative-caret-position="352">
+              <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/styles.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="launch_screen.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/layout/launch_screen.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -109,6 +122,9 @@
       <find>ic_launcher</find>
       <find>Navigator</find>
       <find>fontStyle</find>
+      <find>SplashScreen</find>
+      <find>ReactActivity</find>
+      <find>layout_height</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -116,6 +132,8 @@
     </replaceStrings>
     <dirStrings>
       <dir>E:\GitHub\SportsMeetUp_Client\SportsMeetUp</dir>
+      <dir>E:\GitHub\SportsMeetUp_Client\SportsMeetUp\node_modules</dir>
+      <dir>E:\GitHub\SportsMeetUp_Client\SportsMeetUp\node_modules\react-native-splash-screen</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -136,8 +154,12 @@
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/build.gradle" />
         <option value="$PROJECT_DIR$/SportsMeetUp/package.json" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/setup.js" />
-        <option value="$PROJECT_DIR$/SportsMeetUp/js/WelcomePage.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/AppDelegate.m" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainActivity.java" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/WelcomePage.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/strings.xml" />
       </list>
     </option>
   </component>
@@ -157,7 +179,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/SportsMeetUp/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -201,23 +223,40 @@
               <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
               <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
               <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
               <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
               <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
               <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
               <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="intermediates" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="Images.xcassets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="Images.xcassets" type="462c0819:PsiDirectoryNode" />
+              <item name="AppIcon.appiconset" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="Images.xcassets" type="462c0819:PsiDirectoryNode" />
+              <item name="LaunchImage.launchimage" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
@@ -238,13 +277,6 @@
               <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
-              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -262,6 +294,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\ios\SportsMeetUp\Images.xcassets" />
+      <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\android\app\src\main" />
       <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\res\images" />
     </key>
   </component>
@@ -522,14 +556,15 @@
       <workItem from="1500346835117" duration="1556000" />
       <workItem from="1500351951639" duration="89000" />
       <workItem from="1500358344733" duration="14291000" />
+      <workItem from="1500428269581" duration="11453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17742000" />
+    <option name="totallyTimeSpent" value="29195000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16174921" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -575,39 +610,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#89#130#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/homePage/HomePage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/gradlew">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="14" column="17" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeet/index.android.js" />
-    <entry file="file://$PROJECT_DIR$/SportsMeet/index.ios.js" />
-    <entry file="file://$PROJECT_DIR$/SportsMeet/js/setup.js" />
-    <entry file="file://$PROJECT_DIR$/SportsMeet/android/app/build.gradle" />
-    <entry file="file://$PROJECT_DIR$/SportsMeet/index.android.js" />
-    <entry file="file://$PROJECT_DIR$/SportsMeet/index.ios.js" />
-    <entry file="file://$PROJECT_DIR$/SportsMeet/js/setup.js" />
-    <entry file="file://$PROJECT_DIR$/SportsMeet/index.android.js" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/index.ios.js" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/android/app/build.gradle" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/js/setup.js" />
@@ -653,8 +655,6 @@
     <entry file="file://$PROJECT_DIR$/SportsMeet/index.ios.js" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/android/app/build.gradle" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/js/setup.js" />
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainActivity.java" />
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainApplication.java" />
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/gradle.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -691,22 +691,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="16" column="20" lean-forward="false" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/WelcomePage">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/WelcomePage" />
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/index.android.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -717,19 +702,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="103" column="9" lean-forward="true" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/node_modules/react-native-deprecated-custom-components/src/CustomComponents.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="541">
           <caret line="27" column="32" lean-forward="true" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -737,63 +713,165 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2112">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/package.json">
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/res/images/logon.jpeg" />
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="11" column="61" lean-forward="false" selection-start-line="11" selection-start-column="61" selection-end-line="11" selection-end-column="61" />
+        <state relative-caret-position="192">
+          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/res/images/logon.jpeg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/setup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="26" column="41" lean-forward="false" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#89#130#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/WelcomePage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="20" column="52" lean-forward="false" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#27#66#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/proguard-rules.pro">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="596">
-          <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/layout/launch_screen.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="4" column="31" lean-forward="false" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="75" column="16" lean-forward="true" selection-start-line="75" selection-start-column="16" selection-end-line="75" selection-end-column="16" />
+        <state relative-caret-position="448">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/mipmap-mdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/setup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#89#130#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-642">
+          <caret line="105" column="18" lean-forward="false" selection-start-line="105" selection-start-column="18" selection-end-line="105" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/AppDelegate.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="34" column="22" lean-forward="false" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="26" column="28" lean-forward="false" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/node_modules/react-native-splash-screen/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_screen_simple.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/layout/launch_screen.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/WelcomePage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-456">
+          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Images.xcassets/LaunchImage.launchimage/LaunchScreen640x960-1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Images.xcassets/LaunchImage.launchimage/Contents.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>

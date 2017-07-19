@@ -12,6 +12,7 @@ import {
     Platform,
 } from 'react-native'
 import LogonPage from './logon/Logon'
+import SplashScreen from 'react-native-splash-screen'
 
 export default class WelcomePage extends Component {
 
@@ -19,6 +20,7 @@ export default class WelcomePage extends Component {
         const {navigator} = this.props;
         this.timer = setTimeout(() => {
             InteractionManager.runAfterInteractions(() => {
+                SplashScreen.hide();
                 navigator.resetTo({
                     component: LogonPage,
                     name: 'LogonPage',
@@ -34,7 +36,7 @@ export default class WelcomePage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={{flex:1,width:null}} source={require('../res/images/launch_screen.png')}/>
+                {/*<Image style={{flex:1,width:null}} source={require('../res/images/launch_screen.png')}/>*/}
             </View>
         );
     }

@@ -13,6 +13,8 @@ import {
     View
 } from 'react-native';
 
+import SplashScreen from 'react-native-splash-screen'
+
 export default class setup extends Component {
     _signUp() {
 
@@ -24,32 +26,33 @@ export default class setup extends Component {
 
     render() {
         return (
-            <Image source={require('../../res/images/logon.jpg')}
+            <Image source={require('../../res/images/logon.png')}
                    style={styles.bgImage}>
                 <View style={styles.container}>
                     <View style={styles.welcomeCont}>
-                        <Text style={[styles.commonFont,styles.titleFont]}>Sports Teams</Text>
-                        <Text style={styles.commonFont}>Enjoy your tournament!</Text>
+                        <Text style={[styles.commonFont,styles.title]}> Sport Teams </Text>
+                        <Text style={[styles.commonFont,styles.subTitle]}> 享受你的比赛 </Text>
                     </View>
                     <View style={styles.signUpCont}>
-                        <View>
+                        <View style={styles.signUpBtnCont}>
                             <TouchableHighlight
                                 onPress={() => {
                                     this._signUp();
                                 }}
                                 activeOpacity={0.7}
                                 style={styles.signUpButton}
+                                underlayColor="#dc3434"
                             >
-                                <Text style={styles.signUpText}>Sign Up</Text>
+                                <Text style={styles.signUpText}>注册</Text>
                             </TouchableHighlight>
                         </View>
 
                         <View style={styles.logInCont}>
-                            <Text style={styles.commonFont}>Already have an account?</Text>
+                            <Text style={styles.commonFont}>已拥有账号</Text>
                             <Text
                                 onPress={this._logIn.bind(this)}
                                 style={[styles.commonFont,styles.logInText]}
-                            >Log In</Text>
+                            >登录</Text>
                         </View>
                     </View>
                 </View>
@@ -65,33 +68,44 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     commonFont: {
-        color: '#14507a',
-        fontSize: 13,
+        color: '#F5F5F5',
+        fontSize: 17
+    },
+    title: {
+        fontSize: 30,
+        color: '#FFFFFF',
+        marginBottom: 15,
         fontStyle: 'italic'
     },
-    titleFont: {
-        fontSize: 24
+    subTitle: {
+        fontSize: 18,
+        fontStyle: 'italic'
     },
     welcomeCont: {
         flex: 2,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-end'
     },
     signUpCont: {
         flex: 3,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-    },
-    signUpButton:{
-        backgroundColor: '#14507a',
-        height: 40,
-        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
+    signUpBtnCont: {
+        flexDirection: 'row',
+    },
+    signUpButton:{
+        backgroundColor: '#dc3434',
+        height: 60,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        opacity: 0.7
+    },
     signUpText:{
         color: '#ffffff',
-        fontSize: 18
+        fontSize: 17
     },
     welcome: {
         fontSize: 20,
@@ -109,6 +123,7 @@ const styles = StyleSheet.create({
     },
     logInCont: {
         flexDirection: 'row',
+        marginTop: 24
     },
     logInText: {
         textDecorationLine: 'underline',
