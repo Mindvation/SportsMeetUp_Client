@@ -46,7 +46,7 @@ export default class TextInputConpt extends Component{
     }
 
     render(){
-    	var { labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder} = this.props;
+    	var { labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, onChange, hasError} = this.props;
 
         const clearBtn = <TouchableWithoutFeedback onPress={() => {this._clearValue()}}>
             <Image style={styles.inputRightBtn} source={require('../../res/images/clear.png')}></Image>
@@ -61,40 +61,58 @@ export default class TextInputConpt extends Component{
         </TouchableWithoutFeedback>;
 
         return (
-			<View style={[styles.txtBorder,isHideBorder?null:{borderBottomWidth: 1,
+            <View style={[styles.inputCont,isHideBorder?null:{borderBottomWidth: 1,
                 borderBottomColor: '#f1f1f1'}]}>
-				<Text style={styles.txtLabel}>{labelCont}</Text>
-				<TextInput
-					underlineColorAndroid = {'transparent'}
-                    style={styles.txtCont}
-                    multiline={false}
-                    placeholder={placeholder}
-                    secureTextEntry={isPassword && this.state.isSecure}
-                    onChangeText={(text) => {
-	                    this.setState({
-	                    	txtValue: text
-	                    })
-                    }}
-                    keyboardType={keyboardType}
-                    value={this.state.txtValue}
-				/>
-                {!isPassword && isShowClear && !this._isEmpty(this.state.txtValue)?clearBtn:null}
-                {isPassword?(this.state.isSecure?showPwdBtn:hiddenPwdBtn):null}
-			</View>
+                <View style={[styles.txtBorder]}>
+                    <Text style={styles.txtLabel}>{labelCont}</Text>
+                    <TextInput
+                        underlineColorAndroid = {'transparent'}
+                        style={styles.txtCont}
+                        multiline={false}
+                        placeholder={placeholder}
+                        secureTextEntry={isPassword && this.state.isSecure}
+                        onChangeText={(text) => {
+                            onChange?onChange(text):null
+                        }}
+                        keyboardType={keyboardType}
+                    />
+                    {!isPassword && isShowClear && !this._isEmpty(this.state.txtValue)?clearBtn:null}
+                    {isPassword?(this.state.isSecure?showPwdBtn:hiddenPwdBtn):null}
+                </View>
+                {/*<View style={[styles.msgCont,hasError?{display:'none'}: null]}>
+                    <Image style={styles.msgImage} source={require('../../res/images/error_icon.png')}/>
+                    <Text style={styles.msgText}>请输入手机号</Text>
+                </View>*/}
+            </View>
         );
     }
-
-    getValue () {
-        return this.state.txtValue
-    }
 }
+
 const styles = StyleSheet.create({
+    inputCont: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        flex: 1,
+        height: 55
+    },
+    msgCont: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 5,
+        left: 15
+    },
+    msgImage: {
+        width: 15,
+        height: 15,
+    },
+    msgText:{
+        fontSize: 11
+    },
 	txtBorder: {
-        height: 55,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
         paddingLeft: 15,
         paddingRight: 15
 	},

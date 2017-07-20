@@ -30,16 +30,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppDelegate.m" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/AppDelegate.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="992">
-              <caret line="31" column="24" lean-forward="false" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Info.plist" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Info.plist">
           <provider selected="true" editor-type-id="text-editor">
@@ -63,18 +53,8 @@
       <file leaf-file-name="Logon.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="54" column="44" lean-forward="false" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Register.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="582">
-              <caret line="78" column="31" lean-forward="true" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+            <state relative-caret-position="438">
+              <caret line="130" column="33" lean-forward="true" selection-start-line="130" selection-start-column="33" selection-end-line="130" selection-end-column="33" />
               <folding>
                 <element signature="e#89#130#0" expanded="true" />
               </folding>
@@ -82,11 +62,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TextInputConpt.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Register.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="148" column="59" lean-forward="false" selection-start-line="148" selection-start-column="49" selection-end-line="148" selection-end-column="59" />
+              <folding>
+                <element signature="e#89#130#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="common-style.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/theme/common-style.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TextInputConpt.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="104" column="14" lean-forward="true" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="14" />
+            <state relative-caret-position="88">
+              <caret line="88" column="1" lean-forward="true" selection-start-line="88" selection-start-column="1" selection-end-line="88" selection-end-column="1" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -128,16 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ReactActivity</find>
-      <find>layout_height</find>
-      <find>SplashScreen</find>
-      <find>buildSettings</find>
-      <find>rootobject</find>
-      <find>83CBB9F71A601CBA00E9B192</find>
-      <find>13B07F861A680F5B00A75B9A</find>
-      <find>83CBB9FA1A601CBA00E9B192</find>
-      <find>83CBBA201A601CBA00E9B192</find>
-      <find>83CBBA211A601CBA00E9B192</find>
       <find>pbx</find>
       <find>LaunchImage</find>
       <find>Powered by r</find>
@@ -153,11 +147,21 @@
       <find>leftbutton</find>
       <find>flexDirection</find>
       <find>isPassword</find>
-      <find>inputRightBtn</find>
       <find>timeRemaining</find>
       <find>getVrfCodeCont</find>
       <find>getVrfCodeBtnCont</find>
       <find>txtBorder</find>
+      <find>CommonStyle</find>
+      <find>container</find>
+      <find>keyboardShouldPersistTaps</find>
+      <find>Platform</find>
+      <find>bgImage</find>
+      <find>TextInputConpt</find>
+      <find>_toggleSecure</find>
+      <find>msgText</find>
+      <find>inputRightBtn</find>
+      <find>55</find>
+      <find>ifHasError</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -192,12 +196,13 @@
         <option value="$PROJECT_DIR$/SportsMeetUp/js/WelcomePage.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp.xcodeproj/project.pbxproj" />
         <option value="$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Images.xcassets/AppIcon.appiconset/Contents.json" />
         <option value="$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Base.lproj/LaunchScreen.xib" />
-        <option value="$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/theme/common-style.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/register/Register.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js" />
       </list>
     </option>
   </component>
@@ -217,11 +222,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/SportsMeetUp/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1932" />
-    <option name="height" value="1056" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="width" value="960" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -334,6 +337,13 @@
               <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="register" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="theme" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
@@ -632,18 +642,18 @@
       <workItem from="1500358344733" duration="14291000" />
       <workItem from="1500428269581" duration="18708000" />
       <workItem from="1500514104628" duration="10222000" />
-      <workItem from="1500528623238" duration="7409000" />
+      <workItem from="1500528623238" duration="18365000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54081000" />
+    <option name="totallyTimeSpent" value="65037000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1932" height="1056" extended-state="1" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16209081" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16174921" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33804348" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -686,7 +696,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SportsMeet/index.ios.js" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/js/setup.js" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/index.android.js" />
     <entry file="file://$PROJECT_DIR$/SportsMeet/index.ios.js" />
@@ -959,13 +968,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1152">
           <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js">
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/theme/common-style.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="104" column="14" lean-forward="true" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="14" />
+        <state relative-caret-position="544">
+          <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -974,18 +984,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="54" column="44" lean-forward="false" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
-          <folding />
+        <state relative-caret-position="438">
+          <caret line="130" column="33" lean-forward="true" selection-start-line="130" selection-start-column="33" selection-end-line="130" selection-end-column="33" />
+          <folding>
+            <element signature="e#89#130#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="78" column="31" lean-forward="true" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+        <state relative-caret-position="310">
+          <caret line="148" column="59" lean-forward="false" selection-start-line="148" selection-start-column="49" selection-end-line="148" selection-end-column="59" />
           <folding>
             <element signature="e#89#130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="88" column="1" lean-forward="true" selection-start-line="88" selection-start-column="1" selection-end-line="88" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

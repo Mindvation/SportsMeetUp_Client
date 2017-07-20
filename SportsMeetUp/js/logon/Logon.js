@@ -10,6 +10,7 @@ import {
     Text,
     TouchableHighlight,
     Image,
+    Platform,
     View
 } from 'react-native';
 
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
     },
     bgImage: {
         flex: 1,
+        paddingTop: (Platform.OS === 'ios') ? 20:0,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'stretch',

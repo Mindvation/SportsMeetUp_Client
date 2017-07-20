@@ -22,7 +22,11 @@ export default class Register extends Component {
     constructor(props){
         super(props);
         this.state = {
-            timeRemaining: 0
+            timeRemaining: 0,
+            phoneNumber: '',
+            vrfCode: '',
+            passWord: '',
+            ifHasError: ''
         };
     }
 
@@ -58,6 +62,9 @@ export default class Register extends Component {
     }
 
     _getVrfCode(){
+        this.setState({
+            ifHasError: !this.state.ifHasError
+        })
         if(!this.state.timeRemaining){
             this.setState({
                 timeRemaining: 10
@@ -102,6 +109,7 @@ export default class Register extends Component {
                         }}
                         automaticallyAdjustContentInsets={false}
                         horizontal={false}
+                        keyboardShouldPersistTaps="handled"
                     >
                         <View style={styles.getVrfCodeCont}>
                             <TextInputConpt
@@ -110,6 +118,11 @@ export default class Register extends Component {
                                 isPassword={false}
                                 isShowClear={true}
                                 isHideBorder={true}
+                                onChange={(value) => {
+                                    this.setState({
+                                        phoneNumber: value
+                                    })
+                                }}
                             />
                             <TouchableWithoutFeedback
                                 onPress={() => {
@@ -128,11 +141,22 @@ export default class Register extends Component {
                             placeholder='请输入验证码'
                             isPassword={false}
                             isShowClear={true}
+                            onChange={(value) => {
+                                this.setState({
+                                    vrfCode: value
+                                })
+                            }}
+                            hasError={this.state.ifHasError}
                         />
                         <TextInputConpt
                             labelCont='密    码'
                             placeholder='请输入密码'
                             isPassword={true}
+                            onChange={(value) => {
+                                this.setState({
+                                    passWord: value
+                                })
+                            }}
                         />
                     </ScrollView>
                 </View>
@@ -144,6 +168,7 @@ export default class Register extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: (Platform.OS === 'ios') ? 20:0,
         justifyContent: 'center',
         alignItems: 'center'
     },
