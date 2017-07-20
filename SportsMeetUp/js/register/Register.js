@@ -10,15 +10,20 @@ import {
     Text,
     BackHandler,
     Platform,
-    TouchableHighlight,
+    TouchableWithoutFeedback,
     Image,
+    ScrollView,
     View
 } from 'react-native';
+import TextInputConpt from '../common/TextInputConpt';
 
+let interval;
 export default class Register extends Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            timeRemaining: 0
+        };
     }
 
     componentWillMount() {
@@ -28,6 +33,7 @@ export default class Register extends Component {
     }
 
     componentWillUnmount() {
+        clearInterval(interval);
         if (Platform.OS === 'android') {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
@@ -51,20 +57,85 @@ export default class Register extends Component {
         }
     }
 
+    _getVrfCode(){
+        if(!this.state.timeRemaining){
+            this.setState({
+                timeRemaining: 10
+            })
+            this._countDownAction();
+        }
+    }
+
+    _countDownAction(){
+        let leftTimerCount = this.state.timeRemaining;
+        interval = setInterval(() => {
+            leftTimerCount = this.state.timeRemaining-1;
+            if(leftTimerCount === 0){
+                this.setState({
+                    timeRemaining:leftTimerCount,
+                });
+                interval && clearInterval(interval);
+            }else{
+                this.setState({
+                    timeRemaining:leftTimerCount,
+                });
+            }
+        },1000)
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Register
-                </Text>
-
-                <Text style={styles.welcome}
-                      onPress={this._backToPrevious.bind(this)}
-                      >
-                    Back To Logon Page
-                </Text>
-
-
+                <View style={styles.header}>
+                    <TouchableWithoutFeedback onPress={this._backToPrevious.bind(this)}>
+                        <Image style={{width:25,height:25}} source={require('../../res/images/backbtn_android.png')}></Image>
+                    </TouchableWithoutFeedback>
+                    <View style={styles.headerText}/>
+                    <TouchableWithoutFeedback onPress={() => {}}>
+                        <View><Text style={styles.rightBtnText}>中文</Text></View>
+                    </TouchableWithoutFeedback>
+                </View>
+                <View style={styles.mainCont}>
+                    <ScrollView
+                        ref={(scrollView) => {
+                            _scrollView = scrollView;
+                        }}
+                        automaticallyAdjustContentInsets={false}
+                        horizontal={false}
+                    >
+                        <View style={styles.getVrfCodeCont}>
+                            <TextInputConpt
+                                labelCont='手机号'
+                                placeholder='请输入手机号'
+                                isPassword={false}
+                                isShowClear={true}
+                                isHideBorder={true}
+                            />
+                            <TouchableWithoutFeedback
+                                onPress={() => {
+                                    this._getVrfCode()
+                                }}
+                            >
+                                <View style={[styles.getVrfCodeBtn,this.state.timeRemaining?{backgroundColor: '#e7e6e6'}:{backgroundColor: '#df3939'}]}>
+                                    <Text style={this.state.timeRemaining?{color: '#000000'}:{color: '#ffffff'}}>
+                                        获取验证码{this.state.timeRemaining?'('+this.state.timeRemaining+'s)':''}
+                                    </Text>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                        <TextInputConpt
+                            labelCont='验证码'
+                            placeholder='请输入验证码'
+                            isPassword={false}
+                            isShowClear={true}
+                        />
+                        <TextInputConpt
+                            labelCont='密    码'
+                            placeholder='请输入密码'
+                            isPassword={true}
+                        />
+                    </ScrollView>
+                </View>
             </View>
         );
     }
@@ -74,68 +145,44 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center'
+    },
+    header:{
+        flexDirection: 'row',
         alignItems: 'center',
+        height:48,
+        backgroundColor: '#272727',
+        paddingLeft: 15,
+        paddingRight: 15
     },
-    commonFont: {
-        color: '#F5F5F5',
-        fontSize: 17
-    },
-    title: {
-        fontSize: 30,
-        color: '#FFFFFF',
-        marginBottom: 15,
-        fontStyle: 'italic'
-    },
-    subTitle: {
-        fontSize: 18,
-        fontStyle: 'italic'
-    },
-    welcomeCont: {
-        flex: 2,
-        justifyContent: 'center',
-        alignItems: 'flex-end'
-    },
-    signUpCont: {
-        flex: 3,
+    headerText:{
+        flex:1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    signUpBtnCont: {
-        flexDirection: 'row',
+    rightBtnText:{
+        color: '#E8E8E8',
+        fontSize: 15
     },
-    signUpButton:{
-        backgroundColor: '#dc3434',
-        height: 60,
+    mainCont:{
+        flex:1,
+        flexDirection: 'row'
+    },
+    getVrfCodeCont: {
+        flex:1,
         flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderBottomColor: '#f1f1f1',
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
-        opacity: 0.7
+        paddingRight: 15
     },
-    signUpText:{
-        color: '#ffffff',
-        fontSize: 17
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    bgImage: {
-        flex: 1,
-        flexDirection: 'row',
+    getVrfCodeBtn: {
+        height: 35,
         justifyContent: 'center',
-        alignItems: 'stretch',
-        resizeMode: 'stretch',
-        width: null,
-        height: null
-    },
-    logInCont: {
-        flexDirection: 'row',
-        marginTop: 24
-    },
-    logInText: {
-        textDecorationLine: 'underline',
-        marginLeft: 5,
+        alignItems: 'center',
+        borderRadius: 5,
+        paddingLeft: 5,
+        paddingRight: 5
     }
 });
