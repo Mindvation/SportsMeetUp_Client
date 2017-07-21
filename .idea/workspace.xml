@@ -52,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Register.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Register.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="109" column="22" lean-forward="false" selection-start-line="109" selection-start-column="12" selection-end-line="109" selection-end-column="22" />
+            <state relative-caret-position="448">
+              <caret line="80" column="27" lean-forward="true" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
               <folding>
                 <element signature="e#89#128#0" expanded="true" />
               </folding>
@@ -64,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VrfFieldsUtil.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="VrfFieldsUtil.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/VrfFieldsUtil.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+            <state relative-caret-position="38">
+              <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -195,8 +195,8 @@
         <option value="$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/res/rule/RegularExpression.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/common/CheckBoxConpt.js" />
-        <option value="$PROJECT_DIR$/SportsMeetUp/js/register/Register.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/util/VrfFieldsUtil.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/register/Register.js" />
       </list>
     </option>
   </component>
@@ -216,7 +216,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/SportsMeetUp/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="960" />
@@ -604,15 +604,15 @@
       <workItem from="1500428269581" duration="18708000" />
       <workItem from="1500514104628" duration="10222000" />
       <workItem from="1500528623238" duration="18365000" />
-      <workItem from="1500599215703" duration="14337000" />
+      <workItem from="1500599215703" duration="14885000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79374000" />
+    <option name="totallyTimeSpent" value="79922000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14120126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -971,21 +971,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/VrfFieldsUtil.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="109" column="22" lean-forward="false" selection-start-line="109" selection-start-column="12" selection-end-line="109" selection-end-column="22" />
-          <folding>
-            <element signature="e#89#128#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="38">
+          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/VrfFieldsUtil.js">
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="448">
+          <caret line="80" column="27" lean-forward="true" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
+          <folding>
+            <element signature="e#89#128#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

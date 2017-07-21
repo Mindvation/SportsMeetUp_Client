@@ -22,12 +22,7 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import VrfFields from '../util/VrfFieldsUtil';
 
 let interval;
-/*const regularEx = {
-    'phoneNumber': /^1[0-9]{10}$/,
-    'vrfCode': /^[0-9]{4}$/,
-    'pwd': /^{6,12}$/
-};*/
-const phEx = /^1[0-9]{10}$/;
+
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -72,14 +67,25 @@ export default class Register extends Component {
     }
 
     _getVrfCode() {
-        this.setState({
-            ifHasError: !this.state.ifHasError
-        })
+        let fieldArray = [{
+            'name': 'phoneNumber',
+            'isRequired': true,
+            'isRegular': true,
+            'requiredMsg': '请输入手机号',
+            'regularMsg': '请输入正确的手机号',
+            'value': this.state.phoneNumber
+        }];
+
         if (!this.state.timeRemaining) {
-            this.setState({
-                timeRemaining: 10
-            })
-            this._countDownAction();
+            let errorMsg = VrfFields(fieldArray);
+            if (errorMsg) {
+                this.refs.toast.show(errorMsg, 500);
+            } else {
+                this.setState({
+                    timeRemaining: 10
+                });
+                this._countDownAction();
+            }
         }
     }
 
@@ -102,37 +108,37 @@ export default class Register extends Component {
 
     _submitRegister() {
 
-        let fieldArray =[{
-           'name': 'phoneNumber',
-           'isRequired': true,
-           'isRegular': true,
-           'requiredMsg': '请输入手机号',
-           'regularMsg': '请输入正确的手机号',
-           'value': this.state.phoneNumber
-        },{
+        let fieldArray = [{
+            'name': 'phoneNumber',
+            'isRequired': true,
+            'isRegular': true,
+            'requiredMsg': '请输入手机号',
+            'regularMsg': '请输入正确的手机号',
+            'value': this.state.phoneNumber
+        }, {
             'name': 'vrfCode',
             'isRequired': true,
             'isRegular': true,
             'requiredMsg': '请输入验证码',
             'regularMsg': '请输入4位数字的验证码',
             'value': this.state.vrfCode
-        },{
+        }, {
             'name': 'passWord',
             'isRequired': true,
             'isRegular': true,
             'requiredMsg': '请输入密码',
             'regularMsg': '请输入6到12位的密码',
             'value': this.state.passWord
-        },{
+        }, {
             'name': 'isChecked',
             'isRequireCheck': true,
             'requiredMsg': '请阅读用户协议',
             'value': this.state.isChecked
-        }]
+        }];
 
         let errorMsg = VrfFields(fieldArray);
 
-        if(errorMsg){
+        if (errorMsg) {
             this.refs.toast.show(errorMsg, 500);
         }
     }
