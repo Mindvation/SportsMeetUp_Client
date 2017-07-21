@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -17,17 +17,17 @@ import {
 import Register from '../register/Register'
 
 export default class Logon extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {};
     }
 
     _signUp() {
-        const { navigator } = this.props;
-        if(navigator){
+        const {navigator} = this.props;
+        if (navigator) {
             navigator.push({
-                name:'RegisterComponent',
-                component:Register,
+                name: 'RegisterComponent',
+                component: Register,
             })
         }
     }
@@ -42,8 +42,8 @@ export default class Logon extends Component {
                    style={styles.bgImage}>
                 <View style={styles.container}>
                     <View style={styles.welcomeCont}>
-                        <Text style={[styles.commonFont,styles.title]}> Sport Teams </Text>
-                        <Text style={[styles.commonFont,styles.subTitle]}> 享受你的比赛 </Text>
+                        <Text style={[styles.commonFont, styles.title]}> Sport Teams </Text>
+                        <Text style={[styles.commonFont, styles.subTitle]}> 享受你的比赛 </Text>
                     </View>
                     <View style={styles.signUpCont}>
                         <View style={styles.signUpBtnCont}>
@@ -63,7 +63,7 @@ export default class Logon extends Component {
                             <Text style={styles.commonFont}>已拥有账号</Text>
                             <Text
                                 onPress={this._logIn.bind(this)}
-                                style={[styles.commonFont,styles.logInText]}
+                                style={[styles.commonFont, styles.logInText]}
                             >登录</Text>
                         </View>
                     </View>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     signUpBtnCont: {
         flexDirection: 'row',
     },
-    signUpButton:{
+    signUpButton: {
         backgroundColor: '#dc3434',
         height: 60,
         flexDirection: 'row',
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         flex: 1,
         opacity: 0.7
     },
-    signUpText:{
+    signUpText: {
         color: '#ffffff',
         fontSize: 17
     },
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     },
     bgImage: {
         flex: 1,
-        paddingTop: (Platform.OS === 'ios') ? 20:0,
+        paddingTop: (Platform.OS === 'ios') ? 20 : 0,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'stretch',
