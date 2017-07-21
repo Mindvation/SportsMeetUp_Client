@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: (Platform.OS === 'ios') ? 20 : 0,
     },
     commonFont: {
         color: '#F5F5F5',

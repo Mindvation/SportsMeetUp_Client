@@ -13,6 +13,7 @@ import {
     TouchableWithoutFeedback,
     TouchableHighlight,
     Image,
+    ActivityIndicator,
     ScrollView,
     View
 } from 'react-native';
@@ -20,6 +21,7 @@ import TextInputConpt from '../common/TextInputConpt';
 import CheckBoxConpt from '../common/CheckBoxConpt';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import VrfFields from '../util/VrfFieldsUtil';
+import FetchUtil from '../util/FetchUtil';
 
 let interval;
 
@@ -84,9 +86,26 @@ export default class Register extends Component {
                 this.setState({
                     timeRemaining: 10
                 });
+                this._getVrfCodeFromServer();
                 this._countDownAction();
             }
         }
+    }
+
+    _getVrfCodeFromServer(){
+        const options = {
+            "url": '/sports-meetup/users/getVerificationCode',
+            "params":  {
+               "phoneNumber": this.state.phoneNumber
+            },
+            "schema": "getVerificationCode"
+        }
+
+        /*FetchUtil.get(options).then((res) => {
+            this.refs.toast.show("success", 1500);
+        }).catch((error) => {
+            this.refs.toast.show("error", 1500);
+        })*/
     }
 
     _countDownAction() {
@@ -140,7 +159,27 @@ export default class Register extends Component {
 
         if (errorMsg) {
             this.refs.toast.show(errorMsg, 500);
+        }else{
+            this._submitUserData();
         }
+    }
+
+    _submitUserData(){
+        const options = {
+            "url": '/sports-meetup/users/addUser',
+            "params": {
+                "phoneNumber": this.state.phoneNumber,
+                "verificationCode": this.state.vrfCode,
+                "password": this.state.passWord
+            },
+            "schema": "addUser"
+        };
+
+        FetchUtil.post(options).then((res) => {
+            this.refs.toast.show("success", 1500);
+        }).catch((error) => {
+            this.refs.toast.show("error", 1500);
+        })
     }
 
     render() {
@@ -181,6 +220,7 @@ export default class Register extends Component {
                                 placeholder='请输入手机号'
                                 isPassword={false}
                                 isShowClear={true}
+                                keyboardType="numeric"
                                 isHideBorder={true}
                                 onChange={(value) => {
                                     this.setState({
@@ -209,6 +249,7 @@ export default class Register extends Component {
                             placeholder='请输入验证码'
                             isPassword={false}
                             isShowClear={true}
+                            keyboardType="numeric"
                             onChange={(value) => {
                                 this.setState({
                                     vrfCode: value

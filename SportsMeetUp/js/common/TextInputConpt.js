@@ -40,8 +40,16 @@ export default class TextInputConpt extends Component {
     }
 
     _clearValue() {
+        this.props.onChange ? this.props.onChange('') : null;
         this.setState({
             txtValue: ''
+        })
+    }
+
+    _textValueChange(text){
+        this.props.onChange ? this.props.onChange(text) : null;
+        this.setState({
+            txtValue: text
         })
     }
 
@@ -80,9 +88,10 @@ export default class TextInputConpt extends Component {
                         placeholder={placeholder}
                         secureTextEntry={isPassword && this.state.isSecure}
                         onChangeText={(text) => {
-                            onChange ? onChange(text) : null
+                            this._textValueChange(text);
                         }}
                         keyboardType={keyboardType}
+                        value={this.state.txtValue}
                     />
                     {!isPassword && isShowClear && !this._isEmpty(this.state.txtValue) ? clearBtn : null}
                     {isPassword ? (this.state.isSecure ? showPwdBtn : hiddenPwdBtn) : null}

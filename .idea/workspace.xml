@@ -20,16 +20,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Contents.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Images.xcassets/LaunchImage.launchimage/Contents.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1952">
-              <caret line="61" column="30" lean-forward="false" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="LaunchScreen.xib" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Base.lproj/LaunchScreen.xib">
           <provider selected="true" editor-type-id="text-editor">
@@ -43,8 +33,8 @@
       <file leaf-file-name="Logon.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="64" column="45" lean-forward="false" selection-start-line="64" selection-start-column="45" selection-end-line="64" selection-end-column="45" />
+            <state relative-caret-position="534">
+              <caret line="89" column="25" lean-forward="false" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
               <folding>
                 <element signature="e#89#128#0" expanded="true" />
               </folding>
@@ -52,11 +42,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Register.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="80" column="27" lean-forward="true" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
+            <state relative-caret-position="344">
+              <caret line="101" column="9" lean-forward="true" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="9" />
               <folding>
                 <element signature="e#89#128#0" expanded="true" />
               </folding>
@@ -67,8 +67,8 @@
       <file leaf-file-name="VrfFieldsUtil.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/VrfFieldsUtil.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+            <state relative-caret-position="198">
+              <caret line="39" column="27" lean-forward="false" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -78,7 +78,7 @@
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/common/CheckBoxConpt.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="448">
-              <caret line="44" column="26" lean-forward="true" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
+              <caret line="44" column="26" lean-forward="false" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -89,8 +89,8 @@
       <file leaf-file-name="TextInputConpt.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="33" column="5" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="33" selection-end-column="5" />
+            <state relative-caret-position="502">
+              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -98,21 +98,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project.pbxproj" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp.xcodeproj/project.pbxproj">
+      <file leaf-file-name="Cancelable.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/Cancelable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27072">
-              <caret line="846" column="40" lean-forward="false" selection-start-line="846" selection-start-column="16" selection-end-line="846" selection-end-column="40" />
+            <state relative-caret-position="160">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SportsMeetUp.xcscheme" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp.xcodeproj/xcshareddata/xcschemes/SportsMeetUp.xcscheme">
+      <file leaf-file-name="FetchUtil.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/FetchUtil.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2432">
-              <caret line="76" column="30" lean-forward="false" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
+            <state relative-caret-position="480">
+              <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addUserResp.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SportsMeetUp/res/stub/addUserResp.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -122,11 +134,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getVrfCodeCont</find>
-      <find>getVrfCodeBtnCont</find>
-      <find>txtBorder</find>
-      <find>CommonStyle</find>
-      <find>container</find>
       <find>keyboardShouldPersistTaps</find>
       <find>Platform</find>
       <find>bgImage</find>
@@ -149,9 +156,14 @@
       <find>\/\*\*\n \* Sample React Native App\n \* https\:\/\/github\.com\/facebook\/react\-native\n \* \@flow\n \*\/\n\nimport React\, \{ Component \} from \'react\'\;\nimport \{\n    StyleSheet\,\n    Text\,\n    BackHandler\,\n    Platform\,\n    TouchableWithoutFeedback\,\n    TouchableHighlight\,\n    Image\,\n    ScrollView\,\n    View\n\} from \'react\-native\'\;\nimport TextInputConpt from \'\.\.\/common\/TextInputConpt\'\;\nimport CheckBoxConpt from \'\.\.\/common\/CheckBoxConpt\'\;\nimport Toast\, \{DURATION\} from \'react\-native\-easy\-toast\'\n\nlet interval\;\nconst regularEx \= \{\n        \n\}\;\n\nexport default class Register extends Component \{\n    constructor\(props\)\{\n        super\(props\)\;\n        this\.state \= \{\n            timeRemaining\: 0\,\n            phoneNumber\: \'\'\,\n            vrfCode\: \'\'\,\n            passWord\: \'\'\,\n            isChecked\: false\n        \}\;\n    \}\n\n    componentWillMount\(\) \{\n        if \(Platform\.OS \=\=\= \'android\'\) \{\n            BackHandler\.addEventListener\(\'hardwareBackPress\'\, this\.onBackAndroid\)\;\n        \}\n    \}\n\n    componentWillUnmount\(\) \{\n        clearInterval\(interval\)\;\n        if \(Platform\.OS \=\=\= \'android\'\) \{\n            BackHandler\.removeEventListener\(\'hardwareBackPress\'\, this\.onBackAndroid\)\;\n        \}\n    \}\n\n    onBackAndroid \= \(\) \=\&gt; \{\n        const \{ navigator \} \= this\.props\;\n        const routers \= navigator\.getCurrentRoutes\(\)\;\n        console\.log\(\'当前路由长度\：\'\+routers\.length\)\;\n        if \(routers\.length \&gt; 1\) \{\n            navigator\.pop\(\)\;\n            return true\;\/\/接管默认行为\n        \}\n        return false\;\/\/默认行为\n    \}\;\n\n    _backToPrevious\(\)\{\n        const \{ navigator \} \= this\.props\;\n        if\(navigator\)\{\n            navigator\.pop\(\)\;\n        \}\n    \}\n\n    _getVrfCode\(\)\{\n        this\.setState\(\{\n            ifHasError\: \!this\.state\.ifHasError\n        \}\)\n        if\(\!this\.state\.timeRemaining\)\{\n            this\.setState\(\{\n                timeRemaining\: 10\n            \}\)\n            this\._countDownAction\(\)\;\n        \}\n    \}\n\n    _countDownAction\(\)\{\n        let leftTimerCount \= this\.state\.timeRemaining\;\n        interval \= setInterval\(\(\) \=\&gt; \{\n            leftTimerCount \= this\.state\.timeRemaining\-1\;\n            if\(leftTimerCount \=\=\= 0\)\{\n                this\.setState\(\{\n                    timeRemaining\:leftTimerCount\,\n                \}\)\;\n                interval \&amp;\&amp; clearInterval\(interval\)\;\n            \}else\{\n                this\.setState\(\{\n                    timeRemaining\:leftTimerCount\,\n                \}\)\;\n            \}\n        \}\,1000\)\n    \}\n\n    _submitRegister\(\)\{\n        this\.refs\.toast\.show\(\'请输入手机号\'\, 500\)\;\n    \}\n\n    render\(\) \{\n        const declaration \= \&lt;View style\=\{styles\.declTextCont\}\&gt;\n                                \&lt;Text style\=\{styles\.declText\}\&gt;我已阅读\&lt;\/Text\&gt;\n                                \&lt;TouchableWithoutFeedback onPress\=\{this\._backToPrevious\.bind\(this\)\}\&gt;\n                                    \&lt;View\&gt;\n                                        \&lt;Text style\=\{styles\.declTextLink\}\&gt;\《用户协议\》\&lt;\/Text\&gt;\n                                    \&lt;\/View\&gt;\n                                \&lt;\/TouchableWithoutFeedback\&gt;\n                            \&lt;\/View\&gt;\n\n        return \(\n            \&lt;View style\=\{styles\.container\}\&gt;\n                \&lt;View style\=\{styles\.header\}\&gt;\n                    \&lt;TouchableWithoutFeedback onPress\=\{this\._backToPrevious\.bind\(this\)\}\&gt;\n                        \&lt;Image style\=\{\{width\:25\,height\:25\}\} source\=\{require\(\'\.\.\/\.\.\/res\/images\/backbtn_android\.png\'\)\}\&gt;\&lt;\/Image\&gt;\n                    \&lt;\/TouchableWithoutFeedback\&gt;\n                    \&lt;View style\=\{styles\.headerText\}\/\&gt;\n                    \&lt;TouchableWithoutFeedback onPress\=\{\(\) \=\&gt; \{\}\}\&gt;\n                        \&lt;View\&gt;\&lt;Text style\=\{styles\.rightBtnText\}\&gt;中文\&lt;\/Text\&gt;\&lt;\/View\&gt;\n                    \&lt;\/TouchableWithoutFeedback\&gt;\n                \&lt;\/View\&gt;\n                \&lt;View style\=\{styles\.mainCont\}\&gt;\n                    \&lt;ScrollView\n                        ref\=\{\(scrollView\) \=\&gt; \{\n                            _scrollView \= scrollView\;\n                        \}\}\n                        automaticallyAdjustContentInsets\=\{false\}\n                        horizontal\=\{false\}\n                        keyboardShouldPersistTaps\=\&quot;handled\&quot;\n                    \&gt;\n                        \&lt;View style\=\{styles\.getVrfCodeCont\}\&gt;\n                            \&lt;TextInputConpt\n                                labelCont\=\'手机号\'\n                                placeholder\=\'请输入手机号\'\n                                isPassword\=\{false\}\n                                isShowClear\=\{true\}\n                                isHideBorder\=\{true\}\n                                onChange\=\{\(value\) \=\&gt; \{\n                                    this\.setState\(\{\n                                        phoneNumber\: value\n                                    \}\)\n                                \}\}\n                            \/\&gt;\n                            \&lt;TouchableWithoutFeedback\n                                onPress\=\{\(\) \=\&gt; \{\n                                    this\._getVrfCode\(\)\n                                \}\}\n                            \&gt;\n                                \&lt;View style\=\{\[styles\.getVrfCodeBtn\,this\.state\.timeRemaining\?\{backgroundColor\: \'\#e7e6e6\'\}\:\{backgroundColor\: \'\#df3939\'\}\]\}\&gt;\n                                    \&lt;Text style\=\{\[this\.state\.timeRemaining\?\{color\: \'\#000000\'\}\:\{color\: \'\#ffffff\'\}\,\{paddingLeft\:5\,paddingRight\:5\}\]\}\&gt;\n                                        获取验证码\{this\.state\.timeRemaining\?\'\(\'\+this\.state\.timeRemaining\+\'s\)\'\:\'\'\}\n                                    \&lt;\/Text\&gt;\n                                \&lt;\/View\&gt;\n                            \&lt;\/TouchableWithoutFeedback\&gt;\n                        \&lt;\/View\&gt;\n                        \&lt;TextInputConpt\n                            labelCont\=\'验证码\'\n                            placeholder\=\'请输入验证码\'\n                            isPassword\=\{false\}\n                            isShowClear\=\{true\}\n                            onChange\=\{\(value\) \=\&gt; \{\n                                this\.setState\(\{\n                                    vrfCode\: value\n                                \}\)\n                            \}\}\n                        \/\&gt;\n                        \&lt;TextInputConpt\n                            labelCont\=\'密    码\'\n                            placeholder\=\'请输入密码\'\n                            isPassword\=\{true\}\n                            onChange\=\{\(value\) \=\&gt; \{\n                                this\.setState\(\{\n                                    passWord\: value\n                                \}\)\n                            \}\}\n                        \/\&gt;\n                        \&lt;CheckBoxConpt\n                            labelCont\=\{declaration\}\n                            isChecked\=\{false\}\n                            onChange\=\{\(value\) \=\&gt; \{\n                                this\.setState\(\{\n                                    isChecked\: value\n                                \}\)\n                            \}\}\n                        \/\&gt;\n                        \&lt;View style\=\{styles\.submitBtnCont\}\&gt;\n                            \&lt;TouchableHighlight\n                                onPress\=\{\(\) \=\&gt; \{\n                                    this\._submitRegister\(\)\;\n                                \}\}\n                                activeOpacity\=\{0\.7\}\n                                style\=\{styles\.submitButton\}\n                                underlayColor\=\&quot;\#df3939\&quot;\n                            \&gt;\n                                \&lt;Text style\=\{styles\.submitText\}\&gt;提    交\&lt;\/Text\&gt;\n                            \&lt;\/TouchableHighlight\&gt;\n                        \&lt;\/View\&gt;\n\n                    \&lt;\/ScrollView\&gt;\n                \&lt;\/View\&gt;\n                \&lt;Toast ref\=\&quot;toast\&quot; position\=\'center\'\/\&gt;\n            \&lt;\/View\&gt;\n        \)\;\n    \}\n\}\n\nconst styles \= StyleSheet\.create\(\{\n    container\: \{\n        flex\: 1\,\n        paddingTop\: \(Platform\.OS \=\=\= \'ios\'\) \? 20\:0\,\n        justifyContent\: \'center\'\,\n        alignItems\: \'center\'\n    \}\,\n    header\:\{\n        flexDirection\: \'row\'\,\n        alignItems\: \'center\'\,\n        height\:48\,\n        backgroundColor\: \'\#272727\'\,\n        paddingLeft\: 15\,\n        paddingRight\: 15\n    \}\,\n    headerText\:\{\n        flex\:1\,\n        justifyContent\: \'center\'\,\n        alignItems\: \'center\'\,\n    \}\,\n    rightBtnText\:\{\n        color\: \'\#E8E8E8\'\,\n        fontSize\: 15\n    \}\,\n    mainCont\:\{\n        flex\:1\,\n        flexDirection\: \'row\'\n    \}\,\n    getVrfCodeCont\: \{\n        flex\:1\,\n        flexDirection\: \'row\'\,\n        borderBottomWidth\: 1\,\n        borderBottomColor\: \'\#f1f1f1\'\,\n        justifyContent\: \'center\'\,\n        alignItems\: \'center\'\,\n        paddingRight\: 15\n    \}\,\n    getVrfCodeBtn\: \{\n        height\: 35\,\n        justifyContent\: \'center\'\,\n        alignItems\: \'center\'\,\n        borderRadius\: 5\,\n        paddingLeft\: 5\,\n        paddingRight\: 5\n    \}\,\n    submitBtnCont\: \{\n        flexDirection\: \'row\'\,\n        marginTop\: 27\,\n        paddingLeft\: 15\,\n        paddingRight\: 15\n    \}\,\n    submitButton\:\{\n        backgroundColor\: \'\#df3939\'\,\n        height\: 60\,\n        flexDirection\: \'row\'\,\n        justifyContent\: \'center\'\,\n        alignItems\: \'center\'\,\n        flex\: 1\,\n        opacity\: 0\.7\,\n        borderRadius\: 5\n    \}\,\n    submitText\:\{\n        color\: \'\#ffffff\'\,\n        fontSize\: 17\n    \}\,\n    declTextCont\: \{\n        flexDirection\: \'row\'\,\n        justifyContent\: \'center\'\,\n        alignItems\: \'center\'\,\n    \}\,\n    declText\: \{\n        color\: \'\#393939\'\,\n        fontSize\: 11\n    \}\,\n    declTextLink\: \{\n        color\: \'\#0000FF\'\,\n        fontSize\: 11\n    \}\n\}\)\;\n</find>
       <find>onChange</find>
       <find>isem</find>
-      <find>ise</find>
       <find>isChecked</find>
       <find>regularMsg</find>
+      <find>ise</find>
+      <find>isShowClear</find>
+      <find>clearBtn</find>
+      <find>post</find>
+      <find>keyboardType</find>
+      <find>_submitRegister</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -179,7 +191,6 @@
         <option value="$PROJECT_DIR$/SportsMeet/android/app/build.gradle" />
         <option value="$PROJECT_DIR$/SportsMeet/js/setup.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/build.gradle" />
-        <option value="$PROJECT_DIR$/SportsMeetUp/package.json" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/setup.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/AppDelegate.m" />
         <option value="$PROJECT_DIR$/SportsMeetUp/android/app/src/main/java/com/sportsmeetup/MainActivity.java" />
@@ -191,11 +202,17 @@
         <option value="$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Base.lproj/LaunchScreen.xib" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/theme/common-style.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/common/CheboxConpt.js" />
-        <option value="$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js" />
-        <option value="$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/res/rule/RegularExpression.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/common/CheckBoxConpt.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/util/VrfFieldsUtil.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/util/fetch-polyfill.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/util/Fetch-polyfill.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/res/stub/addUserResp.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/util/Cancelable.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/package.json" />
+        <option value="$PROJECT_DIR$/SportsMeetUp/js/util/FetchUtil.js" />
         <option value="$PROJECT_DIR$/SportsMeetUp/js/register/Register.js" />
       </list>
     </option>
@@ -317,7 +334,35 @@
               <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
               <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
               <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="logon" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="register" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SportsMeetUp_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SportsMeetUp_Client" type="462c0819:PsiDirectoryNode" />
+              <item name="SportsMeetUp" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="stub" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -337,11 +382,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\js\util" />
       <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\js" />
       <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\res" />
       <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\js\common" />
       <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\ios\SportsMeetUp\Images.xcassets\AppIcon.appiconset" />
-      <recent name="E:\GitHub\SportsMeetUp_Client\SportsMeetUp\ios\SportsMeetUp\Images.xcassets" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -609,7 +654,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79922000" />
+    <option name="totallyTimeSpent" value="91304000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -658,29 +703,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SportsMeet/android/app/build.gradle" />
-    <entry file="file://$PROJECT_DIR$/SportsMeet/js/setup.js" />
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/gradlew.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="74" column="20" lean-forward="true" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/android/gradlew">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="25" column="10" lean-forward="true" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/homePage/HomePage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -771,13 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/node_modules/react-native-splash-screen/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_screen_simple.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
@@ -865,7 +880,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="832">
           <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -873,13 +887,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="800">
           <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/ios/SportsMeetUp/Images.xcassets/LaunchImage.launchimage/Contents.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1952">
+        <state relative-caret-position="0">
           <caret line="61" column="30" lean-forward="false" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
           <folding />
         </state>
@@ -925,64 +938,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/theme/common-style.js">
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/theme/common-style.js" />
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/res/rule/RegularExpression.js" />
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/res/images/clear.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/Fetch-polyfill.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="17" column="21" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="21" />
+        <state relative-caret-position="454">
+          <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/res/rule/RegularExpression.js">
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/res/stub/addUserResp.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="96">
+          <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js">
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/VrfFieldsUtil.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="33" column="5" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="33" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="64" column="45" lean-forward="false" selection-start-line="64" selection-start-column="45" selection-end-line="64" selection-end-column="45" />
-          <folding>
-            <element signature="e#89#128#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="198">
+          <caret line="39" column="27" lean-forward="false" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/common/CheckBoxConpt.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="448">
-          <caret line="44" column="26" lean-forward="true" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
+          <caret line="44" column="26" lean-forward="false" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/VrfFieldsUtil.js">
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/common/TextInputConpt.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        <state relative-caret-position="502">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/Cancelable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/logon/Logon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="89" column="25" lean-forward="false" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
+          <folding>
+            <element signature="e#89#128#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/util/FetchUtil.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SportsMeetUp/js/register/Register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="80" column="27" lean-forward="true" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
+        <state relative-caret-position="344">
+          <caret line="101" column="9" lean-forward="true" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="9" />
           <folding>
             <element signature="e#89#128#0" expanded="true" />
           </folding>
