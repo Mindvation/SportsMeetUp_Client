@@ -13,7 +13,7 @@ import {
     TouchableWithoutFeedback,
     TouchableHighlight,
     Image,
-    ActivityIndicator,
+    Dimensions,
     ScrollView,
     View
 } from 'react-native';
@@ -22,6 +22,8 @@ import CheckBoxConpt from '../common/CheckBoxConpt';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import VrfFields from '../util/VrfFieldsUtil';
 import FetchUtil from '../util/FetchUtil';
+import ModalConpt from '../common/ModalConpt';
+const dismissKeyboard = require('dismissKeyboard');
 
 let interval;
 
@@ -33,7 +35,8 @@ export default class Register extends Component {
             phoneNumber: '',
             vrfCode: '',
             passWord: '',
-            isChecked: false
+            isChecked: false,
+            modalVisible: false
         };
     }
 
@@ -92,20 +95,20 @@ export default class Register extends Component {
         }
     }
 
-    _getVrfCodeFromServer(){
+    _getVrfCodeFromServer() {
         const options = {
             "url": '/sports-meetup/users/getVerificationCode',
-            "params":  {
-               "phoneNumber": this.state.phoneNumber
+            "params": {
+                "phoneNumber": this.state.phoneNumber
             },
             "schema": "getVerificationCode"
         }
 
         /*FetchUtil.get(options).then((res) => {
-            this.refs.toast.show("success", 1500);
-        }).catch((error) => {
-            this.refs.toast.show("error", 1500);
-        })*/
+         this.refs.toast.show("success", 1500);
+         }).catch((error) => {
+         this.refs.toast.show("error", 1500);
+         })*/
     }
 
     _countDownAction() {
@@ -126,7 +129,7 @@ export default class Register extends Component {
     }
 
     _submitRegister() {
-
+        dismissKeyboard();
         let fieldArray = [{
             'name': 'phoneNumber',
             'isRequired': true,
@@ -159,27 +162,36 @@ export default class Register extends Component {
 
         if (errorMsg) {
             this.refs.toast.show(errorMsg, 500);
-        }else{
+        } else {
             this._submitUserData();
         }
     }
 
-    _submitUserData(){
-        const options = {
-            "url": '/sports-meetup/users/addUser',
-            "params": {
-                "phoneNumber": this.state.phoneNumber,
-                "verificationCode": this.state.vrfCode,
-                "password": this.state.passWord
-            },
-            "schema": "addUser"
-        };
+    _submitUserData() {
+        /*const options = {
+         "url": '/sports-meetup/users/addUser',
+         "params": {
+         "phoneNumber": this.state.phoneNumber,
+         "verificationCode": this.state.vrfCode,
+         "password": this.state.passWord
+         },
+         "schema": "addUser"
+         };
 
-        FetchUtil.post(options).then((res) => {
-            this.refs.toast.show("success", 1500);
-        }).catch((error) => {
-            this.refs.toast.show("error", 1500);
-        })
+         FetchUtil.post(options).then((res) => {
+         this.refs.toast.show("success", 1500);
+         }).catch((error) => {
+         this.refs.toast.show("error", 1500);
+         })*/
+        this.setState({
+            modalVisible: true,
+        });
+    }
+
+    setModalVisible() {
+        this.setState({
+            modalVisible: false,
+        });
     }
 
     render() {
@@ -190,7 +202,17 @@ export default class Register extends Component {
                     <Text style={styles.declTextLink}>《用户协议》</Text>
                 </View>
             </TouchableWithoutFeedback>
-        </View>
+        </View>;
+
+        const succModal = <View style={styles.succModalMainCont}>
+            <TouchableWithoutFeedback onPress={this.setModalVisible.bind(this)}>
+                <View style={styles.succModalCont}>
+                    <Image style={styles.succModalImage}
+                           source={require('../../res/images/success.png')}/>
+                    <Text style={styles.succModalText}>注册成功</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        </View>;
 
         return (
             <View style={styles.container}>
@@ -291,6 +313,11 @@ export default class Register extends Component {
                     </ScrollView>
                 </View>
                 <Toast ref="toast" position='center'/>
+                <ModalConpt
+                    allowClose={false}
+                    modalCont={succModal}
+                    modalVisible={this.state.modalVisible}
+                ></ModalConpt>
             </View>
         );
     }
@@ -373,5 +400,28 @@ const styles = StyleSheet.create({
     declTextLink: {
         color: '#0000FF',
         fontSize: 11
+    },
+    succModalMainCont: {
+        marginLeft: 55,
+        marginRight: 55,
+        flexDirection: 'row'
+    },
+    succModalCont: {
+        height: 73,
+        borderRadius: 5,
+        backgroundColor: '#ffffff',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
+    },
+    succModalImage: {
+        height: 25,
+        width: 25,
+        marginRight: 25
+    },
+    succModalText: {
+        fontSize: 17,
+        color: '#000000'
     }
 });

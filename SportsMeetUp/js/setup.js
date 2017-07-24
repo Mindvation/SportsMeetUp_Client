@@ -15,10 +15,10 @@ import Navigator from 'react-native-deprecated-custom-components';
 
 export default class setup extends Component {
     render() {
-        // var defaultName = 'WelcomePage';
-        // var defaultComponment = WelcomePage;
-        var defaultName = 'TabPage';
-        var defaultComponment = TabPage;
+        var defaultName = 'WelcomePage';
+        var defaultComponment = WelcomePage;
+        //var defaultName = 'TabPage';
+        //var defaultComponment = TabPage;
 
         return (
             <Navigator.Navigator

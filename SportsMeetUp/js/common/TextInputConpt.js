@@ -54,7 +54,7 @@ export default class TextInputConpt extends Component {
     }
 
     render() {
-        var {labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, onChange} = this.props;
+        const {labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, onChange} = this.props;
 
         const clearBtn = <TouchableWithoutFeedback onPress={() => {
             this._clearValue()
