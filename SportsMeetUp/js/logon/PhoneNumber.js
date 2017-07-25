@@ -19,20 +19,17 @@ import {
 import TextInputConpt from '../common/TextInputConpt';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import VrfFields from '../util/VrfFieldsUtil';
-import FetchUtil from '../util/FetchUtil';
-import Overlay from '../common/Overlay';
-import PhoneNumber from './PhoneNumber';
+import ModifyPwd from './ModifyPwd';
 import Header from '../common/Header';
+import FetchUtil from '../util/FetchUtil';
 
 const dismissKeyboard = require('dismissKeyboard');
 
-export default class Logon extends Component {
+export default class PhoneNumber extends Component {
     constructor(props) {
         super(props);
         this.state = {
             phoneNumber: '',
-            passWord: '',
-            overlayVisible: false
         };
     }
 
@@ -66,7 +63,7 @@ export default class Logon extends Component {
         }
     }
 
-    _submitLogonInfo() {
+    _submitPhoneNumber() {
         dismissKeyboard();
         let fieldArray = [{
             'name': 'phoneNumber',
@@ -75,13 +72,6 @@ export default class Logon extends Component {
             'requiredMsg': '请输入手机号',
             'regularMsg': '请输入正确的手机号',
             'value': this.state.phoneNumber
-        }, {
-            'name': 'passWord',
-            'isRequired': true,
-            'isRegular': true,
-            'requiredMsg': '请输入密码',
-            'regularMsg': '请输入6到12位的密码',
-            'value': this.state.passWord
         }];
 
         let errorMsg = VrfFields(fieldArray);
@@ -89,44 +79,33 @@ export default class Logon extends Component {
         if (errorMsg) {
             this.refs.toast.show(errorMsg, 500);
         } else {
-            this._submitLogonData();
+            this._getVrfCodeFromServer();
         }
     }
 
-    _submitLogonData() {
+    _getVrfCodeFromServer() {
         const options = {
-            "url": '/sports-meetup/users/addUser',
+            "url": '/sports-meetup/users/getVerificationCode',
             "params": {
-                "phoneNumber": this.state.phoneNumber,
-                "verificationCode": this.state.vrfCode,
-                "password": this.state.passWord
+                "phoneNumber": this.state.phoneNumber
             },
-            "schema": "addUser"
+            "schema": "getVerificationCode"
         };
 
-        this.setState({
-            overlayVisible: true,
-        });
+        FetchUtil.get(options);
 
-        FetchUtil.post(options).then((res) => {
-            this.setState({
-                overlayVisible: false
-            });
-        }).catch((error) => {
-            this.refs.toast.show("error", 1500);
-            this.setState({
-                overlayVisible: false,
-            });
-        })
-
+        this._gotoModifyPwd();
     }
 
-    _goToPhoneNumber(){
+    _gotoModifyPwd() {
         const {navigator} = this.props;
         if (navigator) {
             navigator.push({
-                name: 'PhoneNumberComponent',
-                component: PhoneNumber,
+                name: 'ModifyPwdComponent',
+                component: ModifyPwd,
+                params: {
+                    phoneNumber: this.state.phoneNumber
+                }
             })
         }
     }
@@ -158,46 +137,22 @@ export default class Logon extends Component {
                             }}
                         />
 
-                        <TextInputConpt
-                            labelCont='密    码'
-                            placeholder='请输入密码'
-                            isPassword={true}
-                            onChange={(value) => {
-                                this.setState({
-                                    passWord: value
-                                })
-                            }}
-                        />
-
-                        <View style={styles.forgetPwdCont}>
-                            <TouchableWithoutFeedback
-                                onPress={this._goToPhoneNumber.bind(this)}>
-                                <View>
-                                    <Text style={styles.forgetPwdTextLink}>忘记密码？</Text>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        </View>
-
                         <View style={styles.submitBtnCont}>
                             <TouchableHighlight
                                 onPress={() => {
-                                    this._submitLogonInfo();
+                                    this._submitPhoneNumber();
                                 }}
                                 activeOpacity={0.7}
                                 style={styles.submitButton}
                                 underlayColor="#df3939"
                             >
-                                <Text style={styles.submitText}>提 交</Text>
+                                <Text style={styles.submitText}>下一步</Text>
                             </TouchableHighlight>
                         </View>
 
                     </ScrollView>
                 </View>
                 <Toast ref="toast" position='center' style={styles.toastStyle}/>
-                <Overlay
-                    allowClose={false}
-                    modalVisible={this.state.overlayVisible}
-                ></Overlay>
             </View>
         );
     }
@@ -250,16 +205,6 @@ const styles = StyleSheet.create({
     submitText: {
         color: '#ffffff',
         fontSize: 17
-    },
-    forgetPwdCont: {
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginTop: 27,
-        marginLeft: 15
-    },
-    forgetPwdTextLink: {
-        fontSize: 17,
-        color: '#393939',
     },
     toastStyle: {
         paddingLeft: 15,

@@ -17,7 +17,6 @@ import {
     View
 } from 'react-native';
 import TextInputConpt from '../common/TextInputConpt';
-import CheckBoxConpt from '../common/CheckBoxConpt';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import VrfFields from '../util/VrfFieldsUtil';
 import FetchUtil from '../util/FetchUtil';
@@ -29,21 +28,22 @@ const dismissKeyboard = require('dismissKeyboard');
 
 let interval;
 
-export default class Register extends Component {
+export default class ModifyPwd extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeRemaining: 0,
-            phoneNumber: '',
+            timeRemaining: 10,
+            phoneNumber: props.phoneNumber,
             vrfCode: '',
-            passWord: '',
-            isChecked: true,
+            newPassWord: '',
+            confirmPassWord: '',
             succModalVisible: false,
             overlayVisible: false
         };
     }
 
     componentWillMount() {
+        this._countDownAction();
         if (Platform.OS === 'android') {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
@@ -75,26 +75,13 @@ export default class Register extends Component {
     }
 
     _getVrfCode() {
-        let fieldArray = [{
-            'name': 'phoneNumber',
-            'isRequired': true,
-            'isRegular': true,
-            'requiredMsg': '请输入手机号',
-            'regularMsg': '请输入正确的手机号',
-            'value': this.state.phoneNumber
-        }];
 
         if (!this.state.timeRemaining) {
-            let errorMsg = VrfFields(fieldArray);
-            if (errorMsg) {
-                this.refs.toast.show(errorMsg, 500);
-            } else {
-                this.setState({
-                    timeRemaining: 10
-                });
-                this._getVrfCodeFromServer();
-                this._countDownAction();
-            }
+            this.setState({
+                timeRemaining: 10
+            });
+            this._getVrfCodeFromServer();
+            this._countDownAction();
         }
     }
 
@@ -127,16 +114,30 @@ export default class Register extends Component {
         }, 1000)
     }
 
-    _submitRegister() {
+    _countDownAction() {
+        let leftTimerCount = this.state.timeRemaining;
+        interval = setInterval(() => {
+            leftTimerCount = this.state.timeRemaining - 1;
+            if (leftTimerCount === 0) {
+                this.setState({
+                    timeRemaining: leftTimerCount,
+                });
+                interval && clearInterval(interval);
+            } else {
+                this.setState({
+                    timeRemaining: leftTimerCount,
+                });
+            }
+        }, 1000)
+    }
+
+    formatPhone(phone) {
+        return phone.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2");
+    }
+
+    _submitNewPassword() {
         dismissKeyboard();
         let fieldArray = [{
-            'name': 'phoneNumber',
-            'isRequired': true,
-            'isRegular': true,
-            'requiredMsg': '请输入手机号',
-            'regularMsg': '请输入正确的手机号',
-            'value': this.state.phoneNumber
-        }, {
             'name': 'vrfCode',
             'isRequired': true,
             'isRegular': true,
@@ -147,26 +148,33 @@ export default class Register extends Component {
             'name': 'passWord',
             'isRequired': true,
             'isRegular': true,
-            'requiredMsg': '请输入密码',
+            'requiredMsg': '请输入新密码',
             'regularMsg': '请输入6到12位的密码',
-            'value': this.state.passWord
+            'value': this.state.newPassWord
         }, {
-            'name': 'isChecked',
-            'isRequireCheck': true,
-            'requiredMsg': '请阅读用户协议',
-            'value': this.state.isChecked
+            'name': 'passWord',
+            'isRequired': true,
+            'isRegular': true,
+            'requiredMsg': '请确认新密码',
+            'regularMsg': '请输入6到12位的密码',
+            'value': this.state.confirmPassWord
         }];
 
         let errorMsg = VrfFields(fieldArray);
+        if (!errorMsg) {
+            if (this.state.newPassWord !== this.state.confirmPassWord) {
+                errorMsg = "两次密码不一致";
+            }
+        }
 
         if (errorMsg) {
             this.refs.toast.show(errorMsg, 500);
         } else {
-            this._submitUserData();
+            this._submitPwdData();
         }
     }
 
-    _submitUserData() {
+    _submitPwdData() {
         const options = {
             "url": '/sports-meetup/users/addUser',
             "params": {
@@ -202,21 +210,12 @@ export default class Register extends Component {
     }
 
     render() {
-        const declaration = <View style={styles.declTextCont}>
-            <Text style={styles.declText}>我已阅读</Text>
-            <TouchableWithoutFeedback onPress={this._backToPrevious.bind(this)}>
-                <View>
-                    <Text style={styles.declTextLink}>《用户协议》</Text>
-                </View>
-            </TouchableWithoutFeedback>
-        </View>;
-
         const succModal = <View style={styles.succModalMainCont}>
             <TouchableWithoutFeedback onPress={this.setModalVisible.bind(this)}>
                 <View style={styles.succModalCont}>
                     <Image style={styles.succModalImage}
                            source={require('../../res/images/success.png')}/>
-                    <Text style={styles.succModalText}>注册成功</Text>
+                    <Text style={styles.succModalText}>密码修改成功</Text>
                 </View>
             </TouchableWithoutFeedback>
         </View>;
@@ -233,17 +232,28 @@ export default class Register extends Component {
                         horizontal={false}
                         keyboardShouldPersistTaps="handled"
                     >
+                        <View style={styles.phoneInfoMainCont}>
+                            <View style={styles.phoneInfoCont}>
+                                <View style={styles.phoneInfoRowCont}>
+                                    <Text style={styles.phoneInfoText}>已向手机号</Text>
+                                    <Text style={styles.phoneNumText}>{this.formatPhone(this.state.phoneNumber)}</Text>
+                                    <Text style={styles.phoneInfoText}>发送验证码</Text>
+                                </View>
+                                <View style={styles.phoneInfoRowCont}>
+                                    <Text style={styles.phoneInfoText}>请注意查收</Text>
+                                </View>
+                            </View>
+                        </View>
                         <View style={styles.getVrfCodeCont}>
                             <TextInputConpt
-                                labelCont='手机号'
-                                placeholder='请输入手机号'
+                                labelCont='验证码'
+                                placeholder='请输入验证码'
                                 isPassword={false}
                                 isShowClear={true}
                                 keyboardType="numeric"
-                                isHideBorder={true}
                                 onChange={(value) => {
                                     this.setState({
-                                        phoneNumber: value
+                                        vrfCode: value
                                     })
                                 }}
                             />
@@ -258,52 +268,41 @@ export default class Register extends Component {
                                         paddingLeft: 5,
                                         paddingRight: 5
                                     }]}>
-                                        获取验证码{this.state.timeRemaining ? '(' + this.state.timeRemaining + 's)' : ''}
+                                        {this.state.timeRemaining ? '(' + this.state.timeRemaining + 's)后再次发送' : '获取验证码'}
                                     </Text>
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>
                         <TextInputConpt
-                            labelCont='验证码'
-                            placeholder='请输入验证码'
-                            isPassword={false}
-                            isShowClear={true}
-                            keyboardType="numeric"
+                            labelCont='新密码'
+                            placeholder='请输入新密码'
+                            isPassword={true}
                             onChange={(value) => {
                                 this.setState({
-                                    vrfCode: value
+                                    newPassWord: value
                                 })
                             }}
                         />
                         <TextInputConpt
-                            labelCont='密    码'
-                            placeholder='请输入密码'
+                            labelCont='确认密码'
+                            placeholder='请输入新密码'
                             isPassword={true}
                             onChange={(value) => {
                                 this.setState({
-                                    passWord: value
-                                })
-                            }}
-                        />
-                        <CheckBoxConpt
-                            labelCont={declaration}
-                            isChecked={this.state.isChecked}
-                            onChange={(value) => {
-                                this.setState({
-                                    isChecked: value
+                                    confirmPassWord: value
                                 })
                             }}
                         />
                         <View style={styles.submitBtnCont}>
                             <TouchableHighlight
                                 onPress={() => {
-                                    this._submitRegister();
+                                    this._submitNewPassword();
                                 }}
                                 activeOpacity={0.7}
                                 style={styles.submitButton}
                                 underlayColor="#df3939"
                             >
-                                <Text style={styles.submitText}>提 交</Text>
+                                <Text style={styles.submitText}>下一步</Text>
                             </TouchableHighlight>
                         </View>
 
@@ -351,6 +350,31 @@ const styles = StyleSheet.create({
     mainCont: {
         flex: 1,
         flexDirection: 'row'
+    },
+    phoneInfoMainCont: {
+        height: 122,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: '#f1f1f1',
+    },
+    phoneInfoCont: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start'
+    },
+    phoneInfoRowCont: {
+        flexDirection: 'row'
+    },
+    phoneInfoText: {
+        fontSize: 14,
+        color: '#777777'
+    },
+    phoneNumText: {
+        fontSize: 14,
+        color: '#393939',
+        marginLeft: 5,
+        marginRight: 5
     },
     getVrfCodeCont: {
         flex: 1,
