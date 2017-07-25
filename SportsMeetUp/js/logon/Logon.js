@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     },
     submitButton: {
         backgroundColor: '#df3939',
-        height: 60,
+        height: 38,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
