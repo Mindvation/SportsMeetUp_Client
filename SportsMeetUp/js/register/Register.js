@@ -13,7 +13,6 @@ import {
     TouchableWithoutFeedback,
     TouchableHighlight,
     Image,
-    Dimensions,
     ScrollView,
     View
 } from 'react-native';
@@ -23,6 +22,8 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import VrfFields from '../util/VrfFieldsUtil';
 import FetchUtil from '../util/FetchUtil';
 import ModalConpt from '../common/ModalConpt';
+import Overlay from '../common/Overlay';
+
 const dismissKeyboard = require('dismissKeyboard');
 
 let interval;
@@ -35,8 +36,9 @@ export default class Register extends Component {
             phoneNumber: '',
             vrfCode: '',
             passWord: '',
-            isChecked: false,
-            modalVisible: false
+            isChecked: true,
+            succModalVisible: false,
+            overlayVisible: false
         };
     }
 
@@ -142,7 +144,7 @@ export default class Register extends Component {
             'isRequired': true,
             'isRegular': true,
             'requiredMsg': '请输入验证码',
-            'regularMsg': '请输入4位数字的验证码',
+            'regularMsg': '请输入6位数字的验证码',
             'value': this.state.vrfCode
         }, {
             'name': 'passWord',
@@ -168,29 +170,37 @@ export default class Register extends Component {
     }
 
     _submitUserData() {
-        /*const options = {
-         "url": '/sports-meetup/users/addUser',
-         "params": {
-         "phoneNumber": this.state.phoneNumber,
-         "verificationCode": this.state.vrfCode,
-         "password": this.state.passWord
-         },
-         "schema": "addUser"
-         };
+        const options = {
+            "url": '/sports-meetup/users/addUser',
+            "params": {
+                "phoneNumber": this.state.phoneNumber,
+                "verificationCode": this.state.vrfCode,
+                "password": this.state.passWord
+            },
+            "schema": "addUser"
+        };
 
-         FetchUtil.post(options).then((res) => {
-         this.refs.toast.show("success", 1500);
-         }).catch((error) => {
-         this.refs.toast.show("error", 1500);
-         })*/
         this.setState({
-            modalVisible: true,
+            overlayVisible: true,
         });
+
+        FetchUtil.post(options).then((res) => {
+            this.setState({
+                succModalVisible: true,
+                overlayVisible: false
+            });
+        }).catch((error) => {
+            this.refs.toast.show("error", 1500);
+            this.setState({
+                overlayVisible: false,
+            });
+        })
+
     }
 
     setModalVisible() {
         this.setState({
-            modalVisible: false,
+            succModalVisible: false,
         });
     }
 
@@ -290,7 +300,7 @@ export default class Register extends Component {
                         />
                         <CheckBoxConpt
                             labelCont={declaration}
-                            isChecked={false}
+                            isChecked={this.state.isChecked}
                             onChange={(value) => {
                                 this.setState({
                                     isChecked: value
@@ -312,12 +322,16 @@ export default class Register extends Component {
 
                     </ScrollView>
                 </View>
-                <Toast ref="toast" position='center'/>
+                <Toast ref="toast" position='center' style={styles.toastStyle}/>
                 <ModalConpt
                     allowClose={false}
                     modalCont={succModal}
-                    modalVisible={this.state.modalVisible}
+                    modalVisible={this.state.succModalVisible}
                 ></ModalConpt>
+                <Overlay
+                    allowClose={false}
+                    modalVisible={this.state.overlayVisible}
+                ></Overlay>
             </View>
         );
     }
@@ -423,5 +437,9 @@ const styles = StyleSheet.create({
     succModalText: {
         fontSize: 17,
         color: '#000000'
+    },
+    toastStyle: {
+        paddingLeft: 15,
+        paddingRight: 15
     }
 });

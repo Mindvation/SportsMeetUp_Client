@@ -15,7 +15,7 @@
 export default function VrfFields(fieldsArray){
     const regularEx = {
         'phoneNumber': /^1[0-9]{10}$/,
-        'vrfCode': /^[0-9]{4}$/,
+        'vrfCode': /^[0-9]{6}$/,
         'passWord': /^\S{6,12}$/
     };
     const _isEmpty = function(text) {
