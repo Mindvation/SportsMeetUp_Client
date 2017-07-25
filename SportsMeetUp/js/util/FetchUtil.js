@@ -49,7 +49,7 @@ export default class FetchUitl {
             });
 
             return new Promise((resolve, reject) => {
-                this._fetch(myFetch, 10000)
+                this._fetch(myFetch)
                     .then(response => {
                         return response.json();
                     })
@@ -85,7 +85,7 @@ export default class FetchUitl {
             });
 
             return new Promise((resolve, reject) => {
-                this._fetch(myFetch, 10000)
+                this._fetch(myFetch)
                     .then(response => {
                         return response.json();
                     })

@@ -32,6 +32,7 @@ const dismissKeyboard = require('dismissKeyboard');
 let interval;
 
 export default class Register extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -44,6 +45,8 @@ export default class Register extends Component {
             overlayVisible: false
         };
     }
+
+
 
     componentWillMount() {
         if (Platform.OS === 'android') {
@@ -118,7 +121,7 @@ export default class Register extends Component {
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
-                { cancelable: false }
+                {cancelable: false}
             );
 
             this.setState({
@@ -204,32 +207,38 @@ export default class Register extends Component {
                 succModalVisible: true,
                 overlayVisible: false
             });
+
+            interval = setInterval(() => {
+                interval && clearInterval(interval);
+                this._goToHomePage();
+            }, 1000)
+
         }).catch((error) => {
-            this.refs.toast.show("error", 1500);
             this.setState({
                 overlayVisible: false,
             });
+
+            Alert.alert(
+                'Error',
+                '注册失败',
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
         })
 
     }
 
-    _goToHomePage(){
+    _goToHomePage() {
         const {navigator} = this.props;
         if (navigator) {
             navigator.resetTo({
                 component: HomePage,
                 name: 'HomePageComponent',
-                params:{
-                }
+                params: {}
             });
         }
-    }
-
-    setModalVisible() {
-        this.setState({
-            succModalVisible: false,
-        });
-        this._goToHomePage();
     }
 
     render() {
@@ -243,18 +252,16 @@ export default class Register extends Component {
         </View>;
 
         const succModal = <View style={styles.succModalMainCont}>
-            <TouchableWithoutFeedback onPress={this._goToHomePage.bind(this)}>
-                <View style={styles.succModalCont}>
-                    <Image style={styles.succModalImage}
-                           source={require('../../res/images/success.png')}/>
-                    <Text style={styles.succModalText}>注册成功</Text>
-                </View>
-            </TouchableWithoutFeedback>
+            <View style={styles.succModalCont}>
+                <Image style={styles.succModalImage}
+                       source={require('../../res/images/success.png')}/>
+                <Text style={styles.succModalText}>注册成功</Text>
+            </View>
         </View>;
 
         return (
             <View style={styles.container}>
-                <Header navigator = {this.props.navigator}/>
+                <Header navigator={this.props.navigator}/>
                 <View style={styles.mainCont}>
                     <ScrollView
                         ref={(scrollView) => {

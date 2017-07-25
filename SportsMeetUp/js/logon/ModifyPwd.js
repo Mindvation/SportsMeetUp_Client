@@ -97,7 +97,7 @@ export default class ModifyPwd extends Component {
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
-                { cancelable: false }
+                {cancelable: false}
             );
 
             this.setState({
@@ -204,6 +204,10 @@ export default class ModifyPwd extends Component {
                 succModalVisible: true,
                 overlayVisible: false
             });
+            interval = setInterval(() => {
+                interval && clearInterval(interval);
+                this._goToHomePage();
+            }, 1000)
         }).catch((error) => {
             this.refs.toast.show("error", 1500);
             this.setState({
@@ -213,39 +217,29 @@ export default class ModifyPwd extends Component {
 
     }
 
-    _goToHomePage(){
+    _goToHomePage() {
         const {navigator} = this.props;
         if (navigator) {
             navigator.resetTo({
                 component: HomePage,
                 name: 'HomePageComponent',
-                params:{
-                }
+                params: {}
             });
         }
     }
 
-    setModalVisible() {
-        this.setState({
-            succModalVisible: false,
-        });
-        this._goToHomePage();
-    }
-
     render() {
         const succModal = <View style={styles.succModalMainCont}>
-            <TouchableWithoutFeedback onPress={this._goToHomePage.bind(this)}>
-                <View style={styles.succModalCont}>
-                    <Image style={styles.succModalImage}
-                           source={require('../../res/images/success.png')}/>
-                    <Text style={styles.succModalText}>密码修改成功</Text>
-                </View>
-            </TouchableWithoutFeedback>
+            <View style={styles.succModalCont}>
+                <Image style={styles.succModalImage}
+                       source={require('../../res/images/success.png')}/>
+                <Text style={styles.succModalText}>密码修改成功</Text>
+            </View>
         </View>;
 
         return (
             <View style={styles.container}>
-                <Header navigator = {this.props.navigator}/>
+                <Header navigator={this.props.navigator}/>
                 <View style={styles.mainCont}>
                     <ScrollView
                         ref={(scrollView) => {

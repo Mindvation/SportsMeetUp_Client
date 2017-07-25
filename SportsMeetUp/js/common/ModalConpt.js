@@ -3,7 +3,6 @@ import {
     StyleSheet,
     Animated,
     View,
-    Platform,
     TouchableWithoutFeedback
 } from 'react-native';
 
@@ -43,7 +42,7 @@ export default class ModalConpt extends Component {
 const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        top: (Platform.OS === 'ios') ? 20 : 0,
+        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     mask: {
         position: 'absolute',
         backgroundColor: "#000000",
-        top: (Platform.OS === 'ios') ? 20 : 0,
+        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
