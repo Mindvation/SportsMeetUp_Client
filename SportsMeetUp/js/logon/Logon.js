@@ -12,7 +12,7 @@ import {
     Platform,
     TouchableWithoutFeedback,
     TouchableHighlight,
-    Image,
+    Alert,
     ScrollView,
     View
 } from 'react-native';
@@ -58,13 +58,6 @@ export default class Logon extends Component {
         }
         return false;//默认行为
     };
-
-    _backToPrevious() {
-        const {navigator} = this.props;
-        if (navigator) {
-            navigator.pop();
-        }
-    }
 
     _submitLogonInfo() {
         dismissKeyboard();
@@ -112,13 +105,35 @@ export default class Logon extends Component {
             this.setState({
                 overlayVisible: false
             });
+            this._goToHomePage();
         }).catch((error) => {
-            this.refs.toast.show("error", 1500);
             this.setState({
                 overlayVisible: false,
             });
+
+            Alert.alert(
+                'Error',
+                '登录失败，请检查用户名和密码',
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+            );
+
         })
 
+    }
+
+    _goToHomePage(){
+        const {navigator} = this.props;
+        if (navigator) {
+            navigator.resetTo({
+                component: HomePage,
+                name: 'HomePageComponent',
+                params:{
+                }
+            });
+        }
     }
 
     _goToPhoneNumber(){

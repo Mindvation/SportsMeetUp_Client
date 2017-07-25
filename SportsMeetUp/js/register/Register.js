@@ -14,7 +14,8 @@ import {
     TouchableHighlight,
     Image,
     ScrollView,
-    View
+    View,
+    Alert
 } from 'react-native';
 import TextInputConpt from '../common/TextInputConpt';
 import CheckBoxConpt from '../common/CheckBoxConpt';
@@ -24,6 +25,7 @@ import FetchUtil from '../util/FetchUtil';
 import ModalConpt from '../common/ModalConpt';
 import Overlay from '../common/Overlay';
 import Header from '../common/Header';
+import HomePage from '../homePage/HomePage';
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -107,7 +109,23 @@ export default class Register extends Component {
             "schema": "getVerificationCode"
         }
 
-        FetchUtil.get(options);
+        FetchUtil.get(options).then((res) => {
+
+        }).catch((error) => {
+            Alert.alert(
+                'Error',
+                '获取验证码失败',
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+            );
+
+            this.setState({
+                timeRemaining: 0,
+            });
+            interval && clearInterval(interval);
+        })
     }
 
     _countDownAction() {
@@ -195,10 +213,23 @@ export default class Register extends Component {
 
     }
 
+    _goToHomePage(){
+        const {navigator} = this.props;
+        if (navigator) {
+            navigator.resetTo({
+                component: HomePage,
+                name: 'HomePageComponent',
+                params:{
+                }
+            });
+        }
+    }
+
     setModalVisible() {
         this.setState({
             succModalVisible: false,
         });
+        this._goToHomePage();
     }
 
     render() {
@@ -212,7 +243,7 @@ export default class Register extends Component {
         </View>;
 
         const succModal = <View style={styles.succModalMainCont}>
-            <TouchableWithoutFeedback onPress={this.setModalVisible.bind(this)}>
+            <TouchableWithoutFeedback onPress={this._goToHomePage.bind(this)}>
                 <View style={styles.succModalCont}>
                     <Image style={styles.succModalImage}
                            source={require('../../res/images/success.png')}/>

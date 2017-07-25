@@ -14,7 +14,8 @@ import {
     TouchableHighlight,
     Image,
     ScrollView,
-    View
+    View,
+    Alert
 } from 'react-native';
 import TextInputConpt from '../common/TextInputConpt';
 import Toast, {DURATION} from 'react-native-easy-toast';
@@ -67,13 +68,6 @@ export default class ModifyPwd extends Component {
         return false;//默认行为
     };
 
-    _backToPrevious() {
-        const {navigator} = this.props;
-        if (navigator) {
-            navigator.pop();
-        }
-    }
-
     _getVrfCode() {
 
         if (!this.state.timeRemaining) {
@@ -94,7 +88,23 @@ export default class ModifyPwd extends Component {
             "schema": "getVerificationCode"
         }
 
-        FetchUtil.get(options);
+        FetchUtil.get(options).then((res) => {
+
+        }).catch((error) => {
+            Alert.alert(
+                'Error',
+                '获取验证码失败',
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+            );
+
+            this.setState({
+                timeRemaining: 0,
+            });
+            interval && clearInterval(interval);
+        })
     }
 
     _countDownAction() {
@@ -203,15 +213,28 @@ export default class ModifyPwd extends Component {
 
     }
 
+    _goToHomePage(){
+        const {navigator} = this.props;
+        if (navigator) {
+            navigator.resetTo({
+                component: HomePage,
+                name: 'HomePageComponent',
+                params:{
+                }
+            });
+        }
+    }
+
     setModalVisible() {
         this.setState({
             succModalVisible: false,
         });
+        this._goToHomePage();
     }
 
     render() {
         const succModal = <View style={styles.succModalMainCont}>
-            <TouchableWithoutFeedback onPress={this.setModalVisible.bind(this)}>
+            <TouchableWithoutFeedback onPress={this._goToHomePage.bind(this)}>
                 <View style={styles.succModalCont}>
                     <Image style={styles.succModalImage}
                            source={require('../../res/images/success.png')}/>

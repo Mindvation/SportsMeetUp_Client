@@ -12,7 +12,7 @@ import {
     Platform,
     TouchableWithoutFeedback,
     TouchableHighlight,
-    Image,
+    Alert,
     ScrollView,
     View
 } from 'react-native';
@@ -56,13 +56,6 @@ export default class PhoneNumber extends Component {
         return false;//默认行为
     };
 
-    _backToPrevious() {
-        const {navigator} = this.props;
-        if (navigator) {
-            navigator.pop();
-        }
-    }
-
     _submitPhoneNumber() {
         dismissKeyboard();
         let fieldArray = [{
@@ -92,12 +85,21 @@ export default class PhoneNumber extends Component {
             "schema": "getVerificationCode"
         };
 
-        FetchUtil.get(options);
-
-        this._gotoModifyPwd();
+        FetchUtil.get(options).then((res) => {
+            this._goToModifyPwd();
+        }).catch((error) => {
+            Alert.alert(
+                'Error',
+                '获取验证码失败',
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+            );
+        })
     }
 
-    _gotoModifyPwd() {
+    _goToModifyPwd() {
         const {navigator} = this.props;
         if (navigator) {
             navigator.push({

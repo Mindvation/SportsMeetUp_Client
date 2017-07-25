@@ -11,7 +11,7 @@ import {
     InteractionManager,
     Platform,
 } from 'react-native'
-import MainPage from './MainPage'
+import LogonPage from './MainPage'
 import SplashScreen from 'react-native-splash-screen'
 
 export default class WelcomePage extends Component {
@@ -22,8 +22,8 @@ export default class WelcomePage extends Component {
             InteractionManager.runAfterInteractions(() => {
                 SplashScreen.hide();
                 navigator.resetTo({
-                    component: MainPage,
-                    name: 'MainPage',
+                    component: LogonPage,
+                    name: 'LogonPage',
                     params:{
                     }
                 });
