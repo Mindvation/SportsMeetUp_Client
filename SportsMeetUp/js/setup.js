@@ -8,8 +8,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet
 } from 'react-native';
-import WelcomePage from './WelcomePage';
-import HomePage from './homePage/HomePage'
+// import WelcomePage from './WelcomePage';
 import TabPage from './homePage/TabPage'
 import Navigator from 'react-native-deprecated-custom-components';
 

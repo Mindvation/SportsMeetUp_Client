@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import LogonPage from './logon/Logon'
 import SplashScreen from 'react-native-splash-screen'
+import TabPage from './homePage/TabPage'
 
 export default class WelcomePage extends Component {
 
@@ -22,8 +23,10 @@ export default class WelcomePage extends Component {
             InteractionManager.runAfterInteractions(() => {
                 SplashScreen.hide();
                 navigator.resetTo({
-                    component: LogonPage,
-                    name: 'LogonPage',
+                    // component: LogonPage,
+                    // name: 'LogonPage',
+                    component: TabPage,
+                    name: 'TabPage',
                     params:{
                     }
                 });
