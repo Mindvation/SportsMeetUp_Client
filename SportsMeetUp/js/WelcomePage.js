@@ -13,12 +13,18 @@ import {
 } from 'react-native'
 import LogonPage from './MainPage'
 import SplashScreen from 'react-native-splash-screen'
+import DataUtil from './util/DataUtil';
+import FetchUtil from './util/FetchUtil';
+import HomePage from './homePage/HomePage';
 
 export default class WelcomePage extends Component {
 
     componentDidMount() {
         const {navigator} = this.props;
-        this.timer = setTimeout(() => {
+
+        DataUtil.getData('userLogonInfo').then((res) => {
+            this._logOnWithLocalData(res);
+        }).catch((error) => {
             InteractionManager.runAfterInteractions(() => {
                 SplashScreen.hide();
                 navigator.resetTo({
@@ -28,11 +34,45 @@ export default class WelcomePage extends Component {
                     }
                 });
             });
-        }, 1000);
+        })
     }
+
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer);
     }
+
+    _logOnWithLocalData(userData){
+        const options = {
+            "url": '/sports-meetup/users/addUser',
+            "params": {
+                "phoneNumber": userData.phoneNumber,
+                "password": userData.passWord
+            },
+        };
+        const {navigator} = this.props;
+
+        FetchUtil.post(options).then((res) => {
+            SplashScreen.hide();
+            if (navigator) {
+                navigator.resetTo({
+                    component: HomePage,
+                    name: 'HomePageComponent',
+                    params: {}
+                });
+            }
+        }).catch((error) => {
+            InteractionManager.runAfterInteractions(() => {
+                SplashScreen.hide();
+                navigator.resetTo({
+                    component: LogonPage,
+                    name: 'LogonPage',
+                    params:{
+                    }
+                });
+            });
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -43,7 +83,7 @@ export default class WelcomePage extends Component {
 
 }
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
+    container: {
+        flex: 1,
     }
 })

@@ -26,6 +26,7 @@ import ModalConpt from '../common/ModalConpt';
 import Overlay from '../common/Overlay';
 import Header from '../common/Header';
 import HomePage from '../homePage/HomePage';
+import DataUtil from '../util/DataUtil';
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -117,7 +118,7 @@ export default class Register extends Component {
         }).catch((error) => {
             Alert.alert(
                 'Error',
-                '获取验证码失败',
+                error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
@@ -208,6 +209,11 @@ export default class Register extends Component {
                 overlayVisible: false
             });
 
+            DataUtil.saveData('userLogonInfo',{
+                "phoneNumber": this.state.phoneNumber,
+                "password": this.state.passWord
+            });
+
             interval = setInterval(() => {
                 interval && clearInterval(interval);
                 this._goToHomePage();
@@ -220,7 +226,7 @@ export default class Register extends Component {
 
             Alert.alert(
                 'Error',
-                '注册失败',
+                error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],

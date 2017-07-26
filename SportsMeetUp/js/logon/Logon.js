@@ -23,6 +23,7 @@ import FetchUtil from '../util/FetchUtil';
 import Overlay from '../common/Overlay';
 import PhoneNumber from './PhoneNumber';
 import Header from '../common/Header';
+import DataUtil from '../util/DataUtil';
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -88,13 +89,12 @@ export default class Logon extends Component {
 
     _submitLogonData() {
         const options = {
-            "url": '/sports-meetup/users/addUser',
+            "url": 'sports-meetup-papi/users/login',
             "params": {
                 "phoneNumber": this.state.phoneNumber,
-                "verificationCode": this.state.vrfCode,
                 "password": this.state.passWord
             },
-            "schema": "addUser"
+            "schema": "login"
         };
 
         this.setState({
@@ -105,6 +105,12 @@ export default class Logon extends Component {
             this.setState({
                 overlayVisible: false
             });
+
+            DataUtil.saveData('userLogonInfo',{
+                "phoneNumber": this.state.phoneNumber,
+                "password": this.state.passWord
+            });
+
             this._goToHomePage();
         }).catch((error) => {
             this.setState({
@@ -113,7 +119,7 @@ export default class Logon extends Component {
 
             Alert.alert(
                 'Error',
-                '登录失败，请检查用户名和密码',
+                error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],

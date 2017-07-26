@@ -90,7 +90,7 @@ export default class PhoneNumber extends Component {
         }).catch((error) => {
             Alert.alert(
                 'Error',
-                '获取验证码失败',
+                error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],

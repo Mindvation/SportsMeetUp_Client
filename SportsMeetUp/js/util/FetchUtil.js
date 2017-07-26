@@ -3,6 +3,7 @@
  */
 
 import AddUserRes from '../../res/stub/addUserResp.json';
+import ErrorMessage from '../../res/data/errorMessage.json';
 
 const dummyRes = {
     "addUser": AddUserRes
@@ -41,7 +42,7 @@ export default class FetchUitl {
                 let paramsArray = [];
                 //拼接参数
                 Object.keys(options.params).forEach(key => paramsArray.push(options.params[key]))
-                    options.url += '/' + paramsArray.join('/')
+                options.url += '/' + paramsArray.join('/')
             }
 
             const myFetch = fetch(gateWay + options.url, {
@@ -54,10 +55,12 @@ export default class FetchUitl {
                         return response.json();
                     })
                     .then(responseData => {
-                        resolve(responseData)
+                        let errorInfo = this._respHandle(responseData);
+                        errorInfo ? reject(errorInfo) : resolve(responseData);
                     })
                     .catch(error => {
-                        reject(error);
+                        let errorInfo = this._errorHandle(error);
+                        reject(errorInfo);
                     });
             });
         }
@@ -90,12 +93,38 @@ export default class FetchUitl {
                         return response.json();
                     })
                     .then(responseData => {
-                        resolve(responseData)
+                        let errorInfo = this._respHandle(responseData);
+                        errorInfo ? reject(errorInfo) : resolve(responseData);
                     })
                     .catch(error => {
-                        reject(error);
+                        let errorInfo = this._errorHandle(error);
+                        reject(errorInfo);
                     });
             });
+        }
+    }
+
+    static _respHandle(res) {
+        if (res.responseCode !== "000") {
+            return {
+                'code': res.responseCode,
+                'message': ErrorMessage[res.responseCode] ? ErrorMessage[res.responseCode] : ErrorMessage.default
+            };
+        }
+        return;
+    }
+
+    static _errorHandle(error) {
+        if (error.message) {
+            return {
+                'code': 'A001',
+                'message': error.message
+            }
+        }
+
+        return {
+            'code': 'A001',
+            'message': '系统错误'
         }
     }
 }

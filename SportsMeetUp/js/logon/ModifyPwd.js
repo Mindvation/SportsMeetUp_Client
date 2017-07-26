@@ -24,6 +24,7 @@ import FetchUtil from '../util/FetchUtil';
 import ModalConpt from '../common/ModalConpt';
 import Overlay from '../common/Overlay';
 import Header from '../common/Header';
+import DataUtil from '../util/DataUtil';
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -93,7 +94,7 @@ export default class ModifyPwd extends Component {
         }).catch((error) => {
             Alert.alert(
                 'Error',
-                '获取验证码失败',
+                error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
@@ -204,15 +205,28 @@ export default class ModifyPwd extends Component {
                 succModalVisible: true,
                 overlayVisible: false
             });
+
+            DataUtil.saveData('userLogonInfo',{
+                "phoneNumber": this.state.phoneNumber,
+                "password": this.state.passWord
+            });
+
             interval = setInterval(() => {
                 interval && clearInterval(interval);
                 this._goToHomePage();
             }, 1000)
         }).catch((error) => {
-            this.refs.toast.show("error", 1500);
             this.setState({
                 overlayVisible: false,
             });
+            Alert.alert(
+                'Error',
+                error.message,
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
         })
 
     }
