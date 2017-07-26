@@ -8,16 +8,14 @@ import React, { Component } from 'react';
 import {
     StyleSheet
 } from 'react-native';
-// import WelcomePage from './WelcomePage';
 import TabPage from './homePage/TabPage'
+import WelcomePage from './WelcomePage';
 import Navigator from 'react-native-deprecated-custom-components';
 
 export default class setup extends Component {
     render() {
-        // var defaultName = 'WelcomePage';
-        // var defaultComponment = WelcomePage;
-        var defaultName = 'TabPage';
-        var defaultComponment = TabPage;
+        var defaultName = 'WelcomePage';
+        var defaultComponment = WelcomePage;
 
         return (
             <Navigator.Navigator

@@ -54,7 +54,7 @@ export default class TextInputConpt extends Component {
     }
 
     render() {
-        var {labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, onChange} = this.props;
+        const {labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, onChange} = this.props;
 
         const clearBtn = <TouchableWithoutFeedback onPress={() => {
             this._clearValue()
@@ -96,10 +96,6 @@ export default class TextInputConpt extends Component {
                     {!isPassword && isShowClear && !this._isEmpty(this.state.txtValue) ? clearBtn : null}
                     {isPassword ? (this.state.isSecure ? showPwdBtn : hiddenPwdBtn) : null}
                 </View>
-                {/*<View style={[styles.msgCont,hasError?{display:'none'}: null]}>
-                    <Image style={styles.msgImage} source={require('../../res/images/error_icon.png')}/>
-                    <Text style={styles.msgText}>请输入手机号</Text>
-                </View>*/}
             </View>
         );
     }
@@ -147,6 +143,6 @@ const styles = StyleSheet.create({
     inputRightBtn: {
         width: 15,
         height: 15,
-        marginRight: 7
+        paddingRight: 7
     }
 });

@@ -11,7 +11,7 @@ import {
     InteractionManager,
     Platform,
 } from 'react-native'
-import LogonPage from './logon/Logon'
+import LogonPage from './MainPage'
 import SplashScreen from 'react-native-splash-screen'
 import TabPage from './homePage/TabPage'
 
