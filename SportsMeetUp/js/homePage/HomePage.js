@@ -14,6 +14,8 @@ import {
 // import {MapView, Geolocation} from 'react-native-baidu-map';
 import {MapView, Marker, Polyline} from 'react-native-amap3d'
 
+import NewFieldPage from './NewFieldPage'
+
 
 var EARTH_RADIUS = 6378137.0;    //单位M  
 var PI = Math.PI;  
@@ -33,13 +35,13 @@ function getRad(d){
         var radLat1 = getRad(lat1);
         var radLat2 = getRad(lat2);
           
-        var a = radLat1 - radLat2;  
-        var b = getRad(lng1) - getRad(lng2);  
+        var a = radLat1 - radLat2;
+        var b = getRad(lng1) - getRad(lng2);
           
-        var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));  
-        s = s*EARTH_RADIUS;  
+        var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+        s = s*EARTH_RADIUS;
         s = Math.round(s*10000)/10000.0;
-                  
+
         return s;
     }  
 
@@ -247,6 +249,12 @@ class HomePage extends Component {
 
   }
 
+  _submitNewField(data) {
+    // 添加场地提交数据
+    this.refs.newField._visibleModel(false);
+    Alert.alert('todo submit new field');
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -308,6 +316,7 @@ class HomePage extends Component {
             <Image source={require('../../res/images/action_match.png')}/>
           </TouchableOpacity>
       	</View>
+        <NewFieldPage ref='newField' commitCallback={(data) => this._submitNewField(data)}/>
       </View>
     );
   }

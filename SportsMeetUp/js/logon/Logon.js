@@ -134,8 +134,8 @@ export default class Logon extends Component {
         const {navigator} = this.props;
         if (navigator) {
             navigator.resetTo({
-                component: HomePage,
-                name: 'HomePageComponent',
+                component: TabPage,
+                name: 'TabPageComponent',
                 params:{
                 }
             });

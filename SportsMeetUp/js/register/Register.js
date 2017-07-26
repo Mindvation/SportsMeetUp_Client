@@ -25,7 +25,6 @@ import FetchUtil from '../util/FetchUtil';
 import ModalConpt from '../common/ModalConpt';
 import Overlay from '../common/Overlay';
 import Header from '../common/Header';
-import HomePage from '../homePage/HomePage';
 import DataUtil from '../util/DataUtil';
 
 const dismissKeyboard = require('dismissKeyboard');
@@ -240,8 +239,8 @@ export default class Register extends Component {
         const {navigator} = this.props;
         if (navigator) {
             navigator.resetTo({
-                component: HomePage,
-                name: 'HomePageComponent',
+                component: TabPage,
+                name: 'TabPageComponent',
                 params: {}
             });
         }

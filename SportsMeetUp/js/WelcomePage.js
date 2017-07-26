@@ -15,14 +15,23 @@ import LogonPage from './MainPage'
 import SplashScreen from 'react-native-splash-screen'
 import DataUtil from './util/DataUtil';
 import FetchUtil from './util/FetchUtil';
-import HomePage from './homePage/HomePage';
+import TabPage from './homePage/TabPage';
 
 export default class WelcomePage extends Component {
 
     componentDidMount() {
         const {navigator} = this.props;
+        InteractionManager.runAfterInteractions(() => {
+            SplashScreen.hide();
+            navigator.resetTo({
+                component: TabPage,
+                name: 'TabPage',
+                params:{
+                }
+            });
+        });
 
-        DataUtil.getData('userLogonInfo').then((res) => {
+        /*DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
         }).catch((error) => {
             InteractionManager.runAfterInteractions(() => {
@@ -30,11 +39,13 @@ export default class WelcomePage extends Component {
                 navigator.resetTo({
                     component: LogonPage,
                     name: 'LogonPage',
+                    // component: TabPage,
+                    // name: 'TabPage',
                     params:{
                     }
                 });
             });
-        })
+        })*/
     }
 
     componentWillUnmount() {
@@ -55,8 +66,8 @@ export default class WelcomePage extends Component {
             SplashScreen.hide();
             if (navigator) {
                 navigator.resetTo({
-                    component: HomePage,
-                    name: 'HomePageComponent',
+                    component: TabPage,
+                    name: 'TabPageComponent',
                     params: {}
                 });
             }
