@@ -90,7 +90,7 @@ export default class Logon extends Component {
 
     _submitLogonData() {
         const options = {
-            "url": 'sports-meetup-papi/users/login',
+            "url": '8081/sports-meetup-papi/users/login',
             "params": {
                 "phoneNumber": this.state.phoneNumber,
                 "password": this.state.passWord
@@ -119,7 +119,7 @@ export default class Logon extends Component {
             });
 
             Alert.alert(
-                'Error',
+                error.code,
                 error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
@@ -282,6 +282,7 @@ const styles = StyleSheet.create({
     forgetPwdTextLink: {
         fontSize: 17,
         color: '#393939',
+        textDecorationLine: 'underline'
     },
     toastStyle: {
         paddingLeft: 15,

@@ -106,7 +106,7 @@ export default class Register extends Component {
 
     _getVrfCodeFromServer() {
         const options = {
-            "url": '/sports-meetup/users/getVerificationCode',
+            "url": '8888/sports-meetup/users/getVerificationCode',
             "params": {
                 "phoneNumber": this.state.phoneNumber
             },
@@ -117,7 +117,7 @@ export default class Register extends Component {
 
         }).catch((error) => {
             Alert.alert(
-                'Error',
+                error.code,
                 error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
@@ -190,7 +190,7 @@ export default class Register extends Component {
 
     _submitUserData() {
         const options = {
-            "url": '/sports-meetup/users/addUser',
+            "url": '8888/sports-meetup/users/addUser',
             "params": {
                 "phoneNumber": this.state.phoneNumber,
                 "verificationCode": this.state.vrfCode,
@@ -225,7 +225,7 @@ export default class Register extends Component {
             });
 
             Alert.alert(
-                'Error',
+                error.code,
                 error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},

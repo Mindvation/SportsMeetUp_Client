@@ -3,8 +3,30 @@ import {
     StyleSheet,
     Animated,
     View,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Modal
 } from 'react-native';
+
+import CommonUtil from '../util/CommonUtil';
+
+const positionMapping = {
+    "top": {
+        justifyContent: "flex-start"
+    },
+    "bottom": {
+        justifyContent: "flex-end"
+    },
+    "left": {
+        alignItems: "flex-start"
+    },
+    "right": {
+        alignItems: "flex-end"
+    },
+    "center": {
+        justifyContent: "center",
+        alignItems: "center"
+    }
+};
 
 export default class ModalConpt extends Component {
     static propTypes = {
@@ -20,21 +42,28 @@ export default class ModalConpt extends Component {
     }
 
     render() {
+        const {modalCont, allowClose, closeHandle, position, onRequestClose, modalVisible, opacity} = this.props;
+        const modalPosition = position ? positionMapping[position] : positionMapping.center;
+        const opacityStyle = CommonUtil.isEmpty(opacity) ? {opacity: 0.5} : {opacity: opacity};
 
-        const {modalCont, allowClose, closeHandle, onRequestClose, modalVisible} = this.props;
         if (!modalVisible) {
             return (<View/>);
         } else {
-            return (<View style={styles.container}>
-                <Animated.View style={ styles.mask }>
-                    <TouchableWithoutFeedback onPress={() => allowClose ? closeHandle() : null}>
-                        <View/>
-                    </TouchableWithoutFeedback>
-                </Animated.View>
-                <Animated.View style={ styles.modalBackground }>
-                    {modalCont}
-                </Animated.View>
-            </View>)
+            return (
+                <Modal transparent={true} onRequestClose={() => {
+                    onRequestClose ? onRequestClose() : {}
+                }}>
+                    <View style={[styles.container, modalPosition]}>
+                        <Animated.View style={[styles.mask, opacityStyle]}>
+                            <TouchableWithoutFeedback onPress={() => allowClose ? closeHandle() : null}>
+                                <View style={styles.maskView}/>
+                            </TouchableWithoutFeedback>
+                        </Animated.View>
+                        <Animated.View style={styles.modalBackground}>
+                            {modalCont}
+                        </Animated.View>
+                    </View>
+                </Modal>)
         }
     }
 }
@@ -45,8 +74,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0,
-        justifyContent: "center"
+        bottom: 0
     },
     mask: {
         position: 'absolute',
@@ -54,8 +82,14 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
+        bottom: 0
+    },
+    maskView: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
         bottom: 0,
-        opacity: 0.5
     },
     modalBackground: {
         justifyContent: "center",

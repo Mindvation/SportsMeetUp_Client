@@ -94,7 +94,7 @@ export default class ModifyPwd extends Component {
 
         }).catch((error) => {
             Alert.alert(
-                'Error',
+                error.code,
                 error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},

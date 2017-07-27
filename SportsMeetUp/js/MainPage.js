@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         paddingTop: (Platform.OS === 'ios') ? 20 : 0,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'stretch',
+        alignItems: 'center',
         resizeMode: 'stretch',
         width: null,
         height: null
