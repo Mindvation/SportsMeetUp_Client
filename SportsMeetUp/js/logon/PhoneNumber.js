@@ -89,7 +89,7 @@ export default class PhoneNumber extends Component {
             this._goToModifyPwd();
         }).catch((error) => {
             Alert.alert(
-                'Error',
+                error.code,
                 error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
