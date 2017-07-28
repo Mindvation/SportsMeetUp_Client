@@ -35,14 +35,18 @@ export default class DailyMatch extends Component {
                     "teamALeft": 3,
                     "teamBLeft": 0,
                     "startTime": '8:00',
-                    "endTime": '12:00'
+                    "endTime": '12:00',
+                    "isJoined": false,
+                    "isSendReq": true
                 }, {
                     "matchId": 2,
                     "playAccount": 2,
                     "teamALeft": 2,
                     "teamBLeft": 1,
                     "startTime": '14:00',
-                    "endTime": '16:00'
+                    "endTime": '16:00',
+                    "isJoined": true,
+                    "isSendReq": true
                 }, {
                     "matchId": 3,
                     "playAccount": 1,
@@ -67,14 +71,18 @@ export default class DailyMatch extends Component {
                     "teamALeft": 3,
                     "teamBLeft": 0,
                     "startTime": '8:00',
-                    "endTime": '12:00'
+                    "endTime": '12:00',
+                    "isJoined": true,
+                    "isSendReq": true
                 }, {
                     "matchId": 2,
                     "playAccount": 6,
                     "teamALeft": 2,
                     "teamBLeft": 4,
                     "startTime": '14:00',
-                    "endTime": '16:00'
+                    "endTime": '16:00',
+                    "isJoined": false,
+                    "isSendReq": true
                 }, {
                     "matchId": 3,
                     "playAccount": 3,

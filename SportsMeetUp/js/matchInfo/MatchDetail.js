@@ -5,7 +5,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native';
 import ModalConpt from '../common/ModalConpt';
 
@@ -13,11 +14,16 @@ const {width} = Dimensions.get('window');
 
 import Arrangement from '../../res/data/arrangement.json';
 
+let interval;
 export default class MatchDetail extends Component {
     constructor(props) {
         super(props);
+        this._joinMatch = this._joinMatch.bind(this);
+        this._shareMatch = this._shareMatch.bind(this);
         this.state = {
-            shareModalVisible: false
+            shareModalVisible: false,
+            isJoined: props.matchInfo.isJoined,
+            isSendReq: props.matchInfo.isSendReq
         };
     }
 
@@ -25,6 +31,31 @@ export default class MatchDetail extends Component {
         this.setState({
             shareModalVisible: true
         })
+    }
+
+    _joinMatch() {
+        if(this.state.isJoined || this.state.isSendReq){
+            Alert.alert(
+                "提示",
+                this.state.isJoined?"您已加入":"您已发送申请",
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+            return;
+        }
+
+        this.setState({
+            isSendReq: true
+        })
+
+        interval = setInterval(() => {
+            this.setState({
+                isJoined: true
+            });
+            interval && clearInterval(interval);
+        }, 2000)
     }
 
     render() {
@@ -48,8 +79,8 @@ export default class MatchDetail extends Component {
 
         const shareModal = <View style={styles.shareTrdCont}>
             <View style={styles.shareImageCont}>
-            <Image style={styles.shareImage}
-                   source={require('../../res/images/share_weChat.png')}/>
+                <Image style={styles.shareImage}
+                       source={require('../../res/images/share_weChat.png')}/>
                 <Text style={styles.shareImageText}>微信</Text>
             </View>
             <View style={styles.shareImageCont}>
@@ -107,15 +138,20 @@ export default class MatchDetail extends Component {
                 </View>
                 <View style={styles.bottomCont}>
                     <View style={styles.shareCont}>
-                        <TouchableOpacity onPress={this._shareMatch.bind(this)}>
+                        <TouchableOpacity onPress={this._shareMatch}>
                             <View style={styles.sharePressRange}>
                                 <Image style={styles.shareImg}
                                        source={require('../../res/images/matchInfo/share.png')}/>
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.joinCont}>
-                        <Text style={styles.joinText}>立即加入</Text>
+                    <View style={[styles.joinCont,{backgroundColor: this.state.isSendReq ? (this.state.isJoined ? "#f1a025" : "#25bff1") : '#f12b2c'}]}>
+                        <TouchableOpacity onPress={this._joinMatch}>
+                            <View>
+                                <Text
+                                    style={styles.joinText}>{this.state.isSendReq ? (this.state.isJoined ? " 已加入 " : " 已发送申请 ") : " 立即加入 "}</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -246,7 +282,6 @@ const styles = StyleSheet.create({
     },
     joinCont: {
         width: 170,
-        backgroundColor: '#f12b2c',
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
@@ -271,16 +306,16 @@ const styles = StyleSheet.create({
         paddingLeft: 60,
         paddingRight: 60
     },
-    shareImageCont:{
+    shareImageCont: {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
     },
-    shareImage:{
+    shareImage: {
         width: 45,
         height: 45
     },
-    shareImageText:{
+    shareImageText: {
         marginTop: 15
     }
 });
