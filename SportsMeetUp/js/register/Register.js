@@ -10,7 +10,7 @@ import {
     Text,
     BackHandler,
     Platform,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     TouchableHighlight,
     Image,
     ScrollView,
@@ -250,11 +250,11 @@ export default class Register extends Component {
     render() {
         const declaration = <View style={styles.declTextCont}>
             <Text style={styles.declText}>我已阅读</Text>
-            <TouchableWithoutFeedback onPress={this._backToPrevious.bind(this)}>
+            <TouchableOpacity onPress={this._backToPrevious.bind(this)}>
                 <View>
                     <Text style={styles.declTextLink}>《用户协议》</Text>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
         </View>;
 
         const succModal = <View style={styles.succModalMainCont}>
@@ -291,7 +291,7 @@ export default class Register extends Component {
                                     })
                                 }}
                             />
-                            <TouchableWithoutFeedback
+                            <TouchableOpacity
                                 onPress={() => {
                                     this._getVrfCode()
                                 }}
@@ -305,7 +305,7 @@ export default class Register extends Component {
                                         获取验证码{this.state.timeRemaining ? '(' + this.state.timeRemaining + 's)' : ''}
                                     </Text>
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
                         <TextInputConpt
                             labelCont='验证码'

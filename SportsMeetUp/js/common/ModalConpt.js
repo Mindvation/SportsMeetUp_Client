@@ -11,15 +11,19 @@ import CommonUtil from '../util/CommonUtil';
 
 const positionMapping = {
     "top": {
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
+        alignItems: "center"
     },
     "bottom": {
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        alignItems: "center"
     },
     "left": {
+        justifyContent: "center",
         alignItems: "flex-start"
     },
     "right": {
+        justifyContent: "center",
         alignItems: "flex-end"
     },
     "center": {
@@ -38,7 +42,6 @@ export default class ModalConpt extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-
     }
 
     render() {
@@ -46,25 +49,23 @@ export default class ModalConpt extends Component {
         const modalPosition = position ? positionMapping[position] : positionMapping.center;
         const opacityStyle = CommonUtil.isEmpty(opacity) ? {opacity: 0.5} : {opacity: opacity};
 
-        if (!modalVisible) {
-            return (<View/>);
-        } else {
-            return (
-                <Modal transparent={true} onRequestClose={() => {
-                    onRequestClose ? onRequestClose() : {}
-                }}>
-                    <View style={[styles.container, modalPosition]}>
-                        <Animated.View style={[styles.mask, opacityStyle]}>
-                            <TouchableWithoutFeedback onPress={() => allowClose ? closeHandle() : null}>
-                                <View style={styles.maskView}/>
-                            </TouchableWithoutFeedback>
-                        </Animated.View>
-                        <Animated.View style={styles.modalBackground}>
-                            {modalCont}
-                        </Animated.View>
-                    </View>
-                </Modal>)
-        }
+        return (
+            <Modal transparent={true}
+                   visible={modalVisible}
+                   onRequestClose={() => {
+                       onRequestClose ? onRequestClose() : {}
+                   }}>
+                <View style={[styles.container, modalPosition]}>
+                    <Animated.View style={[styles.mask, opacityStyle]}>
+                        <TouchableWithoutFeedback onPress={() => allowClose ? closeHandle() : null}>
+                            <View style={styles.maskView}/>
+                        </TouchableWithoutFeedback>
+                    </Animated.View>
+                    <Animated.View style={styles.modalBackground}>
+                        {modalCont}
+                    </Animated.View>
+                </View>
+            </Modal>)
     }
 }
 

@@ -10,7 +10,7 @@ import {
     Text,
     BackHandler,
     Platform,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     TouchableHighlight,
     Alert,
     ScrollView,
@@ -192,12 +192,12 @@ export default class Logon extends Component {
                         />
 
                         <View style={styles.forgetPwdCont}>
-                            <TouchableWithoutFeedback
+                            <TouchableOpacity
                                 onPress={this._goToPhoneNumber.bind(this)}>
                                 <View>
                                     <Text style={styles.forgetPwdTextLink}>忘记密码？</Text>
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
 
                         <View style={styles.submitBtnCont}>

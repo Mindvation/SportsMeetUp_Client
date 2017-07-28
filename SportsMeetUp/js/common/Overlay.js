@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Animated,
     View,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     ActivityIndicator
 } from 'react-native';
 
@@ -27,9 +27,9 @@ export default class ModalConpt extends Component {
         } else {
             return (<View style={styles.container}>
                 <Animated.View style={ styles.mask }>
-                    <TouchableWithoutFeedback onPress={() => allowClose ? closeHandle() : null}>
+                    <TouchableOpacity onPress={() => allowClose ? closeHandle() : null}>
                         <View/>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                 </Animated.View>
                 <Animated.View style={ styles.modalBackground }>
                     <ActivityIndicator

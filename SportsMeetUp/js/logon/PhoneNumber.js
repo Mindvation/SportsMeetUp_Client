@@ -10,7 +10,7 @@ import {
     Text,
     BackHandler,
     Platform,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     TouchableHighlight,
     Alert,
     ScrollView,

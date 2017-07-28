@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     Image
 } from 'react-native';
 
@@ -39,13 +39,13 @@ export default class CheckBoxConpt extends Component {
             <View style={styles.mainCont}>
                 {this.props.labelCont}
                 <View style={styles.checkBoxCont}>
-                    <TouchableWithoutFeedback
+                    <TouchableOpacity
                         onPress={() => {
                             this._toggleCheckBox();
                         }}
                     >
                         {this.state.isChecked ? checkedImg : uncheckedImg}
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                 </View>
             </View>
         );

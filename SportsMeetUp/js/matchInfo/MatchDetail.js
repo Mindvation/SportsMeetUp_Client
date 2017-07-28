@@ -3,11 +3,13 @@ import {
     StyleSheet,
     Text,
     View,
-    Alert,
     Image,
-    TouchableWithoutFeedback
+    TouchableOpacity,
+    Dimensions
 } from 'react-native';
 import ModalConpt from '../common/ModalConpt';
+
+const {width} = Dimensions.get('window');
 
 import Arrangement from '../../res/data/arrangement.json';
 
@@ -44,7 +46,23 @@ export default class MatchDetail extends Component {
             <Image style={styles.uniform3x}
                    source={require('../../res/images/matchInfo/uniform_add3x.png')}/>;
 
-        const succModal = <View style={styles.shareTrdCont}/>
+        const shareModal = <View style={styles.shareTrdCont}>
+            <View style={styles.shareImageCont}>
+            <Image style={styles.shareImage}
+                   source={require('../../res/images/share_weChat.png')}/>
+                <Text style={styles.shareImageText}>微信</Text>
+            </View>
+            <View style={styles.shareImageCont}>
+                <Image style={styles.shareImage}
+                       source={require('../../res/images/share_weiBo.png')}/>
+                <Text style={styles.shareImageText}>微博</Text>
+            </View>
+            <View style={styles.shareImageCont}>
+                <Image style={styles.shareImage}
+                       source={require('../../res/images/share_qq.png')}/>
+                <Text style={styles.shareImageText}>QQ</Text>
+            </View>
+        </View>;
         const arrangeArray = arrangeInfo.arrange;
         const contHeight = arrangeInfo.contHeight;
         return (<View style={[styles.mainCont, {height: contHeight}]}>
@@ -89,9 +107,12 @@ export default class MatchDetail extends Component {
                 </View>
                 <View style={styles.bottomCont}>
                     <View style={styles.shareCont}>
-                        <TouchableWithoutFeedback onPress={this._shareMatch.bind(this)}>
-                            <Image style={styles.shareImg} source={require('../../res/images/matchInfo/share.png')}/>
-                        </TouchableWithoutFeedback>
+                        <TouchableOpacity onPress={this._shareMatch.bind(this)}>
+                            <View style={styles.sharePressRange}>
+                                <Image style={styles.shareImg}
+                                       source={require('../../res/images/matchInfo/share.png')}/>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.joinCont}>
                         <Text style={styles.joinText}>立即加入</Text>
@@ -100,7 +121,7 @@ export default class MatchDetail extends Component {
             </View>
             <ModalConpt
                 allowClose={true}
-                modalCont={succModal}
+                modalCont={shareModal}
                 modalVisible={this.state.shareModalVisible}
                 opacity={0}
                 position="bottom"
@@ -216,6 +237,10 @@ const styles = StyleSheet.create({
         width: 120,
         backgroundColor: '#191919',
         height: 40,
+    },
+    sharePressRange: {
+        width: 120,
+        height: 40,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -237,8 +262,25 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     shareTrdCont: {
-        width: 500,
-        height: 200,
-        backgroundColor: '#d2dc2c'
+        width: width,
+        height: 130,
+        backgroundColor: '#ffffff',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        paddingLeft: 60,
+        paddingRight: 60
+    },
+    shareImageCont:{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    shareImage:{
+        width: 45,
+        height: 45
+    },
+    shareImageText:{
+        marginTop: 15
     }
 });

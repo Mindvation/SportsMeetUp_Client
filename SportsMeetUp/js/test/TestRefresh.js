@@ -7,7 +7,7 @@ const {
     StyleSheet,
     RefreshControl,
     Text,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     View,
 } = ReactNative;
 
@@ -34,13 +34,13 @@ const Row = React.createClass({
     },
     render: function() {
         return (
-            <TouchableWithoutFeedback onPress={this._onClick} >
+            <TouchableOpacity onPress={this._onClick} >
                 <View style={styles.row}>
                     <Text style={styles.text}>
                         {this.props.data.text + ' (' + this.props.data.clicks + ' clicks)'}
                     </Text>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
         );
     },
 });

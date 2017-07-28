@@ -4,7 +4,7 @@ import {
     Text,
     View,
     TextInput,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     Image
 } from 'react-native';
 
@@ -56,23 +56,23 @@ export default class TextInputConpt extends Component {
     render() {
         const {labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, onChange} = this.props;
 
-        const clearBtn = <TouchableWithoutFeedback onPress={() => {
+        const clearBtn = <TouchableOpacity onPress={() => {
             this._clearValue()
         }}>
             <Image style={styles.inputRightBtn} source={require('../../res/images/clear.png')}></Image>
-        </TouchableWithoutFeedback>;
+        </TouchableOpacity>;
 
-        const hiddenPwdBtn = <TouchableWithoutFeedback onPress={() => {
+        const hiddenPwdBtn = <TouchableOpacity onPress={() => {
             this._toggleSecure()
         }}>
             <Image style={styles.inputRightBtn} source={require('../../res/images/hidePwd.png')}></Image>
-        </TouchableWithoutFeedback>;
+        </TouchableOpacity>;
 
-        const showPwdBtn = <TouchableWithoutFeedback onPress={() => {
+        const showPwdBtn = <TouchableOpacity onPress={() => {
             this._toggleSecure()
         }}>
             <Image style={styles.inputRightBtn} source={require('../../res/images/showPwd.png')}></Image>
-        </TouchableWithoutFeedback>;
+        </TouchableOpacity>;
 
         return (
             <View style={[styles.inputCont, isHideBorder ? null : {

@@ -3,9 +3,9 @@ import {
     StyleSheet,
     Text,
     View,
-    Platform,
+    TouchableWithoutFeedback,
     Image,
-    TouchableWithoutFeedback
+    TouchableOpacity
 } from 'react-native';
 
 export default class ModalConpt extends Component {
@@ -23,19 +23,26 @@ export default class ModalConpt extends Component {
 
     render() {
 
-        const languageBtn = this.props.hiddenRightBtn ? null : <TouchableWithoutFeedback onPress={() => {
-        }}>
-            <View style={styles.rightBtnCont}><Text style={styles.rightBtnText}>中文</Text></View>
-        </TouchableWithoutFeedback>;
+        const languageBtn = this.props.hiddenRightBtn ? null :
+            <View style={styles.rightBtnCont}>
+                <TouchableOpacity onPress={() => {
+                }}>
+                    <Text style={styles.rightBtnText}>中文</Text>
+                </TouchableOpacity>
+            </View>;
 
         const titleView = this.props.title ? <View style={styles.titleCont}>
             <Text style={styles.titleText}>{this.props.title}</Text></View> : <View style={styles.titleCont}/>;
 
         return (<View style={styles.header}>
-            <TouchableWithoutFeedback onPress={this._backToPrevious.bind(this)}>
-                <Image style={styles.leftBtn}
-                       source={require('../../res/images/backbtn_android.png')}></Image>
-            </TouchableWithoutFeedback>
+            <View style={styles.leftBtnCont}>
+                <TouchableOpacity onPress={this._backToPrevious.bind(this)}>
+                    <View style={styles.leftBtnRange}>
+                        <Image style={styles.leftBtn}
+                               source={require('../../res/images/backbtn_android.png')}></Image>
+                    </View>
+                </TouchableOpacity>
+            </View>
             {titleView}
             {languageBtn}
         </View>)
@@ -49,22 +56,33 @@ const styles = StyleSheet.create({
         height: 48,
         backgroundColor: '#272727'
     },
-    leftBtn:{
-        position: 'absolute',
-        left: 15,
+    leftBtn: {
         width: 25,
         height: 25
+    },
+    leftBtnCont: {
+        position: 'absolute',
+        height: 48,
+        width: 50,
+        top: 0,
+        left: 0,
+    },
+    leftBtnRange: {
+        height: 48,
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     titleCont: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    titleText:{
+    titleText: {
         color: '#E8E8E8',
         fontSize: 17
     },
-    rightBtnCont:{
+    rightBtnCont: {
         position: 'absolute',
         right: 15
     },

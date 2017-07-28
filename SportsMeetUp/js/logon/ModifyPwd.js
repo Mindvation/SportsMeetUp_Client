@@ -10,7 +10,7 @@ import {
     Text,
     BackHandler,
     Platform,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     TouchableHighlight,
     Image,
     ScrollView,
@@ -289,7 +289,7 @@ export default class ModifyPwd extends Component {
                                     })
                                 }}
                             />
-                            <TouchableWithoutFeedback
+                            <TouchableOpacity
                                 onPress={() => {
                                     this._getVrfCode()
                                 }}
@@ -303,7 +303,7 @@ export default class ModifyPwd extends Component {
                                         {this.state.timeRemaining ? '(' + this.state.timeRemaining + 's)后再次发送' : '获取验证码'}
                                     </Text>
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
                         <TextInputConpt
                             labelCont='新密码'

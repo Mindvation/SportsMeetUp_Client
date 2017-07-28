@@ -10,8 +10,11 @@ import {
 } from 'react-native';
 import WelcomePage from './WelcomePage';
 import Navigator from 'react-native-deprecated-custom-components';
+import * as WeChat from 'react-native-wechat';
+WeChat.registerApp('appid');
 
 export default class setup extends Component {
+
     render() {
         var defaultName = 'WelcomePage';
         var defaultComponment = WelcomePage;
