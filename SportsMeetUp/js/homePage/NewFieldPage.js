@@ -15,6 +15,20 @@ import {
 } from 'react-native';
 
 import ModalDropdown from 'react-native-modal-dropdown';
+import ImagePicker from 'react-native-image-picker';
+var options = {
+  title: '选择图片',
+  takePhotoButtonTitle:'拍照',
+  chooseFromLibraryButtonTitle:'相册',
+  cancelButtonTitle:'取消',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  },
+  maxWidth:400,
+  maxHeight:400,
+  mediaType:'photo',
+};
 
 const {width, height} = Dimensions.get('window');
 
@@ -32,6 +46,9 @@ class NewFieldPage extends Component {
     	fieldType: '',
     	adminTel: '',
     	description:'',
+      image1:null,
+      image2:null,
+      image3:null
     };
   }
 
@@ -56,6 +73,29 @@ class NewFieldPage extends Component {
   	this.setState({fieldType: fieldTypeValues[index]})
   }
 
+  _pickImages(postion) {
+    ImagePicker.showImagePicker(options, (response) =>{
+      console.log('Response = ', response);
+      if (response.didCancel) {
+        
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error); 
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        let source = {uri: response.uri};
+        if (postion == 1) {
+          this.setState({image1:source});
+        } else if (postion == 2) {
+          this.setState({image2:source});
+        } else if (postion == 3) {
+          this.setState({image3:source});
+        }
+      }
+    });
+  }
+
+
   render() {
     return (
       <Modal
@@ -69,7 +109,7 @@ class NewFieldPage extends Component {
             <View style={styles.modalBackground} onPress={() => {Alert.alert('box click');}}>
               <View style={styles.modalBox}>
               	<View style={{justifyContent:'center', paddingHorizontal:18, paddingTop:24}}>
-				<View style={styles.modalItemRow}>
+				        <View style={styles.modalItemRow}>
                   <Text style={styles.text}>地点</Text>
                   <TextInput
                     style={styles.textInput}
@@ -113,11 +153,21 @@ class NewFieldPage extends Component {
                   value={this.state.description}/>
                 <Text style={styles.text}>添加图片</Text>
                 <View style={styles.imageContainer}>
-                  <TouchableOpacity>
-                    <Image source={require('../../res/images/add_pic.png')}/>
+                  <TouchableOpacity onPress={() => this._pickImages(1)}>
+                    <Image style={styles.image} 
+                      resizeMode='cover'
+                      source={this.state.image1 ? this.state.image1 : require('../../res/images/add_pic.png')}/>
                   </TouchableOpacity>
-                  <Image source={require('../../res/images/add_pic.png')}/>
-                  <Image source={require('../../res/images/add_pic.png')}/>
+                  <TouchableOpacity onPress={() => this._pickImages(2)}>
+                    <Image style={styles.image} 
+                      resizeMode='cover'
+                      source={this.state.image2 ? this.state.image2 : require('../../res/images/add_pic.png')}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this._pickImages(3)}>
+                    <Image style={styles.image} 
+                      resizeMode='cover'
+                      source={this.state.image3 ? this.state.image3 : require('../../res/images/add_pic.png')}/>
+                  </TouchableOpacity>
                 </View>
               	</View>
 	            <Button style={styles.button} title='提交' color='#df3939' onPress={() => this._handleSubmitClick()}></Button>
@@ -203,12 +253,19 @@ const styles = StyleSheet.create({
     marginBottom: 24
   },
 
+  image:{
+    width:56, 
+    height:50, 
+    resizeMode: 'contain', 
+    backgroundColor:'#00ffff'
+  },
+
   button:{
     width: width * 0.8,
     height: 40,
     borderBottomLeftRadius:4,
     borderBottomRightRadius:4,
-  }
+  },
 });
 
 
