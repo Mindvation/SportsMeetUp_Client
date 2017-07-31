@@ -15,35 +15,36 @@ import {
 import {MapView, Marker, Polyline} from 'react-native-amap3d'
 
 import NewFieldPage from './NewFieldPage'
+import MatchInfo from '../matchInfo/MatchInfo';
 
 
 var EARTH_RADIUS = 6378137.0;    //单位M  
-var PI = Math.PI;  
-      
-function getRad(d){  
-  return d*PI/180.0;  
-}  
-      
-    /** 
-     * caculate the great circle distance 
-     * @param {Object} lat1 
-     * @param {Object} lng1 
-     * @param {Object} lat2 
-     * @param {Object} lng2 
-     */  
-    function getGreatCircleDistance(lat1,lng1,lat2,lng2){  
+var PI = Math.PI;
+
+function getRad(d){
+  return d*PI/180.0;
+}
+
+    /**
+     * caculate the great circle distance
+     * @param {Object} lat1
+     * @param {Object} lng1
+     * @param {Object} lat2
+     * @param {Object} lng2
+     */
+    function getGreatCircleDistance(lat1,lng1,lat2,lng2){
         var radLat1 = getRad(lat1);
         var radLat2 = getRad(lat2);
-          
+
         var a = radLat1 - radLat2;
         var b = getRad(lng1) - getRad(lng2);
-          
+
         var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
         s = s*EARTH_RADIUS;
         s = Math.round(s*10000)/10000.0;
 
         return s;
-    }  
+    }
 
 
 class HomePage extends Component {
@@ -65,7 +66,7 @@ class HomePage extends Component {
   componentDidMount() {
 
   }
-  
+
   createMakerIcon(fieldType) {
   	if (fieldType == 'football') {
   		return <Image source={require('../../res/images/football.png')} />;
@@ -80,7 +81,7 @@ class HomePage extends Component {
   	var markers = [];
   	for (let i = this.playgrounds.length - 1; i >= 0; i--) {
   		markers.push(
-  		  <Marker 
+  		  <Marker
   		  	infoWindowEnabled={false}
   		  	onPress={() => this._onMarkerClick(i)}
 		    icon={() => this.createMakerIcon(this.playgrounds[i].fieldType)}
@@ -130,7 +131,7 @@ class HomePage extends Component {
       hasMatches: 'N',
       gpsLocation:{
         latitude: 34.190849,
-        longitude: 108.962758,        
+        longitude: 108.962758,
       },
       fieldType: 'football'
     },
@@ -167,7 +168,13 @@ class HomePage extends Component {
 
   // 比赛信息
   _onPressGameInfo(fieldInfo) {
-    Alert.alert('比赛信息' + fieldInfo.filedLocation);
+      const {navigator} = this.props;
+          navigator.push({
+              component: MatchInfo,
+              name: 'MatchInfoPage',
+              params:{
+              }
+          });
   }
 
   _onPressActionField() {
@@ -190,7 +197,7 @@ class HomePage extends Component {
       let dis = getGreatCircleDistance(this.playgrounds[i].gpsLocation.latitude, this.playgrounds[i].gpsLocation.longitude, this.userLocation.latitude, this.userLocation.longitude);
       if (minIndex == -1) {
         minIndex = i;
-        minDis = dis;        
+        minDis = dis;
       } else{
         if (dis < minDis) {
           minIndex = i;
@@ -228,7 +235,7 @@ class HomePage extends Component {
       let dis = getGreatCircleDistance(this.playgrounds[i].gpsLocation.latitude, this.playgrounds[i].gpsLocation.longitude, this.userLocation.latitude, this.userLocation.longitude);
       if (minIndex == -1 && this.playgrounds[i].hasMatches == 'Y') {
         minIndex = i;
-        minDis = dis;        
+        minDis = dis;
       } else{
         if (dis < minDis && this.playgrounds[i].hasMatches == 'Y') {
           minIndex = i;
@@ -284,7 +291,7 @@ class HomePage extends Component {
       	  </View>
       	  <View style={styles.line}/>
       	  <View style={styles.buttonContainer}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.button}
               onPress={() => {this._onPressField(this.state.selectedPlayground);}}>
               <Image source={this.state.selectedPlayground ? require('../../res/images/field_info.png') : require('../../res/images/add_field.png')}/>
@@ -298,7 +305,7 @@ class HomePage extends Component {
               <Text style={styles.buttonText}>发起比赛</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-              disabled={!this.state.gameInfoEnabled}
+              disabled={false}
               onPress={() => {this._onPressGameInfo(this.state.selectedPlayground);}}>
               <Image source={this.state.gameInfoEnabled ? require('../../res/images/game_info_normal.png') : require('../../res/images/game_info_disable.png')}/>
               <Text style={styles.buttonText}>比赛信息</Text>
@@ -306,11 +313,11 @@ class HomePage extends Component {
       	  </View>
       	</View>
       	<View style={styles.floatContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={() => {this._onPressActionField()}}>
             <Image source={require('../../res/images/action_field.png')}/>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={{marginTop:20}}
             onPress={() => {this._onPressActionMatch();}}>
             <Image source={require('../../res/images/action_match.png')}/>
@@ -347,7 +354,7 @@ const styles = StyleSheet.create({
 		marginBottom:25
 	},
 	button:{
-		flexDirection:'column', 
+		flexDirection:'column',
 		alignItems:'center'
 	},
 	buttonText:{
@@ -363,8 +370,8 @@ const styles = StyleSheet.create({
 		paddingBottom:20,
 	},
 	fieldTitle: {
-		marginLeft:16, 
-		fontSize:18, 
+		marginLeft:16,
+		fontSize:18,
 		fontWeight:'bold'
 	}
 });

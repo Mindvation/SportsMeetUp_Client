@@ -10,7 +10,7 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 import HomePage from './HomePage'
 import Nearby from './Nearby'
-import Profile from './Profile'
+import PersonalCenter from '../personal/PersonalCenter'
 
 
 class TabPage extends Component {
@@ -34,7 +34,7 @@ class TabPage extends Component {
 		      renderIcon={() => <Image source={require('../../res/images/home_normal.png')} />}
 		      renderSelectedIcon={() => <Image source={require('../../res/images/home_selected.png')} />}
 		      onPress={() => this.setState({ selectedTab: 'home' })}>
-		      <HomePage/>
+		      <HomePage navigator = {this.props.navigator}/>
 		    </TabNavigator.Item>
 		    <TabNavigator.Item
 		      selected={this.state.selectedTab === 'nearby'}
@@ -54,7 +54,7 @@ class TabPage extends Component {
 		      renderIcon={() => <Image source={require('../../res/images/profile_normal.png')} />}
 		      renderSelectedIcon={() => <Image source={require('../../res/images/profile_selected.png')} />}
 		      onPress={() => this.setState({ selectedTab: 'profile' })}>
-		      <Profile/>
+		      <PersonalCenter/>
 		    </TabNavigator.Item>
 		  </TabNavigator>
     	</View>
