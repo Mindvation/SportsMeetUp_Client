@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    TouchableHighlight,
+    TouchableOpacity,
     View
 } from 'react-native';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
@@ -33,7 +33,7 @@ export default class SwipeList extends Component {
                     <SwipeListView
                         dataSource={this.ds.cloneWithRows(this.state.listViewData)}
                         renderRow={ data => (
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 onPress={ _ => console.log('You touched me') }
                                 style={styles.rowFront}
                                 underlayColor={'#AAA'}
@@ -41,7 +41,7 @@ export default class SwipeList extends Component {
                                 <View >
                                     <Text style={styles.msgText}>There is a meeting will be hold on 11:00~12:00</Text>
                                 </View>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         )}
                         renderHiddenRow={ (data, secId, rowId, rowMap) => (
                             <View style={styles.hiddenRow}>

@@ -7,7 +7,6 @@ import {
   Text,
   Button,
   Modal,
-  TouchableHighlight,
   TouchableOpacity,
   TextInput,
   Dimensions,

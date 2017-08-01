@@ -9,7 +9,7 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableHighlight,
+    TouchableOpacity,
     Share,
 } from 'react-native';
 
@@ -31,18 +31,18 @@ export default class TestWeChat extends Component {
     render() {
         return (
             <View>
-                <TouchableHighlight style={styles.wrapper}
+                <TouchableOpacity style={styles.wrapper}
                                     onPress={this._shareMessage}>
                     <View style={styles.button}>
                         <Text>Click to share message</Text>
                     </View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.wrapper}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.wrapper}
                                     onPress={this._shareImage.bind(this)}>
                     <View style={styles.button}>
                         <Text>Click to share Image</Text>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <Text>{this.state.result}</Text>
             </View>
         );

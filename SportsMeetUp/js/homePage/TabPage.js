@@ -54,7 +54,7 @@ class TabPage extends Component {
 		      renderIcon={() => <Image source={require('../../res/images/profile_normal.png')} />}
 		      renderSelectedIcon={() => <Image source={require('../../res/images/profile_selected.png')} />}
 		      onPress={() => this.setState({ selectedTab: 'profile' })}>
-		      <PersonalCenter/>
+		      <PersonalCenter navigator = {this.props.navigator}/>
 		    </TabNavigator.Item>
 		  </TabNavigator>
     	</View>

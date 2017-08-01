@@ -8,7 +8,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
-    TouchableHighlight,
+    TouchableOpacity,
     Image,
     Platform,
     View
@@ -54,18 +54,15 @@ export default class MainPage extends Component {
                     </View>
                     <View style={styles.signUpCont}>
                         <View style={styles.signUpBtnCont}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 onPress={() => {
                                     this._signUp();
                                 }}
-                                activeOpacity={0.7}
                                 style={styles.signUpButton}
-                                underlayColor="#dc3434"
                             >
                                 <Text style={styles.signUpText}>注册</Text>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
-
                         <View style={styles.logInCont}>
                             <Text style={styles.commonFont}>已拥有账号</Text>
                             <Text

@@ -11,7 +11,6 @@ import {
     BackHandler,
     Platform,
     TouchableOpacity,
-    TouchableHighlight,
     Image,
     ScrollView,
     View,
@@ -83,7 +82,7 @@ export default class ModifyPwd extends Component {
 
     _getVrfCodeFromServer() {
         const options = {
-            "url": '/sports-meetup/users/getVerificationCode',
+            "url": '8888/sports-meetup/users/getVerificationCode',
             "params": {
                 "phoneNumber": this.state.phoneNumber
             },
@@ -188,11 +187,11 @@ export default class ModifyPwd extends Component {
 
     _submitPwdData() {
         const options = {
-            "url": '/sports-meetup/users/addUser',
+            "url": '8888/sports-meetup/users/updatePassword',
             "params": {
                 "phoneNumber": this.state.phoneNumber,
                 "verificationCode": this.state.vrfCode,
-                "password": this.state.passWord
+                "password": this.state.newPassWord
             },
             "schema": "addUser"
         };
@@ -201,7 +200,7 @@ export default class ModifyPwd extends Component {
             overlayVisible: true,
         });
 
-        FetchUtil.post(options).then((res) => {
+        FetchUtil.post(options,"PUT").then((res) => {
             this.setState({
                 succModalVisible: true,
                 overlayVisible: false
@@ -209,7 +208,7 @@ export default class ModifyPwd extends Component {
 
             DataUtil.saveData('userLogonInfo',{
                 "phoneNumber": this.state.phoneNumber,
-                "password": this.state.passWord
+                "password": this.state.newPassWord
             });
 
             interval = setInterval(() => {
@@ -221,7 +220,7 @@ export default class ModifyPwd extends Component {
                 overlayVisible: false,
             });
             Alert.alert(
-                'Error',
+                error.code,
                 error.message,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
@@ -326,16 +325,14 @@ export default class ModifyPwd extends Component {
                             }}
                         />
                         <View style={styles.submitBtnCont}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 onPress={() => {
                                     this._submitNewPassword();
                                 }}
-                                activeOpacity={0.7}
                                 style={styles.submitButton}
-                                underlayColor="#df3939"
                             >
                                 <Text style={styles.submitText}>下一步</Text>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
 
                     </ScrollView>
@@ -433,12 +430,11 @@ const styles = StyleSheet.create({
     },
     submitButton: {
         backgroundColor: '#df3939',
-        height: 38,
+        height: 50,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        opacity: 0.7,
         borderRadius: 5
     },
     submitText: {

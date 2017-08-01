@@ -245,7 +245,6 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 10,
         borderRadius: 3,
-        opacity: 0.7,
         color: '#000000'
     },
     centering: {

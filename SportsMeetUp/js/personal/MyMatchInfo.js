@@ -53,7 +53,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        padding: 15
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 15,
+        paddingBottom: 5
     },
     locationCont: {
         justifyContent: 'space-between',
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: 15,
         paddingRight: 15,
-        marginTop: 25,
+        marginTop: 15,
         marginBottom: 15
     },
     basicInfoTitle: {

@@ -9,7 +9,7 @@ const dummyRes = {
     "addUser": AddUserRes
 };
 
-const gateWay = "http://192.168.0.100:";
+const gateWay = "http://192.168.0.107:";
 export default class FetchUitl {
     /*
      *  get请求
@@ -72,14 +72,14 @@ export default class FetchUitl {
      *  data:参数
      *  callback:回调函数
      * */
-    static post(options) {
+    static post(options, method = "POST") {
         if (this.isDummy) {
             return new Promise((resolve) => {
                 resolve(dummyRes.addUser)
             });
         } else {
             const myFetch = fetch(gateWay + options.url, {
-                method: 'POST',
+                method: method,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

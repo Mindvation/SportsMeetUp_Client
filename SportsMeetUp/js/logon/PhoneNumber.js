@@ -11,7 +11,6 @@ import {
     BackHandler,
     Platform,
     TouchableOpacity,
-    TouchableHighlight,
     Alert,
     ScrollView,
     View
@@ -78,9 +77,10 @@ export default class PhoneNumber extends Component {
 
     _getVrfCodeFromServer() {
         const options = {
-            "url": '/sports-meetup/users/getVerificationCode',
+            "url": '8888/sports-meetup/users/getVerificationCode',
             "params": {
-                "phoneNumber": this.state.phoneNumber
+                "phoneNumber": this.state.phoneNumber,
+                "option": 1
             },
             "schema": "getVerificationCode"
         };
@@ -140,16 +140,14 @@ export default class PhoneNumber extends Component {
                         />
 
                         <View style={styles.submitBtnCont}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 onPress={() => {
                                     this._submitPhoneNumber();
                                 }}
-                                activeOpacity={0.7}
                                 style={styles.submitButton}
-                                underlayColor="#df3939"
                             >
                                 <Text style={styles.submitText}>下一步</Text>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
 
                     </ScrollView>
@@ -196,12 +194,11 @@ const styles = StyleSheet.create({
     },
     submitButton: {
         backgroundColor: '#df3939',
-        height: 38,
+        height: 50,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        opacity: 0.7,
         borderRadius: 5
     },
     submitText: {

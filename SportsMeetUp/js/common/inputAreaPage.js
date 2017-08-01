@@ -5,7 +5,7 @@ import {
     View,
     ScrollView,
     TextInput,
-    TouchableHighlight
+    TouchableOpacity
 } from 'react-native';
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -53,7 +53,7 @@ export default class InputArea extends Component {
                         numberOfLines = {4}
                     />
                 </ScrollView>
-                <TouchableHighlight
+                <TouchableOpacity
                     onPress={() => {
                         this.responseContent();
                     }}
@@ -62,7 +62,7 @@ export default class InputArea extends Component {
                     underlayColor='#008080'
                 >
                     <Text style={styles.logonButtonText}>OK</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
         );
     }

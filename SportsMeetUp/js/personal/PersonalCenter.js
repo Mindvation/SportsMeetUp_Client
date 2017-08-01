@@ -19,8 +19,9 @@ import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-v
 import Setting from './Setting';
 import MyInvite from './MyInvite';
 import MyMatch from './MyMatch';
+import AddTag from './AddTag';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 let photoImage, interval;
 
@@ -59,12 +60,14 @@ export default class PersonalCenter extends Component {
     }
 
     editInterestInfo() {
-
+        const {navigator} = this.props;
+        navigator.push({
+            component: AddTag,
+            name: 'AddTagPage',
+            params:{
+            }
+        });
     }
-
-    handleTabChange = (value) => this.setState(
-        {currentTab: DATA[value]}
-    );
 
     render() {
         const basketBallImg = <View style={[styles.interestIconCont, {backgroundColor: '#f8bb1b'}]}>
@@ -136,7 +139,7 @@ export default class PersonalCenter extends Component {
                         tabBarTextStyle={styles.tabBarTextStyle}
                         tabBarActiveTextColor="#ffffff"
                         tabBarInactiveTextColor="#afaeae"
-                        style={{height: 1700}}
+                        style={{height: 1300}}
                     >
                         <MyInvite tabLabel="我的邀请"/>
                         <MyMatch tabLabel="我的比赛"/>
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
     tabBarStyle: {
         height: 60,
         borderWidth: 0,
-        backgroundColor: '#272727',
+        backgroundColor: '#323232',
     },
     tabStyle: {
         height: 60

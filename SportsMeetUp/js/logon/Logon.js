@@ -11,7 +11,6 @@ import {
     BackHandler,
     Platform,
     TouchableOpacity,
-    TouchableHighlight,
     Alert,
     ScrollView,
     View
@@ -201,16 +200,14 @@ export default class Logon extends Component {
                         </View>
 
                         <View style={styles.submitBtnCont}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 onPress={() => {
                                     this._submitLogonInfo();
                                 }}
-                                activeOpacity={0.7}
                                 style={styles.submitButton}
-                                underlayColor="#df3939"
                             >
                                 <Text style={styles.submitText}>提 交</Text>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
 
                     </ScrollView>
@@ -261,12 +258,11 @@ const styles = StyleSheet.create({
     },
     submitButton: {
         backgroundColor: '#df3939',
-        height: 38,
+        height: 50,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        opacity: 0.7,
         borderRadius: 5
     },
     submitText: {
