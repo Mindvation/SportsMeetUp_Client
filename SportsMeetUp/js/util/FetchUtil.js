@@ -9,7 +9,7 @@ const dummyRes = {
     "addUser": AddUserRes
 };
 
-const gateWay = "http://192.168.0.107:";
+const gateWay = "http://192.168.0.106:";
 export default class FetchUitl {
     /*
      *  get请求

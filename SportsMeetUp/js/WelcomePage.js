@@ -11,41 +11,43 @@ import {
     InteractionManager,
     Platform,
 } from 'react-native'
-import LogonPage from './MainPage'
+import MainPage from './MainPage'
 import SplashScreen from 'react-native-splash-screen'
 import DataUtil from './util/DataUtil';
 import FetchUtil from './util/FetchUtil';
 import TabPage from './homePage/TabPage';
+import PersonalCenter from './personal/PersonalCenter';
+import MatchInfo from './matchInfo/MatchInfo';
 
 export default class WelcomePage extends Component {
 
     componentDidMount() {
         const {navigator} = this.props;
-        InteractionManager.runAfterInteractions(() => {
+        /*InteractionManager.runAfterInteractions(() => {
             SplashScreen.hide();
             navigator.resetTo({
-                component: TabPage,
-                name: 'TabPage',
+                component: PersonalCenter,
+                name: 'PersonalCenter',
                 params:{
                 }
             });
-        });
+        });*/
 
-        /*DataUtil.getData('userLogonInfo').then((res) => {
+        DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
         }).catch((error) => {
             InteractionManager.runAfterInteractions(() => {
                 SplashScreen.hide();
                 navigator.resetTo({
-                    component: LogonPage,
-                    name: 'LogonPage',
+                    component: MainPage,
+                    name: 'MainPage',
                     // component: TabPage,
                     // name: 'TabPage',
                     params:{
                     }
                 });
             });
-        })*/
+        })
     }
 
     componentWillUnmount() {
@@ -54,10 +56,10 @@ export default class WelcomePage extends Component {
 
     _logOnWithLocalData(userData){
         const options = {
-            "url": '/sports-meetup/users/addUser',
+            "url": '8081/sports-meetup-papi/users/login',
             "params": {
                 "phoneNumber": userData.phoneNumber,
-                "password": userData.passWord
+                "password": userData.password
             },
         };
         const {navigator} = this.props;
@@ -75,8 +77,8 @@ export default class WelcomePage extends Component {
             InteractionManager.runAfterInteractions(() => {
                 SplashScreen.hide();
                 navigator.resetTo({
-                    component: LogonPage,
-                    name: 'LogonPage',
+                    component: MainPage,
+                    name: 'MainPage',
                     params:{
                     }
                 });

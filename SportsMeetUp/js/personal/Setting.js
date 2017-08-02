@@ -12,16 +12,29 @@ import {
     Image,
     View,
 } from 'react-native';
+import Security from "./Security";
 
 export default class Setting extends Component {
     constructor(props) {
         super(props);
         this.goToScore = this.goToScore.bind(this);
+        this.goToSecurity = this.goToSecurity.bind(this);
         this.state = {};
     }
 
     goToScore() {
 
+    }
+
+    goToSecurity(){
+        const {navigator} = this.props;
+        navigator.push({
+            component: Security,
+            name: 'SecurityPage',
+            params: {
+
+            }
+        });
     }
 
     render() {
@@ -41,7 +54,7 @@ export default class Setting extends Component {
             {
                 "image": security,
                 "text": "账号安全",
-                "event": this.goToScore
+                "event": this.goToSecurity
             },
             {
                 "image": socreImg,

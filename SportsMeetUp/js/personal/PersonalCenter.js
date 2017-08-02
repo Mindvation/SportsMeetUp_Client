@@ -20,12 +20,11 @@ import Setting from './Setting';
 import MyInvite from './MyInvite';
 import MyMatch from './MyMatch';
 import AddTag from './AddTag';
+import MyInterest from "./MyInterest";
 
 const {width} = Dimensions.get('window');
 
 let photoImage, interval;
-
-const interests = ['b', 'f', 't'];
 
 export default class PersonalCenter extends Component {
     constructor(props) {
@@ -33,7 +32,8 @@ export default class PersonalCenter extends Component {
         this.editPersonalInfo = this.editPersonalInfo.bind(this);
         this.editInterestInfo = this.editInterestInfo.bind(this);
         this.state = {
-            isShowPhoto: false
+            isShowPhoto: false,
+            myTags: ["basketBall", "pingPang", "bowling"]
         };
     }
 
@@ -64,30 +64,21 @@ export default class PersonalCenter extends Component {
         navigator.push({
             component: AddTag,
             name: 'AddTagPage',
-            params:{
+            params: {
+                myTags: this.state.myTags,
+                getTags: (option) => {
+                    this.setState({
+                        myTags: option
+                    })
+                }
             }
         });
     }
 
     render() {
-        const basketBallImg = <View style={[styles.interestIconCont, {backgroundColor: '#f8bb1b'}]}>
-            <Image source={require('../../res/images/me/basketball.png')}
-                   style={styles.interestIcon}/>
-        </View>;
-        const footBallImg = <View style={[styles.interestIconCont, {backgroundColor: '#58c80d'}]}>
-            <Image source={require('../../res/images/me/football.png')}
-                   style={styles.interestIcon}/>
-        </View>;
-        const tennisImg = <View style={[styles.interestIconCont, {backgroundColor: '#17c6ab'}]}>
-            <Image source={require('../../res/images/me/tennis.png')}
-                   style={styles.interestIcon}/>
-        </View>;
 
-        const mapping = {
-            'b': basketBallImg,
-            'f': footBallImg,
-            't': tennisImg
-        }
+        const {navigator} = this.props;
+
         return (
             <View style={styles.container}>
                 <ScrollView
@@ -117,19 +108,7 @@ export default class PersonalCenter extends Component {
                                 />
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.interestInfo}>
-                            {interests.map((result, i) => {
-                                return <View key={i}>
-                                    {mapping[result]}
-                                </View>;
-                            })}
-                            <TouchableOpacity onPress={this.editInterestInfo}>
-                                <View style={[styles.interestIconCont, {backgroundColor: '#ffff'}]}>
-                                    <Image source={require('../../res/images/me/add.png')}
-                                           style={styles.interestIcon}/>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+                        <MyInterest myTags={this.state.myTags} edit={this.editInterestInfo}/>
                     </View>
                     <ScrollableTabView
                         renderTabBar={() => <ScrollableTabBar style={styles.tabBarStyle}
@@ -143,7 +122,7 @@ export default class PersonalCenter extends Component {
                     >
                         <MyInvite tabLabel="我的邀请"/>
                         <MyMatch tabLabel="我的比赛"/>
-                        <Setting tabLabel="其他设置"/>
+                        <Setting navigator={navigator} tabLabel="其他设置"/>
                     </ScrollableTabView>
                 </ScrollView>
             </View>
@@ -224,31 +203,5 @@ const styles = StyleSheet.create({
     editImg: {
         width: 20,
         height: 20
-    },
-    interestInfo: {
-        width: width,
-        flex: 3,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        paddingLeft: 30,
-        paddingBottom: 30,
-        paddingTop: 15,
-        paddingRight: 30 - 9
-    },
-    interestIcon: {
-        height: 25,
-        width: 25
-    },
-    interestIconCont: {
-        width: (width - 60 - 27) / 4,
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        marginRight: 9,
-        marginTop: 15,
-        opacity: 0.9
     }
 });
