@@ -12,12 +12,13 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
+#import "SplashScreen.h"  // here
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [AMapServices sharedServices].apiKey = @"ca5ddefdb5182f225c09f52e39dcc875";
+  [AMapServices sharedServices].apiKey = @"9758bedad247eee556eb4d74e44a031f";
   
   NSURL *jsCodeLocation;
 
@@ -34,6 +35,8 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+  [SplashScreen show];  // here
   return YES;
 }
 

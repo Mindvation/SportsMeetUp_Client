@@ -7,10 +7,12 @@ import {
   Text,
   Button,
   Modal,
+  TouchableHighlight,
   TouchableOpacity,
   TextInput,
   Dimensions,
   Image,
+  Platform,
 } from 'react-native';
 
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -40,7 +42,7 @@ class NewFieldPage extends Component {
     super(props);
   
     this.state = {
-    	modalVisible: true,
+    	modalVisible: false,
     	address: '',
     	fieldType: '',
     	adminTel: '',
@@ -55,6 +57,10 @@ class NewFieldPage extends Component {
   }
 
   _visibleModel(visible) {
+    if (visible == this.state.visible) {
+      return;
+    }
+    this.state.modalVisible = visible;
     this.setState({modalVisible:visible})
   }
 
@@ -96,6 +102,7 @@ class NewFieldPage extends Component {
 
 
   render() {
+    let buttonColor = Platform.select({ios: '#ffffff', android:'#df3939'});
     return (
       <Modal
           ref='modal'
@@ -110,14 +117,17 @@ class NewFieldPage extends Component {
               	<View style={{justifyContent:'center', paddingHorizontal:18, paddingTop:24}}>
 				        <View style={styles.modalItemRow}>
                   <Text style={styles.text}>地点</Text>
-                  <TextInput
+                  <View style={{flex:1, borderWidth:0, borderBottomWidth:1, borderTopWidth:0, borderLeftWidth:0, borderRightWidth:0, borderColor:'#8b8b83'}}>
+                    <TextInput
                     style={styles.textInput}
                     underlineColorAndroid='transparent'
                     keyboardType='default'
                     placeholder='请输入地址或名称'
                     placeholderTextColor='#b5b2b2'
+                    multiline={false}
                     onChangeText={(address) => this.setState({address})}
                     value={this.state.address}/>
+                  </View>
                 </View>
                 <View style={styles.modalItemRow}>
                   <Text style={styles.text}>场地类型</Text>
@@ -131,20 +141,22 @@ class NewFieldPage extends Component {
                 </View>
                 <View style={styles.modalItemRow}>
                   <Text style={styles.text}>电话号码</Text>
-                  <TextInput style={styles.textInput}
+                  <View style={{flex:1, borderWidth:0, borderBottomWidth:1, borderTopWidth:0, borderLeftWidth:0, borderRightWidth:0, borderColor:'#8b8b83'}}>
+                    <TextInput style={styles.textInput}
                     underlineColorAndroid='transparent'
                     keyboardType='numeric'
                     placeholder='清输入你的电话号码'
+                    maxLength={11}
                     placeholderTextColor='#b5b2b2'
                     onChangeText={(adminTel) => this.setState({adminTel})}
                     value={this.state.adminTel}/>
+                  </View>
                 </View>
                 <Text style={styles.text}>详细信息</Text>
                 <TextInput 
-                  style={[styles.textInput, {flex:0, borderRadius:4, borderWidth:1, marginTop:8, marginBottom:10, padding:6}]}
+                  style={[styles.textInput, {flex:0, borderRadius:4, borderWidth:1, marginTop:8, marginBottom:10, padding:6, textAlignVertical:'top'}]}
                   multiline={true}
                   numberOfLines={3}
-                  textAlignVertical='top'
                   underlineColorAndroid="transparent"
                   placeholder='请添加场地描述'
                   placeholderTextColor='#b5b2b2'
@@ -169,7 +181,10 @@ class NewFieldPage extends Component {
                   </TouchableOpacity>
                 </View>
               	</View>
-	            <Button style={styles.button} title='提交' color='#df3939' onPress={() => this._handleSubmitClick()}></Button>
+	            <Button style={styles.button} 
+                title='提交' 
+                color="#df3939" 
+                onPress={() => this._handleSubmitClick()}/>
               </View>
             </View>          
           </TouchableOpacity>
@@ -201,17 +216,17 @@ const styles = StyleSheet.create({
   },
 
   text:{
-	width:72, 
-	color:'#393939', 
-	fontSize:15
+	  width:72, 
+	  color:'#393939', 
+	  fontSize:15
   },
 
   textInput:{
     flex:1,
-    borderBottomWidth:1,
-    borderTopWidth:0,
-    borderLeftWidth:0,
-    borderRightWidth:0,
+    // borderBottomWidth:1,
+    // borderTopWidth:0,
+    // borderLeftWidth:0,
+    // borderRightWidth:0,
     padding:0,
     borderColor:'#8b8b83',
     color:'#595959',
@@ -256,7 +271,6 @@ const styles = StyleSheet.create({
     width:56, 
     height:50, 
     resizeMode: 'contain', 
-    backgroundColor:'#00ffff'
   },
 
   button:{
@@ -264,6 +278,16 @@ const styles = StyleSheet.create({
     height: 40,
     borderBottomLeftRadius:4,
     borderBottomRightRadius:4,
+    borderWidth:0,
+    // backgroundColor:'#ff0000',
+    ...Platform.select({
+      ios: {
+        backgroundColor: '#df3939',
+      },
+      android: {
+        backgroundColor: '#ffffff',
+      },
+    })
   },
 });
 

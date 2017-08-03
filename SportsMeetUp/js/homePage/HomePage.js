@@ -15,36 +15,36 @@ import {
 import {MapView, Marker, Polyline} from 'react-native-amap3d'
 
 import NewFieldPage from './NewFieldPage'
-import MatchInfo from '../matchInfo/MatchInfo';
-
+import FieldInfoView from './FieldInfoView'
+import NewMatchView from './NewMatchView'
 
 var EARTH_RADIUS = 6378137.0;    //单位M  
-var PI = Math.PI;
-
-function getRad(d){
-  return d*PI/180.0;
-}
-
-    /**
-     * caculate the great circle distance
-     * @param {Object} lat1
-     * @param {Object} lng1
-     * @param {Object} lat2
-     * @param {Object} lng2
-     */
-    function getGreatCircleDistance(lat1,lng1,lat2,lng2){
+var PI = Math.PI;  
+      
+function getRad(d){  
+  return d*PI/180.0;  
+}  
+      
+    /** 
+     * caculate the great circle distance 
+     * @param {Object} lat1 
+     * @param {Object} lng1 
+     * @param {Object} lat2 
+     * @param {Object} lng2 
+     */  
+    function getGreatCircleDistance(lat1,lng1,lat2,lng2){  
         var radLat1 = getRad(lat1);
         var radLat2 = getRad(lat2);
-
+          
         var a = radLat1 - radLat2;
         var b = getRad(lng1) - getRad(lng2);
-
+          
         var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
         s = s*EARTH_RADIUS;
         s = Math.round(s*10000)/10000.0;
 
         return s;
-    }
+    }  
 
 
 class HomePage extends Component {
@@ -59,7 +59,8 @@ class HomePage extends Component {
       selectedPlayground:null,
       createGameEnabled: false,
       gameInfoEnabled: false,
-      dataReady: false
+      dataReady: false,
+      showNewFieldModal: false,
     };
   }
 
@@ -82,6 +83,7 @@ class HomePage extends Component {
   	for (let i = this.playgrounds.length - 1; i >= 0; i--) {
   		markers.push(
   		  <Marker
+          key={this.playgrounds[i].id}
   		  	infoWindowEnabled={false}
   		  	onPress={() => this._onMarkerClick(i)}
 		    icon={() => this.createMakerIcon(this.playgrounds[i].fieldType)}
@@ -120,22 +122,38 @@ class HomePage extends Component {
 
   _onCenterLocationChange(nativeEvent) {
     this.centerLocation={latitude:nativeEvent.latitude, longitude:nativeEvent.longitude};
-    console.log(nativeEvent);
+    console.log("mapCenterChange:", nativeEvent);
+
+    if (this.state.selectedPlayground) {
+      // 存在激活的marker
+      let dis = getGreatCircleDistance(this.centerLocation.latitude, this.centerLocation.longitude, this.state.selectedPlayground.gpsLocation.latitude, this.state.selectedPlayground.gpsLocation.longitude);
+      if (dis > 100) {
+        this.setState({
+          selectedPlayground: null,
+          createGameEnabled:false,
+          gameInfoEnabled:false
+        });
+      }
+    } else {
+      // 没有激活的marker
+    }
   }
 
   // 查询附近的运动场
   _getData() {
     this.playgrounds = [
     {
+      id: 999991,
       filedLocation: '雁塔区某某足球场',
       hasMatches: 'N',
       gpsLocation:{
         latitude: 34.190849,
-        longitude: 108.962758,
+        longitude: 108.962758,        
       },
       fieldType: 'football'
     },
     {
+      id: 999992,
       filedLocation: '雁塔区某某篮球场',
       fieldType: 'basketball',
       hasMatches: 'N',
@@ -153,17 +171,17 @@ class HomePage extends Component {
   _onPressField(fieldInfo) {
     if (fieldInfo) {
       // 显示场地信息
-      Alert.alert('场馆信息'  + fieldInfo.filedLocation);
+      this.refs.fieldInfoView.visible(true)
     } else {
       // 添加场地
-      Alert.alert('添加场地');
+      this.refs.newField._visibleModel(true);
     }
   }
 
   // 发起比赛
   _onPressCreateGame(fieldInfo) {
     console.log("发起比赛");
-    Alert.alert('发起比赛'  + fieldInfo.filedLocation);
+    this.refs.newMatchView.visible(true);
   }
 
   // 比赛信息
@@ -259,7 +277,15 @@ class HomePage extends Component {
   _submitNewField(data) {
     // 添加场地提交数据
     this.refs.newField._visibleModel(false);
-    Alert.alert('todo submit new field');
+  }
+
+  _submitNewMatch(data) {
+    console.log('提交比赛信息到服务器');
+    this.refs.newMatchView.visible(false);
+  }
+
+  renderFieldModal(){
+    if (this.state.selectedPlayground) return <FieldInfoView ref='fieldInfoView' fieldInfo={this.state.selectedPlayground}/>;
   }
 
   render() {
@@ -271,11 +297,12 @@ class HomePage extends Component {
           ref='map'
           zoomLevel={16}
           locationEnabled={true}
-          showsLocationButton={false}
+          showsLocationButton={true}
           onLocation={({nativeEvent}) => this._onLocation(nativeEvent)}
           showsTraffic={false}
           rotateEnabled={false}
           tiltEnabled={false}
+          showsCompass={false}
           onStatusChange={()=>console.log('onStatusChange')}
           onStatusChangeComplete={({nativeEvent})=>this._onCenterLocationChange(nativeEvent)}
           onPress={({value}) => console.log(value)}
@@ -305,7 +332,7 @@ class HomePage extends Component {
               <Text style={styles.buttonText}>发起比赛</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-              disabled={false}
+              disabled={!this.state.gameInfoEnabled}
               onPress={() => {this._onPressGameInfo(this.state.selectedPlayground);}}>
               <Image source={this.state.gameInfoEnabled ? require('../../res/images/game_info_normal.png') : require('../../res/images/game_info_disable.png')}/>
               <Text style={styles.buttonText}>比赛信息</Text>
@@ -323,7 +350,9 @@ class HomePage extends Component {
             <Image source={require('../../res/images/action_match.png')}/>
           </TouchableOpacity>
       	</View>
-        <NewFieldPage ref='newField' commitCallback={(data) => this._submitNewField(data)}/>
+        <NewFieldPage ref='newField' visible={true} commitCallback={(data) => this._submitNewField(data)}/>
+        {this.renderFieldModal()}
+        <NewMatchView ref='newMatchView' newMatchCallback={(data) => this._submitNewMatch(data)}/>
       </View>
     );
   }
@@ -337,7 +366,8 @@ const styles = StyleSheet.create({
 		flex:1,
     flexDirection:'column',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    backgroundColor:'#0000ff'
 	},
 	line:{
 	  	height:1,
