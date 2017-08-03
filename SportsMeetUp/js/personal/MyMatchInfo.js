@@ -20,7 +20,7 @@ export default class MyMatchInfo extends Component {
     render() {
         return (
             <View>
-                {this.props.matchs.map((result, i) => {
+                {this.props.matches.map((result, i) => {
                     return <View key={i} style={styles.matchCont}>
                         <View style={styles.basicInfoCont}>
                             <Text style={styles.basicInfoTitle}>{result["title"]}</Text>

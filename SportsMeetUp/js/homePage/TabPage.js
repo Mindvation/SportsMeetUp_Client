@@ -19,6 +19,11 @@ class TabPage extends Component {
 	super(props);
 	
 	this.state = {selectedTab: 'home'};
+
+	GLOBAL.globalUserInfo = {
+		"phoneNumber": props.phoneNumber,
+		"userName": "Migan"
+	}
   }
 
   render() {

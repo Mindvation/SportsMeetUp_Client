@@ -137,6 +137,7 @@ export default class Logon extends Component {
                 component: TabPage,
                 name: 'TabPageComponent',
                 params:{
+                    "phoneNumber": this.state.phoneNumber
                 }
             });
         }

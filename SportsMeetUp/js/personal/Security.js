@@ -16,17 +16,50 @@ import {
 import Header from '../common/Header';
 import MainPage from "../MainPage";
 import DataUtil from '../util/DataUtil';
+import ModifyPwd from './ModifyPwd';
+import FetchUtil from '../util/FetchUtil';
 
 export default class Security extends Component {
     constructor(props) {
         super(props);
-        this._setNewPassword = this._setNewPassword.bind(this);
+        this._getVrfCodeFromServer = this._getVrfCodeFromServer.bind(this);
         this._logOff = this._logOff.bind(this);
         this.state = {};
     }
 
     _setNewPassword() {
+        const {navigator} = this.props;
+        navigator.push({
+            component: ModifyPwd,
+            name: 'ModifyPwdPage',
+            params: {
+                navigator: navigator
+            }
+        });
+    }
 
+    _getVrfCodeFromServer() {
+        const options = {
+            "url": '8888/sports-meetup/users/getVerificationCode',
+            "params": {
+                "phoneNumber": globalUserInfo.phoneNumber,
+                "option": 1
+            },
+            "schema": "getVerificationCode"
+        };
+
+        FetchUtil.get(options).then((res) => {
+            this._setNewPassword();
+        }).catch((error) => {
+            Alert.alert(
+                error.code,
+                error.message,
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+        })
     }
 
     _logOff() {
@@ -58,7 +91,7 @@ export default class Security extends Component {
                 <View style={styles.securityCont}>
                     <View style={styles.itemCont}>
                         <TouchableOpacity
-                            onPress={this._setNewPassword}
+                            onPress={this._getVrfCodeFromServer}
                         >
                             <Text style={styles.itemText}>
                                 设置新密码

@@ -70,7 +70,9 @@ export default class WelcomePage extends Component {
                 navigator.resetTo({
                     component: TabPage,
                     name: 'TabPageComponent',
-                    params: {}
+                    params: {
+                        "phoneNumber": userData.phoneNumber
+                    }
                 });
             }
         }).catch((error) => {

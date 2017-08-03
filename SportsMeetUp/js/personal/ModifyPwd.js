@@ -24,7 +24,7 @@ import ModalConpt from '../common/ModalConpt';
 import Overlay from '../common/Overlay';
 import Header from '../common/Header';
 import DataUtil from '../util/DataUtil';
-import TabPage from '../homePage/TabPage';
+import MainPage from '../MainPage';
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -35,7 +35,7 @@ export default class ModifyPwd extends Component {
         super(props);
         this.state = {
             timeRemaining: 10,
-            phoneNumber: props.phoneNumber,
+            phoneNumber: globalUserInfo.phoneNumber,
             vrfCode: '',
             newPassWord: '',
             confirmPassWord: '',
@@ -53,7 +53,7 @@ export default class ModifyPwd extends Component {
 
     componentWillUnmount() {
         clearInterval(interval);
-        clearInterval(interval2);
+        clearInterval(interval2)
         if (Platform.OS === 'android') {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
@@ -207,14 +207,11 @@ export default class ModifyPwd extends Component {
                 overlayVisible: false
             });
 
-            DataUtil.saveData('userLogonInfo', {
-                "phoneNumber": this.state.phoneNumber,
-                "password": this.state.newPassWord
-            });
+            DataUtil.removeData('userLogonInfo');
 
             interval2 = setInterval(() => {
                 interval2 && clearInterval(interval2);
-                this._goToHomePage();
+                this._goToMainPage();
             }, 1000)
         }).catch((error) => {
             this.setState({
@@ -232,15 +229,13 @@ export default class ModifyPwd extends Component {
 
     }
 
-    _goToHomePage() {
+    _goToMainPage() {
         const {navigator} = this.props;
         if (navigator) {
             navigator.resetTo({
-                component: TabPage,
-                name: 'TabPageComponent',
-                params: {
-                    "phoneNumber": this.state.phoneNumber
-                }
+                component: MainPage,
+                name: 'MainPageComponent',
+                params: {}
             });
         }
     }
@@ -256,7 +251,7 @@ export default class ModifyPwd extends Component {
 
         return (
             <View style={styles.container}>
-                <Header navigator={this.props.navigator}/>
+                <Header navigator={this.props.navigator} title="设置新密码" hiddenRightBtn={true}/>
                 <View style={styles.mainCont}>
                     <ScrollView
                         ref={(scrollView) => {

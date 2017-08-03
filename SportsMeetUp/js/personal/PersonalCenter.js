@@ -99,7 +99,7 @@ export default class PersonalCenter extends Component {
                                        style={styles.photoImg}
                                 />}
                             <View style={styles.nameInfo}>
-                                <Text style={styles.nameText}>Migan</Text>
+                                <Text style={styles.nameText}>{globalUserInfo.userName}</Text>
                                 <Text style={styles.freeTimeText}>周末 全天 周内 晚上</Text>
                             </View>
                             <TouchableOpacity onPress={this.editPersonalInfo}>
@@ -120,7 +120,7 @@ export default class PersonalCenter extends Component {
                         tabBarInactiveTextColor="#afaeae"
                         style={{height: 1300}}
                     >
-                        <MyInvite tabLabel="我的邀请"/>
+                        {/*<MyInvite tabLabel="我的邀请"/>*/}
                         <MyMatch tabLabel="我的比赛"/>
                         <Setting navigator={navigator} tabLabel="其他设置"/>
                     </ScrollableTabView>

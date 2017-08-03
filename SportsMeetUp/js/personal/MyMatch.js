@@ -11,9 +11,8 @@ import {
 } from 'react-native';
 
 import MyMatchInfo from './MyMatchInfo';
-import MyApplication from './MyApplication';
 
-const matchs = [
+const matches = [
     {
         "title": "5V5篮球赛",
         "date": "2017/7/31",
@@ -45,8 +44,8 @@ export default class MyMatch extends Component {
     render() {
         return (
             <View style={styles.myMatchCont}>
-                <MyMatchInfo matchs={matchs}/>
-                <MyApplication/>
+                <MyMatchInfo matches={matches}/>
+                {/*<MyApplication/>*/}
             </View>
         );
     }
