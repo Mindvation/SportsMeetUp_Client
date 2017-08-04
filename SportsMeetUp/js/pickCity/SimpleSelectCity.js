@@ -1,16 +1,8 @@
 'use strict';
 import React, {Component} from 'react';
 import {
-    Alert,
     View,
-    Text,
-    TextInput,
-    StyleSheet,
-    Platform,
-    NavigatorIOS,
-    TouchableOpacity,
-    StatusBar,
-    ScrollView
+    StyleSheet
 } from 'react-native';
 
 import Header from './Header';

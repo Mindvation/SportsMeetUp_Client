@@ -1,14 +1,10 @@
 'use strict';
 import React, {Component} from 'react';
 import {
-    Alert,
     View,
     ListView,
     Text,
-    TextInput,
     StyleSheet,
-    Platform,
-    NavigatorIOS,
     TouchableOpacity,
     StatusBar,
     Dimensions

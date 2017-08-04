@@ -3,14 +3,11 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    WebView,
     Text,
     Platform,
-    Alert,
     TouchableOpacity,
     ListView,
-    Dimensions,
-    ScrollView
+    Dimensions
 } from 'react-native';
 
 import Toast, {DURATION} from 'react-native-easy-toast';
