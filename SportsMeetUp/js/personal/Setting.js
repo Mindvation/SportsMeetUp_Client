@@ -13,6 +13,7 @@ import {
     View,
 } from 'react-native';
 import Security from "./Security";
+import ScoreCenter from './ScoreCenter';
 
 export default class Setting extends Component {
     constructor(props) {
@@ -23,7 +24,14 @@ export default class Setting extends Component {
     }
 
     goToScore() {
+        const {navigator} = this.props;
+        navigator.push({
+            component: ScoreCenter,
+            name: 'ScoreCenter',
+            params: {
 
+            }
+        });
     }
 
     goToSecurity(){

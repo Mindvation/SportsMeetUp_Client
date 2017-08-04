@@ -11,25 +11,27 @@ import TabNavigator from 'react-native-tab-navigator';
 import HomePage from './HomePage'
 import Nearby from './Nearby'
 import PersonalCenter from '../personal/PersonalCenter'
+import Util from '../util/CommonUtil'
 
 
 class TabPage extends Component {
 
   constructor(props) {
 	super(props);
-	
+
 	this.state = {selectedTab: 'home'};
 
-	GLOBAL.globalUserInfo = {
-		"phoneNumber": props.phoneNumber,
-		"userName": "Migan"
-	}
+      Util.updateGobalData("globalUserInfo",{
+          "phoneNumber": "15029616602",
+          "name": "Migan",
+          "gender": "M"
+      });
   }
 
   render() {
     return (
     	<View style={{flex:1}}>
-    	  <TabNavigator 
+    	  <TabNavigator
     		tabBarStyle={styles.tabBarStyle}>
 		    <TabNavigator.Item
 		      selected={this.state.selectedTab === 'home'}
@@ -50,7 +52,7 @@ class TabPage extends Component {
 		   	  renderSelectedIcon={() => <Image source={require('../../res/images/nearby_selected.png')} />}
 		      onPress={() => this.setState({ selectedTab: 'nearby' })}>
 		      <Nearby/>
-		    </TabNavigator.Item>		  
+		    </TabNavigator.Item>
 		    <TabNavigator.Item
 		      selected={this.state.selectedTab === 'profile'}
 		      title="个人中心"

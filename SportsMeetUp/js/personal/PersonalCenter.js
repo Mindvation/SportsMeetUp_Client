@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import Setting from './Setting';
-import MyInvite from './MyInvite';
+import ModifyInfo from './ModifyInfo';
 import MyMatch from './MyMatch';
 import AddTag from './AddTag';
 import MyInterest from "./MyInterest";
@@ -32,14 +32,10 @@ export default class PersonalCenter extends Component {
         this.editPersonalInfo = this.editPersonalInfo.bind(this);
         this.editInterestInfo = this.editInterestInfo.bind(this);
         this.state = {
-            isShowPhoto: false,
-            myTags: ["basketBall", "pingPang", "bowling"]
+            myTags: ["basketBall", "pingPang", "bowling"],
+            photo: globalUserInfo.photo,
+            name: globalUserInfo.name
         };
-    }
-
-
-    componentWillMount() {
-        this.updatePhoto();
     }
 
     //get photo from server
@@ -56,7 +52,19 @@ export default class PersonalCenter extends Component {
     }
 
     editPersonalInfo() {
-
+        const {navigator} = this.props;
+        navigator.push({
+            component: ModifyInfo,
+            name: 'ModifyInfoPage',
+            params: {
+                updateInfo: (option) =>{
+                    this.setState({
+                        photo: option.photo,
+                        name: option.name
+                    })
+                }
+            }
+        });
     }
 
     editInterestInfo() {
@@ -94,12 +102,12 @@ export default class PersonalCenter extends Component {
                                style={styles.bgImage}
                         />
                         <View style={styles.basicInfo}>
-                            {this.state.isShowPhoto ? photoImage :
-                                <Image source={require('../../res/images/me/photo_default.png')}
+                            {this.state.photo ? <Image style={styles.photoImg} source={this.state.photo}/> :
+                                <Image source={require('../../res/images/me/photo.png')}
                                        style={styles.photoImg}
                                 />}
                             <View style={styles.nameInfo}>
-                                <Text style={styles.nameText}>{globalUserInfo.userName}</Text>
+                                <Text style={styles.nameText}>{this.state.name}</Text>
                                 <Text style={styles.freeTimeText}>周末 全天 周内 晚上</Text>
                             </View>
                             <TouchableOpacity onPress={this.editPersonalInfo}>

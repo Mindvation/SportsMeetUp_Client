@@ -1,0 +1,330 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, {Component} from 'react';
+import {
+    StyleSheet,
+    Text,
+    BackHandler,
+    Platform,
+    TouchableOpacity,
+    Image,
+    ScrollView,
+    View,
+    Alert
+} from 'react-native';
+import TextInputConpt from '../common/TextInputConpt';
+import Toast, {DURATION} from 'react-native-easy-toast';
+import ModalConpt from '../common/ModalConpt';
+import Overlay from '../common/Overlay';
+import Header from '../common/Header';
+import ImagePicker from 'react-native-image-picker';
+import Radio from '../common/Radio';
+import Util from '../util/CommonUtil';
+import Main from '../pickCity/SimpleSelectCity';
+
+const dismissKeyboard = require('dismissKeyboard');
+
+const options = {
+    title: '选择图片',
+    takePhotoButtonTitle: '拍照',
+    chooseFromLibraryButtonTitle: '相册',
+    cancelButtonTitle: '取消',
+    storageOptions: {
+        skipBackup: true,
+        path: 'images'
+    },
+    maxWidth: 400,
+    maxHeight: 400,
+    mediaType: 'photo',
+};
+
+gender_props = [
+    {label: '男', value: "M"},
+    {label: '女', value: "F"}
+];
+
+export default class ModifyInfo extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            photo: globalUserInfo.photo,
+            gender: globalUserInfo.gender,
+            name: globalUserInfo.name
+        };
+    }
+
+    componentWillMount() {
+        if (Platform.OS === 'android') {
+            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
+
+    componentWillUnmount() {
+        if (Platform.OS === 'android') {
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
+
+    onBackAndroid = () => {
+        dismissKeyboard();
+        const {navigator} = this.props;
+        const routers = navigator.getCurrentRoutes();
+        console.log('当前路由长度：' + routers.length);
+        if (routers.length > 1) {
+            navigator.pop();
+            return true;//接管默认行为
+        }
+        return false;//默认行为
+    };
+
+    _pickImages() {
+        dismissKeyboard();
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                let source = {uri: response.uri};
+                this.setState({
+                    photo: source
+                })
+            }
+        });
+    }
+
+    _modifyUserInfo() {
+        Util.updateGobalData("globalUserInfo", {
+            "name": this.state.name,
+            "gender": this.state.gender,
+            "photo": this.state.photo
+        });
+
+        if (this.props.updateInfo) {
+            this.props.updateInfo({
+                "name": this.state.name,
+                "photo": this.state.photo
+            })
+        }
+
+        const {navigator} = this.props;
+        if (navigator) {
+            navigator.pop();
+        }
+    }
+
+    _pickCity() {
+        const {navigator} = this.props;
+        if (navigator) {
+            navigator.push({
+                component: Main,
+                name: 'Main',
+                params: {}
+            });
+        }
+    }
+
+    render() {
+        const succModal = <View style={styles.succModalMainCont}>
+            <View style={styles.succModalCont}>
+                <Image style={styles.succModalImage}
+                       source={require('../../res/images/success.png')}/>
+                <Text style={styles.succModalText}>信息修改成功</Text>
+            </View>
+        </View>;
+
+        return (
+            <View style={styles.container}>
+                <Header navigator={this.props.navigator} title="编辑" hiddenRightBtn={true}/>
+                <View style={styles.mainCont}>
+                    <ScrollView
+                        ref={(scrollView) => {
+                            _scrollView = scrollView;
+                        }}
+                        automaticallyAdjustContentInsets={false}
+                        horizontal={false}
+                        keyboardShouldPersistTaps="handled"
+                    >
+                        <View style={styles.editPhoto}>
+                            <Text style={styles.editPhotoText}>头像</Text>
+                            <TouchableOpacity onPress={() => this._pickImages()}>
+                                <Image style={styles.photoImg}
+                                       source={this.state.photo ? this.state.photo : require('../../res/images/me/photo.png')}/>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.otherInfo}>
+                            <View style={[styles.editItem, {paddingLeft: 0, paddingRight: 0}]}>
+                                <TextInputConpt
+                                    labelCont=''
+                                    placeholder=''
+                                    isPassword={false}
+                                    isShowClear={true}
+                                    isHideBorder={true}
+                                    onChange={(value) => {
+                                        this.setState({
+                                            name: value
+                                        })
+                                    }}
+                                    value={globalUserInfo.name}
+                                    style={{
+                                        fontSize: 24,
+                                        marginLeft: 0
+                                    }}
+                                />
+                            </View>
+                            <View style={styles.editItem}>
+                                <Text style={{fontSize: 15, color: '#000000'}}>常在地址：</Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        this._pickCity();
+                                    }}
+                                >
+                                    <Text>xian</Text>
+                                </TouchableOpacity>
+
+                            </View>
+                            <View style={styles.editItem}>
+                                <Radio options={gender_props}
+                                       onPress={(value) => {
+                                           this.setState({gender: value})
+                                       }}
+                                       initial={globalUserInfo.gender}
+                                       textStyle={{
+                                           fontSize: 15
+                                       }}
+                                />
+                            </View>
+                            <View style={styles.editItem}>
+                                <Text style={{fontSize: 15}}>周末全天 周内晚上</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.submitBtnCont}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    this._modifyUserInfo();
+                                }}
+                                style={styles.submitButton}
+                            >
+                                <Text style={styles.submitText}>确 认</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                    </ScrollView>
+                </View>
+                <Toast ref="toast" position='center' style={styles.toastStyle}/>
+                <ModalConpt
+                    allowClose={false}
+                    modalCont={succModal}
+                    modalVisible={false}
+                ></ModalConpt>
+                <Overlay
+                    allowClose={false}
+                    modalVisible={false}
+                ></Overlay>
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: (Platform.OS === 'ios') ? 20 : 0,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    mainCont: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    submitBtnCont: {
+        flexDirection: 'row',
+        marginTop: 27,
+        paddingLeft: 15,
+        paddingRight: 15
+    },
+    submitButton: {
+        backgroundColor: '#df3939',
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        borderRadius: 5
+    },
+    submitText: {
+        color: '#ffffff',
+        fontSize: 17
+    },
+    succModalMainCont: {
+        marginLeft: 55,
+        marginRight: 55,
+        flexDirection: 'row'
+    },
+    succModalCont: {
+        height: 73,
+        borderRadius: 5,
+        backgroundColor: '#ffffff',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
+    },
+    succModalImage: {
+        height: 25,
+        width: 25,
+        marginRight: 25
+    },
+    succModalText: {
+        fontSize: 17,
+        color: '#000000'
+    },
+    toastStyle: {
+        paddingLeft: 15,
+        paddingRight: 15
+    },
+    photoImg: {
+        borderRadius: 30,
+        borderWidth: 0,
+        borderColor: '#ffffff',
+        width: 60,
+        height: 60,
+    },
+    editPhoto: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#f1f1f1',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#ffffff',
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 10,
+        paddingBottom: 10
+    },
+    editPhotoText: {
+        fontSize: 17,
+        color: '#000000'
+    },
+    otherInfo: {
+        backgroundColor: '#ffffff',
+        marginTop: 10
+    },
+    editItem: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#f1f1f1',
+        height: 76,
+        justifyContent: 'center',
+        paddingLeft: 15,
+        paddingRight: 15
+    }
+});

@@ -23,17 +23,17 @@ export default class WelcomePage extends Component {
 
     componentDidMount() {
         const {navigator} = this.props;
-        /*InteractionManager.runAfterInteractions(() => {
+        InteractionManager.runAfterInteractions(() => {
             SplashScreen.hide();
             navigator.resetTo({
-                component: PersonalCenter,
-                name: 'PersonalCenter',
+                component: TabPage,
+                name: 'TabPage',
                 params:{
                 }
             });
-        });*/
+        });
 
-        DataUtil.getData('userLogonInfo').then((res) => {
+        /*DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
         }).catch((error) => {
             InteractionManager.runAfterInteractions(() => {
@@ -47,7 +47,7 @@ export default class WelcomePage extends Component {
                     }
                 });
             });
-        })
+        })*/
     }
 
     componentWillUnmount() {

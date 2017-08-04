@@ -20,7 +20,7 @@ export default class TextInputConpt extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            txtValue: '',
+            txtValue: props.value,
             isSecure: true
         };
 
@@ -46,7 +46,7 @@ export default class TextInputConpt extends Component {
         })
     }
 
-    _textValueChange(text){
+    _textValueChange(text) {
         this.props.onChange ? this.props.onChange(text) : null;
         this.setState({
             txtValue: text
@@ -54,7 +54,7 @@ export default class TextInputConpt extends Component {
     }
 
     render() {
-        const {labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, onChange} = this.props;
+        const {labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, style} = this.props;
 
         const clearBtn = <TouchableOpacity onPress={() => {
             this._clearValue()
@@ -83,7 +83,7 @@ export default class TextInputConpt extends Component {
                     <Text style={styles.txtLabel}>{labelCont}</Text>
                     <TextInput
                         underlineColorAndroid={'transparent'}
-                        style={styles.txtCont}
+                        style={[styles.txtCont, style ? style : null]}
                         multiline={false}
                         placeholder={placeholder}
                         secureTextEntry={isPassword && this.state.isSecure}
@@ -137,8 +137,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 12,
         marginLeft: 17,
-        color: '#898989',
-        justifyContent: 'center',
+        color: '#898989'
     },
     inputRightBtn: {
         width: 15,

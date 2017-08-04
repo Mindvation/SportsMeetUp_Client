@@ -54,7 +54,7 @@ export default class AddTag extends Component {
         const {navigator} = this.props;
         this.props.getTags(this.state.myTags);
         if (navigator) {
-            navigator.jumpBack();
+            navigator.pop();
         }
     }
 

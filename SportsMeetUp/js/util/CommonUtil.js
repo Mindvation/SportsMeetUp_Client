@@ -17,10 +17,15 @@ export default class CommonUtil {
         return fmt;
     };
 
-    static isEmpty = function(text) {
+    static isEmpty = function (text) {
         if (text === null || text === undefined || text === "") {
             return true;
         }
         return false;
+    }
+
+    static updateGobalData(key, options) {
+        GLOBAL[key] ? null : GLOBAL[key] = {};
+        Object.assign(GLOBAL[key], options);
     }
 }
