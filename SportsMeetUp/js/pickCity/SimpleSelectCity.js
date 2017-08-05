@@ -1,9 +1,16 @@
 'use strict';
 import React, {Component} from 'react';
 import {
+    Alert,
     View,
+    Text,
+    TextInput,
     StyleSheet,
-    Platform
+    Platform,
+    NavigatorIOS,
+    TouchableOpacity,
+    StatusBar,
+    ScrollView
 } from 'react-native';
 
 import Header from './Header';
@@ -34,15 +41,15 @@ export default class SimpleSelectCity extends Component {
             showSearchResult: false,
             keyword: '',
             searchResultList: [],
-            dataList: DATA_JSON
+            allCityList: ALL_CITY_LIST,
+            hotCityList: HOT_CITY_LIST,
+            lastVisitCityList: LAST_VISIT_CITY_LIST,
+            nowCityList: NOW_CITY_LIST
         };
     }
 
     onPressBack() {
-        const {navigator} = this.props;
-        if (navigator) {
-            navigator.jumpBack();
-        }
+        alert('你选择了返回====》header back');
     }
 
     onChanegeTextKeyword(newVal) {
@@ -58,6 +65,7 @@ export default class SimpleSelectCity extends Component {
     }
 
     filterCityData(text) {
+        console.log('search for list', text);
 
         let rst = [];
         for (let idx = 0; idx < ALL_CITY_LIST.length; idx++) {
@@ -94,8 +102,10 @@ export default class SimpleSelectCity extends Component {
                     <View style={{flex:1}}>
                         <CityList
                             onSelectCity={this.onSelectCity.bind(this)}
-                            dataList={this.state.dataList}
-                        />
+                            allCityList={this.state.allCityList}
+                            hotCityList={this.state.hotCityList}
+                            lastVisitCityList={this.state.lastVisitCityList}
+                            nowCityList={this.state.nowCityList}/>
                     </View>
                 )}
 
@@ -109,7 +119,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#ffffff',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,  // 处理iOS状态栏
+        // paddingTop: Platform.OS === 'ios' ? 20 : 0,  // 处理iOS状态栏
     },
     currentCity: {
         backgroundColor: '#ffffff',

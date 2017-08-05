@@ -3,14 +3,15 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
+    WebView,
     Text,
     Platform,
+    Alert,
     TouchableOpacity,
     ListView,
     Dimensions,
-    InteractionManager
+    ScrollView
 } from 'react-native';
-import Overlay from '../common/Overlay';
 
 import Toast, {DURATION} from 'react-native-easy-toast';
 
@@ -40,15 +41,15 @@ export default class CityIndexListView extends Component {
             return dataBlob[sectionID][rowID];
         };
 
-        /*let ALL_CITY_LIST = this.props.allCityList;
+        let ALL_CITY_LIST = this.props.allCityList;
         let CURRENT_CITY_LIST = this.props.nowCityList;
         let LAST_VISIT_CITY_LIST = this.props.lastVisitCityList;
         let HOT_CITY_LIST = this.props.hotCityList;
 
-        let letterList = this._getSortLetters(ALL_CITY_LIST);*/
+        let letterList = this._getSortLetters(ALL_CITY_LIST);
 
-        let dataBlob = this.props.dataList.dataBlob;
-        /*dataBlob[key_now] = CURRENT_CITY_LIST;
+        let dataBlob = {};
+        dataBlob[key_now] = CURRENT_CITY_LIST;
         dataBlob[key_last_visit] = LAST_VISIT_CITY_LIST;
         dataBlob[key_hot] = HOT_CITY_LIST;
 
@@ -63,9 +64,9 @@ export default class CityIndexListView extends Component {
                 subList.push(cityJson);
                 dataBlob[key] = subList;
             }
-        });*/
+        });
 
-        let sectionIDs = this.props.dataList.sectionIDs;
+        let sectionIDs = Object.keys(dataBlob);
         let rowIDs = sectionIDs.map(sectionID => {
             let thisRow = [];
             let count = dataBlob[sectionID].length;
@@ -89,9 +90,9 @@ export default class CityIndexListView extends Component {
             return thisRow;
         });
 
-        /*console.log(sectionIDs);
+        console.log(sectionIDs);
         console.log(rowIDs);
-        console.log(dataBlob);*/
+        console.log(dataBlob);
 
         let ds = new ListView.DataSource({
             getRowData: getRowData,
@@ -102,21 +103,10 @@ export default class CityIndexListView extends Component {
 
         this.state = {
             dataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-            letters: sectionIDs,
-            initSize: 20,
-            overlayVisible: true
+            letters: sectionIDs
         };
 
         that = this;
-    }
-
-    componentDidMount() {
-        InteractionManager.runAfterInteractions(() => {
-            this.setState({
-                initSize: 500,
-                overlayVisible: false
-            })
-        });
     }
 
     _getSortLetters(dataList) {
@@ -184,6 +174,7 @@ export default class CityIndexListView extends Component {
     }
 
     _renderListRow(cityJson, rowId) {
+        console.log('rowId===>' + rowId + ", cityJson====>" + JSON.stringify(cityJson));
         if (rowId === key_now || rowId === key_hot || rowId === key_last_visit) {
             return that._renderListBox(cityJson, rowId);
         }
@@ -213,20 +204,12 @@ export default class CityIndexListView extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.listContainner}>
-                    <ListView ref={listView => this._listView = listView}
-                              contentContainerStyle={styles.contentContainer} dataSource={this.state.dataSource}
-                              renderRow={this._renderListRow} renderSectionHeader={this._renderListSectionHeader}
-                              enableEmptySections={true} initialListSize={this.state.initSize}/>
+                    <ListView ref={listView => this._listView = listView} contentContainerStyle={styles.contentContainer} dataSource={this.state.dataSource} renderRow={this._renderListRow} renderSectionHeader={this._renderListSectionHeader} enableEmptySections={true} initialListSize={500}/>
                     <View style={styles.letters}>
                         {this.state.letters.map((letter, index) => this._renderRightLetters(letter, index))}
                     </View>
                 </View>
-                <Toast ref="toast" position='top' positionValue={200} fadeInDuration={750} fadeOutDuration={1000}
-                       opacity={0.8}/>
-                <Overlay
-                    allowClose={false}
-                    modalVisible={this.state.overlayVisible}
-                />
+                <Toast ref="toast" position='top' positionValue={200} fadeInDuration={750} fadeOutDuration={1000} opacity={0.8}/>
             </View>
         )
     }
@@ -238,7 +221,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#F4F4F4',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,  // 处理iOS状态栏
+        // paddingTop: Platform.OS === 'ios' ? 20 : 0,  // 处理iOS状态栏
     },
     listContainner: {
         height: Dimensions.get('window').height,
@@ -258,13 +241,13 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 10,
         backgroundColor: 'transparent',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start'
-        /*alignItems: 'center',
-        justifyContent: 'center'*/
+        // justifyContent: 'flex-start',
+        // alignItems: 'flex-start'
+        alignItems:'center',
+        justifyContent:'center'
     },
     letter: {
-        height: (height - 120 ) * 4 / 100,
+        height: height * 4 / 100,
         width: width * 4 / 50,
         justifyContent: 'center',
         alignItems: 'center'
@@ -314,12 +297,17 @@ const styles = StyleSheet.create({
         borderColor: '#DBDBDB',
         marginTop: 5,
         marginBottom: 5,
+        paddingBottom: 2,
         marginLeft: 10,
         marginRight: 10,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    rowdatatextBox: {}
+    rowdatatextBox: {
+        marginTop: 8,
+        flex: 1,
+        height: 20
+    }
 
 });

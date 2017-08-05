@@ -26,8 +26,8 @@ export default class WelcomePage extends Component {
         InteractionManager.runAfterInteractions(() => {
             SplashScreen.hide();
             navigator.resetTo({
-                component: TabPage,
-                name: 'TabPage',
+                component: PersonalCenter,
+                name: 'PersonalCenter',
                 params:{
                 }
             });

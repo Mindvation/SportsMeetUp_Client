@@ -21,6 +21,7 @@ import ModifyInfo from './ModifyInfo';
 import MyMatch from './MyMatch';
 import AddTag from './AddTag';
 import MyInterest from "./MyInterest";
+import Util from '../util/CommonUtil'
 
 const {width} = Dimensions.get('window');
 
@@ -31,6 +32,11 @@ export default class PersonalCenter extends Component {
         super(props);
         this.editPersonalInfo = this.editPersonalInfo.bind(this);
         this.editInterestInfo = this.editInterestInfo.bind(this);
+        Util.updateGobalData("globalUserInfo", {
+            "phoneNumber": "15029616602",
+            "name": "Migan",
+            "gender": "M"
+        });
         this.state = {
             myTags: ["basketBall", "pingPang", "bowling"],
             photo: globalUserInfo.photo,
@@ -57,7 +63,7 @@ export default class PersonalCenter extends Component {
             component: ModifyInfo,
             name: 'ModifyInfoPage',
             params: {
-                updateInfo: (option) =>{
+                updateInfo: (option) => {
                     this.setState({
                         photo: option.photo,
                         name: option.name
@@ -83,9 +89,13 @@ export default class PersonalCenter extends Component {
         });
     }
 
+    scrollToTop() {
+    }
+
     render() {
 
         const {navigator} = this.props;
+        let _scrollView;
 
         return (
             <View style={styles.container}>
@@ -126,7 +136,9 @@ export default class PersonalCenter extends Component {
                         tabBarTextStyle={styles.tabBarTextStyle}
                         tabBarActiveTextColor="#ffffff"
                         tabBarInactiveTextColor="#afaeae"
-                        style={{height: 1300}}
+                        onChangeTab={() => {
+                            _scrollView.scrollTo({x: 0});
+                        }}
                     >
                         {/*<MyInvite tabLabel="我的邀请"/>*/}
                         <MyMatch tabLabel="我的比赛"/>
