@@ -38,15 +38,15 @@ export default class CityIndexListView extends Component {
             return dataBlob[sectionID][rowID];
         };
 
-        let ALL_CITY_LIST = this.props.allCityList;
+        /*let ALL_CITY_LIST = this.props.allCityList;
         let CURRENT_CITY_LIST = this.props.nowCityList;
         let LAST_VISIT_CITY_LIST = this.props.lastVisitCityList;
         let HOT_CITY_LIST = this.props.hotCityList;
 
-        let letterList = this._getSortLetters(ALL_CITY_LIST);
+        let letterList = this._getSortLetters(ALL_CITY_LIST);*/
 
-        let dataBlob = {};
-        dataBlob[key_now] = CURRENT_CITY_LIST;
+        let dataBlob = this.props.dataList.dataBlob;
+        /*dataBlob[key_now] = CURRENT_CITY_LIST;
         dataBlob[key_last_visit] = LAST_VISIT_CITY_LIST;
         dataBlob[key_hot] = HOT_CITY_LIST;
 
@@ -61,9 +61,9 @@ export default class CityIndexListView extends Component {
                 subList.push(cityJson);
                 dataBlob[key] = subList;
             }
-        });
+        });*/
 
-        let sectionIDs = Object.keys(dataBlob);
+        let sectionIDs = this.props.dataList.sectionIDs;
         let rowIDs = sectionIDs.map(sectionID => {
             let thisRow = [];
             let count = dataBlob[sectionID].length;
@@ -87,9 +87,9 @@ export default class CityIndexListView extends Component {
             return thisRow;
         });
 
-        console.log(sectionIDs);
+        /*console.log(sectionIDs);
         console.log(rowIDs);
-        console.log(dataBlob);
+        console.log(dataBlob);*/
 
         let ds = new ListView.DataSource({
             getRowData: getRowData,
@@ -171,7 +171,6 @@ export default class CityIndexListView extends Component {
     }
 
     _renderListRow(cityJson, rowId) {
-        console.log('rowId===>' + rowId + ", cityJson====>" + JSON.stringify(cityJson));
         if (rowId === key_now || rowId === key_hot || rowId === key_last_visit) {
             return that._renderListBox(cityJson, rowId);
         }
@@ -248,7 +247,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'*/
     },
     letter: {
-        height: height * 4 / 100,
+        height: (height - 120 ) * 4 / 100,
         width: width * 4 / 50,
         justifyContent: 'center',
         alignItems: 'center'
@@ -304,8 +303,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    rowdatatextBox: {
-
-    }
+    rowdatatextBox: {}
 
 });

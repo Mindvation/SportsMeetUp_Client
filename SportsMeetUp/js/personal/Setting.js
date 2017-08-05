@@ -14,12 +14,14 @@ import {
 } from 'react-native';
 import Security from "./Security";
 import ScoreCenter from './ScoreCenter';
+import Feedback from "./Feedback";
 
 export default class Setting extends Component {
     constructor(props) {
         super(props);
         this.goToScore = this.goToScore.bind(this);
         this.goToSecurity = this.goToSecurity.bind(this);
+        this.goToFeedback = this.goToFeedback.bind(this);
         this.state = {};
     }
 
@@ -28,6 +30,17 @@ export default class Setting extends Component {
         navigator.push({
             component: ScoreCenter,
             name: 'ScoreCenter',
+            params: {
+
+            }
+        });
+    }
+
+    goToFeedback() {
+        const {navigator} = this.props;
+        navigator.push({
+            component: Feedback,
+            name: 'Feedback',
             params: {
 
             }
@@ -72,7 +85,7 @@ export default class Setting extends Component {
             {
                 "image": helpImg,
                 "text": "帮助反馈",
-                "event": this.goToScore
+                "event": this.goToFeedback
             },
         ];
 

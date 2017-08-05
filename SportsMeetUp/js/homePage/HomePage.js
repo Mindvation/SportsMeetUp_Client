@@ -17,6 +17,7 @@ import {MapView, Marker, Polyline} from 'react-native-amap3d'
 import NewFieldPage from './NewFieldPage'
 import FieldInfoView from './FieldInfoView'
 import NewMatchView from './NewMatchView'
+import MatchInfo from '../matchInfo/MatchInfo'
 
 var EARTH_RADIUS = 6378137.0;    //单位M  
 var PI = Math.PI;  
@@ -332,7 +333,7 @@ class HomePage extends Component {
               <Text style={styles.buttonText}>发起比赛</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-              disabled={!this.state.gameInfoEnabled}
+              disabled={false}
               onPress={() => {this._onPressGameInfo(this.state.selectedPlayground);}}>
               <Image source={this.state.gameInfoEnabled ? require('../../res/images/game_info_normal.png') : require('../../res/images/game_info_disable.png')}/>
               <Text style={styles.buttonText}>比赛信息</Text>

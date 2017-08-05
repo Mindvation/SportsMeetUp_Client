@@ -30,7 +30,7 @@ export default class Header extends Component {
                 <View style={styles.cell}>
                     <Text style={[styles.title]}>{this.props.title}</Text>
                 </View>
-                <View style={[styles.cellfixed]}></View>
+                <View style={[styles.cellfixed]}/>
             </View>
         );
     }
@@ -39,7 +39,7 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        backgroundColor: '#e75404',
+        backgroundColor: '#272727',
         paddingTop: Platform.OS === 'ios'
             ? 20
             : 0, // 处理iOS状态栏

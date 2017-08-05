@@ -2,7 +2,8 @@
 import React, {Component} from 'react';
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    Platform
 } from 'react-native';
 
 import Header from './Header';
@@ -33,10 +34,7 @@ export default class SimpleSelectCity extends Component {
             showSearchResult: false,
             keyword: '',
             searchResultList: [],
-            allCityList: ALL_CITY_LIST,
-            hotCityList: HOT_CITY_LIST,
-            lastVisitCityList: LAST_VISIT_CITY_LIST,
-            nowCityList: NOW_CITY_LIST
+            dataList: DATA_JSON
         };
     }
 
@@ -57,7 +55,6 @@ export default class SimpleSelectCity extends Component {
     }
 
     filterCityData(text) {
-        console.log('search for list', text);
 
         let rst = [];
         for (let idx = 0; idx < ALL_CITY_LIST.length; idx++) {
@@ -94,10 +91,8 @@ export default class SimpleSelectCity extends Component {
                     <View style={{flex:1}}>
                         <CityList
                             onSelectCity={this.onSelectCity.bind(this)}
-                            allCityList={this.state.allCityList}
-                            hotCityList={this.state.hotCityList}
-                            lastVisitCityList={this.state.lastVisitCityList}
-                            nowCityList={this.state.nowCityList}/>
+                            dataList={this.state.dataList}
+                        />
                     </View>
                 )}
 
@@ -111,7 +106,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#ffffff',
-        // paddingTop: Platform.OS === 'ios' ? 20 : 0,  // 处理iOS状态栏
+        paddingTop: Platform.OS === 'ios' ? 20 : 0,  // 处理iOS状态栏
     },
     currentCity: {
         backgroundColor: '#ffffff',

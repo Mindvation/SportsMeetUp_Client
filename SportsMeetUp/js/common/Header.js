@@ -39,7 +39,7 @@ export default class ModalConpt extends Component {
                 <TouchableOpacity onPress={this._backToPrevious.bind(this)}>
                     <View style={styles.leftBtnRange}>
                         <Image style={styles.leftBtn}
-                               source={require('../../res/images/backbtn_android.png')}></Image>
+                               source={require('../../res/images/backbtn_android.png')}/>
                     </View>
                 </TouchableOpacity>
             </View>

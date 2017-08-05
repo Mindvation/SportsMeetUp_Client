@@ -24,7 +24,7 @@ import Header from '../common/Header';
 import ImagePicker from 'react-native-image-picker';
 import Radio from '../common/Radio';
 import Util from '../util/CommonUtil';
-import Main from '../pickCity/SimpleSelectCity';
+import SimpleSelectCity from '../pickCity/SimpleSelectCity';
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -124,8 +124,8 @@ export default class ModifyInfo extends Component {
         const {navigator} = this.props;
         if (navigator) {
             navigator.push({
-                component: Main,
-                name: 'Main',
+                component: SimpleSelectCity,
+                name: 'SimpleSelectCity',
                 params: {}
             });
         }
@@ -187,7 +187,7 @@ export default class ModifyInfo extends Component {
                                         this._pickCity();
                                     }}
                                 >
-                                    <Text>xian</Text>
+                                    <Text>西安</Text>
                                 </TouchableOpacity>
 
                             </View>
@@ -225,11 +225,11 @@ export default class ModifyInfo extends Component {
                     allowClose={false}
                     modalCont={succModal}
                     modalVisible={false}
-                ></ModalConpt>
+                />
                 <Overlay
                     allowClose={false}
                     modalVisible={false}
-                ></Overlay>
+                />
             </View>
         );
     }
@@ -323,7 +323,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#f1f1f1',
         height: 76,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        alignItems: 'center',
         paddingLeft: 15,
         paddingRight: 15
     }
