@@ -39,7 +39,10 @@ export default class SimpleSelectCity extends Component {
     }
 
     onPressBack() {
-        alert('你选择了返回====》header back');
+        const {navigator} = this.props;
+        if (navigator) {
+            navigator.jumpBack();
+        }
     }
 
     onChanegeTextKeyword(newVal) {

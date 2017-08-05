@@ -4,7 +4,8 @@ import {
     Animated,
     View,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    Modal
 } from 'react-native';
 
 export default class ModalConpt extends Component {
@@ -22,24 +23,27 @@ export default class ModalConpt extends Component {
     render() {
 
         const {color, allowClose, closeHandle, size, modalVisible} = this.props;
-        if (!modalVisible) {
-            return (<View/>);
-        } else {
-            return (<View style={styles.container}>
-                <Animated.View style={ styles.mask }>
-                    <TouchableOpacity onPress={() => allowClose ? closeHandle() : null}>
-                        <View/>
-                    </TouchableOpacity>
-                </Animated.View>
-                <Animated.View style={ styles.modalBackground }>
-                    <ActivityIndicator
-                        animating={true}
-                        color={color?color:"#0000FF"}
-                        size={size?size:"large"}
-                    />
-                </Animated.View>
-            </View>)
-        }
+        return (
+            <Modal transparent={true}
+                   visible={modalVisible}
+                   onRequestClose={() => {
+
+                   }}>
+                <View style={styles.container}>
+                    <Animated.View style={styles.mask}>
+                        <TouchableOpacity onPress={() => allowClose ? closeHandle() : null}>
+                            <View/>
+                        </TouchableOpacity>
+                    </Animated.View>
+                    <Animated.View style={styles.modalBackground}>
+                        <ActivityIndicator
+                            animating={true}
+                            color={color ? color : "#0000FF"}
+                            size={size ? size : "large"}
+                        />
+                    </Animated.View>
+                </View>
+            </Modal>)
     }
 }
 

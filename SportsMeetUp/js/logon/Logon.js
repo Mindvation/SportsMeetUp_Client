@@ -217,7 +217,7 @@ export default class Logon extends Component {
                 <Overlay
                     allowClose={false}
                     modalVisible={this.state.overlayVisible}
-                ></Overlay>
+                />
             </View>
         );
     }

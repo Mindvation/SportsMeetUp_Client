@@ -7,8 +7,10 @@ import {
     Platform,
     TouchableOpacity,
     ListView,
-    Dimensions
+    Dimensions,
+    InteractionManager
 } from 'react-native';
+import Overlay from '../common/Overlay';
 
 import Toast, {DURATION} from 'react-native-easy-toast';
 
@@ -100,10 +102,21 @@ export default class CityIndexListView extends Component {
 
         this.state = {
             dataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-            letters: sectionIDs
+            letters: sectionIDs,
+            initSize: 20,
+            overlayVisible: true
         };
 
         that = this;
+    }
+
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({
+                initSize: 500,
+                overlayVisible: false
+            })
+        });
     }
 
     _getSortLetters(dataList) {
@@ -203,13 +216,17 @@ export default class CityIndexListView extends Component {
                     <ListView ref={listView => this._listView = listView}
                               contentContainerStyle={styles.contentContainer} dataSource={this.state.dataSource}
                               renderRow={this._renderListRow} renderSectionHeader={this._renderListSectionHeader}
-                              enableEmptySections={true} initialListSize={500}/>
+                              enableEmptySections={true} initialListSize={this.state.initSize}/>
                     <View style={styles.letters}>
                         {this.state.letters.map((letter, index) => this._renderRightLetters(letter, index))}
                     </View>
                 </View>
                 <Toast ref="toast" position='top' positionValue={200} fadeInDuration={750} fadeOutDuration={1000}
                        opacity={0.8}/>
+                <Overlay
+                    allowClose={false}
+                    modalVisible={this.state.overlayVisible}
+                />
             </View>
         )
     }
