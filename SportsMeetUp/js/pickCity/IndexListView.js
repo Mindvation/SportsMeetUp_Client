@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    WebView,
+    InteractionManager,
     Text,
     Platform,
     Alert,
@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import Toast, {DURATION} from 'react-native-easy-toast';
+import Overlay from '../common/Overlay';
 
 const SECTIONHEIGHT = 30;
 const ROWHEIGHT = 40;
@@ -42,7 +43,7 @@ export default class CityIndexListView extends Component {
         };
 
         let ALL_CITY_LIST = this.props.allCityList;
-        let CURRENT_CITY_LIST = this.props.nowCityList;
+        let CURRENT_CITY_LIST = [this.props.nowCityList];
         let LAST_VISIT_CITY_LIST = this.props.lastVisitCityList;
         let HOT_CITY_LIST = this.props.hotCityList;
 
@@ -50,7 +51,7 @@ export default class CityIndexListView extends Component {
 
         let dataBlob = {};
         dataBlob[key_now] = CURRENT_CITY_LIST;
-        dataBlob[key_last_visit] = LAST_VISIT_CITY_LIST;
+        //dataBlob[key_last_visit] = LAST_VISIT_CITY_LIST;
         dataBlob[key_hot] = HOT_CITY_LIST;
 
         ALL_CITY_LIST.map(cityJson => {
@@ -103,10 +104,22 @@ export default class CityIndexListView extends Component {
 
         this.state = {
             dataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-            letters: sectionIDs
+            letters: sectionIDs,
+            initSize: 10,
+            overlayVisible: true
         };
 
         that = this;
+    }
+
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({
+                initSize: 350,
+                overlayVisible: false
+            })
+        });
+
     }
 
     _getSortLetters(dataList) {
@@ -163,7 +176,7 @@ export default class CityIndexListView extends Component {
 
     _renderListBox(cityJson, rowId) {
         return (
-            <TouchableOpacity key={'list_item_' + cityJson.id} style={styles.rowViewBox} onPress={() => {
+            <TouchableOpacity key={'hot_item_' + cityJson.id} style={styles.rowViewBox} onPress={() => {
                 that._cityNameClick(cityJson)
             }}>
                 <View style={styles.rowdataBox}>
@@ -173,9 +186,27 @@ export default class CityIndexListView extends Component {
         );
     }
 
+    _renderCurrentListBox(cityJson, rowId) {
+        return (
+            <View key={'now_item_' + cityJson.id} style={styles.rowNowViewBox}>
+                <TouchableOpacity onPress={() => {
+                    that._cityNameClick(cityJson)
+                }}>
+                    <View style={styles.rowNowdataBox}>
+                        <Text style={styles.rowdatatextBox}>{cityJson.name}</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
     _renderListRow(cityJson, rowId) {
         console.log('rowId===>' + rowId + ", cityJson====>" + JSON.stringify(cityJson));
-        if (rowId === key_now || rowId === key_hot || rowId === key_last_visit) {
+        if (rowId === key_now) {
+            return that._renderCurrentListBox(cityJson, rowId);
+        }
+
+        if (rowId === key_hot) {
             return that._renderListBox(cityJson, rowId);
         }
 
@@ -204,12 +235,20 @@ export default class CityIndexListView extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.listContainner}>
-                    <ListView ref={listView => this._listView = listView} contentContainerStyle={styles.contentContainer} dataSource={this.state.dataSource} renderRow={this._renderListRow} renderSectionHeader={this._renderListSectionHeader} enableEmptySections={true} initialListSize={500}/>
+                    <ListView ref={listView => this._listView = listView}
+                              contentContainerStyle={styles.contentContainer} dataSource={this.state.dataSource}
+                              renderRow={this._renderListRow} renderSectionHeader={this._renderListSectionHeader}
+                              enableEmptySections={true} initialListSize={this.state.initSize}/>
                     <View style={styles.letters}>
                         {this.state.letters.map((letter, index) => this._renderRightLetters(letter, index))}
                     </View>
                 </View>
-                <Toast ref="toast" position='top' positionValue={200} fadeInDuration={750} fadeOutDuration={1000} opacity={0.8}/>
+                <Toast ref="toast" position='top' positionValue={200} fadeInDuration={750} fadeOutDuration={1000}
+                       opacity={0.8}/>
+                <Overlay
+                    allowClose={false}
+                    modalVisible={this.state.overlayVisible}
+                />
             </View>
         )
     }
@@ -239,16 +278,16 @@ const styles = StyleSheet.create({
         height: height,
         top: 0,
         bottom: 0,
-        right: 10,
+        right: 0,
         backgroundColor: 'transparent',
-        // justifyContent: 'flex-start',
-        // alignItems: 'flex-start'
-        alignItems:'center',
-        justifyContent:'center'
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
+        /*alignItems: 'center',
+        justifyContent: 'center'*/
     },
     letter: {
-        height: height * 4 / 100,
-        width: width * 4 / 50,
+        height: (height - 60) * 4 / 100,
+        width: 50,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -292,6 +331,28 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#ffffff'
     },
+    rowNowViewBox: {
+        height: ROWHEIGHT_BOX,
+        flexDirection: 'row',
+        backgroundColor: '#ffffff',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    rowNowdataBox: {
+        minWidth: (width - 90) / 3,
+        borderWidth: 1,
+        borderColor: '#DBDBDB',
+        marginTop: 5,
+        marginBottom: 5,
+        paddingBottom: 2,
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     rowdataBox: {
         borderWidth: 1,
         borderColor: '#DBDBDB',
@@ -305,7 +366,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     rowdatatextBox: {
-        marginTop: 8,
+        marginTop: 4,
         flex: 1,
         height: 20
     }

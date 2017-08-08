@@ -10,7 +10,7 @@ import {
     View,
 } from 'react-native';
 
-import ApplicationInfo from './ApplicationInfo';
+import ApplicationInfo from '../personal/ApplicationInfo';
 
 const applications = [{
     "title": "5V5篮球赛",

@@ -25,6 +25,7 @@ import ImagePicker from 'react-native-image-picker';
 import Radio from '../common/Radio';
 import Util from '../util/CommonUtil';
 import SimpleSelectCity from '../pickCity/SimpleSelectCity';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -42,10 +43,12 @@ const options = {
     mediaType: 'photo',
 };
 
-gender_props = [
+const gender_props = [
     {label: '男', value: "M"},
     {label: '女', value: "F"}
 ];
+
+const freeTimeOptions = ['上午', '中午', '下午', '晚上', '全天'];
 
 export default class ModifyInfo extends Component {
     constructor(props) {
@@ -53,7 +56,12 @@ export default class ModifyInfo extends Component {
         this.state = {
             photo: globalUserInfo.photo,
             gender: globalUserInfo.gender,
-            name: globalUserInfo.name
+            name: globalUserInfo.name,
+            weekFreeTime: globalUserInfo.weekFreeTime,
+            weekendFreeTime: globalUserInfo.weekendFreeTime,
+            ftWidth1: 0,
+            ftWidth2: 0,
+            location: globalUserInfo.location
         };
     }
 
@@ -104,13 +112,18 @@ export default class ModifyInfo extends Component {
         Util.updateGobalData("globalUserInfo", {
             "name": this.state.name,
             "gender": this.state.gender,
-            "photo": this.state.photo
+            "photo": this.state.photo,
+            "weekFreeTime": this.state.weekFreeTime,
+            "weekendFreeTime": this.state.weekendFreeTime,
+            "location": this.state.location
         });
 
         if (this.props.updateInfo) {
             this.props.updateInfo({
                 "name": this.state.name,
-                "photo": this.state.photo
+                "photo": this.state.photo,
+                "weekFreeTime": this.state.weekFreeTime,
+                "weekendFreeTime": this.state.weekendFreeTime
             })
         }
 
@@ -126,9 +139,27 @@ export default class ModifyInfo extends Component {
             navigator.push({
                 component: SimpleSelectCity,
                 name: 'SimpleSelectCity',
-                params: {}
+                params: {
+                    updateLocation: (option) => {
+                        this.setState({
+                            location: option
+                        })
+                    }
+                }
             });
         }
+    }
+
+    _pickWeekFreeTime(index) {
+        this.setState({
+            weekFreeTime: freeTimeOptions[index]
+        })
+    }
+
+    _pickWeekendFreeTime(index) {
+        this.setState({
+            weekendFreeTime: freeTimeOptions[index]
+        })
     }
 
     render() {
@@ -178,6 +209,7 @@ export default class ModifyInfo extends Component {
                                         fontSize: 24,
                                         marginLeft: 0
                                     }}
+                                    contStyle={{paddingLeft: 10}}
                                 />
                             </View>
                             <View style={styles.editItem}>
@@ -187,7 +219,7 @@ export default class ModifyInfo extends Component {
                                         this._pickCity();
                                     }}
                                 >
-                                    <Text>西安</Text>
+                                    <Text style={{fontSize: 15}}>{this.state.location.name}</Text>
                                 </TouchableOpacity>
 
                             </View>
@@ -203,7 +235,40 @@ export default class ModifyInfo extends Component {
                                 />
                             </View>
                             <View style={styles.editItem}>
-                                <Text style={{fontSize: 15}}>周末全天 周内晚上</Text>
+                                <Text style={{color: '#000000', fontSize: 15}}>周末</Text>
+                                <ModalDropdown
+                                    onLayout={(event) => {
+                                        var {width} = event.nativeEvent.layout;
+                                        this.setState({
+                                            ftWidth1: width
+                                        })
+                                    }}
+                                    style={styles.dropdownButton}
+                                    textStyle={styles.dropdownText}
+                                    dropdownStyle={{width: this.state.ftWidth1}}
+                                    dropdownTextStyle={styles.dropdownTextStyle}
+                                    defaultValue={this.state.weekendFreeTime}
+                                    options={freeTimeOptions}
+                                    animated={false}
+                                    onSelect={(index) => this._pickWeekendFreeTime(index)}/>
+
+                                <Text style={{color: '#000000', fontSize: 15, marginLeft: 15}}>周内</Text>
+                                <ModalDropdown
+                                    onLayout={(event) => {
+                                        var {width} = event.nativeEvent.layout;
+                                        this.setState({
+                                            ftWidth2: width
+                                        })
+                                    }}
+                                    style={styles.dropdownButton}
+                                    textStyle={styles.dropdownText}
+                                    dropdownStyle={{width: this.state.ftWidth2}}
+                                    dropdownTextStyle={styles.dropdownTextStyle}
+                                    defaultValue={this.state.weekFreeTime}
+                                    options={freeTimeOptions}
+                                    animated={false}
+                                    onSelect={(index) => this._pickWeekFreeTime(index)}/>
+
                             </View>
                         </View>
 
@@ -220,7 +285,11 @@ export default class ModifyInfo extends Component {
 
                     </ScrollView>
                 </View>
-                <Toast ref="toast" position='center' style={styles.toastStyle}/>
+                <Toast
+                    ref="toast"
+                    position='center'
+                    style={styles.toastStyle
+                    }/>
                 <ModalConpt
                     allowClose={false}
                     modalCont={succModal}
@@ -250,7 +319,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 27,
         paddingLeft: 15,
-        paddingRight: 15
+        paddingRight: 15,
+        marginBottom: 15
     },
     submitButton: {
         backgroundColor: '#df3939',
@@ -328,5 +398,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingLeft: 15,
         paddingRight: 15
-    }
+    },
+    dropdownButton: {
+        borderWidth: 0,
+        paddingLeft: 15,
+        paddingRight: 15,
+    },
+    dropdownText: {
+        fontSize: 15
+    },
+    dropdownStyle: {},
+    dropdownTextStyle: {
+        fontSize: 15,
+    },
 });

@@ -13,21 +13,23 @@ import {
     ScrollView
 } from 'react-native';
 
-import Header from './Header';
+import Header from '../common/Header';
 import SearchBox from './SearchBox';
 import SearchResult from './SearchResult';
+import Util from '../util/CommonUtil';
 
 import CityList from './IndexListView';
 
 // 下面是数据部分
 import DATA_JSON from './city-list.json';
+
 const NOW_CITY_LIST = [
     {
-        "name": "阿里",
-        "spellName": "alidi",
-        "id": 6134,
-        "fullname": "西藏/阿里",
-        "sortLetters": "a"
+        "name": "西安",
+        "spellName": "xian",
+        "id": 6101,
+        "fullname": "陕西/西安",
+        "sortLetters": "x"
     }
 ];
 const ALL_CITY_LIST = DATA_JSON.allCityList;
@@ -44,12 +46,8 @@ export default class SimpleSelectCity extends Component {
             allCityList: ALL_CITY_LIST,
             hotCityList: HOT_CITY_LIST,
             lastVisitCityList: LAST_VISIT_CITY_LIST,
-            nowCityList: NOW_CITY_LIST
+            nowCityList: globalUserInfo.location
         };
-    }
-
-    onPressBack() {
-        alert('你选择了返回====》header back');
     }
 
     onChanegeTextKeyword(newVal) {
@@ -60,7 +58,7 @@ export default class SimpleSelectCity extends Component {
             // 在这里过滤数据结果
             let dataList = this.filterCityData(newVal);
 
-            this.setState({keyword:newVal, showSearchResult: true, searchResultList: dataList});
+            this.setState({keyword: newVal, showSearchResult: true, searchResultList: dataList});
         }
     }
 
@@ -79,17 +77,29 @@ export default class SimpleSelectCity extends Component {
 
     onSelectCity(cityJson) {
         if (this.state.showSearchResult) {
-            this.setState({showSearchResult: false, keyword:''});
+            this.setState({showSearchResult: false, keyword: ''});
         }
 
-        alert('你选择了城市====》' + cityJson.id + '#####' + cityJson.name);
+        Util.updateGobalData("globalUserInfo", {
+            "location": cityJson
+        });
+
+        const {navigator, updateLocation} = this.props;
+
+        if (updateLocation) {
+            updateLocation(cityJson)
+        }
+        if (navigator) {
+            navigator.pop();
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Header onPressBack={this.onPressBack.bind(this)} title="当前城市：北京"/>
-                <SearchBox
+                <Header navigator={this.props.navigator} title={"当前城市：" + this.state.nowCityList.name}
+                        hiddenRightBtn={true}/>
+                {/*<SearchBox
                     keyword={this.state.keyword}
                     onChanegeTextKeyword={(vv) => {
                         this.onChanegeTextKeyword(vv)
@@ -99,7 +109,7 @@ export default class SimpleSelectCity extends Component {
                     onSelectCity={this.onSelectCity.bind(this)}
                     searchResultList={this.state.searchResultList}/>)
                 : (
-                    <View style={{flex:1}}>
+                    <View style={{flex: 1}}>
                         <CityList
                             onSelectCity={this.onSelectCity.bind(this)}
                             allCityList={this.state.allCityList}
@@ -107,7 +117,15 @@ export default class SimpleSelectCity extends Component {
                             lastVisitCityList={this.state.lastVisitCityList}
                             nowCityList={this.state.nowCityList}/>
                     </View>
-                )}
+                )}*/}
+                <View style={{flex: 1}}>
+                    <CityList
+                        onSelectCity={this.onSelectCity.bind(this)}
+                        allCityList={this.state.allCityList}
+                        hotCityList={this.state.hotCityList}
+                        lastVisitCityList={this.state.lastVisitCityList}
+                        nowCityList={this.state.nowCityList}/>
+                </View>
 
             </View>
         )

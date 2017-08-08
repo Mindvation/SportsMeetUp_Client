@@ -11,7 +11,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    ScrollView
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -143,65 +144,75 @@ export default class MyInvite extends Component {
 
     render() {
         return ( <View style={styles.approveCont}>
-                {this.state.invite.map((app, k) => {
-                    return <View key={k}>
-                        <View style={[styles.borderLine, this.state.selectIndex === k ? null : {display: 'none'}]}>
-                            <View style={styles.handleInviteCont}>
-                                <View style={styles.invitePersonalCont}>
-                                    <Text style={styles.appPersonalText}>{app["invitee"]}发来一个比赛申请</Text>
-                                    <Text style={styles.appTimeText}>时间：{app["date"] + " " + app["time"]}</Text>
-                                </View>
-                                <View style={styles.locationCont}>
-                                    <Text style={styles.locationText}>地点：{app["location"]}</Text>
-                                    <Text style={styles.titleText}>{app["title"]}</Text>
-                                </View>
-                            </View>
-                            <View style={styles.bottomCont}>
-                                <View style={styles.ignoreCont}>
-                                    <TouchableOpacity onPress={() => {
-                                        this._ignoreInvitation(k)
-                                    }}>
-                                        <View>
-                                            <Text
-                                                style={styles.ignoreText}> 忽略 </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                                <View
-                                    style={styles.acceptCont}>
-                                    <TouchableOpacity onPress={() => {
-                                        this._acceptInvitation(k)
-                                    }}>
-                                        <View>
-                                            <Text
-                                                style={styles.ignoreText}> 接受申请 </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        < View style={[styles.borderLine, this.state.selectIndex === k ? {display: 'none'} : null]}>
-                            <TouchableOpacity onPress={() => this.selectApplication(k)}>
-                                <View style={styles.closeInviteCont}>
-                                    <View style={styles.closeAppPersonalCont}>
-                                        <Image source={require('../../res/images/me/photo.png')}
-                                               style={styles.photoImg}/>
-                                        <Text
-                                            style={styles.closeAppPersonalText}>{app["invitee"]}发来一个比赛申请</Text>
+                <ScrollView
+                    ref={(scrollView) => {
+                        _scrollView = scrollView;
+                    }}
+                    automaticallyAdjustContentInsets={false}
+                    horizontal={false}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    {this.state.invite.map((app, k) => {
+                        return <View key={k}>
+                            <View style={[styles.borderLine, this.state.selectIndex === k ? null : {display: 'none'}]}>
+                                <View style={styles.handleInviteCont}>
+                                    <View style={styles.invitePersonalCont}>
+                                        <Text style={styles.appPersonalText}>{app["invitee"]}发来一个比赛申请</Text>
+                                        <Text style={styles.appTimeText}>时间：{app["date"] + " " + app["time"]}</Text>
                                     </View>
-                                    <View style={styles.appTimeCont}>
-                                        <Text style={styles.closeAppTimeText}>{app["date"] + " " + app["time"]}</Text>
+                                    <View style={styles.locationCont}>
+                                        <Text style={styles.locationText}>地点：{app["location"]}</Text>
+                                        <Text style={styles.titleText}>{app["title"]}</Text>
                                     </View>
                                 </View>
-                            </TouchableOpacity>
+                                <View style={styles.bottomCont}>
+                                    <View style={styles.ignoreCont}>
+                                        <TouchableOpacity onPress={() => {
+                                            this._ignoreInvitation(k)
+                                        }}>
+                                            <View>
+                                                <Text
+                                                    style={styles.ignoreText}> 忽略 </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View
+                                        style={styles.acceptCont}>
+                                        <TouchableOpacity onPress={() => {
+                                            this._acceptInvitation(k)
+                                        }}>
+                                            <View>
+                                                <Text
+                                                    style={styles.ignoreText}> 接受申请 </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                            < View style={[styles.borderLine, this.state.selectIndex === k ? {display: 'none'} : null]}>
+                                <TouchableOpacity onPress={() => this.selectApplication(k)}>
+                                    <View style={styles.closeInviteCont}>
+                                        <View style={styles.closeAppPersonalCont}>
+                                            <Image source={require('../../res/images/me/photo.png')}
+                                                   style={styles.photoImg}/>
+                                            <Text
+                                                style={styles.closeAppPersonalText}>{app["invitee"]}发来一个比赛申请</Text>
+                                        </View>
+                                        <View style={styles.appTimeCont}>
+                                            <Text
+                                                style={styles.closeAppTimeText}>{app["date"] + " " + app["time"]}</Text>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
-                })}
+                    })}
+                </ScrollView>
                 <ModalConpt
                     allowClose={false}
                     modalCont={this.state.modalCont}
                     modalVisible={this.state.modalVisible}
-                ></ModalConpt>
+                />
             </View>
         );
     }

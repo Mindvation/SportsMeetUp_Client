@@ -11,6 +11,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import HomePage from './HomePage'
 import Nearby from './Nearby'
 import PersonalCenter from '../personal/PersonalCenter'
+import MyMatchMain from '../myMatch/MyMatchMain';
 import Util from '../util/CommonUtil'
 
 
@@ -53,6 +54,16 @@ class TabPage extends Component {
 		      onPress={() => this.setState({ selectedTab: 'nearby' })}>
 		      <Nearby/>
 		    </TabNavigator.Item>
+              <TabNavigator.Item
+                  selected={this.state.selectedTab === 'match'}
+                  title="我的比赛"
+                  titleStyle={styles.tabText}
+                  selectedTitleStyle={styles.selectedTabText}
+                  renderIcon={() => <Image source={require('../../res/images/myMatch_normal.png')} />}
+                  renderSelectedIcon={() => <Image source={require('../../res/images/myMatch_selected.png')} />}
+                  onPress={() => this.setState({ selectedTab: 'match' })}>
+                  <MyMatchMain navigator = {this.props.navigator}/>
+              </TabNavigator.Item>
 		    <TabNavigator.Item
 		      selected={this.state.selectedTab === 'profile'}
 		      title="个人中心"

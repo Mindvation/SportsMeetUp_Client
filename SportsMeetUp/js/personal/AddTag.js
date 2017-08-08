@@ -142,7 +142,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 44,
         paddingLeft: 15,
-        paddingRight: 15
+        paddingRight: 15,
+        marginBottom: 15
     },
     submitButton: {
         backgroundColor: '#f12b2c',

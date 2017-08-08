@@ -8,9 +8,11 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
+    ScrollView
 } from 'react-native';
 
 import MyMatchInfo from './MyMatchInfo';
+import MyApplication from './MyApplication';
 
 const matches = [
     {
@@ -44,8 +46,17 @@ export default class MyMatch extends Component {
     render() {
         return (
             <View style={styles.myMatchCont}>
-                <MyMatchInfo matches={matches}/>
-                {/*<MyApplication/>*/}
+                <ScrollView
+                    ref={(scrollView) => {
+                        _scrollView = scrollView;
+                    }}
+                    automaticallyAdjustContentInsets={false}
+                    horizontal={false}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    <MyMatchInfo matches={matches}/>
+                    {/*<MyApplication/>*/}
+                </ScrollView>
             </View>
         );
     }

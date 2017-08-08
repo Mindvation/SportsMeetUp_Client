@@ -54,7 +54,10 @@ export default class TextInputConpt extends Component {
     }
 
     render() {
-        const {labelCont, placeholder, isPassword, keyboardType, isShowClear, isHideBorder, style} = this.props;
+        const {
+            labelCont, placeholder, isPassword, keyboardType, isShowClear,
+            isHideBorder, style, contStyle, multiLine
+        } = this.props;
 
         const clearBtn = <TouchableOpacity onPress={() => {
             this._clearValue()
@@ -78,13 +81,16 @@ export default class TextInputConpt extends Component {
             <View style={[styles.inputCont, isHideBorder ? null : {
                 borderBottomWidth: 1,
                 borderBottomColor: '#f1f1f1'
-            }]}>
-                <View style={[styles.txtBorder]}>
+            }, multiLine ? null : {height: 55}]}>
+                <View style={[styles.txtBorder, contStyle ? contStyle : null]}>
                     <Text style={styles.txtLabel}>{labelCont}</Text>
                     <TextInput
                         underlineColorAndroid={'transparent'}
-                        style={[styles.txtCont, style ? style : null]}
-                        multiline={false}
+                        style={[styles.txtCont, style ? style : null, multiLine ? {
+                            minHeight: 200,
+                            textAlignVertical: 'top'
+                        } : null]}
+                        multiline={multiLine}
                         placeholder={placeholder}
                         secureTextEntry={isPassword && this.state.isSecure}
                         onChangeText={(text) => {
@@ -92,6 +98,7 @@ export default class TextInputConpt extends Component {
                         }}
                         keyboardType={keyboardType}
                         value={this.state.txtValue}
+                        numberOfLines={multiLine ? 4 : 1}
                     />
                     {!isPassword && isShowClear && !this._isEmpty(this.state.txtValue) ? clearBtn : null}
                     {isPassword ? (this.state.isSecure ? showPwdBtn : hiddenPwdBtn) : null}
@@ -106,8 +113,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        flex: 1,
-        height: 55
+        flex: 1
     },
     msgCont: {
         flexDirection: 'row',

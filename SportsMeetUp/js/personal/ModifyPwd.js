@@ -340,11 +340,11 @@ export default class ModifyPwd extends Component {
                     allowClose={false}
                     modalCont={succModal}
                     modalVisible={this.state.succModalVisible}
-                ></ModalConpt>
+                />
                 <Overlay
                     allowClose={false}
                     modalVisible={this.state.overlayVisible}
-                ></Overlay>
+                />
             </View>
         );
     }
@@ -424,7 +424,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 27,
         paddingLeft: 15,
-        paddingRight: 15
+        paddingRight: 15,
+        marginBottom: 15
     },
     submitButton: {
         backgroundColor: '#df3939',

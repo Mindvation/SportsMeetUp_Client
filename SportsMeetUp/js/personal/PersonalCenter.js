@@ -15,10 +15,8 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
-import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import Setting from './Setting';
 import ModifyInfo from './ModifyInfo';
-import MyMatch from './MyMatch';
 import AddTag from './AddTag';
 import MyInterest from "./MyInterest";
 import Util from '../util/CommonUtil'
@@ -35,12 +33,23 @@ export default class PersonalCenter extends Component {
         Util.updateGobalData("globalUserInfo", {
             "phoneNumber": "15029616602",
             "name": "Migan",
-            "gender": "M"
+            "gender": "M",
+            "weekFreeTime": "晚上",
+            "weekendFreeTime": "全天",
+            "location": {
+                "name": "西安",
+                "spellName": "xian",
+                "id": 6101,
+                "fullname": "陕西/西安",
+                "sortLetters": "x"
+            }
         });
         this.state = {
             myTags: ["basketBall", "pingPang", "bowling"],
             photo: globalUserInfo.photo,
-            name: globalUserInfo.name
+            name: globalUserInfo.name,
+            weekFreeTime: globalUserInfo.weekFreeTime,
+            weekendFreeTime: globalUserInfo.weekendFreeTime
         };
     }
 
@@ -66,7 +75,9 @@ export default class PersonalCenter extends Component {
                 updateInfo: (option) => {
                     this.setState({
                         photo: option.photo,
-                        name: option.name
+                        name: option.name,
+                        weekFreeTime: option.weekFreeTime,
+                        weekendFreeTime: option.weekendFreeTime
                     })
                 }
             }
@@ -87,9 +98,6 @@ export default class PersonalCenter extends Component {
                 }
             }
         });
-    }
-
-    scrollToTop() {
     }
 
     render() {
@@ -118,7 +126,7 @@ export default class PersonalCenter extends Component {
                                 />}
                             <View style={styles.nameInfo}>
                                 <Text style={styles.nameText}>{this.state.name}</Text>
-                                <Text style={styles.freeTimeText}>周末 全天 周内 晚上</Text>
+                                <Text style={styles.freeTimeText}>周末 {this.state.weekendFreeTime}      周内 {this.state.weekFreeTime}</Text>
                             </View>
                             <TouchableOpacity onPress={this.editPersonalInfo}>
                                 <Image source={require('../../res/images/me/pen.png')}
@@ -128,7 +136,8 @@ export default class PersonalCenter extends Component {
                         </View>
                         <MyInterest myTags={this.state.myTags} edit={this.editInterestInfo}/>
                     </View>
-                    <ScrollableTabView
+                    <Setting navigator={navigator}/>
+                    {/*<ScrollableTabView
                         renderTabBar={() => <ScrollableTabBar style={styles.tabBarStyle}
                                                               tabStyle={styles.tabStyle}
                                                               underlineHeight={0}/>}
@@ -140,10 +149,10 @@ export default class PersonalCenter extends Component {
                             _scrollView.scrollTo({x: 0});
                         }}
                     >
-                        {/*<MyInvite tabLabel="我的邀请"/>*/}
+                        <MyInvite tabLabel="我的邀请"/>
                         <MyMatch tabLabel="我的比赛"/>
                         <Setting navigator={navigator} tabLabel="其他设置"/>
-                    </ScrollableTabView>
+                    </ScrollableTabView>*/}
                 </ScrollView>
             </View>
         );

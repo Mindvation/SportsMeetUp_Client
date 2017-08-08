@@ -22,6 +22,14 @@ export default class ModalConpt extends Component {
     }
 
     render() {
+        const leftBackBtn = this.props.hiddenLeftBtn ? null : <View style={styles.leftBtnCont}>
+            <TouchableOpacity onPress={this._backToPrevious.bind(this)}>
+                <View style={styles.leftBtnRange}>
+                    <Image style={styles.leftBtn}
+                           source={require('../../res/images/backbtn_android.png')}/>
+                </View>
+            </TouchableOpacity>
+        </View>;
 
         const languageBtn = this.props.hiddenRightBtn ? null :
             <View style={styles.rightBtnCont}>
@@ -35,14 +43,7 @@ export default class ModalConpt extends Component {
             <Text style={styles.titleText}>{this.props.title}</Text></View> : <View style={styles.titleCont}/>;
 
         return (<View style={styles.header}>
-            <View style={styles.leftBtnCont}>
-                <TouchableOpacity onPress={this._backToPrevious.bind(this)}>
-                    <View style={styles.leftBtnRange}>
-                        <Image style={styles.leftBtn}
-                               source={require('../../res/images/backbtn_android.png')}/>
-                    </View>
-                </TouchableOpacity>
-            </View>
+            {leftBackBtn}
             {titleView}
             {languageBtn}
         </View>)
