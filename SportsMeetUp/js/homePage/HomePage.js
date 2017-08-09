@@ -379,7 +379,7 @@ class HomePage extends Component {
                         <Image source={require('../../res/images/action_match.png')}/>
                     </TouchableOpacity>
                 </View>
-                <NewFieldPage ref='newField' visible={true} commitCallback={(data) => this._submitNewField(data)}/>
+        <NewFieldPage ref='newField' visible={true} location={this.centerLocation} commitCallback={(data) => this._submitNewField(data)}/>
                 {this.renderFieldModal()}
                 <NewMatchView ref='newMatchView' newMatchCallback={(data) => this._submitNewMatch(data)}/>
             </View>
