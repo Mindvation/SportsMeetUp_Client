@@ -51,9 +51,9 @@ export default class NearbyMatch extends Component {
                     <Image source={require('../../res/images/me/photo.png')}
                            style={styles.photoImg}/>
                     <View style={styles.otherInfoCont}>
-                        <Text style={[styles.otherInfoText, {fontSize: 18,color:'#393939'}]}>{match.sponsor}</Text>
+                        <Text style={[styles.otherInfoText, {fontSize: 18, color: '#393939'}]}>{match.sponsor}</Text>
                         <Text style={styles.otherInfoText}>{match.time}</Text>
-                        <Text style={styles.otherInfoText}>{match.location}</Text>
+                        <Text style={[styles.otherInfoText, {marginBottom: 5}]}>{match.location}</Text>
                         <Text style={[styles.otherInfoText, {
                             marginBottom: 0,
                             textAlign: 'right',
@@ -62,15 +62,28 @@ export default class NearbyMatch extends Component {
                     </View>
                 </View>
                 <View style={styles.handleInviteCont}>
-                    <View style={styles.invitePersonalCont}>
-                        <Text style={styles.appPersonalText}>{match.title}</Text>
-                        <View style={styles.teamBlue}>
-                            <Image source={require('../../res/images/matchInfo/team_blue.png')}/>
-                            <Text>3/5</Text>
+                    <Text style={styles.appPersonalText}>{match.title}</Text>
+                    <View style={styles.teamCont}>
+                        <Image source={require('../../res/images/matchInfo/team_blue.png')}/>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text
+                                style={{fontSize: 15, color: '#f5f5f5'}}>{match.total / 2 - match.teamBlueLeft}/</Text>
+                            <Text style={{
+                                fontSize: 13,
+                                color: '#d7d7d7',
+                                textAlignVertical: 'bottom'
+                            }}>{match.total / 2}</Text>
                         </View>
-                        <View style={styles.teamRed}>
-                            <Image source={require('../../res/images/matchInfo/team_red.png')}/>
-                            <Text>3/5</Text>
+                    </View>
+                    <View style={styles.teamCont}>
+                        <Image source={require('../../res/images/matchInfo/team_red.png')}/>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={{fontSize: 15, color: '#f5f5f5'}}>{match.total / 2 - match.teamRedLeft}/</Text>
+                            <Text style={{
+                                fontSize: 13,
+                                color: '#d7d7d7',
+                                textAlignVertical: 'bottom'
+                            }}>{match.total / 2}</Text>
                         </View>
                     </View>
                 </View>
@@ -166,18 +179,15 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#E8E8E8'
     },
-    invitePersonalCont: {
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        flexDirection: 'row',
-        marginBottom: 15
-    },
     handleInviteCont: {
         backgroundColor: '#272727',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         alignItems: 'flex-start',
-        flexDirection: 'column',
-        padding: 15
+        flexDirection: 'row',
+        paddingTop: 18,
+        paddingBottom: 18,
+        paddingLeft: 15,
+        paddingRight: 130
     },
     titleText: {
         fontSize: 18,
@@ -218,5 +228,9 @@ const styles = StyleSheet.create({
         color: '#E8E8E8',
         fontStyle: 'italic',
         fontWeight: "bold"
+    },
+    teamCont: {
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });

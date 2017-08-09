@@ -30,20 +30,7 @@ export default class PersonalCenter extends Component {
         super(props);
         this.editPersonalInfo = this.editPersonalInfo.bind(this);
         this.editInterestInfo = this.editInterestInfo.bind(this);
-        Util.updateGobalData("globalUserInfo", {
-            "phoneNumber": "15029616602",
-            "name": "Migan",
-            "gender": "M",
-            "weekFreeTime": "晚上",
-            "weekendFreeTime": "全天",
-            "location": {
-                "name": "西安",
-                "spellName": "xian",
-                "id": 6101,
-                "fullname": "陕西/西安",
-                "sortLetters": "x"
-            }
-        });
+
         this.state = {
             myTags: ["basketBall", "pingPang", "bowling"],
             photo: globalUserInfo.photo,

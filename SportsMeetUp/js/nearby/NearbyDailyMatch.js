@@ -44,8 +44,8 @@ const matchs = [
         "location": "曲江圣卡纳2",
         "date": "2017/08/11",
         "time": "20:30-22:30",
-        "teamBlueLeft": 8,
-        "teamRedLeft": 5,
+        "teamBlueLeft": 1,
+        "teamRedLeft": 3,
         "total": 8,
         "distance": "3km"
     }, {

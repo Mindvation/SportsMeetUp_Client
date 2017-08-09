@@ -24,28 +24,27 @@ export default class WelcomePage extends Component {
     componentDidMount() {
         const {navigator} = this.props;
         /*InteractionManager.runAfterInteractions(() => {
-            SplashScreen.hide();
             navigator.resetTo({
                 component: NearbyMain,
                 name: 'NearbyMain',
                 params:{
                 }
             });
+            SplashScreen.hide();
         });*/
 
         DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
         }).catch((error) => {
             InteractionManager.runAfterInteractions(() => {
-                SplashScreen.hide();
                 navigator.resetTo({
                     component: MainPage,
                     name: 'MainPage',
                     // component: TabPage,
                     // name: 'TabPage',
-                    params:{
-                    }
+                    params: {}
                 });
+                SplashScreen.hide();
             });
         })
     }
@@ -54,7 +53,7 @@ export default class WelcomePage extends Component {
         this.timer && clearTimeout(this.timer);
     }
 
-    _logOnWithLocalData(userData){
+    _logOnWithLocalData(userData) {
         const options = {
             "url": '8081/sports-meetup-papi/users/login',
             "params": {
@@ -81,8 +80,7 @@ export default class WelcomePage extends Component {
                 navigator.resetTo({
                     component: MainPage,
                     name: 'MainPage',
-                    params:{
-                    }
+                    params: {}
                 });
             });
         })

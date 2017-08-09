@@ -25,7 +25,16 @@ class TabPage extends Component {
         Util.updateGobalData("globalUserInfo", {
             "phoneNumber": "15029616602",
             "name": "Migan",
-            "gender": "M"
+            "gender": "M",
+            "weekFreeTime": "晚上",
+            "weekendFreeTime": "全天",
+            "location": {
+                "name": "西安",
+                "spellName": "xian",
+                "id": 6101,
+                "fullname": "陕西/西安",
+                "sortLetters": "x"
+            }
         });
     }
 

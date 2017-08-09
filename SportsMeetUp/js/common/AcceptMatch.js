@@ -37,8 +37,9 @@ export default class AcceptMatch extends Component {
 
         let ivt = [
             {
-                "text": <Text><Text style={{color: '#ff8400', fontSize: 16}}>5</Text><Text
-                    style={{color: '#000000', fontSize: 16}}>/8</Text></Text>,
+                "text": <Text><Text
+                    style={{color: '#ff8400', fontSize: 16}}>{data.teamBlueLeft + data.teamRedLeft}</Text><Text
+                    style={{color: '#000000', fontSize: 16}}>/{data.total}</Text></Text>,
                 "image": playerImg
             },
             {
