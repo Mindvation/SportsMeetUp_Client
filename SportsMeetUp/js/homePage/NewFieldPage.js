@@ -31,6 +31,10 @@ var options = {
   mediaType:'photo',
 };
 
+import Toast, {DURATION} from 'react-native-easy-toast'
+import CommonUtil from '../util/CommonUtil'
+
+
 const {width, height} = Dimensions.get('window');
 
 const fieldTyleLabels = ['足球场', '篮球场', "羽毛球", '台球', '保龄球', '网球', '乒乓球', '排球'];
@@ -41,6 +45,8 @@ class NewFieldPage extends Component {
   constructor(props) {
     super(props);
   
+    this.imageArray = new Array(3);
+
     this.state = {
     	modalVisible: false,
     	address: '',
@@ -49,7 +55,8 @@ class NewFieldPage extends Component {
     	description:'',
       image1:null,
       image2:null,
-      image3:null
+      image3:null,
+      ftWidth:0
     };
   }
 
@@ -65,13 +72,27 @@ class NewFieldPage extends Component {
   }
 
   _handleSubmitClick() {
-  	let data ={
-  		address: this.state.address,
-  		fieldType: this.state.fieldType,
-  		adminTel: this.state.adminTel,
-  		description: this.state.description
-  	};
-  	this.props.commitCallback(data);
+    if (CommonUtil.isEmpty(this.state.address)) {
+      this.refs.toast.show('请输入地址或名称');
+      return;
+    }
+
+    if (CommonUtil.isEmpty(this.state.fieldType)) {
+      this.refs.toast.show('请选择场地类型');
+      return;
+    }
+
+    if (CommonUtil.isEmpty(this.state.adminTel)) {
+      this.refs.toast.show('请输入管理员电话');
+      return;
+    }
+
+    if (this.imageArray === undefined || this.imageArray.length === 0) {
+      this.refs.toast.show('请添加场地图片');
+      return;
+    }
+
+    this._uploadImages();
   }
 
   _onSelected(index) {
@@ -89,14 +110,82 @@ class NewFieldPage extends Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         let source = {uri: response.uri};
+        let uploadData  = {
+            name:response.fileName,
+            data:response.data
+        };
         if (postion == 1) {
           this.setState({image1:source});
+          this.testData = response.data;
+          this.imageArray[0] = uploadData;
         } else if (postion == 2) {
           this.setState({image2:source});
+          this.imageArray[1] = uploadData;
         } else if (postion == 3) {
           this.setState({image3:source});
+          this.imageArray[2] = uploadData;
         }
       }
+    });
+  }
+
+  _uploadImages() {
+    let filesToUpload = new Array();
+    if (this.imageArray[0]) {filesToUpload.push(this.imageArray[0])};
+    if (this.imageArray[1]) {filesToUpload.push(this.imageArray[1])};
+    if (this.imageArray[2]) {filesToUpload.push(this.imageArray[2])};
+
+    fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/uploadBase64', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        uploadFiles: filesToUpload
+      })
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log(responseJson);
+        if (responseJson.responseCode === '000') {
+          let urls = '';
+          for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
+            urls += responseJson.responseBody[i]
+            if (i != 0) {urls += "&"}
+          }
+          console.log(urls);
+
+          return fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/addSportField', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              creatorId: 1000,
+              fieldLocation: '曲江新区生看啊大厦1号楼1604',
+              fieldType: '篮球场',
+              adminPhone: '88888888',
+              fieldDetail: '大发啊发的收腹带束腹带舒服的沙发上对方',
+              longitude: '15.155444',
+              latitude: '100.258844',
+              picsOfField: urls,
+            })
+          });
+        } else {
+          this.refs.toast.show('上传图片失败，请重试');
+        }
+     })
+    .then((response2) => response2.json())
+    .then((result) => {
+      console.log(result);
+      if (result.responseCode != '000') {
+        this.refs.toast.show('提交数据失败，请重试');
+      } else {
+        this._visibleModel(false);
+      }
+    })
+    .catch((error) => {
+        console.error(error);
     });
   }
 
@@ -133,11 +222,15 @@ class NewFieldPage extends Component {
                   <Text style={styles.text}>场地类型</Text>
                   <ModalDropdown style={styles.dropdownButton}
                   	textStyle={styles.dropdownText}
-                  	dropdownStyle={styles.dropdownStyle}
+                  	dropdownStyle={[styles.dropdownStyle, {width:this.state.ftWidth}]}
                   	dropdownTextStyle={styles.dropdownTextStyle}
                   	defaultValue='请选择场地类型'
                   	options={fieldTyleLabels}
-                  	onSelect={(index) => this._onSelected(index)}/>
+                  	onSelect={(index) => this._onSelected(index)}
+                    onLayout={(event) => {
+                              var {width} = event.nativeEvent.layout;
+                              this.setState({ftWidth: width})
+                              }}/>
                 </View>
                 <View style={styles.modalItemRow}>
                   <Text style={styles.text}>电话号码</Text>
@@ -186,7 +279,8 @@ class NewFieldPage extends Component {
                 color="#df3939" 
                 onPress={() => this._handleSubmitClick()}/>
               </View>
-            </View>          
+              <Toast ref='toast'/>
+            </View> 
           </TouchableOpacity>
         </Modal>
     );
@@ -252,7 +346,7 @@ const styles = StyleSheet.create({
 
   dropdownStyle:{
   	flex:1,
-  	width: 200
+  	width: 100
   },
 
   dropdownTextStyle:{

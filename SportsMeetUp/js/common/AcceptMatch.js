@@ -53,7 +53,7 @@ export default class AcceptMatch extends Component {
                 "text": data.time,
                 "image": clockImg
             }
-        ]
+        ];
 
         let modal = <View style={styles.acceptSucCont}>
             <View style={styles.titleCont}>
@@ -147,5 +147,5 @@ const styles = StyleSheet.create({
     closeDialogText: {
         fontSize: 18,
         color: '#ffffff'
-    },
+    }
 });

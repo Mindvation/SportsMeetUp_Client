@@ -32,7 +32,7 @@ class NewMatchView extends Component {
         super(props);
 
         this.state = {
-            modalVisible: true,
+            modalVisible: false,
             type:'',
             number:'',
             date:"",

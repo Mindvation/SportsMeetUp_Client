@@ -24,8 +24,8 @@ const matchs = [
         "location": "西安市雁塔区雁南五路与雁塔南路十字西南 曲江圣卡纳",
         "date": "2017/08/09",
         "time": "17:30-19:30",
-        "teamALeft": 8,
-        "teamBLeft": 5,
+        "teamBlueLeft": 8,
+        "teamRedLeft": 5,
         "total": 22,
         "distance": "31m"
     }, {
@@ -34,8 +34,8 @@ const matchs = [
         "location": "曲江圣卡纳1",
         "date": "2017/08/09",
         "time": "16:30-17:30",
-        "teamALeft": 1,
-        "teamBLeft": 0,
+        "teamBlueLeft": 1,
+        "teamRedLeft": 0,
         "total": 4,
         "distance": "5.5km"
     }, {
@@ -44,8 +44,8 @@ const matchs = [
         "location": "曲江圣卡纳2",
         "date": "2017/08/11",
         "time": "20:30-22:30",
-        "teamALeft": 8,
-        "teamBLeft": 5,
+        "teamBlueLeft": 8,
+        "teamRedLeft": 5,
         "total": 8,
         "distance": "3km"
     }, {
@@ -54,8 +54,8 @@ const matchs = [
         "location": "曲江圣卡纳3",
         "date": "2017/08/09",
         "time": "17:30-19:30",
-        "teamALeft": 1,
-        "teamBLeft": 0,
+        "teamBlueLeft": 1,
+        "teamRedLeft": 0,
         "total": 2,
         "distance": "5.5km"
     },
