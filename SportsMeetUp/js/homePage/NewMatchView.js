@@ -1,15 +1,15 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
-  StyleSheet,
-  Dimensions,
-  View,
-  Modal,
-  TextInput,
-  Button,
-  Text,
+    StyleSheet,
+    Dimensions,
+    View,
+    Modal,
+    TextInput,
+    Button,
+    Text,
 } from 'react-native';
 
 import DatePicker from 'react-native-datepicker'
@@ -33,22 +33,22 @@ class NewMatchView extends Component {
 
         this.state = {
             modalVisible: false,
-            type:'',
-            number:'',
-            date:"",
-            phone:'',
-            description:'',
+            type: '',
+            number: '',
+            date: "",
+            phone: '',
+            description: '',
         };
     }
 
     visible(visible) {
         this.setState({
-            modalVisible:visible,
+            modalVisible: visible,
         });
     }
 
     onClickSubmit() {
-        if(CommonUtil.isEmpty(this.state.date)){
+        if (CommonUtil.isEmpty(this.state.date)) {
             this.refs.toast.show('请选择比赛日期');
             return;
         }
@@ -74,11 +74,11 @@ class NewMatchView extends Component {
         }
 
         this.props.newMatchCallback({
-            date:this.state.date,
-            type:this.state.type,
-            number:this.state.number,
-            phone:this.state.phone,
-            description:this.state.description
+            date: this.state.date,
+            type: this.state.type,
+            number: this.state.number,
+            phone: this.state.phone,
+            description: this.state.description
         });
     }
 
@@ -87,95 +87,98 @@ class NewMatchView extends Component {
         let endDay = new Date(new Date().setDate(new Date().getDate() + 10));
         console.log(endDay);
         return (
-        <Modal
-            visible={this.state.modalVisible}
-            transparent={true}
-            onRequestClose={() => {}}>
-            <View style={styles.modalBackground}>
-                <View style={styles.modalBox}>
-                    <View style={{paddingLeft:28, paddingRight:38,paddingTop:32}}>
-                        <View style={styles.itemLine}>
-                            <Text style={styles.text}>时间</Text>
-                            <DatePicker style={styles.datePicker}
-                                mode='datetime'
-                                date={this.state.date}
-                                placeholder='比赛日期'
-                                format="YYYY-MM-DD HH:mm"
-                                minDate={CommonUtil.dateFormat(today, 'YYYY-MM-DD HH:mm')}
-                                maxDate={CommonUtil.dateFormat(endDay, 'YYYY-MM-DD HH:mm')}
-                                showIcon={false}
-                                confirmBtnText="确定"
-                                cancelBtnText="取消"
-                                customStyles={{
-                                    dateInput:{
-                                        height:24,
-                                        borderBottomWidth:0.5,
-                                        borderTopWidth:0,
-                                        borderLeftWidth:0,
-                                        borderRightWidth:0,
-                                        borderColor:'#8b8b83',
-                                    },
-                                    dateTouchBody:{
-                                        height:10,
-                                        padding:0,
-                                    },
-                                }}
-                                onDateChange={(date) => {this.setState({date: date})}}/>
-                        </View>
-                        <View style={styles.itemLine}>
-                            <Text style={styles.text}>比赛类型</Text>
-                            <View style={styles.textInputBorder}>
-                                <ModalDropdown style={styles.dropdownButton}
-                                    textStyle={styles.dropdownText}
-                                    dropdownStyle={styles.dropdownStyle}
-                                    dropdownTextStyle={styles.dropdownTextStyle}
-                                    defaultValue='请选择比赛类型'
-                                    options={matchTypes}
-                                    onSelect={(index) => this.setState({type:matchTypeValues[index]})}/>
+            <Modal
+                visible={this.state.modalVisible}
+                transparent={true}
+                onRequestClose={() => {
+                }}>
+                <View style={styles.modalBackground}>
+                    <View style={styles.modalBox}>
+                        <View style={{paddingLeft: 28, paddingRight: 38, paddingTop: 32}}>
+                            <View style={styles.itemLine}>
+                                <Text style={styles.text}>时间</Text>
+                                <DatePicker style={styles.datePicker}
+                                            mode='datetime'
+                                            date={this.state.date}
+                                            placeholder='比赛日期'
+                                            format="YYYY-MM-DD HH:mm"
+                                            minDate={CommonUtil.dateFormat(today, 'YYYY-MM-DD HH:mm')}
+                                            maxDate={CommonUtil.dateFormat(endDay, 'YYYY-MM-DD HH:mm')}
+                                            showIcon={false}
+                                            confirmBtnText="确定"
+                                            cancelBtnText="取消"
+                                            customStyles={{
+                                                dateInput: {
+                                                    height: 24,
+                                                    borderBottomWidth: 0.5,
+                                                    borderTopWidth: 0,
+                                                    borderLeftWidth: 0,
+                                                    borderRightWidth: 0,
+                                                    borderColor: '#8b8b83',
+                                                },
+                                                dateTouchBody: {
+                                                    height: 10,
+                                                    padding: 0,
+                                                },
+                                            }}
+                                            onDateChange={(date) => {
+                                                this.setState({date: date})
+                                            }}/>
                             </View>
-                        </View>
-                        <View style={styles.itemLine}>
-                            <Text style={styles.text}>人数信息</Text>
-                            <View style={styles.textInputBorder}>
-                                <ModalDropdown style={styles.dropdownButton}
-                                textStyle={styles.dropdownText}
-                                dropdownStyle={styles.dropdownStyle}
-                                dropdownTextStyle={styles.dropdownTextStyle}
-                                defaultValue='请选择已有人数'
-                                options={memberNums}
-                                onSelect={(index) => this.setState({number:memberNumValues[index]})}/>
+                            <View style={styles.itemLine}>
+                                <Text style={styles.text}>比赛类型</Text>
+                                <View style={styles.textInputBorder}>
+                                    <ModalDropdown style={styles.dropdownButton}
+                                                   textStyle={styles.dropdownText}
+                                                   dropdownStyle={styles.dropdownStyle}
+                                                   dropdownTextStyle={styles.dropdownTextStyle}
+                                                   defaultValue='请选择比赛类型'
+                                                   options={matchTypes}
+                                                   onSelect={(index) => this.setState({type: matchTypeValues[index]})}/>
+                                </View>
                             </View>
-                        </View>
-                        <View style={styles.itemLine}>
-                            <Text style={styles.text}>电话号码</Text>
-                            <View style={styles.textInputBorder}>
-                                <TextInput style={styles.phoneNumberInput}
-                                    placeholder='请输入电话号码'
-                                    placeholderTextColor='#b5b2b2'
-                                    maxLength={11}
-                                    keyboardType='numeric'
-                                    value={this.state.phone}
-                                    onChangeText={(phone) => this.setState({phone})}/>
+                            <View style={styles.itemLine}>
+                                <Text style={styles.text}>人数信息</Text>
+                                <View style={styles.textInputBorder}>
+                                    <ModalDropdown style={styles.dropdownButton}
+                                                   textStyle={styles.dropdownText}
+                                                   dropdownStyle={styles.dropdownStyle}
+                                                   dropdownTextStyle={styles.dropdownTextStyle}
+                                                   defaultValue='请选择已有人数'
+                                                   options={memberNums}
+                                                   onSelect={(index) => this.setState({number: memberNumValues[index]})}/>
+                                </View>
                             </View>
+                            <View style={styles.itemLine}>
+                                <Text style={styles.text}>电话号码</Text>
+                                <View style={styles.textInputBorder}>
+                                    <TextInput style={styles.phoneNumberInput}
+                                               placeholder='请输入电话号码'
+                                               placeholderTextColor='#b5b2b2'
+                                               maxLength={11}
+                                               keyboardType='numeric'
+                                               value={this.state.phone}
+                                               onChangeText={(phone) => this.setState({phone})}/>
+                                </View>
+                            </View>
+                            <Text style={styles.text}>备注</Text>
+                            <TextInput style={styles.description}
+                                       placeholder='请输入比赛备注信息'
+                                       multiline={true}
+                                       lineOfNumber={3}
+                                       placeholderTextColor='#b5b2b2'
+                                       value={this.state.description}
+                                       onChangeText={(description) => this.setState({description})}/>
                         </View>
-                        <Text style={styles.text}>备注</Text>
-                        <TextInput style={styles.description}
-                            placeholder='请输入比赛备注信息'
-                            multiline={true}
-                            lineOfNumber={3}
-                            placeholderTextColor='#b5b2b2'
-                            value={this.state.description}
-                            onChangeText={(description) => this.setState({description})}/>
+                        <Button
+                            style={styles.button}
+                            title='提交'
+                            color='#df3939'
+                            onPress={() => this.onClickSubmit()}/>
                     </View>
-                    <Button
-                        style={styles.button}
-                        title='提交'
-                        color='#df3939'
-                        onPress={() => this.onClickSubmit()}/>
+                    <Toast ref="toast"/>
                 </View>
-                <Toast ref="toast"/>
-            </View>
-      </Modal>);
+            </Modal>);
     }
 }
 
@@ -197,16 +200,16 @@ const styles = StyleSheet.create({
 
     itemLine: {
         flexDirection: 'row',
-        marginBottom:24,
+        marginBottom: 24,
     },
 
-    text:{
-        width:75,
+    text: {
+        width: 75,
         fontSize: 15,
     },
 
-    datePicker:{
-        flex:1,
+    datePicker: {
+        flex: 1,
 
     },
 
@@ -224,32 +227,32 @@ const styles = StyleSheet.create({
         color: '#595959',
     },
 
-    textInputBorder:{
-        flex:1,
+    textInputBorder: {
+        flex: 1,
         borderBottomWidth: 0.5,
         borderTopWidth: 0,
         borderLeftWidth: 0,
         borderRightWidth: 0,
-        borderColor:'#8b8b83'
+        borderColor: '#8b8b83'
     },
 
     phoneNumberInput: {
         flex: 1,
-        fontSize:12,
-        color:'#595959',
+        fontSize: 12,
+        color: '#595959',
     },
 
-    description:{
-        height:50,
-        textAlignVertical:'top',
-        borderWidth:1,
-        borderRadius:4,
-        borderColor:'#8b8b83',
-        fontSize:12,
-        color:'#595959',
-        padding:5,
-        marginTop:12,
-        marginBottom:40,
+    description: {
+        height: 50,
+        textAlignVertical: 'top',
+        borderWidth: 1,
+        borderRadius: 4,
+        borderColor: '#8b8b83',
+        fontSize: 12,
+        color: '#595959',
+        padding: 5,
+        marginTop: 12,
+        marginBottom: 40,
     }
 });
 
