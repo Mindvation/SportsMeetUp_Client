@@ -64,10 +64,13 @@ export default class NearbyMatch extends Component {
                 <View style={styles.handleInviteCont}>
                     <Text style={styles.appPersonalText}>{match.title}</Text>
                     <View style={styles.teamCont}>
-                        <Image source={require('../../res/images/matchInfo/team_blue.png')}/>
+                        <Image style={styles.teamImg} source={require('../../res/images/matchInfo/team_blue.png')}/>
                         <View style={{flexDirection: 'row'}}>
                             <Text
-                                style={{fontSize: 15, color: '#f5f5f5'}}>{match.total / 2 - match.teamBlueLeft}/</Text>
+                                style={{
+                                    fontSize: 15, color: '#f5f5f5',
+                                    textAlignVertical: 'bottom'
+                                }}>{match.total / 2 - match.teamBlueLeft}/</Text>
                             <Text style={{
                                 fontSize: 13,
                                 color: '#d7d7d7',
@@ -76,9 +79,12 @@ export default class NearbyMatch extends Component {
                         </View>
                     </View>
                     <View style={styles.teamCont}>
-                        <Image source={require('../../res/images/matchInfo/team_red.png')}/>
+                        <Image style={styles.teamImg} source={require('../../res/images/matchInfo/team_red.png')}/>
                         <View style={{flexDirection: 'row'}}>
-                            <Text style={{fontSize: 15, color: '#f5f5f5'}}>{match.total / 2 - match.teamRedLeft}/</Text>
+                            <Text style={{
+                                fontSize: 15, color: '#f5f5f5',
+                                textAlignVertical: 'bottom'
+                            }}>{match.total / 2 - match.teamRedLeft}/</Text>
                             <Text style={{
                                 fontSize: 13,
                                 color: '#d7d7d7',
@@ -181,13 +187,12 @@ const styles = StyleSheet.create({
     },
     handleInviteCont: {
         backgroundColor: '#272727',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         alignItems: 'flex-start',
         flexDirection: 'row',
-        paddingTop: 18,
-        paddingBottom: 18,
-        paddingLeft: 15,
-        paddingRight: 130
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 15
     },
     titleText: {
         fontSize: 18,
@@ -232,5 +237,10 @@ const styles = StyleSheet.create({
     teamCont: {
         justifyContent: 'center',
         alignItems: 'center',
+        marginLeft: 30
+    },
+    teamImg: {
+        width: 32,
+        height: 24
     }
 });

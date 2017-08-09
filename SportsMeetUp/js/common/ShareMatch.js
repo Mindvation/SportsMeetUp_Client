@@ -65,7 +65,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingLeft: 60,
-        paddingRight: 60
+        paddingRight: 60,
+        borderTopWidth: 1,
+        borderTopColor: '#E8E8E8'
     },
     shareImageCont: {
         flexDirection: 'column',
