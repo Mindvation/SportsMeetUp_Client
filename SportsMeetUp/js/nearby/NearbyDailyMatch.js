@@ -15,6 +15,7 @@ import {
 import CommonUtil from '../util/CommonUtil';
 
 import NearbyMatch from './NearbyMatch';
+import Filter from '../common/Filter';
 
 const {width} = Dimensions.get('window');
 const matchs = [
@@ -99,6 +100,7 @@ export default class MyInvite extends Component {
 
     render() {
         return ( <View>
+                <Filter/>
                 <ScrollView
                     ref={(scrollView) => {
                         _scrollView = scrollView;

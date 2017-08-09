@@ -234,4 +234,4 @@ const tags = [
         "image": bowlingImg,
         "text": "保龄球"
     }
-]
+    ]
