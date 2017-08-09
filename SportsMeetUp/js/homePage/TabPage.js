@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import HomePage from './HomePage'
-import Nearby from './Nearby'
+import Nearby from '../nearby/NearbyMain';
 import PersonalCenter from '../personal/PersonalCenter'
 import MyMatchMain from '../myMatch/MyMatchMain';
 import Util from '../util/CommonUtil'

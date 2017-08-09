@@ -17,23 +17,23 @@ import DataUtil from './util/DataUtil';
 import FetchUtil from './util/FetchUtil';
 import TabPage from './homePage/TabPage';
 import PersonalCenter from './personal/PersonalCenter';
-import MatchInfo from './matchInfo/MatchInfo';
+import NearbyMain from './nearby/NearbyMain';
 
 export default class WelcomePage extends Component {
 
     componentDidMount() {
         const {navigator} = this.props;
-        InteractionManager.runAfterInteractions(() => {
+        /*InteractionManager.runAfterInteractions(() => {
             SplashScreen.hide();
             navigator.resetTo({
-                component: TabPage,
-                name: 'TabPage',
+                component: NearbyMain,
+                name: 'NearbyMain',
                 params:{
                 }
             });
-        });
+        });*/
 
-        /*DataUtil.getData('userLogonInfo').then((res) => {
+        DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
         }).catch((error) => {
             InteractionManager.runAfterInteractions(() => {
@@ -47,7 +47,7 @@ export default class WelcomePage extends Component {
                     }
                 });
             });
-        })*/
+        })
     }
 
     componentWillUnmount() {
