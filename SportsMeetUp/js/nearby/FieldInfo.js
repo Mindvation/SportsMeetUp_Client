@@ -54,7 +54,12 @@ export default class FieldInfo extends Component {
                                            style={styles.fieldImg}/>
                                     <View style={styles.otherInfoCont}>
                                         <Text style={styles.fieldLocation}>{field.location}</Text>
-                                        <Text style={styles.fieldType}>{field.type}</Text>
+                                        <View style={styles.typeAndCost}>
+                                            <Text style={styles.fieldType}>{field.type}</Text>
+                                            {
+                                                field.cost ? <Text style={[styles.fieldType,{marginLeft:15}]}>{field.cost}/小时</Text> : null
+                                            }
+                                        </View>
                                         <Text style={styles.fieldDistance}>{field.distance}</Text>
                                     </View>
                                 </View>
@@ -175,4 +180,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#f1f1f1',
         borderBottomWidth: 1
     },
+    typeAndCost:{
+        flexDirection: 'row',
+    }
 });

@@ -12,7 +12,6 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
-#import "SplashScreen.h"  // here
 
 @implementation AppDelegate
 
@@ -36,7 +35,6 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-  [SplashScreen show];  // here
   return YES;
 }
 
