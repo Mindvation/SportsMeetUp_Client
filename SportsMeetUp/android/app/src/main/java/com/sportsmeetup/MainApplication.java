@@ -4,10 +4,11 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.imagepicker.ImagePickerPackage;
+import cn.qiuxiang.react.amap3d.AMap3DPackage;
+import com.imagepicker.ImagePickerPackage;
 
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
 
-import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,8 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new ImagePickerPackage(),
-                    new AMap3DPackage(),
-                    new SplashScreenReactPackage()
+                    new AMap3DPackage()
             );
         }
     };

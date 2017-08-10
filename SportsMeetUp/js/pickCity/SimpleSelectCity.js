@@ -14,8 +14,6 @@ import {
 } from 'react-native';
 
 import Header from '../common/Header';
-import SearchBox from './SearchBox';
-import SearchResult from './SearchResult';
 import Util from '../util/CommonUtil';
 
 import CityList from './IndexListView';

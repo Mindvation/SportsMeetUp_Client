@@ -6,34 +6,25 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    Text,
-    Image,
-    InteractionManager,
-    Platform,
+    InteractionManager
 } from 'react-native'
 import MainPage from './MainPage'
-import SplashScreen from 'react-native-splash-screen'
-import DataUtil from './util/DataUtil';
 import FetchUtil from './util/FetchUtil';
 import TabPage from './homePage/TabPage';
-import PersonalCenter from './personal/PersonalCenter';
-import NearbyMain from './nearby/NearbyMain';
 
 export default class WelcomePage extends Component {
 
     componentDidMount() {
         const {navigator} = this.props;
-        /*InteractionManager.runAfterInteractions(() => {
+        InteractionManager.runAfterInteractions(() => {
             navigator.resetTo({
-                component: NearbyMain,
-                name: 'NearbyMain',
-                params:{
-                }
+                component: TabPage,
+                name: 'TabPage',
+                params: {}
             });
-            SplashScreen.hide();
-        });*/
+        });
 
-        DataUtil.getData('userLogonInfo').then((res) => {
+        /*DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
         }).catch((error) => {
             InteractionManager.runAfterInteractions(() => {
@@ -44,9 +35,8 @@ export default class WelcomePage extends Component {
                     // name: 'TabPage',
                     params: {}
                 });
-                SplashScreen.hide();
             });
-        })
+        })*/
     }
 
     componentWillUnmount() {
@@ -64,7 +54,6 @@ export default class WelcomePage extends Component {
         const {navigator} = this.props;
 
         FetchUtil.post(options).then((res) => {
-            SplashScreen.hide();
             if (navigator) {
                 navigator.resetTo({
                     component: TabPage,
@@ -76,7 +65,6 @@ export default class WelcomePage extends Component {
             }
         }).catch((error) => {
             InteractionManager.runAfterInteractions(() => {
-                SplashScreen.hide();
                 navigator.resetTo({
                     component: MainPage,
                     name: 'MainPage',

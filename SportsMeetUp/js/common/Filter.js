@@ -7,87 +7,92 @@ import {
     TouchableWithoutFeedback,
     Dimensions,
     Animated,
-    ScrollView
+    ScrollView,
+    Image
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
 
-const species = [
-    {
-        "key": "basketBall",
-        "value": "篮球"
-    }, {
-        "key": "footBall",
-        "value": "足球"
-    }, {
-        "key": "tennis",
-        "value": "网球"
-    }, {
-        "key": "badminton",
-        "value": "羽毛球"
-    }, {
-        "key": "volleyball",
-        "value": "排球"
-    }, {
-        "key": "billiard",
-        "value": "台球"
-    }, {
-        "key": "pingPang",
-        "value": "乒乓球"
-    }, {
-        "key": "bowling",
-        "value": "保龄球"
-    }
-];
-
-const isMultiple = true;
-
 export default class Filter extends Component {
-    static propTypes = {};
+    static propTypes = {
+        isMultiple: React.PropTypes.bool,
+        data: React.PropTypes.array,
+        onSubmit: React.PropTypes.func,
+        visible: React.PropTypes.bool,
+        onClose: React.PropTypes.func
+    };
 
     constructor(props) {
         super(props);
-        this._toggle = this._toggle.bind(this);
+        this._submit = this._submit.bind(this);
+        this._clear = this._clear.bind(this);
         this.state = {
-            visible: false
+            multipleValue: []
         };
     }
 
-    _toggle() {
+    _updateSpecies(key) {
+        let species = this.state.multipleValue;
+        let index = species.indexOf(key);
+        index > -1 ? species.splice(index, 1) : species.push(key);
         this.setState({
-            visible: !this.state.visible
+            multipleValue: species
         })
     }
 
-    _updateSpecies(key) {
-
+    _returnSingleValue(key) {
+        if (this.props.onSubmit) {
+            this.props.onSubmit(key);
+        }
     }
 
-    _returnSpecies(key) {
+    _submit() {
+        if (this.props.onSubmit) {
+            this.props.onSubmit(this.state.multipleValue);
+        }
+    }
+
+    _clear() {
         this.setState({
-            visible: false
+            multipleValue: []
         })
     }
 
     render() {
+        const {isMultiple, data, visible, onClose} = this.props;
         const multiple =
-            <View style={styles.multiple}>
-                {species.map((result, i) => {
-                    return <TouchableOpacity
-                        activeOpacity={1}
-                        style={styles.multipleItemCont} key={i}
-                        onPress={() => this._updateSpecies(result.key)}>
-                        <Text style={styles.itemText}>{result.value}</Text>
-                    </TouchableOpacity>;
-                })}
+            <View style={styles.multipleCont}>
+                <View style={styles.multiple}>
+                    {data.map((result, i) => {
+                        return <TouchableOpacity
+                            style={[styles.multipleItemCont,
+                                this.state.multipleValue.indexOf(result.key) > -1 ?
+                                    {backgroundColor: '#f39700'} : {backgroundColor: '#ffffff'}]}
+                            key={i}
+                            onPress={() => this._updateSpecies(result.key)}>
+                            <Text style={styles.itemText}>{result.value}</Text>
+                        </TouchableOpacity>;
+                    })}
+                </View>
+                <View style={styles.multipleBottom}>
+                    <TouchableOpacity
+                        style={styles.bottomButton}
+                        onPress={this._submit}>
+                        <Text style={styles.itemText}>完成</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.bottomButton}
+                        onPress={this._clear}>
+                        <Text style={styles.itemText}>清空</Text>
+                    </TouchableOpacity>
+                </View>
             </View>;
         const single =
             <View style={styles.single}>
-                {species.map((result, i) => {
+                {data.map((result, i) => {
                     return <TouchableOpacity
-                        activeOpacity={1}
                         style={styles.singleItemCont} key={i}
-                        onPress={() => this._returnSpecies(result.key)}>
+                        onPress={() => this._returnSingleValue(result.key)}>
                         <Text style={styles.itemText}>{result.value}</Text>
                     </TouchableOpacity>;
                 })}
@@ -96,7 +101,7 @@ export default class Filter extends Component {
         const filterCont =
             <View style={styles.filterCont}>
                 <Animated.View style={styles.mask}>
-                    <TouchableWithoutFeedback onPress={this._toggle}>
+                    <TouchableWithoutFeedback onPress={() => onClose()}>
                         <View style={styles.maskView}/>
                     </TouchableWithoutFeedback>
                 </Animated.View>
@@ -107,14 +112,7 @@ export default class Filter extends Component {
                 </Animated.View>
             </View>;
         return <View style={styles.mainCont}>
-            <View style={styles.title}>
-                <TouchableOpacity
-                    onPress={this._toggle}
-                >
-                    <Text style={styles.titleText}>球类筛选</Text>
-                </TouchableOpacity>
-            </View>
-            {this.state.visible ? filterCont : null}
+            {visible ? filterCont : null}
         </View>
     }
 }
@@ -126,25 +124,6 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 2
-    },
-    title: {
-        height: 40,
-        backgroundColor: '#323232',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        paddingRight: 30
-    },
-    titleText: {
-        color: '#ffffff',
-        fontSize: 15
-    },
-    filterCont: {
-        position: 'absolute',
-        top: 40,
-        left: 0,
-        right: 0,
-        bottom: 0
     },
     mask: {
         position: 'absolute',
@@ -173,25 +152,31 @@ const styles = StyleSheet.create({
         padding: 5,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 15,
         marginLeft: 10,
-        marginRight: 10
+        marginRight: 10,
+        marginBottom: 21,
+        borderRadius: 5
     },
     multiple: {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        paddingTop: 15,
         paddingLeft: 5,
         paddingRight: 5,
         paddingBottom: 15,
-        backgroundColor: '#ffffff'
+    },
+    multipleCont: {
+        backgroundColor: '#ffffff',
+        paddingBottom: 15
     },
     single: {
         justifyContent: 'center',
         alignItems: 'flex-start',
         flexDirection: 'column',
         paddingBottom: 15,
+        backgroundColor: '#ffffff'
     },
     singleItemCont: {
         borderBottomWidth: 1,
@@ -205,5 +190,28 @@ const styles = StyleSheet.create({
     },
     itemText: {
         fontSize: 15
-    }
+    },
+    multipleBottom: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        paddingLeft: 15,
+        paddingRight: 15
+    },
+    bottomButton: {
+        minWidth: (width - 30 - 60) / 4,
+        borderWidth: 1,
+        borderColor: '#aaaaaa',
+        padding: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 5
+    },
+    filterCont: {
+        position: 'absolute',
+        top: 40,
+        left: 0,
+        right: 0,
+        bottom: 0
+    },
 });

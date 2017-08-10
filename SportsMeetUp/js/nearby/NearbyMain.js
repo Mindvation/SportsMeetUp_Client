@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import NearbyDailyMatch from './NearbyDailyMatch';
+import NearbyField from "./NearbyField";
 
 export default class NearbyMain extends Component {
     constructor(props) {
@@ -36,10 +37,8 @@ export default class NearbyMain extends Component {
 
                     }}
                 >
-
-                    <Text tabLabel="球场"/>
                     <NearbyDailyMatch tabLabel="比赛"/>
-                    <Text tabLabel="人员"/>
+                    <NearbyField tabLabel="球场"/>
                 </ScrollableTabView>
             </View>
         );

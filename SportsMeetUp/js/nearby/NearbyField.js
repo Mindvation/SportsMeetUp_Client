@@ -16,52 +16,41 @@ import {
 } from 'react-native';
 import CommonUtil from '../util/CommonUtil';
 
-import NearbyMatch from './NearbyMatch';
+import FieldInfo from './FieldInfo';
 import Filter from '../common/Filter';
 
 const {width} = Dimensions.get('window');
-const matchs = [
+
+const fields = [
     {
-        "sponsor": "Darcy",
-        "title": "11V11足球赛",
+        "type": "足球场",
         "location": "西安市雁塔区雁南五路与雁塔南路十字西南 曲江圣卡纳",
-        "date": "2017/08/09",
-        "time": "17:30-19:30",
-        "teamBlueLeft": 8,
-        "teamRedLeft": 5,
-        "total": 22,
+        "weekTime": "9:00 - 21:00",
+        "weekendTime": "8:00 - 22:00",
+        "cost": 30,
         "distance": "31m"
     }, {
-        "sponsor": "Frank",
-        "title": "2V2足球赛",
+        "type": "篮球场",
         "location": "曲江圣卡纳1",
-        "date": "2017/08/09",
-        "time": "16:30-17:30",
-        "teamBlueLeft": 1,
-        "teamRedLeft": 0,
-        "total": 4,
-        "distance": "5.5km"
+        "weekTime": "9:00 - 21:00",
+        "weekendTime": "8:00 - 22:00",
+        "cost": 0,
+        "distance": "1.5km"
     }, {
-        "sponsor": "Bob",
-        "title": "4V4足球赛",
+        "type": "兵乓球场",
         "location": "曲江圣卡纳2",
-        "date": "2017/08/11",
-        "time": "20:30-22:30",
-        "teamBlueLeft": 1,
-        "teamRedLeft": 3,
-        "total": 8,
-        "distance": "3km"
-    }, {
-        "sponsor": "Frank",
-        "title": "1V1乒乓球赛",
-        "location": "曲江圣卡纳3",
-        "date": "2017/08/09",
-        "time": "17:30-19:30",
-        "teamBlueLeft": 1,
-        "teamRedLeft": 0,
-        "total": 2,
+        "weekTime": "9:00 - 21:00",
+        "weekendTime": "8:00 - 22:00",
+        "cost": 120,
         "distance": "5.5km"
-    },
+    }, {
+        "type": "足球场",
+        "location": "曲江圣卡纳3",
+        "weekTime": "9:00 - 21:00",
+        "weekendTime": "8:00 - 22:00",
+        "cost": 0,
+        "distance": "31m"
+    }
 ];
 
 const filterData = [
@@ -92,7 +81,7 @@ const filterData = [
     }
 ];
 
-export default class NearbyDailyMatch extends Component {
+export default class NearbyField extends Component {
     constructor(props) {
         super(props);
         this._toggleFilter = this._toggleFilter.bind(this);
@@ -101,34 +90,6 @@ export default class NearbyDailyMatch extends Component {
             filter: [],
             filterVisible: false
         };
-    }
-
-    componentDidMount() {
-        this._filterMatchInfo();
-    }
-
-    _filterMatchInfo() {
-        //TODO dummy data 之后日期改为当天
-        let todayDate = new Date("2017/8/9");
-        let firstDay = CommonUtil.dateFormat(new Date("2017/8/9"), "yyyy/MM/dd");
-        let secondDay = CommonUtil.dateFormat(new Date(todayDate.setDate(todayDate.getDate() + 1)), "yyyy/MM/dd");
-        let thirdDay = CommonUtil.dateFormat(new Date(todayDate.setDate(todayDate.getDate() + 1)), "yyyy/MM/dd");
-        let matchArr = {
-            [firstDay]: [],
-            [secondDay]: [],
-            [thirdDay]: []
-        };
-        matchs.map(match => {
-            Object.keys(matchArr).map(day => {
-                if (day === match.date) {
-                    matchArr[day].push(match);
-                }
-            })
-        });
-
-        this.setState({
-            dailyMatch: matchArr
-        })
     }
 
     _toggleFilter() {
@@ -145,8 +106,7 @@ export default class NearbyDailyMatch extends Component {
                         style={styles.filterTitleCont}
                     >
                         <Text style={styles.filterTitleText}>球类筛选</Text>
-                        <Image style={{transform: [this.state.filterVisible ? {rotateX: '180deg'} : {rotateX: '0deg'}]}}
-                               source={require('../../res/images/arrow.png')}/>
+                        <Image source={require('../../res/images/arrow.png')}/>
                     </TouchableOpacity>
                 </View>
                 <ScrollView
@@ -156,21 +116,9 @@ export default class NearbyDailyMatch extends Component {
                     automaticallyAdjustContentInsets={false}
                     horizontal={false}
                     keyboardShouldPersistTaps="handled"
-                    style={{marginBottom:25}}
+                    style={{marginBottom:40}}
                 >
-                    {
-                        Object.keys(this.state.dailyMatch).map((date, i) => {
-                            return this.state.dailyMatch[date].length ?
-                                (<View style={styles.itemCont} key={"date_" + i}>
-                                        <Text style={styles.matchDate}>{date}</Text>
-                                        {this.state.dailyMatch[date].map((match, j) => {
-                                            return <NearbyMatch key={"match_" + j} match={match}/>
-                                        })}
-                                    </View>
-                                ) : null
-                        })
-                    }
-
+                    <FieldInfo fields={fields}/>
                 </ScrollView>
                 <Filter isMultiple={true}
                         data={filterData}
