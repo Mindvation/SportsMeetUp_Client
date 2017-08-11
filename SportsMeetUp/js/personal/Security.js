@@ -101,7 +101,7 @@ export default class Security extends Component {
     _confirmLogOff() {
         DataUtil.removeData('userLogonInfo');
         const {navigator} = this.props;
-        navigator.push({
+        navigator.resetTo({
             component: MainPage,
             name: 'MainPage',
             params: {}
