@@ -21,13 +21,11 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import ModalConpt from '../common/ModalConpt';
 import Overlay from '../common/Overlay';
 import Header from '../common/Header';
-//import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker';
 import Radio from '../common/Radio';
 import Util from '../util/CommonUtil';
 import SimpleSelectCity from '../pickCity/SimpleSelectCity';
 import ModalDropdown from 'react-native-modal-dropdown';
-
-import ImagePicker from 'react-native-image-crop-picker';
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -93,7 +91,7 @@ export default class ModifyInfo extends Component {
 
     _pickImages() {
         dismissKeyboard();
-        /*ImagePicker.showImagePicker(options, (response) => {
+        ImagePicker.showImagePicker(options, (response) => {
             console.log('Response = ', response);
             if (response.didCancel) {
 
@@ -107,15 +105,6 @@ export default class ModifyInfo extends Component {
                     photo: source
                 })
             }
-        });*/
-        ImagePicker.openCamera({
-            width: 300,
-            height: 400,
-            cropping: false
-        }).then(image => {
-            this.setState({
-                photo: {uri: image.path},
-            });
         });
     }
 
