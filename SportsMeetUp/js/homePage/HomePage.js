@@ -70,9 +70,9 @@ class HomePage extends Component {
     }
 
     createMakerIcon(fieldType) {
-        if (fieldType == 'football') {
+        if (fieldType === '080105') {
             return <Image source={require('../../res/images/football.png')}/>;
-        } else if (fieldType == 'basketball') {
+        } else if (fieldType === '080104') {
             return <Image source={require('../../res/images/basketball.png')}/>;
         } else {
             return <Image source={require('../../res/images/football.png')}/>;
@@ -84,13 +84,13 @@ class HomePage extends Component {
         for (let i = this.playgrounds.length - 1; i >= 0; i--) {
             markers.push(
                 <Marker
-                    key={this.playgrounds[i].id}
+                    key={this.playgrounds[i].fieldId}
                     infoWindowEnabled={false}
                     onPress={() => this._onMarkerClick(i)}
                     icon={() => this.createMakerIcon(this.playgrounds[i].fieldType)}
                     coordinate={{
-                        latitude: this.playgrounds[i].gpsLocation.latitude,
-                        longitude: this.playgrounds[i].gpsLocation.longitude,
+                        latitude: this.playgrounds[i].latitude,
+                        longitude: this.playgrounds[i].longitude,
                     }}/>
             );
         }
@@ -120,7 +120,7 @@ class HomePage extends Component {
         if (!this.hasInitLocation) {
             this.refs.map.animateTo({coordinate: {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude}});
             this.hasInitLocation = true;
-            this._getData();
+            this._getData(this.userLocation);
         }
     }
 
@@ -130,7 +130,7 @@ class HomePage extends Component {
 
         if (this.state.selectedPlayground) {
             // 存在激活的marker
-            let dis = getGreatCircleDistance(this.centerLocation.latitude, this.centerLocation.longitude, this.state.selectedPlayground.gpsLocation.latitude, this.state.selectedPlayground.gpsLocation.longitude);
+            let dis = getGreatCircleDistance(this.centerLocation.latitude, this.centerLocation.longitude, this.state.selectedPlayground.latitude, this.state.selectedPlayground.longitude);
             if (dis > 100) {
                 this.setState({
                     selectedPlayground: null,
@@ -141,33 +141,44 @@ class HomePage extends Component {
         } else {
             // 没有激活的marker
         }
+
+
+        this._getData(this.centerLocation);
     }
 
     // 查询附近的运动场
-    _getData() {
-        this.playgrounds = [
-            {
-                id: 999991,
-                filedLocation: '雁塔区某某足球场',
-                hasMatches: 'N',
-                gpsLocation: {
-                    latitude: 34.190849,
-                    longitude: 108.962758,
-                },
-                fieldType: 'football'
+    _getData(location) {
+        fetch('http://192.168.0.109:8084/sports-meetup-papi/sportfields/getNearbySportFields', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
             },
-            {
-                id: 999992,
-                filedLocation: '雁塔区某某篮球场',
-                fieldType: 'basketball',
-                hasMatches: 'N',
-                gpsLocation: {
-                    latitude: 34.190862,
-                    longitude: 108.961862,
+            body: JSON.stringify(location)
+        })
+        .then((response)=>response.json())
+        .then((result) => {
+            if (result.responseCode === '000') {
+                console.log(result.responseBody);
+                for (var i = result.responseBody.length - 1; i >= 0; i--) {
+                    if(!this._contains(this.playgrounds,result.responseBody[i])){
+                        this.playgrounds.push(result.responseBody[i]);
+                    }
                 }
+                this.setState({dataReady:true})
             }
-        ];
-        this.setState({dataReady: true})
+        })
+        .catch((error) => colose.log(error));
+    }
+
+    _contains(arr, obj) {
+        let index = arr.length;
+        while(index--) {
+            if (arr[index].fieldId === obj.fieldId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
@@ -214,8 +225,7 @@ class HomePage extends Component {
         let minDis = 0;
         // 离用户最近的运动场
         for (let i = this.playgrounds.length - 1; i >= 0; i--) {
-            this.playgrounds[i].gpsLocation
-            let dis = getGreatCircleDistance(this.playgrounds[i].gpsLocation.latitude, this.playgrounds[i].gpsLocation.longitude, this.userLocation.latitude, this.userLocation.longitude);
+            let dis = getGreatCircleDistance(this.playgrounds[i].latitude, this.playgrounds[i].longitude, this.userLocation.latitude, this.userLocation.longitude);
             if (minIndex == -1) {
                 minIndex = i;
                 minDis = dis;
@@ -234,8 +244,8 @@ class HomePage extends Component {
             });
             this.refs.map.animateTo({
                 coordinate: {
-                    latitude: this.playgrounds[minIndex].gpsLocation.latitude,
-                    longitude: this.playgrounds[minIndex].gpsLocation.longitude
+                    latitude: this.playgrounds[minIndex].latitude,
+                    longitude: this.playgrounds[minIndex].longitude
                 }
             })
         }
@@ -257,13 +267,12 @@ class HomePage extends Component {
         let minDis = 0;
         // 离用户最近的运动场
         for (let i = this.playgrounds.length - 1; i >= 0; i--) {
-            this.playgrounds[i].gpsLocation
-            let dis = getGreatCircleDistance(this.playgrounds[i].gpsLocation.latitude, this.playgrounds[i].gpsLocation.longitude, this.userLocation.latitude, this.userLocation.longitude);
-            if (minIndex == -1 && this.playgrounds[i].hasMatches == 'Y') {
+            let dis = getGreatCircleDistance(this.playgrounds[i].latitude, this.playgrounds[i].longitude, this.userLocation.latitude, this.userLocation.longitude);
+            if (minIndex == -1 && this.playgrounds[i].hasMatch) {
                 minIndex = i;
                 minDis = dis;
             } else {
-                if (dis < minDis && this.playgrounds[i].hasMatches == 'Y') {
+                if (dis < minDis && this.playgrounds[i].hasMatch) {
                     minIndex = i;
                     minDis = dis;
                 }
@@ -277,8 +286,8 @@ class HomePage extends Component {
             });
             this.refs.map.animateTo({
                 coordinate: {
-                    latitude: this.playgrounds[minIndex].gpsLocation.latitude,
-                    longitude: this.playgrounds[minIndex].gpsLocation.longitude
+                    latitude: this.playgrounds[minIndex].latitude,
+                    longitude: this.playgrounds[minIndex].longitude
                 }
             })
         } else {
@@ -330,7 +339,7 @@ class HomePage extends Component {
                     <View style={{flexDirection: 'row', alignItems: 'center', padding: 20}}>
                         <Image source={require('../../res/images/location.png')}/>
                         <Text style={styles.fieldTitle}
-                              numberOfLines={1}>{this.state.selectedPlayground ? this.state.selectedPlayground.filedLocation : '正在获取位置'}</Text>
+                              numberOfLines={1}>{this.state.selectedPlayground ? this.state.selectedPlayground.address : '正在获取位置'}</Text>
                     </View>
                     <View style={styles.line}/>
                     <View style={styles.buttonContainer}>

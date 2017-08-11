@@ -13,6 +13,8 @@ import {
     Image,
 } from 'react-native';
 
+import CommonUtil from '../util/CommonUtil'
+
 const {
     width,
     height,
@@ -37,8 +39,8 @@ class FieldInfoView extends Component {
 
     render() {
         console.log(this.props.fieldInfo);
-        let {filedLocation, fieldType, adminPhone, description} = this.props.fieldInfo;
-
+        let {address, fieldType, adminPhone, fieldDetail, picsOfField} = this.props.fieldInfo;
+        let images = picsOfField.split("&");
         return (
             <Modal
                 visible={this.state.modalVisible}
@@ -48,21 +50,21 @@ class FieldInfoView extends Component {
                 <View style={styles.modalBackground}>
                     <View style={styles.modalBox}>
                         <View style={{paddingHorizontal: 12, paddingTop: 32}}>
-                            <Text style={styles.text}>地点：{filedLocation}</Text>
-                            <Text style={[styles.text, {marginTop: 27}]}>场地类型：{fieldType}</Text>
+                            <Text style={styles.text}>地点：{address}</Text>
+                            <Text style={[styles.text, {marginTop: 27}]}>场地类型：{CommonUtil.typeToName(fieldType)}</Text>
                             <Text style={[styles.text, {marginTop: 27}]}>电话号码：{adminPhone}</Text>
-                            <Text style={[styles.text, {marginTop: 27}]}>备注：{description}</Text>
+                            <Text style={[styles.text, {marginTop: 27}]}>备注：{fieldDetail}</Text>
                             <Text style={[styles.text, {marginTop: 27}]}>场地图片</Text>
                             <View style={styles.imageContainer}>
                                 <Image style={styles.image}
                                        resizeMode='cover'
-                                       source={this.state.image1 ? this.state.image1 : require('../../res/images/add_pic.png')}/>
+                                       source={images.length > 0 ? {uri: images[0]} : require('../../res/images/add_pic.png')}/>
                                 <Image style={styles.image}
                                        resizeMode='cover'
-                                       source={this.state.image2 ? this.state.image2 : require('../../res/images/add_pic.png')}/>
+                                       source={images.length > 1 ? {uri: images[1]} : require('../../res/images/add_pic.png')}/>
                                 <Image style={styles.image}
                                        resizeMode='cover'
-                                       source={this.state.image3 ? this.state.image3 : require('../../res/images/add_pic.png')}/>
+                                       source={images.length > 2 ? {uri: images[2]} : require('../../res/images/add_pic.png')}/>
                             </View>
                         </View>
                         <Button

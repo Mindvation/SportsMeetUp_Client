@@ -28,4 +28,24 @@ export default class CommonUtil {
         GLOBAL[key] ? null : GLOBAL[key] = {};
         Object.assign(GLOBAL[key], options);
     }
+
+    static typeToName(typeCode) {
+        if ("080102" === typeCode) {
+            return "保龄球馆";
+        } else if ("080103" === typeCode) {
+            return "网球";
+        } else if ("080104" === typeCode) {
+            return "篮球";
+        } else if ("080105" === typeCode) {
+            return "足球";
+        } else if ("080112" === typeCode) {
+            return "乒乓球";
+        } else if ("080113" === typeCode) {
+            return "台球";
+        } else if ("080118" === typeCode) {
+            return "羽毛球";
+        } else if ("080201" === typeCode) {
+            return "高尔夫";
+        }
+    }
 }
