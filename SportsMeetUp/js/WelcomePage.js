@@ -6,37 +6,49 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    InteractionManager
+    Text,
+    Image,
+    InteractionManager,
+    Platform,
 } from 'react-native'
 import MainPage from './MainPage'
+import SplashScreen from 'react-native-splash-screen'
 import FetchUtil from './util/FetchUtil';
 import TabPage from './homePage/TabPage';
+import DataUtil from './util/DataUtil';
 
 export default class WelcomePage extends Component {
 
     componentDidMount() {
         const {navigator} = this.props;
-        InteractionManager.runAfterInteractions(() => {
-            navigator.resetTo({
-                component: TabPage,
-                name: 'TabPage',
-                params: {}
-            });
-        });
 
-        /*DataUtil.getData('userLogonInfo').then((res) => {
-            this._logOnWithLocalData(res);
-        }).catch((error) => {
+        /*this.timer = setTimeout(() => {
             InteractionManager.runAfterInteractions(() => {
+                SplashScreen.hide();
                 navigator.resetTo({
-                    component: MainPage,
-                    name: 'MainPage',
-                    // component: TabPage,
-                    // name: 'TabPage',
+                    component: TabPage,
+                    name: 'TabPage',
                     params: {}
                 });
             });
-        })*/
+        }, 500);*/
+
+        DataUtil.getData('userLogonInfo').then((res) => {
+            this._logOnWithLocalData(res);
+        }).catch((error) => {
+            this.timer = setTimeout(() => {
+                InteractionManager.runAfterInteractions(() => {
+                    navigator.resetTo({
+                        component: MainPage,
+                        name: 'MainPage',
+                        // component: TabPage,
+                        // name: 'TabPage',
+                        params: {}
+                    });
+                    SplashScreen.hide();
+                });
+            }, 500);
+        })
     }
 
     componentWillUnmount() {
@@ -54,23 +66,29 @@ export default class WelcomePage extends Component {
         const {navigator} = this.props;
 
         FetchUtil.post(options).then((res) => {
-            if (navigator) {
-                navigator.resetTo({
-                    component: TabPage,
-                    name: 'TabPageComponent',
-                    params: {
-                        "phoneNumber": userData.phoneNumber
-                    }
+            this.timer = setTimeout(() => {
+                InteractionManager.runAfterInteractions(() => {
+                    SplashScreen.hide();
+                    navigator.resetTo({
+                        component: TabPage,
+                        name: 'TabPageComponent',
+                        params: {
+                            "phoneNumber": userData.phoneNumber
+                        }
+                    });
                 });
-            }
+            }, 500);
         }).catch((error) => {
-            InteractionManager.runAfterInteractions(() => {
-                navigator.resetTo({
-                    component: MainPage,
-                    name: 'MainPage',
-                    params: {}
+            this.timer = setTimeout(() => {
+                InteractionManager.runAfterInteractions(() => {
+                    SplashScreen.hide();
+                    navigator.resetTo({
+                        component: MainPage,
+                        name: 'MainPage',
+                        params: {}
+                    });
                 });
-            });
+            }, 500);
         })
     }
 

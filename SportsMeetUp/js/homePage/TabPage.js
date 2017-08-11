@@ -12,7 +12,9 @@ import HomePage from './HomePage'
 import Nearby from '../nearby/NearbyMain';
 import PersonalCenter from '../personal/PersonalCenter'
 import MyMatchMain from '../myMatch/MyMatchMain';
-import Util from '../util/CommonUtil'
+import Util from '../util/CommonUtil';
+import Guide from './Guide';
+import DataUtil from '../util/DataUtil';
 
 
 class TabPage extends Component {
@@ -20,7 +22,7 @@ class TabPage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {selectedTab: 'home'};
+        this.state = {selectedTab: 'home', notFirstUse: true};
 
         Util.updateGobalData("globalUserInfo", {
             "phoneNumber": "15029616602",
@@ -36,6 +38,18 @@ class TabPage extends Component {
                 "sortLetters": "x"
             }
         });
+    }
+
+    componentWillMount() {
+        DataUtil.getData("notFirstUse").then((res) => {
+            this.setState({
+                notFirstUse: res
+            })
+        }).catch((error) => {
+            this.setState({
+                notFirstUse: true
+            })
+        })
     }
 
     render() {
@@ -84,6 +98,7 @@ class TabPage extends Component {
                         <PersonalCenter navigator={this.props.navigator}/>
                     </TabNavigator.Item>
                 </TabNavigator>
+                {this.state.notFirstUse ? null : <Guide/>}
             </View>
         );
     }

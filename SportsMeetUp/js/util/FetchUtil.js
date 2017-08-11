@@ -1,15 +1,14 @@
 /**
  * FetchUitl 网络请求的实现
  */
+import React, {Component} from 'react';
+import {
+    NetInfo
+} from 'react-native';
 
-import AddUserRes from '../../res/stub/addUserResp.json';
 import ErrorMessage from '../../res/data/errorMessage.json';
 
-const dummyRes = {
-    "addUser": AddUserRes
-};
-
-const gateWay = "http://192.168.0.102:";
+const gateWay = "http://192.168.0.107:";
 export default class FetchUitl {
     /*
      *  get请求
@@ -17,7 +16,6 @@ export default class FetchUitl {
      *  data:参数
      *  callback:回调函数
      * */
-    static isDummy = false;
 
     static _fetch(requestPromise, timeout = 30000) {
         let timeoutAction = null;
@@ -25,45 +23,45 @@ export default class FetchUitl {
             timeoutAction = () => {
                 reject('请求超时');
             }
-        })
+        });
         setTimeout(() => {
             timeoutAction()
-        }, timeout)
+        }, timeout);
         return Promise.race([requestPromise, timerPromise]);
     }
 
     static get(options) {
-        if (this.isDummy) {
-            return new Promise((resolve) => {
-                resolve(dummyRes.addUser)
-            });
-        } else {
-            if (options.params) {
-                let paramsArray = [];
-                //拼接参数
-                Object.keys(options.params).forEach(key => paramsArray.push(options.params[key]))
-                options.url += '/' + paramsArray.join('/')
-            }
-
-            const myFetch = fetch(gateWay + options.url, {
-                method: 'GET'
-            });
-
-            return new Promise((resolve, reject) => {
-                this._fetch(myFetch)
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(responseData => {
-                        let errorInfo = this._respHandle(responseData);
-                        errorInfo ? reject(errorInfo) : resolve(responseData);
-                    })
-                    .catch(error => {
-                        let errorInfo = this._errorHandle(error);
-                        reject(errorInfo);
-                    });
-            });
+        if (options.params) {
+            let paramsArray = [];
+            //拼接参数
+            Object.keys(options.params).forEach(key => paramsArray.push(options.params[key]))
+            options.url += '/' + paramsArray.join('/')
         }
+
+        const myFetch = fetch(gateWay + options.url, {
+            method: 'GET'
+        });
+
+        return new Promise((resolve, reject) => {
+            // this._checkNet().then((res) => {
+            this._fetch(myFetch)
+                .then(response => {
+                    return response.json();
+                })
+                .then(responseData => {
+                    let errorInfo = this._respHandle(responseData);
+                    errorInfo ? reject(errorInfo) : resolve(responseData);
+                })
+                .catch(error => {
+                    let errorInfo = this._errorHandle(error);
+                    reject(errorInfo);
+                });
+            //     }
+            // ).catch(error => {
+            //     let errorInfo = this._errorHandle(error);
+            //     reject(errorInfo);
+            // });
+        });
     }
 
     /*
@@ -73,35 +71,49 @@ export default class FetchUitl {
      *  callback:回调函数
      * */
     static post(options, method = "POST") {
-        if (this.isDummy) {
-            return new Promise((resolve) => {
-                resolve(dummyRes.addUser)
-            });
-        } else {
-            const myFetch = fetch(gateWay + options.url, {
-                method: method,
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(options.params),
-            });
 
-            return new Promise((resolve, reject) => {
-                this._fetch(myFetch)
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(responseData => {
-                        let errorInfo = this._respHandle(responseData);
-                        errorInfo ? reject(errorInfo) : resolve(responseData);
-                    })
-                    .catch(error => {
-                        let errorInfo = this._errorHandle(error);
-                        reject(errorInfo);
-                    });
+        const myFetch = fetch(gateWay + options.url, {
+            method: method,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(options.params),
+        });
+
+        return new Promise((resolve, reject) => {
+            // this._checkNet().then((res) => {
+            this._fetch(myFetch)
+                .then(response => {
+                    return response.json();
+                })
+                .then(responseData => {
+                    let errorInfo = this._respHandle(responseData);
+                    errorInfo ? reject(errorInfo) : resolve(responseData);
+                })
+                .catch(error => {
+                    let errorInfo = this._errorHandle(error);
+                    reject(errorInfo);
+                });
+            //     }
+            // ).catch(error => {
+            //     let errorInfo = this._errorHandle(error);
+            //     reject(errorInfo);
+            // });
+
+        });
+    }
+
+    static _checkNet() {
+        return new Promise((resolve, reject) => {
+            NetInfo.fetch().done((reach) => {
+                if (reach === "none" || reach === "unknown") {
+                    reject(reach)
+                }
+                resolve(reach);
             });
-        }
+        });
+
     }
 
     static _respHandle(res) {

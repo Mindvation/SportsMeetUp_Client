@@ -2,6 +2,7 @@ package com.sportsmeetup;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
+import com.cboy.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
 
@@ -16,6 +17,7 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+            SplashScreen.show(this);  // here
+            super.onCreate(savedInstanceState);
     }
 }

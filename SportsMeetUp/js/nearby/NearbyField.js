@@ -106,7 +106,8 @@ export default class NearbyField extends Component {
                         style={styles.filterTitleCont}
                     >
                         <Text style={styles.filterTitleText}>球类筛选</Text>
-                        <Image source={require('../../res/images/arrow.png')}/>
+                        <Image style={{transform: [this.state.filterVisible ? {rotateX: '180deg'} : {rotateX: '0deg'}]}}
+                               source={require('../../res/images/arrow.png')}/>
                     </TouchableOpacity>
                 </View>
                 <ScrollView

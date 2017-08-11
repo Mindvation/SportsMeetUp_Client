@@ -3,6 +3,7 @@ package com.sportsmeetup;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.imagepicker.ImagePickerPackage;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new SplashScreenReactPackage(),
                     new ImagePickerPackage(),
                     new AMap3DPackage()
             );
