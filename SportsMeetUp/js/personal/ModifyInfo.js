@@ -21,27 +21,14 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import ModalConpt from '../common/ModalConpt';
 import Overlay from '../common/Overlay';
 import Header from '../common/Header';
-import ImagePicker from 'react-native-image-picker';
 import Radio from '../common/Radio';
 import Util from '../util/CommonUtil';
 import SimpleSelectCity from '../pickCity/SimpleSelectCity';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-const dismissKeyboard = require('dismissKeyboard');
+import Camera from '../common/Camera';
 
-const options = {
-    title: '选择图片',
-    takePhotoButtonTitle: '拍照',
-    chooseFromLibraryButtonTitle: '相册',
-    cancelButtonTitle: '取消',
-    storageOptions: {
-        skipBackup: true,
-        path: 'images'
-    },
-    maxWidth: 400,
-    maxHeight: 400,
-    mediaType: 'photo',
-};
+const dismissKeyboard = require('dismissKeyboard');
 
 const gender_props = [
     {label: '男', value: "M"},
@@ -61,7 +48,8 @@ export default class ModifyInfo extends Component {
             weekendFreeTime: globalUserInfo.weekendFreeTime,
             ftWidth1: 0,
             ftWidth2: 0,
-            location: globalUserInfo.location
+            location: globalUserInfo.location,
+            cameraVisible: false
         };
     }
 
@@ -91,21 +79,9 @@ export default class ModifyInfo extends Component {
 
     _pickImages() {
         dismissKeyboard();
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-            if (response.didCancel) {
-
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                let source = {uri: response.uri};
-                this.setState({
-                    photo: source
-                })
-            }
-        });
+        this.setState({
+            cameraVisible: true
+        })
     }
 
     _modifyUserInfo() {
@@ -299,6 +275,18 @@ export default class ModifyInfo extends Component {
                     allowClose={false}
                     modalVisible={false}
                 />
+                <Camera
+                    visible={this.state.cameraVisible}
+                    getUri={(value) => {
+                        this.setState({
+                            photo: value
+                        })
+                    }}
+                    closeCamera={() => {
+                        this.setState({
+                            cameraVisible: false
+                        })
+                    }}/>
             </View>
         );
     }

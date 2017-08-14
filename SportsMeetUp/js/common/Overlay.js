@@ -8,7 +8,7 @@ import {
     Modal
 } from 'react-native';
 
-export default class ModalConpt extends Component {
+export default class Overlay extends Component {
     static propTypes = {
         allowClose: React.PropTypes.bool,
         closeHandle: React.PropTypes.func,

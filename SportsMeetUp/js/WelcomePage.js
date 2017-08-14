@@ -12,7 +12,6 @@ import {
     Platform,
 } from 'react-native'
 import MainPage from './MainPage'
-import SplashScreen from 'react-native-splash-screen'
 import FetchUtil from './util/FetchUtil';
 import TabPage from './homePage/TabPage';
 import DataUtil from './util/DataUtil';
@@ -22,18 +21,17 @@ export default class WelcomePage extends Component {
     componentDidMount() {
         const {navigator} = this.props;
 
-        /*this.timer = setTimeout(() => {
+        this.timer = setTimeout(() => {
             InteractionManager.runAfterInteractions(() => {
-                SplashScreen.hide();
                 navigator.resetTo({
                     component: TabPage,
                     name: 'TabPage',
                     params: {}
                 });
             });
-        }, 500);*/
+        }, 500);
 
-        DataUtil.getData('userLogonInfo').then((res) => {
+        /*DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
         }).catch((error) => {
             this.timer = setTimeout(() => {
@@ -45,10 +43,9 @@ export default class WelcomePage extends Component {
                         // name: 'TabPage',
                         params: {}
                     });
-                    SplashScreen.hide();
                 });
             }, 500);
-        })
+        })*/
     }
 
     componentWillUnmount() {
@@ -68,7 +65,6 @@ export default class WelcomePage extends Component {
         FetchUtil.post(options).then((res) => {
             this.timer = setTimeout(() => {
                 InteractionManager.runAfterInteractions(() => {
-                    SplashScreen.hide();
                     navigator.resetTo({
                         component: TabPage,
                         name: 'TabPageComponent',
@@ -81,7 +77,6 @@ export default class WelcomePage extends Component {
         }).catch((error) => {
             this.timer = setTimeout(() => {
                 InteractionManager.runAfterInteractions(() => {
-                    SplashScreen.hide();
                     navigator.resetTo({
                         component: MainPage,
                         name: 'MainPage',
@@ -95,7 +90,7 @@ export default class WelcomePage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {/*<Image style={{flex:1,width:null}} source={require('../res/images/launch_screen.png')}/>*/}
+                {<Image style={{flex:1,width:null}} source={require('../res/images/launch_screen.png')}/>}
             </View>
         );
     }

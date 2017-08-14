@@ -150,8 +150,8 @@ android {
 dependencies {
     compile project(':react-native-image-picker')
     compile project(':react-native-amap3d')
+    compile project(':react-native-image-crop-picker')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile project(':react-native-splash-screen')
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
