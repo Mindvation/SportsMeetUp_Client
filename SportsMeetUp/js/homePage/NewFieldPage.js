@@ -214,9 +214,12 @@ class NewFieldPage extends Component {
           onRequestClose={() => {alert("Modal has been closed.")}}
           >
           <TouchableOpacity style={{flex:1}} activeOpacity ={1} onPress={() => console.log('click outside')}>
-            <View style={styles.modalBackground} onPress={() => {Alert.alert('box click');}}>
+            <View style={styles.modalBackground} onPress={() => {}}>
               <View style={styles.modalBox}>
-              	<View style={{justifyContent:'center', paddingHorizontal:18, paddingTop:24}}>
+                <TouchableOpacity style={{alignSelf:'flex-end', marginRight:14, marginTop:14}} onPress={() => this._visibleModel(false)}> 
+                  <Image source={require('../../res/images/close.png')}/>
+                </TouchableOpacity>
+              	<View style={{justifyContent:'center', paddingHorizontal:18, paddingTop:9}}>
 				        <View style={styles.modalItemRow}>
                   <Text style={styles.text}>地点</Text>
                   <View style={{flex:1, borderWidth:0, borderBottomWidth:1, borderTopWidth:0, borderLeftWidth:0, borderRightWidth:0, borderColor:'#8b8b83'}}>
@@ -341,7 +344,7 @@ const styles = StyleSheet.create({
         padding: 0,
         borderColor: '#8b8b83',
         color: '#595959',
-        fontSize: 12
+        fontSize: 14
     },
 
     picker: {
@@ -357,7 +360,7 @@ const styles = StyleSheet.create({
     },
 
     dropdownText: {
-        fontSize: 12,
+        fontSize: 14,
         color: '#595959',
     },
 
@@ -368,7 +371,7 @@ const styles = StyleSheet.create({
 
     dropdownTextStyle: {
         flex: 1,
-        fontSize: 12
+        fontSize: 14
     },
 
     imageContainer: {
