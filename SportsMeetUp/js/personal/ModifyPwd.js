@@ -46,29 +46,12 @@ export default class ModifyPwd extends Component {
 
     componentWillMount() {
         this._countDownAction();
-        if (Platform.OS === 'android') {
-            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
-        }
     }
 
     componentWillUnmount() {
         clearInterval(interval);
         clearInterval(interval2)
-        if (Platform.OS === 'android') {
-            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
-        }
     }
-
-    onBackAndroid = () => {
-        const {navigator} = this.props;
-        const routers = navigator.getCurrentRoutes();
-        console.log('当前路由长度：' + routers.length);
-        if (routers.length > 1) {
-            navigator.pop();
-            return true;//接管默认行为
-        }
-        return false;//默认行为
-    };
 
     _getVrfCode() {
 

@@ -39,7 +39,8 @@ export default class Camera extends Component {
         ImagePicker.openPicker({
             width: 300,
             height: 400,
-            cropping: false
+            cropping: false,
+            mediaType: 'photo'
         }).then(image => {
             this.props.getUri({uri: image.path});
         });

@@ -3,8 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
-    Image
+    TouchableOpacity
 } from 'react-native';
 
 export default class Radio extends Component {

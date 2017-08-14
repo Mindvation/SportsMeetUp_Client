@@ -7,8 +7,7 @@ import {
     TouchableWithoutFeedback,
     Dimensions,
     Animated,
-    ScrollView,
-    Image
+    ScrollView
 } from 'react-native';
 
 const {width} = Dimensions.get('window');

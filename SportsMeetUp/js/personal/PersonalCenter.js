@@ -19,7 +19,6 @@ import Setting from './Setting';
 import ModifyInfo from './ModifyInfo';
 import AddTag from './AddTag';
 import MyInterest from "./MyInterest";
-import Util from '../util/CommonUtil'
 
 const {width} = Dimensions.get('window');
 
@@ -113,33 +112,24 @@ export default class PersonalCenter extends Component {
                                 />}
                             <View style={styles.nameInfo}>
                                 <Text style={styles.nameText}>{this.state.name}</Text>
-                                <Text style={styles.freeTimeText}>周末 {this.state.weekendFreeTime}      周内 {this.state.weekFreeTime}</Text>
+                                <Text style={styles.freeTimeText}>周末  {this.state.weekendFreeTime}    周内  {this.state.weekFreeTime}</Text>
                             </View>
                             <TouchableOpacity onPress={this.editPersonalInfo}>
-                                <Image source={require('../../res/images/me/pen.png')}
-                                       style={styles.editImg}
-                                />
+                                <View style={{
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: 40,
+                                    height: 40
+                                }}>
+                                    <Image source={require('../../res/images/me/pen.png')}
+                                           style={styles.editImg}
+                                    />
+                                </View>
                             </TouchableOpacity>
                         </View>
                         <MyInterest myTags={this.state.myTags} edit={this.editInterestInfo}/>
                     </View>
                     <Setting navigator={navigator}/>
-                    {/*<ScrollableTabView
-                        renderTabBar={() => <ScrollableTabBar style={styles.tabBarStyle}
-                                                              tabStyle={styles.tabStyle}
-                                                              underlineHeight={0}/>}
-                        tabBarUnderlineStyle={styles.tabBarUnderline}
-                        tabBarTextStyle={styles.tabBarTextStyle}
-                        tabBarActiveTextColor="#ffffff"
-                        tabBarInactiveTextColor="#afaeae"
-                        onChangeTab={() => {
-                            _scrollView.scrollTo({x: 0});
-                        }}
-                    >
-                        <MyInvite tabLabel="我的邀请"/>
-                        <MyMatch tabLabel="我的比赛"/>
-                        <Setting navigator={navigator} tabLabel="其他设置"/>
-                    </ScrollableTabView>*/}
                 </ScrollView>
             </View>
         );
