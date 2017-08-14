@@ -167,7 +167,7 @@ class HomePage extends Component {
                 this.setState({dataReady:true})
             }
         })
-        .catch((error) => colose.log(error));
+        .catch((error) => console.log(error));
     }
 
     _contains(arr, obj) {
