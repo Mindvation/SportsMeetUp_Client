@@ -53,7 +53,7 @@ class HomePage extends Component {
         super(props);
         this.playgrounds = [];
         this.hasInitLocation = false;
-        this.centerLocation = null;
+        // this.centerLocation = null;
         this.userLocation = null;
         this.state = {
             mapCenter: null,
@@ -62,6 +62,7 @@ class HomePage extends Component {
             gameInfoEnabled: false,
             dataReady: false,
             showNewFieldModal: false,
+            centerLocation: null,
         };
     }
 
@@ -125,12 +126,13 @@ class HomePage extends Component {
     }
 
     _onCenterLocationChange(nativeEvent) {
-        this.centerLocation = {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude};
+        let centerLocation = {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude};
+        this.setState({centerLocation:centerLocation})
         console.log("mapCenterChange:", nativeEvent);
 
         if (this.state.selectedPlayground) {
             // 存在激活的marker
-            let dis = getGreatCircleDistance(this.centerLocation.latitude, this.centerLocation.longitude, this.state.selectedPlayground.latitude, this.state.selectedPlayground.longitude);
+            let dis = getGreatCircleDistance(centerLocation.latitude, centerLocation.longitude, this.state.selectedPlayground.latitude, this.state.selectedPlayground.longitude);
             if (dis > 100) {
                 this.setState({
                     selectedPlayground: null,
@@ -143,7 +145,7 @@ class HomePage extends Component {
         }
 
 
-        this._getData(this.centerLocation);
+        this._getData(centerLocation);
     }
 
     // 查询附近的运动场
@@ -167,7 +169,7 @@ class HomePage extends Component {
                 this.setState({dataReady:true})
             }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => colose.log(error));
     }
 
     _contains(arr, obj) {
@@ -388,7 +390,7 @@ class HomePage extends Component {
                         <Image source={require('../../res/images/action_match.png')}/>
                     </TouchableOpacity>
                 </View>
-        <NewFieldPage ref='newField' visible={true} location={this.centerLocation} commitCallback={(data) => this._submitNewField(data)}/>
+        <NewFieldPage ref='newField' visible={true} location={this.state.centerLocation} commitCallback={(data) => this._submitNewField(data)}/>
                 {this.renderFieldModal()}
                 <NewMatchView ref='newMatchView' newMatchCallback={(data) => this._submitNewMatch(data)}/>
             </View>
