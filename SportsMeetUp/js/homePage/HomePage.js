@@ -18,6 +18,7 @@ import NewFieldPage from './NewFieldPage'
 import FieldInfoView from './FieldInfoView'
 import NewMatchView from './NewMatchView'
 import MatchInfo from '../matchInfo/MatchInfo'
+import FetchUtil from '../util/FetchUtil'
 
 var EARTH_RADIUS = 6378137.0;    //单位M  
 var PI = Math.PI;
@@ -53,8 +54,8 @@ class HomePage extends Component {
         super(props);
         this.playgrounds = [];
         this.hasInitLocation = false;
-        // this.centerLocation = null;
         this.userLocation = null;
+        this.lastFetchDataLocation = null;
         this.state = {
             mapCenter: null,
             selectedPlayground: null,
@@ -145,31 +146,55 @@ class HomePage extends Component {
         }
 
 
-        this._getData(centerLocation);
+        // 判断是否超过10公里
+        if (this.lastFetchDataLocation && getGreatCircleDistance(this.lastFetchDataLocation.latitude, this.lastFetchDataLocation.longitude, centerLocation.latitude, centerLocation.longitude) > 3 * 1000) {
+            this._getData(centerLocation);            
+        }
     }
 
     // 查询附近的运动场
     _getData(location) {
-        fetch('http://192.168.0.109:8084/sports-meetup-papi/sportfields/getNearbySportFields', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(location)
-        })
-        .then((response)=>response.json())
-        .then((result) => {
-            if (result.responseCode === '000') {
-                console.log(result.responseBody);
-                for (var i = result.responseBody.length - 1; i >= 0; i--) {
-                    if(!this._contains(this.playgrounds,result.responseBody[i])){
-                        this.playgrounds.push(result.responseBody[i]);
-                    }
+        let options = {
+            "url": "8084/sports-meetup-papi/sportfields/getNearbySportFields",
+            "params": location
+        };
+        
+        FetchUtil.post(options).then((result) => {
+            for (var i = result.responseBody.length - 1; i >= 0; i--) {
+                if (!this._contains(this.playgrounds, result.responseBody[i])) {
+                    this.playgrounds.push(result.responseBody[i]);
                 }
-                this.setState({dataReady:true})
             }
-        })
-        .catch((error) => colose.log(error));
+            this.setState({
+                dataReady: true
+            })
+            this.lastFetchDataLocation = location;
+        }).catch((error) => {
+            console.log(error);
+        });
+        
+
+
+        // fetch('http://192.168.0.109:8084/sports-meetup-papi/sportfields/getNearbySportFields', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(location)
+        // })
+        // .then((response)=>response.json())
+        // .then((result) => {
+        //     if (result.responseCode === '000') {
+        //         console.log(result.responseBody);
+        //         for (var i = result.responseBody.length - 1; i >= 0; i--) {
+        //             if(!this._contains(this.playgrounds,result.responseBody[i])){
+        //                 this.playgrounds.push(result.responseBody[i]);
+        //             }
+        //         }
+        //         this.setState({dataReady:true})
+        //     }
+        // })
+        // .catch((error) => colose.log(error));
     }
 
     _contains(arr, obj) {
