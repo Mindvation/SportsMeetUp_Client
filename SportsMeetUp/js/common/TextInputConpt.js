@@ -62,19 +62,19 @@ export default class TextInputConpt extends Component {
         const clearBtn = <TouchableOpacity onPress={() => {
             this._clearValue()
         }}>
-            <Image style={styles.inputRightBtn} source={require('../../res/images/clear.png')}></Image>
+            <Image style={styles.inputRightBtn} source={require('../../res/images/clear.png')}/>
         </TouchableOpacity>;
 
         const hiddenPwdBtn = <TouchableOpacity onPress={() => {
             this._toggleSecure()
         }}>
-            <Image style={styles.inputRightBtn} source={require('../../res/images/hidePwd.png')}></Image>
+            <Image style={styles.inputRightBtn} source={require('../../res/images/hidePwd.png')}/>
         </TouchableOpacity>;
 
         const showPwdBtn = <TouchableOpacity onPress={() => {
             this._toggleSecure()
         }}>
-            <Image style={styles.inputRightBtn} source={require('../../res/images/showPwd.png')}></Image>
+            <Image style={styles.inputRightBtn} source={require('../../res/images/showPwd.png')}/>
         </TouchableOpacity>;
 
         return (
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     },
     txtCont: {
         flex: 1,
-        fontSize: 12,
+        fontSize: 14,
         marginLeft: 17,
         color: '#898989'
     },

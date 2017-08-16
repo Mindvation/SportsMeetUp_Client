@@ -142,7 +142,7 @@ class NewFieldPage extends Component {
     if (this.imageArray[1]) {filesToUpload.push(this.imageArray[1])};
     if (this.imageArray[2]) {filesToUpload.push(this.imageArray[2])};
 
-        fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/uploadBase64', {
+        fetch('http://192.168.0.100:8084/sports-meetup-papi/sportfields/uploadBase64', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -164,7 +164,7 @@ class NewFieldPage extends Component {
                     }
                     console.log(urls);
 
-          return fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/addSportField', {
+          return fetch('http://192.168.0.100:8084/sports-meetup-papi/sportfields/addSportField', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

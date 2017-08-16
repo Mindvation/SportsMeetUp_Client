@@ -329,11 +329,11 @@ export default class Register extends Component {
                     allowClose={false}
                     modalCont={succModal}
                     modalVisible={this.state.succModalVisible}
-                ></ModalConpt>
+                />
                 <Overlay
                     allowClose={false}
                     modalVisible={this.state.overlayVisible}
-                ></Overlay>
+                />
             </View>
         );
     }
@@ -411,11 +411,11 @@ const styles = StyleSheet.create({
     },
     declText: {
         color: '#393939',
-        fontSize: 11
+        fontSize: 14
     },
     declTextLink: {
         color: '#0000FF',
-        fontSize: 11
+        fontSize: 14
     },
     succModalMainCont: {
         marginLeft: 55,

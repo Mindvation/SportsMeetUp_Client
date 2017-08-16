@@ -148,7 +148,7 @@ class HomePage extends Component {
 
     // 查询附近的运动场
     _getData(location) {
-        fetch('http://192.168.0.109:8084/sports-meetup-papi/sportfields/getNearbySportFields', {
+        fetch('http://192.168.0.100:8084/sports-meetup-papi/sportfields/getNearbySportFields', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
