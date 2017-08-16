@@ -10,19 +10,22 @@ import {
     TextInput,
     Button,
     Text,
+    TouchableOpacity,
+    Image,
 } from 'react-native';
 
 import DatePicker from 'react-native-datepicker'
 import ModalDropdown from 'react-native-modal-dropdown';
 import Toast, {DURATION} from 'react-native-easy-toast'
 import CommonUtil from '../util/CommonUtil'
+import FetchUtil from '../util/FetchUtil'
 
 const {
     width,
     height,
 } = Dimensions.get('window');
 
-const matchTypes = ['足球', '篮球', "羽毛", '台球', '保龄球', '网球', '乒乓球', '排球'];
+const matchTypes = ['1v1', '3v3', "5v5", '8v8', '11v11'];
 const matchTypeValues = ['football', 'basketball', 'badminton', 'billiards', 'bowling', 'tennis', 'tabletennis', 'volleyball'];
 const memberNums = ['1v1', '2v2', '3v3', '4v4', '5v5', '6v7', '7v7', '8v8', '11v11'];
 const memberNumValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -33,9 +36,11 @@ class NewMatchView extends Component {
 
         this.state = {
             modalVisible: false,
+            matchDate: null,
+            startTime: null,
+            endTime: null,
             type: '',
             number: '',
-            date: "",
             phone: '',
             description: '',
         };
@@ -48,8 +53,18 @@ class NewMatchView extends Component {
     }
 
     onClickSubmit() {
-        if (CommonUtil.isEmpty(this.state.date)) {
+        if (CommonUtil.isEmpty(this.state.matchDate)) {
             this.refs.toast.show('请选择比赛日期');
+            return;
+        }
+
+        if (CommonUtil.isEmpty(this.state.startTime)) {
+            this.refs.toast.show('请选择比赛开始时间');
+            return;
+        }
+
+        if (CommonUtil.isEmpty(this.state.endTime)) {
+            this.refs.toast.show('请选择比赛结束时间');
             return;
         }
 
@@ -68,17 +83,36 @@ class NewMatchView extends Component {
             return;
         }
 
-        if (CommonUtil.isEmpty(this.state.description)) {
-            this.refs.toast.show('请输入比赛备注信息');
-            return;
-        }
+        // if (CommonUtil.isEmpty(this.state.description)) {
+        //     this.refs.toast.show('请输入比赛备注信息');
+        //     return;
+        // }
 
-        this.props.newMatchCallback({
-            date: this.state.date,
-            type: this.state.type,
-            number: this.state.number,
-            phone: this.state.phone,
-            description: this.state.description
+        console.log(this.state);
+        console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.startTime + ":00" );
+        console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.endTime + ":00" );
+        let options = {
+            "url": '8086/sports-meetup-papi/matches/initialMatch',
+            "params": {
+                "match": {
+                    "creatorId": 1234,
+                    "fieldId": this.props.fieldId,
+                    "createdTime": CommonUtil.dateFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
+                    "startTime": new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.startTime + ":00" ,
+                    "endTime": new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.endTime + ":00" ,
+                    "matchType": this.state.type,
+                    "joinedAmount": parseInt(this.state.number),
+                    "creatorPhone": this.state.phone,
+                    "remarks": this.state.description
+                }
+            }
+        };
+
+        FetchUtil.post(options).then((result) => {
+            this.refs.toast.show('成功发起比赛');
+            this.visible(false);
+        }).catch((error) => {
+            this.refs.toast.show('操作失败，请重试');
         });
     }
 
@@ -94,16 +128,19 @@ class NewMatchView extends Component {
                 }}>
                 <View style={styles.modalBackground}>
                     <View style={styles.modalBox}>
-                        <View style={{paddingLeft: 28, paddingRight: 38, paddingTop: 32}}>
-                            <View style={styles.itemLine}>
-                                <Text style={styles.text}>时间</Text>
-                                <DatePicker style={styles.datePicker}
-                                            mode='datetime'
-                                            date={this.state.date}
-                                            placeholder='比赛日期'
-                                            format="YYYY-MM-DD HH:mm"
-                                            minDate={CommonUtil.dateFormat(today, 'YYYY-MM-DD HH:mm')}
-                                            maxDate={CommonUtil.dateFormat(endDay, 'YYYY-MM-DD HH:mm')}
+                        <TouchableOpacity style={{alignSelf:'flex-end', marginRight:14, marginTop:14}} onPress={() => this.visible(false)}> 
+                            <Image source={require('../../res/images/close.png')}/>
+                        </TouchableOpacity>
+                        <View style={{paddingLeft: 28, paddingRight: 38, paddingTop: 9}}>
+                            <View style={[styles.itemLine, {alignItems: 'center'}]}>
+                                <Text style={styles.text}>日期</Text>
+                                <DatePicker style={[styles.datePicker, {marginRight:8}]}
+                                            mode='date'
+                                            date={this.state.matchDate}
+                                            placeholder=' '
+                                            format="MM-DD"
+                                            minDate={today}
+                                            maxDate={endDay}
                                             showIcon={false}
                                             confirmBtnText="确定"
                                             cancelBtnText="取消"
@@ -115,14 +152,69 @@ class NewMatchView extends Component {
                                                     borderLeftWidth: 0,
                                                     borderRightWidth: 0,
                                                     borderColor: '#8b8b83',
+                                                    padding:0
                                                 },
                                                 dateTouchBody: {
-                                                    height: 10,
                                                     padding: 0,
+                                                    height: 30,
                                                 },
                                             }}
-                                            onDateChange={(date) => {
-                                                this.setState({date: date})
+                                            onDateChange={(matchDate) => {
+                                                this.setState({matchDate: matchDate})
+                                            }}/>
+                                <Text style={styles.text}>起</Text>
+                                <DatePicker style={[styles.datePicker, {marginRight:8}]}
+                                            mode='time'
+                                            date={this.state.startTime}
+                                            placeholder=' '
+                                            format="HH:mm"
+                                            showIcon={false}
+                                            confirmBtnText="确定"
+                                            cancelBtnText="取消"
+                                            customStyles={{
+                                                dateInput: {
+                                                    height: 24,
+                                                    borderBottomWidth: 0.5,
+                                                    borderTopWidth: 0,
+                                                    borderLeftWidth: 0,
+                                                    borderRightWidth: 0,
+                                                    borderColor: '#8b8b83',
+                                                    padding:0
+                                                },
+                                                dateTouchBody: {
+                                                    padding: 0,
+                                                    height: 30,
+                                                },
+                                            }}
+                                            onDateChange={(startTime) => {
+                                                this.setState({startTime: startTime})
+                                            }}/>
+                                <Text style={styles.text}>止</Text>
+                                <DatePicker style={[styles.datePicker, {marginLeft:0}]}
+                                            mode='time'
+                                            date={this.state.endTime}
+                                            placeholder=' '
+                                            format="HH:mm"
+                                            showIcon={false}
+                                            confirmBtnText="确定"
+                                            cancelBtnText="取消"
+                                            customStyles={{
+                                                dateInput: {
+                                                    height: 24,
+                                                    borderBottomWidth: 0.5,
+                                                    borderTopWidth: 0,
+                                                    borderLeftWidth: 0,
+                                                    borderRightWidth: 0,
+                                                    borderColor: '#8b8b83',
+                                                    padding:0
+                                                },
+                                                dateTouchBody: {
+                                                    padding: 0,
+                                                    height: 30,
+                                                },
+                                            }}
+                                            onDateChange={(endTime) => {
+                                                this.setState({endTime: endTime})
                                             }}/>
                             </View>
                             <View style={styles.itemLine}>
@@ -134,19 +226,20 @@ class NewMatchView extends Component {
                                                    dropdownTextStyle={styles.dropdownTextStyle}
                                                    defaultValue='请选择比赛类型'
                                                    options={matchTypes}
-                                                   onSelect={(index) => this.setState({type: matchTypeValues[index]})}/>
+                                                   onSelect={(index) => this.setState({type: matchTypes[index]})}/>
                                 </View>
                             </View>
                             <View style={styles.itemLine}>
                                 <Text style={styles.text}>人数信息</Text>
                                 <View style={styles.textInputBorder}>
-                                    <ModalDropdown style={styles.dropdownButton}
-                                                   textStyle={styles.dropdownText}
-                                                   dropdownStyle={styles.dropdownStyle}
-                                                   dropdownTextStyle={styles.dropdownTextStyle}
-                                                   defaultValue='请选择已有人数'
-                                                   options={memberNums}
-                                                   onSelect={(index) => this.setState({number: memberNumValues[index]})}/>
+                                    <TextInput style={styles.phoneNumberInput}
+                                               placeholder='请输入已有人数'
+                                               placeholderTextColor='#b5b2b2'
+                                               underlineColorAndroid='transparent'
+                                               maxLength={2}
+                                               keyboardType='numeric'
+                                               value={this.state.number}
+                                               onChangeText={(number) => this.setState({number})}/>
                                 </View>
                             </View>
                             <View style={styles.itemLine}>
@@ -155,6 +248,7 @@ class NewMatchView extends Component {
                                     <TextInput style={styles.phoneNumberInput}
                                                placeholder='请输入电话号码'
                                                placeholderTextColor='#b5b2b2'
+                                               underlineColorAndroid='transparent'
                                                maxLength={11}
                                                keyboardType='numeric'
                                                value={this.state.phone}
@@ -166,6 +260,7 @@ class NewMatchView extends Component {
                                        placeholder='请输入比赛备注信息'
                                        multiline={true}
                                        lineOfNumber={3}
+                                       underlineColorAndroid='transparent'
                                        placeholderTextColor='#b5b2b2'
                                        value={this.state.description}
                                        onChangeText={(description) => this.setState({description})}/>
@@ -204,13 +299,12 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        width: 75,
+        marginRight:8,
         fontSize: 15,
     },
 
     datePicker: {
         flex: 1,
-
     },
 
     dropdownButton: {
@@ -240,6 +334,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 12,
         color: '#595959',
+        padding:0,
     },
 
     description: {

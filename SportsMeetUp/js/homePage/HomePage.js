@@ -48,7 +48,6 @@ function getGreatCircleDistance(lat1, lng1, lat2, lng2) {
     return s;
 }
 
-
 class HomePage extends Component {
     constructor(props) {
         super(props);
@@ -76,6 +75,19 @@ class HomePage extends Component {
             return <Image source={require('../../res/images/football.png')}/>;
         } else if (fieldType === '080104') {
             return <Image source={require('../../res/images/basketball.png')}/>;
+        } else if (fieldType === '080102') { 
+            //宝林球
+            return <Image source={require('../../res/images/bowling.png')}/>;
+        } else if (fieldType === '080103') { 
+            //网球
+            return <Image source={require('../../res/images/tennis.png')}/>;
+        } else if (fieldType === '080112') { 
+            //乒乓球
+            return <Image source={require('../../res/images/tabletennis.png')}/>;
+        } else if (fieldType === '080113') {
+            return <Image source={require('../../res/images/billiards.png')}/>;
+        } else if (fieldType === '080118') {
+            return <Image source={require('../../res/images/badminton.png')}/>;
         } else {
             return <Image source={require('../../res/images/football.png')}/>;
         }
@@ -315,6 +327,10 @@ class HomePage extends Component {
                                                                  fieldInfo={this.state.selectedPlayground}/>;
     }
 
+    _renderNewMatchView() {
+        if (this.state.selectedPlayground) return <NewMatchView ref = 'newMatchView' fieldId={this.state.selectedPlayground.fieldId}/>;
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -392,9 +408,9 @@ class HomePage extends Component {
                         <Image source={require('../../res/images/action_match.png')}/>
                     </TouchableOpacity>
                 </View>
-        <NewFieldPage ref='newField' visible={true} location={this.state.centerLocation} commitCallback={(data) => this._submitNewField(data)}/>
+                <NewFieldPage ref='newField' visible={true} location={this.state.centerLocation} commitCallback={(data) => this._submitNewField(data)}/>
                 {this.renderFieldModal()}
-                <NewMatchView ref='newMatchView' newMatchCallback={(data) => this._submitNewMatch(data)}/>
+                {this._renderNewMatchView()}
             </View>
         );
     }

@@ -37,6 +37,23 @@ class FieldInfoView extends Component {
         });
     }
 
+    _renderImages() {
+        let urls = this.props.fieldInfo.picsOfField.split("&");
+        let images = [];
+        for (var i = urls.length - 1; i >= 0; i--) {
+            if (!CommonUtil.isEmpty(urls[i])) {
+                images.push(<Image style={styles.image}
+                            key={i} resizeMode='cover' source={{uri: urls[i]}}/>);                
+            }
+        }
+
+        if (images.length == 0) {
+            return <Image style={styles.image} resizeMode='cover' source={require('../../res/images/add_pic.png')} />;
+        } else {
+            return images.map((item, index) => {return item;});
+        }
+    }
+
     render() {
         console.log(this.props.fieldInfo);
         let {address, fieldType, adminPhone, fieldDetail, picsOfField} = this.props.fieldInfo;
@@ -56,15 +73,7 @@ class FieldInfoView extends Component {
                             <Text style={[styles.text, {marginTop: 27}]}>备注：{fieldDetail}</Text>
                             <Text style={[styles.text, {marginTop: 27}]}>场地图片</Text>
                             <View style={styles.imageContainer}>
-                                <Image style={styles.image}
-                                       resizeMode='cover'
-                                       source={images.length > 0 ? {uri: images[0]} : require('../../res/images/add_pic.png')}/>
-                                <Image style={styles.image}
-                                       resizeMode='cover'
-                                       source={images.length > 1 ? {uri: images[1]} : require('../../res/images/add_pic.png')}/>
-                                <Image style={styles.image}
-                                       resizeMode='cover'
-                                       source={images.length > 2 ? {uri: images[2]} : require('../../res/images/add_pic.png')}/>
+                                {this._renderImages()}
                             </View>
                         </View>
                         <Button
