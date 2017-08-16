@@ -21,7 +21,7 @@ export default class WelcomePage extends Component {
     componentDidMount() {
         const {navigator} = this.props;
 
-        this.timer = setTimeout(() => {
+        /*this.timer = setTimeout(() => {
             InteractionManager.runAfterInteractions(() => {
                 navigator.resetTo({
                     component: TabPage,
@@ -29,9 +29,9 @@ export default class WelcomePage extends Component {
                     params: {}
                 });
             });
-        }, 500);
+        }, 500);*/
 
-        /*DataUtil.getData('userLogonInfo').then((res) => {
+        DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
         }).catch((error) => {
             this.timer = setTimeout(() => {
@@ -39,13 +39,11 @@ export default class WelcomePage extends Component {
                     navigator.resetTo({
                         component: MainPage,
                         name: 'MainPage',
-                        // component: TabPage,
-                        // name: 'TabPage',
                         params: {}
                     });
                 });
             }, 500);
-        })*/
+        })
     }
 
     componentWillUnmount() {

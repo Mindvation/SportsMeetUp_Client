@@ -35,7 +35,6 @@ var options = {
 import Toast, {DURATION} from 'react-native-easy-toast'
 import CommonUtil from '../util/CommonUtil'
 import Overlay from '../common/Overlay'
-import FetchUtil from '../util/FetchUtil'
 
 
 const {width, height} = Dimensions.get('window');
@@ -136,7 +135,6 @@ class NewFieldPage extends Component {
   _uploadImages() {
     // show loading 
     this.setState({overlayVisible: true});
-    console.log(this.props.location);
 
 
     let filesToUpload = new Array();
@@ -144,112 +142,64 @@ class NewFieldPage extends Component {
     if (this.imageArray[1]) {filesToUpload.push(this.imageArray[1])};
     if (this.imageArray[2]) {filesToUpload.push(this.imageArray[2])};
 
-    const options = {
-      "url": '8084/sports-meetup-papi/sportfields/uploadBase64',
-      "params": {
-        uploadFiles: filesToUpload
-      },
-      "schema": "login"
-    };
+        fetch('http://192.168.0.100:8084/sports-meetup-papi/sportfields/uploadBase64', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                uploadFiles: filesToUpload
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+                if (responseJson.responseCode === '000') {
+                    let urls = '';
+                    for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
+                        urls += responseJson.responseBody[i]
+                        if (i != 0) {
+                            urls += "&"
+                        }
+                    }
+                    console.log(urls);
 
-    FetchUtil.post(options).then((responseJson) => {
-      console.log(responseJson);
-      let urls = '';
-      for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
-        urls += responseJson.responseBody[i]
-        if (i != 0) {
-          urls += "&"
-        }
-      }
-
-      const options2 = {
-        "url": '8084/sports-meetup-papi/sportfields/addSportField',
-        "params": {
-          creatorId: 1000,
-          address: this.state.address,
-          fieldType: this.state.fieldType,
-          adminPhone: this.state.adminTel,
-          fieldDetail: this.state.description ? this.state.description : '',
-          longitude: this.props.location.longitude,
-          latitude: this.props.location.latitude,
-          picsOfField: urls,
-        }
-      }
-      // options2.params.picsOfField = urls;
-
-      return FetchUtil.post(options2)
-        .then((result) => {
-          this.setState({
-            overlayVisible: false
+          return fetch('http://192.168.0.100:8084/sports-meetup-papi/sportfields/addSportField', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              creatorId: 1000,
+              fieldLocation: this.state.address,
+              fieldType: this.state.fieldType,
+              adminPhone: this.state.adminTel,
+              fieldDetail: this.state.description ? this.state.description : '',
+              longitude: this.props.location.longitude,
+              latitude: this.props.location.latitude,
+              picsOfField: urls,
+            })
           });
-          this.refs.toast.show('添加成功');
-          this._visibleModel(false);
-        });
+        } else {
+          this.refs.toast.show('上传图片失败，请重试');
+          this.setState({overlayVisible: false});
+        }
+     })
+    .then((response2) => response2.json())
+    .then((result) => {
+      console.log(result);
+      if (result.responseCode != '000') {
+        this.refs.toast.show('提交数据失败，请重试');
+      } else {
+        this.refs.toast.show('添加成功');
+        this._visibleModel(false);
+      }
+      this.setState({overlayVisible: false});
     })
     .catch((error) => {
-        this.refs.toast.show('添加失败，请重试');
+        console.error(error);
         this.setState({overlayVisible: false});
     });
-
-
-    //     fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/uploadBase64', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             uploadFiles: filesToUpload
-    //         })
-    //     })
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //             console.log(responseJson);
-    //             if (responseJson.responseCode === '000') {
-    //                 let urls = '';
-    //                 for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
-    //                     urls += responseJson.responseBody[i]
-    //                     if (i != 0) {
-    //                         urls += "&"
-    //                     }
-    //                 }
-    //                 console.log(urls);
-
-    //       return fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/addSportField', {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //           creatorId: 1000,
-    //           fieldLocation: this.state.address,
-    //           fieldType: this.state.fieldType,
-    //           adminPhone: this.state.adminTel,
-    //           fieldDetail: this.state.description ? this.state.description : '',
-    //           longitude: this.props.location.longitude,
-    //           latitude: this.props.location.latitude,
-    //           picsOfField: urls,
-    //         })
-    //       });
-    //     } else {
-    //       this.refs.toast.show('上传图片失败，请重试');
-    //       this.setState({overlayVisible: false});
-    //     }
-    //  })
-    // .then((response2) => response2.json())
-    // .then((result) => {
-    //   console.log(result);
-    //   if (result.responseCode != '000') {
-    //     this.refs.toast.show('提交数据失败，请重试');
-    //   } else {
-    //     this.refs.toast.show('添加成功');
-    //     this._visibleModel(false);
-    //   }
-    //   this.setState({overlayVisible: false});
-    // })
-    // .catch((error) => {
-    //     console.error(error);
-    //     this.setState({overlayVisible: false});
-    // });
   }
 
 
@@ -261,7 +211,7 @@ class NewFieldPage extends Component {
           animationType={"fade"}
           transparent={true}
           visible={this.state.visible}
-          onRequestClose={() => {}}
+          onRequestClose={() => {alert("Modal has been closed.")}}
           >
           <TouchableOpacity style={{flex:1}} activeOpacity ={1} onPress={() => console.log('click outside')}>
             <View style={styles.modalBackground} onPress={() => {}}>

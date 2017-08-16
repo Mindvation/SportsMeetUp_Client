@@ -172,29 +172,6 @@ class HomePage extends Component {
         }).catch((error) => {
             console.log(error);
         });
-        
-
-
-        // fetch('http://192.168.0.109:8084/sports-meetup-papi/sportfields/getNearbySportFields', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(location)
-        // })
-        // .then((response)=>response.json())
-        // .then((result) => {
-        //     if (result.responseCode === '000') {
-        //         console.log(result.responseBody);
-        //         for (var i = result.responseBody.length - 1; i >= 0; i--) {
-        //             if(!this._contains(this.playgrounds,result.responseBody[i])){
-        //                 this.playgrounds.push(result.responseBody[i]);
-        //             }
-        //         }
-        //         this.setState({dataReady:true})
-        //     }
-        // })
-        // .catch((error) => colose.log(error));
     }
 
     _contains(arr, obj) {
