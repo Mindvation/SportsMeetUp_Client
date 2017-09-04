@@ -15,28 +15,33 @@ import MyMatchMain from '../myMatch/MyMatchMain';
 import Util from '../util/CommonUtil';
 import Guide from './Guide';
 import DataUtil from '../util/DataUtil';
+import DATA_JSON from '../pickCity/city-list.json';
 
+const freeTimeOptions = {
+    am: '上午',
+    nn: '中午',
+    pm: '下午',
+    nt: '晚上',
+    ad: "全天"
+};
 
 class TabPage extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {selectedTab: 'home', notFirstUse: true};
 
+        const {userInfo} = props;
+
         Util.updateGobalData("globalUserInfo", {
+            "userId": userInfo.userId,
             "phoneNumber": "15029616602",
-            "name": "Migan",
-            "gender": "M",
-            "weekFreeTime": "晚上",
-            "weekendFreeTime": "全天",
-            "location": {
-                "name": "西安",
-                "spellName": "xian",
-                "id": 6101,
-                "fullname": "陕西/西安",
-                "sortLetters": "x"
-            }
+            "name": userInfo.name,
+            "gender": userInfo.gender,
+            "weekFreeTime": freeTimeOptions[userInfo.weekday],
+            "weekendFreeTime": freeTimeOptions[userInfo.weekend],
+            "location": this._getLocationById(userInfo.city),
+            "tags": userInfo.hobbies.split(",")
         });
     }
 
@@ -50,6 +55,19 @@ class TabPage extends Component {
                 notFirstUse: true
             })
         })
+    }
+
+    _getLocationById(id) {
+        let returnCity = {};
+        if (id) {
+            DATA_JSON.allCityList.some((city) => {
+                if (city.id == id) {
+                    returnCity = city;
+                    return true;
+                }
+            });
+        }
+        return returnCity;
     }
 
     render() {

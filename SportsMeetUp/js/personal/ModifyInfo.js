@@ -8,7 +8,6 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
-    BackHandler,
     Platform,
     TouchableOpacity,
     Image,
@@ -17,7 +16,7 @@ import {
     Alert
 } from 'react-native';
 import TextInputConpt from '../common/TextInputConpt';
-import Toast, {DURATION} from 'react-native-easy-toast';
+import Toast from 'react-native-easy-toast';
 import ModalConpt from '../common/ModalConpt';
 import Overlay from '../common/Overlay';
 import Header from '../common/Header';
@@ -25,6 +24,8 @@ import Radio from '../common/Radio';
 import Util from '../util/CommonUtil';
 import SimpleSelectCity from '../pickCity/SimpleSelectCity';
 import ModalDropdown from 'react-native-modal-dropdown';
+import FetchUtil from '../util/FetchUtil';
+import DATA_JSON from '../pickCity/city-list.json';
 
 import Camera from '../common/Camera';
 
@@ -35,7 +36,16 @@ const gender_props = [
     {label: '女', value: "F"}
 ];
 
+/*
 const freeTimeOptions = ['上午', '中午', '下午', '晚上', '全天'];
+*/
+const freeTimeOptions = {
+    am: '上午',
+    nn: '中午',
+    pm: '下午',
+    nt: '晚上',
+    ad: "全天"
+};
 
 export default class ModifyInfo extends Component {
     constructor(props) {
@@ -49,7 +59,8 @@ export default class ModifyInfo extends Component {
             ftWidth1: 0,
             ftWidth2: 0,
             location: globalUserInfo.location,
-            cameraVisible: false
+            cameraVisible: false,
+            overlayVisible: false
         };
     }
 
@@ -60,7 +71,65 @@ export default class ModifyInfo extends Component {
         })
     }
 
+    _getKey(option, value) {
+        let key = "";
+        Object.keys(option).some((itemKey) => {
+            if (option[itemKey] === value) {
+                key = itemKey;
+                return true
+            }
+        });
+        return key;
+    }
+
     _modifyUserInfo() {
+        const options = {
+            "url": '8081/sports-meetup-papi/users/updateUser',
+            "params": {
+                "userId": globalUserInfo.userId,
+                "name": this.state.name,
+                "gender": this.state.gender,
+                //"icon": this.state.photo,
+                "weekday": this._getKey(freeTimeOptions, this.state.weekFreeTime),
+                "weekend": this._getKey(freeTimeOptions, this.state.weekendFreeTime),
+                "city": this.state.location.id
+            }
+        };
+
+        this.setState({
+            overlayVisible: true,
+        });
+
+        FetchUtil.post(options).then((res) => {
+            this.setState({
+                overlayVisible: false
+            });
+
+            this._goBack(res.responseBody);
+        }).catch((error) => {
+            this.setState({
+                overlayVisible: false,
+            });
+
+            Alert.alert(
+                error.code,
+                error.message,
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+        });
+    }
+
+    _goBack(res) {
+        this.setState({
+            "name": res.name,
+            "gender": res.gender,
+            "weekFreeTime": freeTimeOptions[res.weekday],
+            "weekendFreeTime": freeTimeOptions[res.weekend],
+            "location": this._getLocationById(res.city)
+        });
         Util.updateGobalData("globalUserInfo", {
             "name": this.state.name,
             "gender": this.state.gender,
@@ -85,6 +154,19 @@ export default class ModifyInfo extends Component {
         }
     }
 
+    _getLocationById(id) {
+        let returnCity = {};
+        if (id) {
+            DATA_JSON.allCityList.some((city) => {
+                if (city.id == id) {
+                    returnCity = city;
+                    return true;
+                }
+            });
+        }
+        return returnCity;
+    }
+
     _pickCity() {
         const {navigator} = this.props;
         if (navigator) {
@@ -104,13 +186,13 @@ export default class ModifyInfo extends Component {
 
     _pickWeekFreeTime(index) {
         this.setState({
-            weekFreeTime: freeTimeOptions[index]
+            weekFreeTime: Object.values(freeTimeOptions)[index]
         })
     }
 
     _pickWeekendFreeTime(index) {
         this.setState({
-            weekendFreeTime: freeTimeOptions[index]
+            weekendFreeTime: Object.values(freeTimeOptions)[index]
         })
     }
 
@@ -171,7 +253,7 @@ export default class ModifyInfo extends Component {
                                         this._pickCity();
                                     }}
                                 >
-                                    <Text style={{fontSize: 15}}>{this.state.location.name}</Text>
+                                    <Text style={{fontSize: 15}}>{this.state.location.name?this.state.location.name:"请选择"}</Text>
                                 </TouchableOpacity>
 
                             </View>
@@ -200,7 +282,7 @@ export default class ModifyInfo extends Component {
                                     dropdownStyle={{width: this.state.ftWidth1}}
                                     dropdownTextStyle={styles.dropdownTextStyle}
                                     defaultValue={this.state.weekendFreeTime}
-                                    options={freeTimeOptions}
+                                    options={Object.values(freeTimeOptions)}
                                     animated={false}
                                     onSelect={(index) => this._pickWeekendFreeTime(index)}/>
 
@@ -217,7 +299,7 @@ export default class ModifyInfo extends Component {
                                     dropdownStyle={{width: this.state.ftWidth2}}
                                     dropdownTextStyle={styles.dropdownTextStyle}
                                     defaultValue={this.state.weekFreeTime}
-                                    options={freeTimeOptions}
+                                    options={Object.values(freeTimeOptions)}
                                     animated={false}
                                     onSelect={(index) => this._pickWeekFreeTime(index)}/>
 
@@ -249,7 +331,7 @@ export default class ModifyInfo extends Component {
                 />
                 <Overlay
                     allowClose={false}
-                    modalVisible={false}
+                    modalVisible={this.state.overlayVisible}
                 />
                 <Camera
                     visible={this.state.cameraVisible}

@@ -18,7 +18,6 @@ import NewFieldPage from './NewFieldPage'
 import FieldInfoView from './FieldInfoView'
 import NewMatchView from './NewMatchView'
 import MatchInfo from '../matchInfo/MatchInfo'
-import FetchUtil from '../util/FetchUtil'
 
 var EARTH_RADIUS = 6378137.0;    //单位M  
 var PI = Math.PI;
@@ -48,13 +47,14 @@ function getGreatCircleDistance(lat1, lng1, lat2, lng2) {
     return s;
 }
 
+
 class HomePage extends Component {
     constructor(props) {
         super(props);
         this.playgrounds = [];
         this.hasInitLocation = false;
+        this.centerLocation = null;
         this.userLocation = null;
-        this.lastFetchDataLocation = null;
         this.state = {
             mapCenter: null,
             selectedPlayground: null,
@@ -62,7 +62,6 @@ class HomePage extends Component {
             gameInfoEnabled: false,
             dataReady: false,
             showNewFieldModal: false,
-            centerLocation: null,
         };
     }
 
@@ -75,19 +74,6 @@ class HomePage extends Component {
             return <Image source={require('../../res/images/football.png')}/>;
         } else if (fieldType === '080104') {
             return <Image source={require('../../res/images/basketball.png')}/>;
-        } else if (fieldType === '080102') { 
-            //宝林球
-            return <Image source={require('../../res/images/bowling.png')}/>;
-        } else if (fieldType === '080103') { 
-            //网球
-            return <Image source={require('../../res/images/tennis.png')}/>;
-        } else if (fieldType === '080112') { 
-            //乒乓球
-            return <Image source={require('../../res/images/tabletennis.png')}/>;
-        } else if (fieldType === '080113') {
-            return <Image source={require('../../res/images/billiards.png')}/>;
-        } else if (fieldType === '080118') {
-            return <Image source={require('../../res/images/badminton.png')}/>;
         } else {
             return <Image source={require('../../res/images/football.png')}/>;
         }
@@ -139,13 +125,12 @@ class HomePage extends Component {
     }
 
     _onCenterLocationChange(nativeEvent) {
-        let centerLocation = {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude};
-        this.setState({centerLocation:centerLocation})
+        this.centerLocation = {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude};
         console.log("mapCenterChange:", nativeEvent);
 
         if (this.state.selectedPlayground) {
             // 存在激活的marker
-            let dis = getGreatCircleDistance(centerLocation.latitude, centerLocation.longitude, this.state.selectedPlayground.latitude, this.state.selectedPlayground.longitude);
+            let dis = getGreatCircleDistance(this.centerLocation.latitude, this.centerLocation.longitude, this.state.selectedPlayground.latitude, this.state.selectedPlayground.longitude);
             if (dis > 100) {
                 this.setState({
                     selectedPlayground: null,
@@ -158,32 +143,31 @@ class HomePage extends Component {
         }
 
 
-        // 判断是否超过10公里
-        if (this.lastFetchDataLocation && getGreatCircleDistance(this.lastFetchDataLocation.latitude, this.lastFetchDataLocation.longitude, centerLocation.latitude, centerLocation.longitude) > 3 * 1000) {
-            this._getData(centerLocation);            
-        }
+        this._getData(this.centerLocation);
     }
 
     // 查询附近的运动场
     _getData(location) {
-        let options = {
-            "url": "8084/sports-meetup-papi/sportfields/getNearbySportFields",
-            "params": location
-        };
-        
-        FetchUtil.post(options).then((result) => {
-            for (var i = result.responseBody.length - 1; i >= 0; i--) {
-                if (!this._contains(this.playgrounds, result.responseBody[i])) {
-                    this.playgrounds.push(result.responseBody[i]);
+        fetch('http://192.168.0.101:8084/sports-meetup-papi/sportfields/getNearbySportFields', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(location)
+        })
+        .then((response)=>response.json())
+        .then((result) => {
+            if (result.responseCode === '000') {
+                console.log(result.responseBody);
+                for (var i = result.responseBody.length - 1; i >= 0; i--) {
+                    if(!this._contains(this.playgrounds,result.responseBody[i])){
+                        this.playgrounds.push(result.responseBody[i]);
+                    }
                 }
+                this.setState({dataReady:true})
             }
-            this.setState({
-                dataReady: true
-            })
-            this.lastFetchDataLocation = location;
-        }).catch((error) => {
-            console.log(error);
-        });
+        })
+        .catch((error) => console.log(error));
     }
 
     _contains(arr, obj) {
@@ -327,10 +311,6 @@ class HomePage extends Component {
                                                                  fieldInfo={this.state.selectedPlayground}/>;
     }
 
-    _renderNewMatchView() {
-        if (this.state.selectedPlayground) return <NewMatchView ref = 'newMatchView' fieldId={this.state.selectedPlayground.fieldId}/>;
-    }
-
     render() {
         return (
             <View style={styles.container}>
@@ -408,9 +388,9 @@ class HomePage extends Component {
                         <Image source={require('../../res/images/action_match.png')}/>
                     </TouchableOpacity>
                 </View>
-                <NewFieldPage ref='newField' visible={true} location={this.state.centerLocation} commitCallback={(data) => this._submitNewField(data)}/>
+        <NewFieldPage ref='newField' visible={true} location={this.centerLocation} commitCallback={(data) => this._submitNewField(data)}/>
                 {this.renderFieldModal()}
-                {this._renderNewMatchView()}
+                <NewMatchView ref='newMatchView' newMatchCallback={(data) => this._submitNewMatch(data)}/>
             </View>
         );
     }

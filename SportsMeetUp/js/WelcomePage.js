@@ -62,16 +62,14 @@ export default class WelcomePage extends Component {
 
         FetchUtil.post(options).then((res) => {
             this.timer = setTimeout(() => {
-                InteractionManager.runAfterInteractions(() => {
-                    navigator.resetTo({
-                        component: TabPage,
-                        name: 'TabPageComponent',
-                        params: {
-                            "phoneNumber": userData.phoneNumber
-                        }
-                    });
+                navigator.resetTo({
+                    component: TabPage,
+                    name: 'TabPageComponent',
+                    params: {
+                        "userInfo": res.responseBody
+                    }
                 });
-            }, 500);
+            });
         }).catch((error) => {
             this.timer = setTimeout(() => {
                 InteractionManager.runAfterInteractions(() => {
@@ -88,7 +86,7 @@ export default class WelcomePage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {<Image style={{flex:1,width:null}} source={require('../res/images/launch_screen.png')}/>}
+                {<Image style={{flex: 1, width: null}} source={require('../res/images/launch_screen.png')}/>}
             </View>
         );
     }

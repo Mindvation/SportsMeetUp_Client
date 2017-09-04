@@ -31,7 +31,7 @@ export default class PersonalCenter extends Component {
         this.editInterestInfo = this.editInterestInfo.bind(this);
 
         this.state = {
-            myTags: ["basketBall", "pingPang", "bowling"],
+            myTags: globalUserInfo.tags,
             photo: globalUserInfo.photo,
             name: globalUserInfo.name,
             weekFreeTime: globalUserInfo.weekFreeTime,

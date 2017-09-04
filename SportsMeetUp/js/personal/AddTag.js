@@ -13,9 +13,11 @@ import {
     View,
     Dimensions,
     Text,
-    BackHandler
+    Alert
 } from 'react-native';
 import Header from '../common/Header';
+import FetchUtil from '../util/FetchUtil';
+import Util from '../util/CommonUtil';
 
 const {width} = Dimensions.get('window');
 
@@ -28,8 +30,47 @@ export default class AddTag extends Component {
     }
 
     _selectTags() {
+        const options = {
+            "url": '8081/sports-meetup-papi/users/updateUser',
+            "params": {
+                "userId": globalUserInfo.userId,
+                "hobbies": this.state.myTags.join(",")
+            }
+        };
+
+        this.setState({
+            overlayVisible: true,
+        });
+
+        FetchUtil.post(options).then((res) => {
+            this.setState({
+                overlayVisible: false
+            });
+
+            this._goBack(res.responseBody);
+        }).catch((error) => {
+            this.setState({
+                overlayVisible: false,
+            });
+
+            Alert.alert(
+                error.code,
+                error.message,
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+        });
+
+    }
+
+    _goBack(res) {
         const {navigator} = this.props;
-        this.props.getTags(this.state.myTags);
+        Util.updateGobalData("globalUserInfo", {
+            "tags": res.hobbies.split(",")
+        });
+        this.props.getTags(res.hobbies.split(","));
         if (navigator) {
             navigator.pop();
         }
@@ -211,4 +252,4 @@ const tags = [
         "image": bowlingImg,
         "text": "保龄球"
     }
-    ]
+]

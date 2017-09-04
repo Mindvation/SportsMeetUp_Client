@@ -82,12 +82,12 @@ export default class Logon extends Component {
                 overlayVisible: false
             });
 
-            DataUtil.saveData('userLogonInfo',{
+            DataUtil.saveData('userLogonInfo', {
                 "phoneNumber": this.state.phoneNumber,
                 "password": this.state.passWord
             });
 
-            this._goToHomePage();
+            this._goToHomePage(res.responseBody);
         }).catch((error) => {
             this.setState({
                 overlayVisible: false,
@@ -99,27 +99,28 @@ export default class Logon extends Component {
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
-                { cancelable: false }
+                {cancelable: false}
             );
 
         })
 
     }
 
-    _goToHomePage(){
+    _goToHomePage(res) {
         const {navigator} = this.props;
         if (navigator) {
             navigator.resetTo({
                 component: TabPage,
                 name: 'TabPageComponent',
-                params:{
-                    "phoneNumber": this.state.phoneNumber
+                params: {
+                    "userInfo": res
                 }
             });
         }
     }
 
-    _goToPhoneNumber(){
+
+    _goToPhoneNumber() {
         const {navigator} = this.props;
         if (navigator) {
             navigator.push({
@@ -132,7 +133,7 @@ export default class Logon extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header navigator = {this.props.navigator}/>
+                <Header navigator={this.props.navigator}/>
                 <View style={styles.mainCont}>
                     <ScrollView
                         ref={(scrollView) => {
