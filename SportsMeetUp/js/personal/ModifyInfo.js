@@ -26,10 +26,25 @@ import SimpleSelectCity from '../pickCity/SimpleSelectCity';
 import ModalDropdown from 'react-native-modal-dropdown';
 import FetchUtil from '../util/FetchUtil';
 import DATA_JSON from '../pickCity/city-list.json';
+import ImagePicker from 'react-native-image-picker';
 
-import Camera from '../common/Camera';
+//import Camera from '../common/Camera';
+const options = {
+    title: '选择图片',
+    takePhotoButtonTitle: '拍照',
+    chooseFromLibraryButtonTitle: '相册',
+    cancelButtonTitle: '取消',
+    storageOptions: {
+        skipBackup: true,
+        path: 'images'
+    },
+    maxWidth: 400,
+    maxHeight: 400,
+    mediaType: 'photo',
+};
 
 const dismissKeyboard = require('dismissKeyboard');
+
 
 const gender_props = [
     {label: '男', value: "M"},
@@ -59,16 +74,29 @@ export default class ModifyInfo extends Component {
             ftWidth1: 0,
             ftWidth2: 0,
             location: globalUserInfo.location,
-            cameraVisible: false,
             overlayVisible: false
         };
     }
 
     _pickImages() {
         dismissKeyboard();
-        this.setState({
-            cameraVisible: true
-        })
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                let source = {uri: response.uri};
+                this.uploadData = {
+                    name: response.fileName,
+                    data: response.data
+                };
+                this.setState({photo: source});
+            }
+        });
     }
 
     _getKey(option, value) {
@@ -82,6 +110,40 @@ export default class ModifyInfo extends Component {
         return key;
     }
 
+    _uploadImage() {
+        if (this.uploadData) {
+            const options = {
+                "url": '8084/sports-meetup-papi/sportfields/uploadBase64',
+                "params": {
+                    uploadFiles: [this.uploadData]
+                }
+            };
+            FetchUtil.post(options).then((res) => {
+                this.setState({
+                    overlayVisible: false
+                });
+                this.imageUrl = res.responseBody[0];
+                this.uploadData = null;
+                this._modifyUserInfo();
+            }).catch((error) => {
+                this.setState({
+                    overlayVisible: false,
+                });
+
+                Alert.alert(
+                    error.code,
+                    error.message,
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    {cancelable: false}
+                );
+            });
+        } else {
+            this._modifyUserInfo();
+        }
+    }
+
     _modifyUserInfo() {
         const options = {
             "url": '8081/sports-meetup-papi/users/updateUser',
@@ -89,7 +151,7 @@ export default class ModifyInfo extends Component {
                 "userId": globalUserInfo.userId,
                 "name": this.state.name,
                 "gender": this.state.gender,
-                //"icon": this.state.photo,
+                "icon": this.imageUrl,
                 "weekday": this._getKey(freeTimeOptions, this.state.weekFreeTime),
                 "weekend": this._getKey(freeTimeOptions, this.state.weekendFreeTime),
                 "city": this.state.location.id
@@ -126,6 +188,7 @@ export default class ModifyInfo extends Component {
         this.setState({
             "name": res.name,
             "gender": res.gender,
+            "photo": {uri: res.icon},
             "weekFreeTime": freeTimeOptions[res.weekday],
             "weekendFreeTime": freeTimeOptions[res.weekend],
             "location": this._getLocationById(res.city)
@@ -253,7 +316,8 @@ export default class ModifyInfo extends Component {
                                         this._pickCity();
                                     }}
                                 >
-                                    <Text style={{fontSize: 15}}>{this.state.location.name?this.state.location.name:"请选择"}</Text>
+                                    <Text
+                                        style={{fontSize: 15}}>{this.state.location.name ? this.state.location.name : "请选择"}</Text>
                                 </TouchableOpacity>
 
                             </View>
@@ -309,7 +373,7 @@ export default class ModifyInfo extends Component {
                         <View style={styles.submitBtnCont}>
                             <TouchableOpacity
                                 onPress={() => {
-                                    this._modifyUserInfo();
+                                    this._uploadImage();
                                 }}
                                 style={styles.submitButton}
                             >
@@ -333,7 +397,7 @@ export default class ModifyInfo extends Component {
                     allowClose={false}
                     modalVisible={this.state.overlayVisible}
                 />
-                <Camera
+                {/*<Camera
                     visible={this.state.cameraVisible}
                     getUri={(value) => {
                         this.setState({
@@ -344,7 +408,7 @@ export default class ModifyInfo extends Component {
                         this.setState({
                             cameraVisible: false
                         })
-                    }}/>
+                    }}/>*/}
             </View>
         );
     }

@@ -7,18 +7,14 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    Text,
     Platform,
-    View,
-    ScrollView,
-    Image,
-    Dimensions,
-    TouchableOpacity
+    View
 } from 'react-native';
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import MyInvite from './MyInvite';
 import MyMatch from './MyMatch';
 import Header from '../common/Header';
+import MatchHistory from './MatchHistory';
 
 export default class MyMatchMain extends Component {
     constructor(props) {
@@ -45,7 +41,7 @@ export default class MyMatchMain extends Component {
                 >
                     <MyMatch tabLabel="我的比赛"/>
                     <MyInvite tabLabel="我的邀请"/>
-
+                    <MatchHistory tabLabel="比赛历史"/>
                 </ScrollableTabView>
             </View>
         );

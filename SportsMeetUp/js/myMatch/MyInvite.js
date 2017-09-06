@@ -114,7 +114,7 @@ export default class MyInvite extends Component {
         let modal = <View style={styles.acceptSucCont}>
             <View style={styles.titleCont}>
                 <Image style={styles.titleImage} source={require('../../res/images/me/acptSuc.png')}/>
-                <Text style={styles.titleText}>接受邀请成功</Text>
+                <Text style={styles.acceptTitleText}>接受邀请成功</Text>
             </View>
             <View style={styles.matchInfoCont}>
                 {
@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
         height: 25,
         marginRight: 15
     },
-    titleText: {
+    acceptTitleText: {
         fontSize: 20,
         color: '#000000'
     },

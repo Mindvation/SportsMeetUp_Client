@@ -10,6 +10,7 @@ import {
     Text,
     View,
 } from 'react-native';
+import {matchTypeMapping, sportTypeMapping} from '../data/Mapping';
 
 export default class MyMatchInfo extends Component {
     constructor(props) {
@@ -18,27 +19,25 @@ export default class MyMatchInfo extends Component {
     }
 
     render() {
-        return (
-            <View>
-                {this.props.matches.map((result, i) => {
-                    return <View key={i} style={styles.matchCont}>
-                        <View style={styles.basicInfoCont}>
-                            <Text style={styles.basicInfoTitle}>{result["title"]}</Text>
-                            <View style={styles.rectangle}>
-                                <Text style={styles.basicInfoAlert}>即将开始</Text>
-                                <View style={styles.triangle}/>
-                            </View>
-                        </View>
-                        <View style={styles.locationCont}>
-                            <Text style={styles.locationText}>{result["location"]}</Text>
-                            <Text style={styles.dateText}>{result["date"]}</Text>
-                        </View>
-                        <View style={styles.TimeCont}>
-                            <Text style={styles.timeText}>比赛时间：{result["time"]}</Text>
-                            <Text style={styles.alertText}>请准时赴约</Text>
-                        </View>
-                    </View>;
-                })}
+        //const test = [{"date":"2017-09-28","startTime":"2017-09-28 14:46:28","endTime":"2017-09-28 14:44:18","matchType":"5","fieldType":"080104","totalNumber":"10","joinedAmmount":4,"address":"兴庆南路135号"}];
+        const {match} = this.props;
+        return ( <View style={styles.matchCont}>
+                <View style={styles.basicInfoCont}>
+                    <Text
+                        style={styles.basicInfoTitle}>{matchTypeMapping[match["matchType"]] + " " + sportTypeMapping[match["fieldType"]]}</Text>
+                    <View style={styles.rectangle}>
+                        <Text style={styles.basicInfoAlert}>即将开始</Text>
+                        <View style={styles.triangle}/>
+                    </View>
+                </View>
+                <View style={styles.locationCont}>
+                    <Text style={styles.locationText}>{match["address"]}</Text>
+                    <Text style={styles.dateText}>{match["date"]}</Text>
+                </View>
+                <View style={styles.TimeCont}>
+                    <Text style={styles.timeText}>比赛时间：{match["startTime"]}</Text>
+                    <Text style={styles.alertText}>请准时赴约</Text>
+                </View>
             </View>
         );
     }

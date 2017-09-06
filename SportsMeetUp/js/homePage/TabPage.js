@@ -35,8 +35,9 @@ class TabPage extends Component {
 
         Util.updateGobalData("globalUserInfo", {
             "userId": userInfo.userId,
-            "phoneNumber": "15029616602",
+            "phoneNumber": userInfo.phoneNumber,
             "name": userInfo.name,
+            "photo": userInfo.icon ? {uri: userInfo.icon} : '',
             "gender": userInfo.gender,
             "weekFreeTime": freeTimeOptions[userInfo.weekday],
             "weekendFreeTime": freeTimeOptions[userInfo.weekend],
