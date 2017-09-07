@@ -3,7 +3,7 @@
     {
       "name": "西安",
       "spellName": "xian",
-      "id": 6101,
+      "id": "029",
       "fullname": "陕西/西安",
       "sortLetters": "x"
     }
@@ -12,28 +12,28 @@
     {
       "name": "北京",
       "spellName": "beijing",
-      "id": 6550,
+      "id": "010",
       "fullname": "北京/北京",
       "sortLetters": "b"
     },
     {
       "name": "西安",
       "spellName": "xian",
-      "id": 6101,
+      "id": "029",
       "fullname": "陕西/西安",
       "sortLetters": "x"
     },
     {
       "name": "上海",
       "spellName": "shanghai",
-      "id": 3101,
+      "id": "021",
       "fullname": "上海/上海",
       "sortLetters": "s"
     },
     {
       "name": "广州",
       "spellName": "guangzhou",
-      "id": 5308,
+      "id": "020",
       "fullname": "广东/广州",
       "sortLetters": "g"
     }
@@ -42,2429 +42,2401 @@
     {
       "name": "阿坝",
       "spellName": "aba",
-      "id": 5780,
+      "id": "0837",
       "fullname": "四川/阿坝",
       "sortLetters": "a"
     },
     {
       "name": "阿克苏",
       "spellName": "akesudi",
-      "id": 6474,
+      "id": "0997",
       "fullname": "新疆/阿克苏",
       "sortLetters": "a"
     },
     {
       "name": "阿拉善",
       "spellName": "alashanmeng",
-      "id": 3862,
+      "id": "0483",
       "fullname": "内蒙古/阿拉善",
       "sortLetters": "a"
     },
     {
       "name": "阿勒泰",
       "spellName": "aletaidi",
-      "id": 6542,
+      "id": "0906",
       "fullname": "新疆/阿勒泰",
       "sortLetters": "a"
     },
     {
       "name": "阿里",
       "spellName": "alidi",
-      "id": 6134,
+      "id": "0897",
       "fullname": "西藏/阿里",
       "sortLetters": "a"
     },
     {
       "name": "安康",
       "spellName": "ankang",
-      "id": 6248,
+      "id": "0915",
       "fullname": "陕西/安康",
       "sortLetters": "a"
     },
     {
       "name": "安庆",
       "spellName": "anqing",
-      "id": 4482,
+      "id": "0556",
       "fullname": "安徽/安庆",
       "sortLetters": "a"
     },
     {
       "name": "鞍山",
       "spellName": "anshan",
-      "id": 3898,
+      "id": "0412",
       "fullname": "辽宁/鞍山",
       "sortLetters": "a"
     },
     {
       "name": "安顺",
       "spellName": "anshun",
-      "id": 5861,
+      "id": "0853",
       "fullname": "贵州/安顺",
       "sortLetters": "a"
     },
     {
       "name": "安阳",
       "spellName": "anyang",
-      "id": 4966,
+      "id": "0372",
       "fullname": "河南/安阳",
       "sortLetters": "a"
     },
     {
       "name": "白城",
       "spellName": "baicheng",
-      "id": 4041,
+      "id": "0436",
       "fullname": "吉林/白城",
       "sortLetters": "b"
     },
     {
       "name": "百色",
       "spellName": "baise",
-      "id": 5527,
+      "id": "0776",
       "fullname": "广西/百色",
       "sortLetters": "b"
     },
     {
       "name": "白沙",
       "spellName": "baishalizuz",
-      "id": 5582,
+      "id": "0802",
       "fullname": "海南/白沙",
       "sortLetters": "b"
     },
     {
       "name": "白山",
       "spellName": "baishan",
-      "id": 4028,
+      "id": "0439",
       "fullname": "吉林/白山",
       "sortLetters": "b"
     },
     {
       "name": "白银",
       "spellName": "baiyin",
-      "id": 6279,
+      "id": "0943",
       "fullname": "甘肃/白银",
       "sortLetters": "b"
     },
     {
       "name": "蚌埠",
       "spellName": "bangbu",
-      "id": 4452,
+      "id": "0552",
       "fullname": "安徽/蚌埠",
       "sortLetters": "b"
     },
     {
       "name": "保定",
       "spellName": "baoding",
-      "id": 3545,
+      "id": "0312",
       "fullname": "河北/保定",
       "sortLetters": "b"
     },
     {
       "name": "宝鸡",
       "spellName": "baoji",
-      "id": 6169,
+      "id": "0917",
       "fullname": "陕西/宝鸡",
       "sortLetters": "b"
     },
     {
       "name": "保山",
       "spellName": "baoshan",
-      "id": 5961,
+      "id": "0875",
       "fullname": "云南/保山",
       "sortLetters": "b"
     },
     {
       "name": "保亭",
       "spellName": "baotinglizu",
-      "id": 5585,
+      "id": "0801",
       "fullname": "海南/保亭",
       "sortLetters": "b"
     },
     {
       "name": "包头",
       "spellName": "baotou",
-      "id": 3770,
+      "id": "0472",
       "fullname": "内蒙古/包头",
       "sortLetters": "b"
     },
     {
       "name": "巴彦淖尔",
       "spellName": "bayannaoerm",
-      "id": 3854,
+      "id": "0478",
       "fullname": "内蒙古/巴彦淖尔",
       "sortLetters": "b"
     },
     {
       "name": "巴音郭楞",
       "spellName": "bayinguolen",
-      "id": 6501,
+      "id": "0996",
       "fullname": "新疆/巴音郭楞",
       "sortLetters": "b"
     },
     {
       "name": "巴中",
       "spellName": "bazhong",
-      "id": 5770,
+      "id": "0827",
       "fullname": "四川/巴中",
       "sortLetters": "b"
     },
     {
       "name": "北海",
       "spellName": "beihai",
-      "id": 5501,
+      "id": "0779",
       "fullname": "广西/北海",
       "sortLetters": "b"
     },
     {
       "name": "北京",
       "spellName": "beijing",
-      "id": 6550,
+      "id": "010",
       "fullname": "北京/北京",
       "sortLetters": "b"
     },
     {
       "name": "本溪",
       "spellName": "benxi",
-      "id": 3914,
+      "id": "0414",
       "fullname": "辽宁/本溪",
       "sortLetters": "b"
     },
     {
-      "name": "毕节地",
+      "name": "毕节",
       "spellName": "bijiedi",
-      "id": 5879,
-      "fullname": "贵州/毕节地",
+      "id": "0857",
+      "fullname": "贵州/毕节",
       "sortLetters": "b"
     },
     {
       "name": "滨州",
       "spellName": "binzhou",
-      "id": 4867,
+      "id": "0543",
       "fullname": "山东/滨州",
       "sortLetters": "b"
     },
     {
       "name": "博尔塔拉",
       "spellName": "boertala",
-      "id": 6520,
+      "id": "0909",
       "fullname": "新疆/博尔塔拉",
       "sortLetters": "b"
     },
     {
       "name": "沧州",
       "spellName": "cangzhou",
-      "id": 3601,
+      "id": "0317",
       "fullname": "河北/沧州",
       "sortLetters": "c"
     },
     {
       "name": "长春",
       "spellName": "changchun",
-      "id": 3987,
+      "id": "0431",
       "fullname": "吉林/长春",
       "sortLetters": "c"
     },
     {
       "name": "常德",
       "spellName": "changde",
-      "id": 5235,
+      "id": "0736",
       "fullname": "湖南/常德",
       "sortLetters": "c"
     },
     {
       "name": "昌都",
       "spellName": "changdudi",
-      "id": 6090,
+      "id": "0895",
       "fullname": "西藏/昌都",
       "sortLetters": "c"
     },
     {
       "name": "昌吉",
       "spellName": "changji",
-      "id": 6511,
+      "id": "0994",
       "fullname": "新疆/昌吉",
       "sortLetters": "c"
     },
     {
       "name": "昌江",
       "spellName": "changjiangl",
-      "id": 5581,
+      "id": "0803",
       "fullname": "海南/昌江",
       "sortLetters": "c"
     },
     {
       "name": "长沙",
       "spellName": "changsha",
-      "id": 5174,
+      "id": "0731",
       "fullname": "湖南/长沙",
       "sortLetters": "c"
     },
     {
       "name": "长治",
       "spellName": "changzhi",
-      "id": 3667,
+      "id": "0355",
       "fullname": "山西/长治",
       "sortLetters": "c"
     },
     {
       "name": "常州",
       "spellName": "changzhou",
-      "id": 4309,
+      "id": "0519",
       "fullname": "江苏/常州",
       "sortLetters": "c"
     },
     {
       "name": "巢湖",
       "spellName": "chaohu",
-      "id": 4526,
+      "id": "0565",
       "fullname": "安徽/巢湖",
       "sortLetters": "c"
     },
     {
       "name": "朝阳",
       "spellName": "chaoyang",
-      "id": 3979,
+      "id": "0421",
       "fullname": "辽宁/朝阳",
       "sortLetters": "c"
     },
     {
       "name": "潮州",
       "spellName": "chaozhou",
-      "id": 5436,
+      "id": "0768",
       "fullname": "广东/潮州",
       "sortLetters": "c"
     },
     {
       "name": "承德",
       "spellName": "chengde",
-      "id": 3589,
+      "id": "0314",
       "fullname": "河北/承德",
       "sortLetters": "c"
     },
     {
       "name": "成都",
       "spellName": "chengdu",
-      "id": 5630,
+      "id": "028",
       "fullname": "四川/成都",
       "sortLetters": "c"
     },
     {
       "name": "澄迈",
       "spellName": "chengmai",
-      "id": 5578,
+      "id": "0804",
       "fullname": "海南/澄迈",
       "sortLetters": "c"
     },
     {
       "name": "郴州",
       "spellName": "chenzhou",
-      "id": 5257,
+      "id": "0735",
       "fullname": "湖南/郴州",
       "sortLetters": "c"
     },
     {
       "name": "赤峰",
       "spellName": "chifeng",
-      "id": 3784,
+      "id": "0476",
       "fullname": "内蒙古/赤峰",
       "sortLetters": "c"
     },
     {
       "name": "池州",
       "spellName": "chizhou",
-      "id": 4545,
+      "id": "0566",
       "fullname": "安徽/池州",
       "sortLetters": "c"
     },
     {
       "name": "重庆",
       "spellName": "chongqing",
-      "id": 5587,
+      "id": "023",
       "fullname": "重庆/重庆",
       "sortLetters": "c"
     },
     {
       "name": "崇左",
       "spellName": "chongzuo",
-      "id": 5563,
+      "id": "1771",
       "fullname": "广西/崇左",
       "sortLetters": "c"
     },
     {
       "name": "楚雄",
       "spellName": "chuxiong",
-      "id": 6031,
+      "id": "0878",
       "fullname": "云南/楚雄",
       "sortLetters": "c"
     },
     {
       "name": "滁州",
       "spellName": "chuzhou",
-      "id": 4502,
+      "id": "0550",
       "fullname": "安徽/滁州",
       "sortLetters": "c"
     },
     {
       "name": "大理",
       "spellName": "dali",
-      "id": 6042,
+      "id": "0872",
       "fullname": "云南/大理",
       "sortLetters": "d"
     },
     {
       "name": "大连",
       "spellName": "dalian",
-      "id": 3887,
+      "id": "0411",
       "fullname": "辽宁/大连",
       "sortLetters": "d"
     },
     {
       "name": "丹东",
       "spellName": "dandong",
-      "id": 3921,
+      "id": "0415",
       "fullname": "辽宁/丹东",
       "sortLetters": "d"
     },
     {
       "name": "大庆",
       "spellName": "daqing",
-      "id": 4120,
+      "id": "0459",
       "fullname": "黑龙江/大庆",
       "sortLetters": "d"
     },
     {
       "name": "大同",
       "spellName": "datong",
-      "id": 3651,
+      "id": "0352",
       "fullname": "山西/大同",
       "sortLetters": "d"
     },
     {
       "name": "大兴安岭",
       "spellName": "daxinganlin",
-      "id": 4194,
+      "id": "0457",
       "fullname": "黑龙江/大兴安岭",
       "sortLetters": "d"
     },
     {
       "name": "达州",
       "spellName": "dazhou",
-      "id": 5746,
+      "id": "0818",
       "fullname": "四川/达州",
       "sortLetters": "d"
     },
     {
       "name": "德宏",
       "spellName": "dehong",
-      "id": 6055,
+      "id": "0692",
       "fullname": "云南/德宏",
       "sortLetters": "d"
     },
     {
       "name": "德阳",
       "spellName": "deyang",
-      "id": 5671,
+      "id": "0838",
       "fullname": "四川/德阳",
       "sortLetters": "d"
     },
     {
       "name": "德州",
       "spellName": "dezhou",
-      "id": 4846,
+      "id": "0534",
       "fullname": "山东/德州",
       "sortLetters": "d"
     },
     {
       "name": "定安",
       "spellName": "dingan",
-      "id": 5579,
+      "id": "0806",
       "fullname": "海南/定安",
       "sortLetters": "d"
     },
     {
       "name": "定西",
       "spellName": "dingxidi",
-      "id": 6331,
+      "id": "0932",
       "fullname": "甘肃/定西",
       "sortLetters": "d"
     },
     {
       "name": "迪庆",
       "spellName": "diqing",
-      "id": 6066,
+      "id": "0887",
       "fullname": "云南/迪庆",
       "sortLetters": "d"
     },
     {
       "name": "东莞",
       "spellName": "dongwan",
-      "id": 5380,
+      "id": "0769",
       "fullname": "广东/东莞",
       "sortLetters": "d"
     },
     {
       "name": "东营",
       "spellName": "dongying",
-      "id": 4781,
+      "id": "0546",
       "fullname": "山东/东营",
       "sortLetters": "d"
     },
     {
       "name": "鄂尔多斯",
       "spellName": "eerduosi",
-      "id": 3806,
+      "id": "0477",
       "fullname": "内蒙古/鄂尔多斯",
       "sortLetters": "e"
     },
     {
       "name": "恩施",
       "spellName": "enshi",
-      "id": 5162,
+      "id": "0718",
       "fullname": "湖北/恩施",
       "sortLetters": "e"
     },
     {
       "name": "鄂州",
       "spellName": "ezhou",
-      "id": 5129,
+      "id": "0711",
       "fullname": "湖北/鄂州",
       "sortLetters": "e"
     },
     {
       "name": "防城港",
       "spellName": "fangchengga",
-      "id": 5506,
+      "id": "0770",
       "fullname": "广西/防城港",
       "sortLetters": "f"
     },
     {
       "name": "佛山",
       "spellName": "foshan",
-      "id": 5390,
+      "id": "0757",
       "fullname": "广东/佛山",
       "sortLetters": "f"
     },
     {
       "name": "抚顺",
       "spellName": "fushun",
-      "id": 3906,
+      "id": "0413",
       "fullname": "辽宁/抚顺",
       "sortLetters": "f"
     },
     {
       "name": "阜新",
       "spellName": "fuxin",
-      "id": 3955,
+      "id": "0418",
       "fullname": "辽宁/阜新",
       "sortLetters": "f"
     },
     {
       "name": "阜阳",
       "spellName": "fuyang",
-      "id": 4511,
+      "id": "1558",
       "fullname": "安徽/阜阳",
       "sortLetters": "f"
     },
     {
       "name": "抚州",
       "spellName": "fuzhou",
-      "id": 4718,
+      "id": "0794",
       "fullname": "江西/抚州",
       "sortLetters": "f"
     },
     {
       "name": "福州",
       "spellName": "fuzhou",
-      "id": 4558,
+      "id": "0591",
       "fullname": "福建/福州",
       "sortLetters": "f"
     },
     {
       "name": "甘南",
       "spellName": "gannan",
-      "id": 6349,
+      "id": "0941",
       "fullname": "甘肃/甘南",
       "sortLetters": "g"
     },
     {
       "name": "赣州",
       "spellName": "ganzhou",
-      "id": 4677,
+      "id": "0797",
       "fullname": "江西/赣州",
       "sortLetters": "g"
     },
     {
       "name": "甘孜",
       "spellName": "ganzi",
-      "id": 5794,
+      "id": "0836",
       "fullname": "四川/甘孜",
       "sortLetters": "g"
     },
     {
       "name": "广安",
       "spellName": "guangan",
-      "id": 5740,
+      "id": "0826",
       "fullname": "四川/广安",
       "sortLetters": "g"
     },
     {
       "name": "广元",
       "spellName": "guangyuan",
-      "id": 5688,
+      "id": "0839",
       "fullname": "四川/广元",
       "sortLetters": "g"
     },
     {
       "name": "广州",
       "spellName": "guangzhou",
-      "id": 5308,
+      "id": "020",
       "fullname": "广东/广州",
       "sortLetters": "g"
     },
     {
       "name": "贵港",
       "spellName": "guigang",
-      "id": 5516,
+      "id": "1775",
       "fullname": "广西/贵港",
       "sortLetters": "g"
     },
     {
       "name": "桂林",
       "spellName": "guilin",
-      "id": 5475,
+      "id": "0773",
       "fullname": "广西/桂林",
       "sortLetters": "g"
     },
     {
       "name": "贵阳",
       "spellName": "guiyang",
-      "id": 5831,
+      "id": "0851",
       "fullname": "贵州/贵阳",
       "sortLetters": "g"
     },
     {
       "name": "果洛",
       "spellName": "guoluo",
-      "id": 6398,
+      "id": "0975",
       "fullname": "青海/果洛",
       "sortLetters": "g"
     },
     {
       "name": "固原",
       "spellName": "guyuan",
-      "id": 6436,
+      "id": "0954",
       "fullname": "宁夏/固原",
       "sortLetters": "g"
     },
     {
       "name": "哈尔滨",
       "spellName": "haerbin",
-      "id": 4056,
+      "id": "0451",
       "fullname": "黑龙江/哈尔滨",
       "sortLetters": "h"
     },
     {
       "name": "海北",
       "spellName": "haibei",
-      "id": 6382,
+      "id": "0970",
       "fullname": "青海/海北",
       "sortLetters": "h"
     },
     {
       "name": "海东",
       "spellName": "haidongdi",
-      "id": 6375,
+      "id": "0972",
       "fullname": "青海/海东",
       "sortLetters": "h"
     },
     {
       "name": "海口",
       "spellName": "haikou",
-      "id": 5570,
+      "id": "0898",
       "fullname": "海南/海口",
       "sortLetters": "h"
     },
     {
       "name": "海南",
       "spellName": "hainan",
-      "id": 6392,
+      "id": "0974",
       "fullname": "青海/海南",
       "sortLetters": "h"
     },
     {
       "name": "海西",
       "spellName": "haixi",
-      "id": 6412,
+      "id": "0977",
       "fullname": "青海/海西",
       "sortLetters": "h"
     },
     {
       "name": "哈密",
       "spellName": "hamidi",
-      "id": 6461,
+      "id": "0902",
       "fullname": "新疆/哈密",
       "sortLetters": "h"
     },
     {
       "name": "邯郸",
       "spellName": "handan",
-      "id": 3505,
+      "id": "0310",
       "fullname": "河北/邯郸",
       "sortLetters": "h"
     },
     {
       "name": "杭州",
       "spellName": "hangzhou",
-      "id": 4337,
+      "id": "0571",
       "fullname": "浙江/杭州",
       "sortLetters": "h"
     },
     {
       "name": "汉中",
       "spellName": "hanzhong",
-      "id": 6223,
+      "id": "0916",
       "fullname": "陕西/汉中",
       "sortLetters": "h"
     },
     {
       "name": "亳州",
       "spellName": "haozhou",
-      "id": 4540,
+      "id": "0558",
       "fullname": "安徽/亳州",
-      "sortLetters": "h"
-    },
-    {
-      "name": "漯河",
-      "spellName": "he",
-      "id": 4990,
-      "fullname": "河南/漯河",
       "sortLetters": "h"
     },
     {
       "name": "鹤壁",
       "spellName": "hebi",
-      "id": 4947,
+      "id": "0392",
       "fullname": "河南/鹤壁",
       "sortLetters": "h"
     },
     {
       "name": "河池",
       "spellName": "hechi",
-      "id": 5544,
+      "id": "0778",
       "fullname": "广西/河池",
       "sortLetters": "h"
     },
     {
       "name": "合肥",
       "spellName": "hefei",
-      "id": 4436,
+      "id": "0551",
       "fullname": "安徽/合肥",
       "sortLetters": "h"
     },
     {
       "name": "鹤岗",
       "spellName": "hegang",
-      "id": 4092,
+      "id": "0468",
       "fullname": "黑龙江/鹤岗",
       "sortLetters": "h"
     },
     {
       "name": "黑河",
       "spellName": "heihe",
-      "id": 4176,
+      "id": "0456",
       "fullname": "黑龙江/黑河",
       "sortLetters": "h"
     },
     {
       "name": "衡水",
       "spellName": "hengshui",
-      "id": 3629,
+      "id": "0318",
       "fullname": "河北/衡水",
       "sortLetters": "h"
     },
     {
       "name": "衡阳",
       "spellName": "hengyang",
-      "id": 5200,
+      "id": "0734",
       "fullname": "湖南/衡阳",
       "sortLetters": "h"
     },
     {
       "name": "和田",
       "spellName": "hetiandi",
-      "id": 6465,
+      "id": "0903",
       "fullname": "新疆/和田",
       "sortLetters": "h"
     },
     {
       "name": "河源",
       "spellName": "heyuan",
-      "id": 5353,
+      "id": "0762",
       "fullname": "广东/河源",
       "sortLetters": "h"
     },
     {
       "name": "菏泽",
       "spellName": "heze",
-      "id": 4875,
+      "id": "0530",
       "fullname": "山东/菏泽",
       "sortLetters": "h"
     },
     {
       "name": "贺州",
       "spellName": "hezhou",
-      "id": 5539,
+      "id": "1774",
       "fullname": "广西/贺州",
       "sortLetters": "h"
     },
     {
       "name": "红河",
       "spellName": "honghe",
-      "id": 6013,
+      "id": "0873",
       "fullname": "云南/红河",
       "sortLetters": "h"
     },
     {
       "name": "淮安",
       "spellName": "huaian",
-      "id": 4253,
+      "id": "0517",
       "fullname": "江苏/淮安",
       "sortLetters": "h"
     },
     {
       "name": "淮北",
       "spellName": "huaibei",
-      "id": 4472,
+      "id": "0561",
       "fullname": "安徽/淮北",
       "sortLetters": "h"
     },
     {
       "name": "怀化",
       "spellName": "huaihua",
-      "id": 5281,
+      "id": "0745",
       "fullname": "湖南/怀化",
       "sortLetters": "h"
     },
     {
       "name": "淮南",
       "spellName": "huainan",
-      "id": 4460,
+      "id": "0554",
       "fullname": "安徽/淮南",
       "sortLetters": "h"
     },
     {
       "name": "黄冈",
       "spellName": "huanggang",
-      "id": 5141,
+      "id": "0713",
       "fullname": "湖北/黄冈",
       "sortLetters": "h"
     },
     {
       "name": "黄南",
       "spellName": "huangnan",
-      "id": 6387,
+      "id": "0973",
       "fullname": "青海/黄南",
       "sortLetters": "h"
     },
     {
       "name": "黄山",
       "spellName": "huangshan",
-      "id": 4494,
+      "id": "0559",
       "fullname": "安徽/黄山",
       "sortLetters": "h"
     },
     {
       "name": "黄石",
       "spellName": "huangshi",
-      "id": 5074,
+      "id": "0714",
       "fullname": "湖北/黄石",
       "sortLetters": "h"
     },
     {
       "name": "呼和浩特",
       "spellName": "huhehaote",
-      "id": 3760,
+      "id": "0471",
       "fullname": "内蒙古/呼和浩特",
       "sortLetters": "h"
     },
     {
       "name": "惠州",
       "spellName": "huizhou",
-      "id": 5369,
+      "id": "0752",
       "fullname": "广东/惠州",
       "sortLetters": "h"
     },
     {
       "name": "葫芦岛",
       "spellName": "huludao",
-      "id": 3936,
+      "id": "0429",
       "fullname": "辽宁/葫芦岛",
       "sortLetters": "h"
     },
     {
       "name": "呼伦贝尔",
       "spellName": "hulunbeier",
-      "id": 3815,
+      "id": "0740",
       "fullname": "内蒙古/呼伦贝尔",
       "sortLetters": "h"
     },
     {
       "name": "湖州",
       "spellName": "huzhou",
-      "id": 4383,
+      "id": "0572",
       "fullname": "浙江/湖州",
       "sortLetters": "h"
     },
     {
       "name": "佳木斯",
       "spellName": "jiamusi",
-      "id": 4159,
+      "id": "0454",
       "fullname": "黑龙江/佳木斯",
       "sortLetters": "j"
     },
     {
       "name": "吉安",
       "spellName": "jian",
-      "id": 4695,
+      "id": "0796",
       "fullname": "江西/吉安",
       "sortLetters": "j"
     },
     {
       "name": "江门",
       "spellName": "jiangmen",
-      "id": 5382,
+      "id": "0750",
       "fullname": "广东/江门",
       "sortLetters": "j"
     },
     {
       "name": "焦作",
       "spellName": "jiaozuo",
-      "id": 4936,
+      "id": "0391",
       "fullname": "河南/焦作",
       "sortLetters": "j"
     },
     {
       "name": "嘉兴",
       "spellName": "jiaxing",
-      "id": 4375,
+      "id": "0573",
       "fullname": "浙江/嘉兴",
       "sortLetters": "j"
     },
     {
       "name": "嘉峪关",
       "spellName": "jiayuguan",
-      "id": 6293,
+      "id": "1937",
       "fullname": "甘肃/嘉峪关",
       "sortLetters": "j"
     },
     {
-      "name": "嘉峪关",
-      "spellName": "Jiayuguan",
-      "id": 6556,
-      "fullname": "甘肃/嘉峪关/嘉峪关",
-      "sortLetters": "J"
-    },
-    {
       "name": "揭阳",
       "spellName": "jieyang",
-      "id": 5440,
+      "id": "0663",
       "fullname": "广东/揭阳",
       "sortLetters": "j"
     },
     {
       "name": "吉林",
       "spellName": "jilin",
-      "id": 3998,
+      "id": "0432",
       "fullname": "吉林/吉林",
       "sortLetters": "j"
     },
     {
       "name": "济南",
       "spellName": "jinan",
-      "id": 4741,
+      "id": "0531",
       "fullname": "山东/济南",
       "sortLetters": "j"
     },
     {
       "name": "金昌",
       "spellName": "jinchang",
-      "id": 6276,
+      "id": "0935",
       "fullname": "甘肃/金昌",
       "sortLetters": "j"
     },
     {
       "name": "晋城",
       "spellName": "jincheng",
-      "id": 3680,
+      "id": "0356",
       "fullname": "山西/晋城",
       "sortLetters": "j"
     },
     {
       "name": "景德镇",
       "spellName": "jingdezhen",
-      "id": 4651,
+      "id": "0798",
       "fullname": "江西/景德镇",
       "sortLetters": "j"
     },
     {
       "name": "荆门",
       "spellName": "jingmen",
-      "id": 5123,
+      "id": "0724",
       "fullname": "湖北/荆门",
       "sortLetters": "j"
     },
     {
       "name": "荆州",
       "spellName": "jingzhou",
-      "id": 5100,
+      "id": "0716",
       "fullname": "湖北/荆州",
       "sortLetters": "j"
     },
     {
       "name": "金华",
       "spellName": "jinhua",
-      "id": 4394,
+      "id": "0579",
       "fullname": "浙江/金华",
       "sortLetters": "j"
     },
     {
       "name": "济宁",
       "spellName": "jining",
-      "id": 4818,
+      "id": "0537",
       "fullname": "山东/济宁",
       "sortLetters": "j"
     },
     {
       "name": "晋中",
       "spellName": "jinzhong",
-      "id": 3692,
+      "id": "0354",
       "fullname": "山西/晋中",
       "sortLetters": "j"
     },
     {
       "name": "锦州",
       "spellName": "jinzhou",
-      "id": 3928,
+      "id": "0416",
       "fullname": "辽宁/锦州",
       "sortLetters": "j"
     },
     {
       "name": "九江",
       "spellName": "jiujiang",
-      "id": 4660,
+      "id": "0792",
       "fullname": "江西/九江",
       "sortLetters": "j"
     },
     {
       "name": "酒泉",
       "spellName": "jiuquan",
-      "id": 6314,
+      "id": "0937",
       "fullname": "甘肃/酒泉",
       "sortLetters": "j"
     },
     {
       "name": "鸡西",
       "spellName": "jixi",
-      "id": 4110,
+      "id": "0467",
       "fullname": "黑龙江/鸡西",
       "sortLetters": "j"
     },
     {
       "name": "开封",
       "spellName": "kaifeng",
-      "id": 4898,
+      "id": "0378",
       "fullname": "河南/开封",
       "sortLetters": "k"
     },
     {
       "name": "喀什",
       "spellName": "kashidi",
-      "id": 6484,
+      "id": "0998",
       "fullname": "新疆/喀什",
       "sortLetters": "k"
     },
     {
       "name": "克拉玛依",
       "spellName": "kelamayi",
-      "id": 6451,
+      "id": "0990",
       "fullname": "新疆/克拉玛依",
       "sortLetters": "k"
     },
     {
       "name": "克孜勒苏",
       "spellName": "kezilesu",
-      "id": 6497,
+      "id": "0908",
       "fullname": "新疆/克孜勒苏",
       "sortLetters": "k"
     },
     {
       "name": "昆明",
       "spellName": "kunming",
-      "id": 5927,
+      "id": "0871",
       "fullname": "云南/昆明",
       "sortLetters": "k"
     },
     {
       "name": "来宾",
       "spellName": "laibin",
-      "id": 5556,
+      "id": "1772",
       "fullname": "广西/来宾",
       "sortLetters": "l"
     },
     {
       "name": "莱芜",
       "spellName": "laiwu",
-      "id": 4830,
+      "id": "0534",
       "fullname": "山东/莱芜",
       "sortLetters": "l"
     },
     {
       "name": "廊坊",
       "spellName": "langfang",
-      "id": 3618,
+      "id": "0316",
       "fullname": "河北/廊坊",
       "sortLetters": "l"
     },
     {
       "name": "兰州",
       "spellName": "lanzhou",
-      "id": 6267,
+      "id": "0931",
       "fullname": "甘肃/兰州",
       "sortLetters": "l"
     },
     {
       "name": "拉萨",
       "spellName": "lasa",
-      "id": 6070,
+      "id": "0891",
       "fullname": "西藏/拉萨",
       "sortLetters": "l"
     },
     {
       "name": "乐东",
       "spellName": "ledonglizuz",
-      "id": 5586,
+      "id": "2802",
       "fullname": "海南/乐东",
       "sortLetters": "l"
     },
     {
       "name": "乐山",
       "spellName": "leshan",
-      "id": 5707,
+      "id": "0833",
       "fullname": "四川/乐山",
       "sortLetters": "l"
     },
     {
       "name": "凉山",
       "spellName": "liangshan",
-      "id": 5813,
+      "id": "0834",
       "fullname": "四川/凉山",
       "sortLetters": "l"
     },
     {
       "name": "连云港",
       "spellName": "lianyungang",
-      "id": 4245,
+      "id": "0518",
       "fullname": "江苏/连云港",
       "sortLetters": "l"
     },
     {
       "name": "聊城",
       "spellName": "liaocheng",
-      "id": 4858,
+      "id": "0635",
       "fullname": "山东/聊城",
       "sortLetters": "l"
     },
     {
       "name": "辽阳",
       "spellName": "liaoyang",
-      "id": 3963,
+      "id": "0419",
       "fullname": "辽宁/辽阳",
       "sortLetters": "l"
     },
     {
       "name": "辽源",
       "spellName": "liaoyuan",
-      "id": 4015,
+      "id": "0437",
       "fullname": "吉林/辽源",
       "sortLetters": "l"
     },
     {
       "name": "丽江",
       "spellName": "lijiang",
-      "id": 5999,
+      "id": "0888",
       "fullname": "云南/丽江",
       "sortLetters": "l"
     },
     {
       "name": "临沧",
       "spellName": "lincangdi",
-      "id": 5990,
+      "id": "0883",
       "fullname": "云南/临沧",
       "sortLetters": "l"
     },
     {
       "name": "临汾",
       "spellName": "linfen",
-      "id": 3730,
+      "id": "0357",
       "fullname": "山西/临汾",
       "sortLetters": "l"
     },
     {
       "name": "陵水",
       "spellName": "lingshuiliz",
-      "id": 5584,
+      "id": "0809",
       "fullname": "海南/陵水",
       "sortLetters": "l"
     },
     {
       "name": "临夏",
       "spellName": "linxia",
-      "id": 6358,
+      "id": "0930",
       "fullname": "甘肃/临夏",
       "sortLetters": "l"
     },
     {
       "name": "临沂",
       "spellName": "linyi",
-      "id": 4833,
+      "id": "0539",
       "fullname": "山东/临沂",
       "sortLetters": "l"
     },
     {
       "name": "林芝",
       "spellName": "linzhidi",
-      "id": 6142,
+      "id": "0894",
       "fullname": "西藏/林芝",
       "sortLetters": "l"
     },
     {
       "name": "丽水",
       "spellName": "lishui",
-      "id": 4426,
+      "id": "0578",
       "fullname": "浙江/丽水",
       "sortLetters": "l"
     },
     {
       "name": "六安",
       "spellName": "liuan",
-      "id": 4532,
+      "id": "0564",
       "fullname": "安徽/六安",
       "sortLetters": "l"
     },
     {
       "name": "六盘水",
       "spellName": "liupanshui",
-      "id": 5842,
+      "id": "0858",
       "fullname": "贵州/六盘水",
       "sortLetters": "l"
     },
     {
       "name": "柳州",
       "spellName": "liuzhou",
-      "id": 5464,
+      "id": "0772",
       "fullname": "广西/柳州",
       "sortLetters": "l"
     },
     {
       "name": "陇南",
       "spellName": "longnan",
-      "id": 6212,
+      "id": "2935",
       "fullname": "甘肃/陇南",
       "sortLetters": "l"
     },
     {
       "name": "龙岩",
       "spellName": "longyan",
-      "id": 3508,
+      "id": "0597",
       "fullname": "福建/龙岩",
       "sortLetters": "l"
     },
     {
       "name": "娄底",
       "spellName": "longyan",
-      "id": 4313,
+      "id": "0738",
       "fullname": "湖南/娄底",
       "sortLetters": "l"
     },
     {
       "name": "漯河",
       "spellName": "luohe",
-      "id": 4111,
+      "id": "0395",
       "fullname": "河南/漯河",
       "sortLetters": "l"
     },
     {
       "name": "洛阳",
       "spellName": "luoyang",
-      "id": 4103,
+      "id": "0379",
       "fullname": "河南/洛阳",
       "sortLetters": "l"
     },
     {
       "name": "泸州",
       "spellName": "luozhou",
-      "id": 5105,
+      "id": "0830",
       "fullname": "四川/泸州",
       "sortLetters": "l"
     },
     {
       "name": "吕梁",
       "spellName": "lvliang",
-      "id": 1411,
+      "id": "0358",
       "fullname": "山西/吕梁",
       "sortLetters": "l"
     },
     {
       "name": "马鞍山",
       "spellName": "maanshan",
-      "id": 3405,
+      "id": "0555",
       "fullname": "安徽/马鞍山",
       "sortLetters": "m"
     },
     {
       "name": "茂名",
       "spellName": "maoming",
-      "id": 4409,
+      "id": "0668",
       "fullname": "广东/茂名",
       "sortLetters": "m"
     },
     {
       "name": "眉山",
       "spellName": "meishan",
-      "id": 5114,
+      "id": "1833",
       "fullname": "四川/眉山",
       "sortLetters": "m"
     },
     {
       "name": "梅州",
       "spellName": "meizhou",
-      "id": 4414,
+      "id": "0753",
       "fullname": "广东/梅州",
       "sortLetters": "m"
     },
     {
       "name": "绵阳",
       "spellName": "mianyang",
-      "id": 5107,
+      "id": "0816",
       "fullname": "四川/绵阳",
       "sortLetters": "m"
     },
     {
       "name": "牡丹江",
       "spellName": "mudanjiang",
-      "id": 2310,
+      "id": "0453",
       "fullname": "黑龙江/牡丹江",
       "sortLetters": "m"
     },
     {
-      "name": "那曲地区",
+      "name": "那曲",
       "spellName": "naqu",
-      "id": 5424,
-      "fullname": "西藏/那曲地区",
+      "id": "0896",
+      "fullname": "西藏/那曲",
       "sortLetters": "n"
     },
     {
       "name": "南昌",
       "spellName": "nanchang",
-      "id": 3601,
+      "id": "0791",
       "fullname": "江西/南昌",
       "sortLetters": "n"
     },
     {
       "name": "南充",
       "spellName": "nanchong",
-      "id": 5113,
+      "id": "0817",
       "fullname": "四川/南充",
       "sortLetters": "n"
     },
     {
       "name": "南京",
       "spellName": "nanjing",
-      "id": 3201,
+      "id": "025",
       "fullname": "江苏/南充",
       "sortLetters": "n"
     },
     {
       "name": "南宁",
       "spellName": "nanning",
-      "id": 4501,
+      "id": "0771",
       "fullname": "广西/南宁",
       "sortLetters": "n"
     },
     {
       "name": "南平",
       "spellName": "nanping",
-      "id": 3507,
+      "id": "0599",
       "fullname": "福建/南平",
       "sortLetters": "n"
     },
     {
       "name": "南通",
       "spellName": "nantong",
-      "id": 3206,
+      "id": "0513",
       "fullname": "江苏/南通",
       "sortLetters": "n"
     },
     {
       "name": "南阳",
       "spellName": "nanyang",
-      "id": 4113,
+      "id": "0377",
       "fullname": "河南/南阳",
       "sortLetters": "n"
     },
     {
       "name": "内江",
       "spellName": "neijiang",
-      "id": 5110,
+      "id": "1832",
       "fullname": "四川/内江",
       "sortLetters": "n"
     },
     {
       "name": "宁波",
       "spellName": "ningbo",
-      "id": 3302,
+      "id": "0574",
       "fullname": "浙江/宁波",
       "sortLetters": "n"
     },
     {
       "name": "宁德",
       "spellName": "ningde",
-      "id": 3509,
+      "id": "0593",
       "fullname": "福建/宁德",
       "sortLetters": "n"
     },
     {
-      "name": "怒江傈僳族自治州",
+      "name": "怒江",
       "spellName": "nujiang",
-      "id": 5333,
-      "fullname": "云南/怒江傈僳族自治州",
+      "id": "0886",
+      "fullname": "云南/怒江",
       "sortLetters": "n"
     },
     {
       "name": "盘锦",
       "spellName": "panjin",
-      "id": 2111,
+      "id": "0427",
       "fullname": "辽宁/盘锦",
       "sortLetters": "p"
     },
     {
       "name": "攀枝花",
       "spellName": "panzhihua",
-      "id": 5104,
+      "id": "0812",
       "fullname": "四川/攀枝花",
       "sortLetters": "p"
     },
     {
       "name": "平顶山",
       "spellName": "pingdingshan",
-      "id": 4104,
+      "id": "0375",
       "fullname": "河南/平顶山",
       "sortLetters": "p"
     },
     {
       "name": "平凉",
       "spellName": "pingliang",
-      "id": 6208,
+      "id": "0933",
       "fullname": "甘肃/平凉",
       "sortLetters": "p"
     },
     {
       "name": "萍乡",
       "spellName": "pingxiang",
-      "id": 3603,
+      "id": "0799",
       "fullname": "江西/萍乡",
       "sortLetters": "p"
     },
     {
       "name": "普洱",
       "spellName": "puer",
-      "id": 5308,
+      "id": "0879",
       "fullname": "云南/普洱",
       "sortLetters": "p"
     },
     {
       "name": "莆田",
       "spellName": "putian",
-      "id": 3503,
+      "id": "0594",
       "fullname": "福建/莆田",
       "sortLetters": "p"
     },
     {
       "name": "濮阳",
       "spellName": "puyang",
-      "id": 4109,
+      "id": "0393",
       "fullname": "河南/濮阳",
       "sortLetters": "p"
     },
     {
-      "name": "黔东南苗族侗族自治州",
+      "name": "黔东南",
       "spellName": "qiandongnan",
-      "id": 5226,
-      "fullname": "贵州/黔东南苗族侗族自治州",
+      "id": "0855",
+      "fullname": "贵州/黔东南",
       "sortLetters": "q"
     },
     {
-      "name": "黔南布依族苗族自治州",
+      "name": "黔南",
       "spellName": "qiannan",
-      "id": 5227,
-      "fullname": "贵州/黔南布依族苗族自治州",
+      "id": "0854",
+      "fullname": "贵州/黔南",
       "sortLetters": "q"
     },
     {
-      "name": "黔西南布依族苗族自治州",
+      "name": "黔西南",
       "spellName": "qianxinan",
-      "id": 5223,
-      "fullname": "贵州/黔西南布依族苗族自治州",
+      "id": "0859",
+      "fullname": "贵州/黔西南",
       "sortLetters": "q"
     },
     {
       "name": "青岛",
       "spellName": "qingdao",
-      "id": 3702,
+      "id": "0532",
       "fullname": "山东/青岛",
       "sortLetters": "q"
     },
     {
       "name": "庆阳",
       "spellName": "qingyan",
-      "id": 6210,
+      "id": "0934",
       "fullname": "甘肃/庆阳",
       "sortLetters": "q"
     },
     {
       "name": "清远",
       "spellName": "qingyuan",
-      "id": 4418,
+      "id": "0763",
       "fullname": "广东/清远",
       "sortLetters": "q"
     },
     {
       "name": "秦皇岛",
       "spellName": "qinhuangdao",
-      "id": 1303,
+      "id": "0335",
       "fullname": "河北/秦皇岛",
       "sortLetters": "q"
     },
     {
       "name": "钦州",
       "spellName": "qinzhou",
-      "id": 4507,
+      "id": "0777",
       "fullname": "广西/钦州",
       "sortLetters": "q"
     },
     {
       "name": "齐齐哈尔",
       "spellName": "qiqihaer",
-      "id": 2302,
+      "id": "0452",
       "fullname": "黑龙江/齐齐哈尔",
       "sortLetters": "q"
     },
     {
       "name": "七台河",
       "spellName": "qitaihe",
-      "id": 2309,
+      "id": "0464",
       "fullname": "黑龙江/七台河",
       "sortLetters": "q"
     },
     {
       "name": "泉州",
       "spellName": "quanzhou",
-      "id": 3505,
+      "id": "0595",
       "fullname": "福建/泉州",
       "sortLetters": "q"
     },
     {
       "name": "曲靖",
       "spellName": "qujing",
-      "id": 5303,
+      "id": "0874",
       "fullname": "云南/曲靖",
       "sortLetters": "q"
     },
     {
       "name": "衢州",
       "spellName": "quzhou",
-      "id": 3308,
+      "id": "0570",
       "fullname": "浙江/衢州",
       "sortLetters": "q"
     },
     {
       "name": "日喀则",
       "spellName": "rikaze",
-      "id": 5423,
+      "id": "0892",
       "fullname": "湖北/日喀则",
       "sortLetters": "r"
     },
     {
       "name": "日照",
       "spellName": "rizhao",
-      "id": 3711,
+      "id": "0633",
       "fullname": "山东/日照",
       "sortLetters": "r"
     },
     {
       "name": "三门峡",
       "spellName": "sanmenxia",
-      "id": 4112,
+      "id": "0398",
       "fullname": "河南/三门峡",
       "sortLetters": "s"
     },
     {
       "name": "三明",
       "spellName": "sanming",
-      "id": 3504,
+      "id": "0598",
       "fullname": "福建/三明",
       "sortLetters": "s"
     },
     {
       "name": "三亚",
       "spellName": "sanya",
-      "id": 4602,
+      "id": "0899",
       "fullname": "海南/三亚",
       "sortLetters": "s"
     },
     {
       "name": "上海",
       "spellName": "shanghai",
-      "id": 3101,
+      "id": "021",
       "fullname": "上海/上海",
       "sortLetters": "s"
     },
     {
       "name": "商洛",
       "spellName": "shangluo",
-      "id": 6110,
+      "id": "0914",
       "fullname": "陕西/商洛",
       "sortLetters": "s"
     },
     {
       "name": "商丘",
       "spellName": "shangqiu",
-      "id": 4114,
+      "id": "0370",
       "fullname": "河南/商丘",
       "sortLetters": "s"
     },
     {
       "name": "上饶",
       "spellName": "shangrao",
-      "id": 3611,
+      "id": "0793",
       "fullname": "江西/上饶",
       "sortLetters": "s"
     },
     {
-      "name": "山南地区",
+      "name": "山南",
       "spellName": "shannan",
-      "id": 5422,
-      "fullname": "西藏/山南地区",
+      "id": "0893",
+      "fullname": "西藏/山南",
       "sortLetters": "s"
     },
     {
       "name": "汕头",
       "spellName": "shantou",
-      "id": 4405,
+      "id": "0754",
       "fullname": "广东/汕头",
       "sortLetters": "s"
     },
     {
       "name": "汕尾",
       "spellName": "shanwei",
-      "id": 4415,
+      "id": "0660",
       "fullname": "广东/汕尾",
       "sortLetters": "s"
     },
     {
       "name": "韶关",
       "spellName": "shaoguan",
-      "id": 4402,
+      "id": "0751",
       "fullname": "广东/韶关",
       "sortLetters": "s"
     },
     {
       "name": "绍兴",
       "spellName": "shaoxing",
-      "id": 3306,
+      "id": "0575",
       "fullname": "浙江/绍兴",
       "sortLetters": "s"
     },
     {
       "name": "邵阳",
       "spellName": "shaoyang",
-      "id": 4305,
+      "id": "0739",
       "fullname": "湖南/邵阳",
       "sortLetters": "s"
     },
     {
       "name": "沈阳",
       "spellName": "shenyang",
-      "id": 2101,
+      "id": "024",
       "fullname": "辽宁/沈阳",
       "sortLetters": "s"
     },
     {
       "name": "深圳",
       "spellName": "shenzhen",
-      "id": 4403,
+      "id": "0755",
       "fullname": "广东/深圳",
       "sortLetters": "s"
     },
     {
       "name": "石家庄",
       "spellName": "shijiazhuang",
-      "id": 1301,
+      "id": "0311",
       "fullname": "河北/石家庄",
       "sortLetters": "s"
     },
     {
       "name": "十堰",
       "spellName": "shiyan",
-      "id": 4203,
+      "id": "0719",
       "fullname": "湖北/十堰",
       "sortLetters": "s"
     },
     {
       "name": "石嘴山",
       "spellName": "shizuishan",
-      "id": 6402,
+      "id": "0952",
       "fullname": "宁夏/石嘴山",
       "sortLetters": "s"
     },
     {
       "name": "双鸭山",
       "spellName": "shuangyashan",
-      "id": 2305,
+      "id": "0469",
       "fullname": "黑龙江/双鸭山",
       "sortLetters": "s"
     },
     {
       "name": "朔州",
       "spellName": "shuozhou",
-      "id": 1406,
+      "id": "0349",
       "fullname": "山西/朔州",
       "sortLetters": "s"
     },
     {
       "name": "四平",
       "spellName": "siping",
-      "id": 2203,
+      "id": "0434",
       "fullname": "吉林/四平",
       "sortLetters": "s"
     },
     {
       "name": "松原",
       "spellName": "songyuan",
-      "id": 2207,
+      "id": "0438",
       "fullname": "吉林/松原",
       "sortLetters": "s"
     },
     {
       "name": "绥化",
       "spellName": "suihua",
-      "id": 2312,
+      "id": "0455",
       "fullname": "黑龙江/绥化",
       "sortLetters": "s"
     },
     {
       "name": "遂宁",
       "spellName": "suining",
-      "id": 5109,
+      "id": "0825",
       "fullname": "四川/遂宁",
       "sortLetters": "s"
     },
     {
       "name": "随州",
       "spellName": "suizhou",
-      "id": 4213,
+      "id": "0722",
       "fullname": "湖北/随州",
       "sortLetters": "s"
     },
     {
       "name": "宿迁",
       "spellName": "suiqian",
-      "id": 3213,
+      "id": "0527",
       "fullname": "江苏/宿迁",
       "sortLetters": "s"
     },
     {
       "name": "苏州",
       "spellName": "suizhou",
-      "id": 3205,
+      "id": "0512",
       "fullname": "江苏/苏州",
       "sortLetters": "s"
     },
     {
       "name": "宿州",
       "spellName": "suzhou",
-      "id": 3413,
+      "id": "0557",
       "fullname": "安徽/宿州",
       "sortLetters": "s"
     },
     {
-      "name": "塔城地区",
+      "name": "塔城",
       "spellName": "tacheng",
-      "id": 6542,
-      "fullname": "新疆/塔城地区",
+      "id": "0901",
+      "fullname": "新疆/塔城",
       "sortLetters": "t"
     },
     {
       "name": "泰安",
       "spellName": "taian",
-      "id": 3709,
+      "id": "0538",
       "fullname": "山东/泰安",
       "sortLetters": "t"
     },
     {
       "name": "太原",
       "spellName": "taiyuan",
-      "id": 1401,
+      "id": "0351",
       "fullname": "山西/太原",
       "sortLetters": "t"
     },
     {
       "name": "台州",
       "spellName": "taizhou",
-      "id": 3310,
+      "id": "0576",
       "fullname": "浙江/台州",
       "sortLetters": "t"
     },
     {
       "name": "泰州",
       "spellName": "taizhou",
-      "id": 3212,
+      "id": "0523",
       "fullname": "江苏/泰州",
       "sortLetters": "t"
     },
     {
       "name": "唐山",
       "spellName": "tangshan",
-      "id": 1302,
+      "id": "0315",
       "fullname": "河北/唐山",
       "sortLetters": "t"
     },
     {
       "name": "天津",
       "spellName": "tianjin",
-      "id": 1201,
+      "id": "022",
       "fullname": "天津/天津",
       "sortLetters": "t"
     },
     {
       "name": "天水",
       "spellName": "tianshui",
-      "id": 6205,
+      "id": "0938",
       "fullname": "甘肃/天水",
       "sortLetters": "t"
     },
     {
       "name": "铁岭",
       "spellName": "tieling",
-      "id": 2112,
+      "id": "0410",
       "fullname": "辽宁/铁岭",
       "sortLetters": "t"
     },
     {
       "name": "铜川",
       "spellName": "tongchuan",
-      "id": 6102,
+      "id": "0919",
       "fullname": "陕西/铜川",
       "sortLetters": "t"
     },
     {
       "name": "通化",
       "spellName": "tonghua",
-      "id": 2205,
+      "id": "0435",
       "fullname": "吉林/通化",
       "sortLetters": "t"
     },
     {
       "name": "通辽",
       "spellName": "tongliao",
-      "id": 1505,
+      "id": "0475",
       "fullname": "内蒙古/通辽",
       "sortLetters": "t"
     },
     {
       "name": "铜陵",
       "spellName": "tongling",
-      "id": 3407,
+      "id": "0562",
       "fullname": "安徽/铜陵",
       "sortLetters": "t"
     },
     {
       "name": "铜仁",
       "spellName": "tongren",
-      "id": 5222,
+      "id": "0856",
       "fullname": "贵州/铜仁",
       "sortLetters": "t"
     },
     {
       "name": "吐鲁番",
       "spellName": "tonglufan",
-      "id": 6521,
+      "id": "0995",
       "fullname": "新疆/吐鲁番",
       "sortLetters": "t"
     },
     {
       "name": "潍坊",
       "spellName": "weifang",
-      "id": 3707,
+      "id": "0536",
       "fullname": "山东/潍坊",
       "sortLetters": "w"
     },
     {
       "name": "威海",
       "spellName": "weihai",
-      "id": 3710,
+      "id": "0631",
       "fullname": "山东/威海",
       "sortLetters": "w"
     },
     {
       "name": "渭南",
       "spellName": "weinan",
-      "id": 6105,
+      "id": "0913",
       "fullname": "陕西/渭南",
       "sortLetters": "w"
     },
     {
-      "name": "文山壮族苗族自治州",
+      "name": "文山",
       "spellName": "wenshan",
-      "id": 5326,
-      "fullname": "云南/文山壮族苗族自治州",
+      "id": "0876",
+      "fullname": "云南/文山",
       "sortLetters": "w"
     },
     {
       "name": "温州",
       "spellName": "wenzhou",
-      "id": 3303,
+      "id": "0577",
       "fullname": "浙江/温州",
       "sortLetters": "w"
     },
     {
       "name": "乌海",
       "spellName": "wuhai",
-      "id": 1503,
+      "id": "0473",
       "fullname": "内蒙古/乌海",
       "sortLetters": "w"
     },
     {
       "name": "武汉",
       "spellName": "wuhan",
-      "id": 4201,
+      "id": "027",
       "fullname": "湖北/武汉",
       "sortLetters": "w"
     },
     {
       "name": "芜湖",
       "spellName": "wuhu",
-      "id": 3402,
+      "id": "0553",
       "fullname": "安徽/芜湖",
       "sortLetters": "w"
     },
     {
       "name": "乌兰察布",
       "spellName": "wulanchabu",
-      "id": 1509,
+      "id": "0474",
       "fullname": "内蒙古/乌兰察布",
       "sortLetters": "w"
     },
     {
       "name": "乌鲁木齐",
       "spellName": "wulumuqi",
-      "id": 6501,
+      "id": "0991",
       "fullname": "新疆/乌鲁木齐",
       "sortLetters": "w"
     },
     {
       "name": "武威",
       "spellName": "wuwei",
-      "id": 6206,
-      "fullname": "新疆/武威",
+      "id": "1935",
+      "fullname": "甘肃/武威",
       "sortLetters": "w"
     },
     {
       "name": "无锡",
       "spellName": "wuxi",
-      "id": 3202,
+      "id": "0510",
       "fullname": "江苏/无锡",
       "sortLetters": "w"
     },
     {
       "name": "吴忠",
       "spellName": "wuzhong",
-      "id": 6403,
+      "id": "0953",
       "fullname": "宁夏/吴忠",
-      "sortLetters": "w"
-    },
-    {
-      "name": "抚州",
-      "spellName": "wuzhou",
-      "id": 3610,
-      "fullname": "江西/抚州",
       "sortLetters": "w"
     },
     {
       "name": "梧州",
       "spellName": "wuzhou",
-      "id": 4504,
+      "id": "0774",
       "fullname": "广西/梧州",
       "sortLetters": "w"
     },
     {
       "name": "西安",
       "spellName": "xian",
-      "id": 6101,
+      "id": "029",
       "fullname": "陕西/西安",
       "sortLetters": "x"
     },
     {
       "name": "厦门",
       "spellName": "xiamen",
-      "id": 3502,
+      "id": "0592",
       "fullname": "福建/厦门",
       "sortLetters": "x"
     },
     {
       "name": "襄阳",
       "spellName": "xiangyang",
-      "id": 4206,
+      "id": "0710",
       "fullname": "湖北/襄阳",
       "sortLetters": "x"
     },
     {
       "name": "湘潭",
       "spellName": "xiangtan",
-      "id": 4303,
+      "id": "0732",
       "fullname": "湖南/湘潭",
       "sortLetters": "x"
     },
     {
-      "name": "湘西土家族苗族自治州",
+      "name": "湘西",
       "spellName": "xiangxi",
-      "id": 4331,
-      "fullname": "湖南/湘西土家族苗族自治州",
+      "id": "0743",
+      "fullname": "湖南/湘西",
       "sortLetters": "x"
     },
     {
       "name": "咸宁",
       "spellName": "xianning",
-      "id": 4212,
+      "id": "0715",
       "fullname": "湖北/咸宁",
       "sortLetters": "x"
     },
     {
       "name": "咸阳",
       "spellName": "xianyang",
-      "id": 6104,
+      "id": "0910",
       "fullname": "陕西/咸阳",
       "sortLetters": "x"
     },
     {
       "name": "孝感",
       "spellName": "xiaogan",
-      "id": 4209,
+      "id": "0712",
       "fullname": "湖北/孝感",
       "sortLetters": "x"
     },
     {
       "name": "锡林郭勒盟",
       "spellName": "xilinguole",
-      "id": 1525,
+      "id": "0479",
       "fullname": "内蒙古/锡林郭勒盟",
       "sortLetters": "x"
     },
     {
       "name": "邢台",
       "spellName": "xingtai",
-      "id": 1305,
+      "id": "0319",
       "fullname": "河北/邢台",
       "sortLetters": "x"
     },
     {
       "name": "西宁",
       "spellName": "xining",
-      "id": 6301,
+      "id": "0971",
       "fullname": "青海/西宁",
       "sortLetters": "x"
     },
     {
       "name": "新乡",
       "spellName": "xinxiang",
-      "id": 4107,
+      "id": "0373",
       "fullname": "河南/新乡",
       "sortLetters": "x"
     },
     {
       "name": "信阳",
       "spellName": "xinyang",
-      "id": 4115,
+      "id": "0376",
       "fullname": "河南/信阳",
       "sortLetters": "x"
     },
     {
       "name": "新余",
       "spellName": "xinyu",
-      "id": 3605,
+      "id": "0790",
       "fullname": "江西/新余",
       "sortLetters": "x"
     },
     {
       "name": "忻州",
       "spellName": "xinzhou",
-      "id": 1409,
+      "id": "0350",
       "fullname": "山西/忻州",
       "sortLetters": "x"
     },
     {
-      "name": "西双版纳傣族自治州",
+      "name": "西双版纳",
       "spellName": "xishuangbanna",
-      "id": 5328,
-      "fullname": "云南/西双版纳傣族自治州",
+      "id": "0691",
+      "fullname": "云南/西双版纳",
       "sortLetters": "x"
     },
     {
       "name": "宣城",
       "spellName": "xuancheng",
-      "id": 3418,
+      "id": "0563",
       "fullname": "安徽/宣城",
       "sortLetters": "x"
     },
     {
       "name": "许昌",
       "spellName": "xuchang",
-      "id": 4110,
+      "id": "0374",
       "fullname": "河南/许昌",
       "sortLetters": "x"
     },
     {
       "name": "徐州",
       "spellName": "xuzhou",
-      "id": 3203,
+      "id": "0516",
       "fullname": "江苏/徐州",
       "sortLetters": "x"
     },
     {
       "name": "雅安",
       "spellName": "yaan",
-      "id": 5118,
+      "id": "0835",
       "fullname": "四川/雅安",
       "sortLetters": "y"
     },
     {
       "name": "延安",
       "spellName": "yanan",
-      "id": 6106,
+      "id": "0911",
       "fullname": "陕西/延安",
       "sortLetters": "y"
     },
     {
       "name": "延边",
       "spellName": "yanbian",
-      "id": 2224,
-      "fullname": "吉林/延边",
-      "sortLetters": "y"
-    },
-    {
-      "name": "延边",
-      "spellName": "yanbian",
-      "id": 2224,
+      "id": "1433",
       "fullname": "吉林/延边",
       "sortLetters": "y"
     },
     {
       "name": "盐城",
       "spellName": "yancheng",
-      "id": 3209,
+      "id": "0515",
       "fullname": "江苏/盐城",
       "sortLetters": "y"
     },
     {
       "name": "阳江",
       "spellName": "yangjiang",
-      "id": 4417,
+      "id": "0662",
       "fullname": "广东/阳江",
       "sortLetters": "y"
     },
     {
       "name": "阳泉",
       "spellName": "yangquan",
-      "id": 1403,
+      "id": "0353",
       "fullname": "山西/阳泉",
       "sortLetters": "y"
     },
     {
       "name": "扬州",
       "spellName": "yangzhou",
-      "id": 3210,
+      "id": "0514",
       "fullname": "江苏/扬州",
       "sortLetters": "y"
     },
     {
       "name": "烟台",
       "spellName": "yantai",
-      "id": 3706,
+      "id": "0535",
       "fullname": "山东/烟台",
       "sortLetters": "y"
     },
     {
       "name": "宜宾",
       "spellName": "yibin",
-      "id": 5115,
+      "id": "0831",
       "fullname": "四川/宜宾",
       "sortLetters": "y"
     },
     {
       "name": "宜昌",
       "spellName": "yichang",
-      "id": 4205,
+      "id": "0717",
       "fullname": "湖北/宜昌",
       "sortLetters": "y"
     },
     {
       "name": "宜春",
       "spellName": "yichun",
-      "id": 3609,
+      "id": "0795",
       "fullname": "江西/宜春",
       "sortLetters": "y"
     },
     {
       "name": "伊春",
       "spellName": "yichun",
-      "id": 2307,
+      "id": "0458",
       "fullname": "黑龙江/伊春",
       "sortLetters": "y"
     },
     {
       "name": "银川",
       "spellName": "yinchuan",
-      "id": 6401,
+      "id": "0951",
       "fullname": "宁夏/银川",
       "sortLetters": "y"
     },
     {
       "name": "营口",
       "spellName": "yingkou",
-      "id": 2108,
+      "id": "0417",
       "fullname": "辽宁/营口",
       "sortLetters": "y"
     },
     {
       "name": "鹰潭",
       "spellName": "yingtan",
-      "id": 3606,
+      "id": "0701",
       "fullname": "江西/鹰潭",
       "sortLetters": "y"
     },
     {
       "name": "益阳",
       "spellName": "yiyang",
-      "id": 4309,
+      "id": "0737",
       "fullname": "湖南/益阳",
       "sortLetters": "y"
     },
     {
       "name": "永州",
       "spellName": "yongzhou",
-      "id": 4311,
+      "id": "0746",
       "fullname": "湖南/永州",
       "sortLetters": "y"
     },
     {
       "name": "岳阳",
       "spellName": "yueyang",
-      "id": 4306,
+      "id": "0730",
       "fullname": "湖南/岳阳",
       "sortLetters": "y"
     },
     {
       "name": "玉林",
       "spellName": "yulin",
-      "id": 4509,
+      "id": "0775",
       "fullname": "广西/玉林",
       "sortLetters": "y"
     },
     {
       "name": "榆林",
       "spellName": "yulin",
-      "id": 6108,
+      "id": "0912",
       "fullname": "陕西/榆林",
       "sortLetters": "y"
     },
     {
       "name": "运城",
       "spellName": "yuncheng",
-      "id": 1408,
+      "id": "0359",
       "fullname": "山西/运城",
       "sortLetters": "y"
     },
     {
       "name": "云浮",
       "spellName": "yunfu",
-      "id": 4453,
+      "id": "0766",
       "fullname": "广东/云浮",
       "sortLetters": "y"
     },
     {
-      "name": "玉树藏族自治州",
+      "name": "玉树",
       "spellName": "yushu",
-      "id": 6327,
-      "fullname": "青海/玉树藏族自治州",
+      "id": "0976",
+      "fullname": "青海/玉树",
       "sortLetters": "y"
     },
     {
       "name": "玉溪",
       "spellName": "yuxi",
-      "id": 5304,
+      "id": "0877",
       "fullname": "云南/玉溪",
       "sortLetters": "y"
     },
     {
       "name": "伊犁",
       "spellName": "yili",
-      "id": 6540,
+      "id": "0999",
       "fullname": "新疆/伊犁",
       "sortLetters": "y"
     },
     {
       "name": "枣庄",
       "spellName": "zaozhuang",
-      "id": 3704,
+      "id": "0632",
       "fullname": "山东/枣庄",
       "sortLetters": "z"
     },
     {
       "name": "张家界",
       "spellName": "zhangjiajie",
-      "id": 4308,
+      "id": "0744",
       "fullname": "湖南/张家界",
       "sortLetters": "z"
     },
     {
       "name": "张家口",
       "spellName": "zhangjiakou",
-      "id": 1307,
+      "id": "0313",
       "fullname": "河北/张家口",
       "sortLetters": "z"
     },
     {
       "name": "张掖",
       "spellName": "zhangye",
-      "id": 6207,
+      "id": "0936",
       "fullname": "甘肃/张掖",
       "sortLetters": "z"
     },
     {
       "name": "漳州",
       "spellName": "zhangzhou",
-      "id": 3506,
+      "id": "0596",
       "fullname": "福建/漳州",
       "sortLetters": "z"
     },
     {
       "name": "湛江",
       "spellName": "zhanjiang",
-      "id": 4408,
+      "id": "0759",
       "fullname": "广东/湛江",
       "sortLetters": "z"
     },
     {
       "name": "肇庆",
       "spellName": "zhaoqing",
-      "id": 4412,
+      "id": "0758",
       "fullname": "广东/肇庆",
       "sortLetters": "z"
     },
     {
       "name": "昭通",
       "spellName": "zhaotong",
-      "id": 5306,
+      "id": "0870",
       "fullname": "云南/昭通",
       "sortLetters": "z"
     },
     {
       "name": "郑州",
       "spellName": "zhengzhou",
-      "id": 4101,
+      "id": "0371",
       "fullname": "河南/郑州",
       "sortLetters": "z"
     },
     {
       "name": "镇江",
       "spellName": "zhenjiang",
-      "id": 3211,
+      "id": "0511",
       "fullname": "江苏/镇江",
       "sortLetters": "z"
     },
     {
       "name": "中山",
       "spellName": "zhongshan",
-      "id": 4420,
+      "id": "0760",
       "fullname": "广东/中山",
       "sortLetters": "z"
     },
     {
       "name": "中卫",
       "spellName": "zhongwei",
-      "id": 6405,
+      "id": "1953",
       "fullname": "宁夏/中卫",
       "sortLetters": "z"
     },
     {
       "name": "周口",
       "spellName": "zhoukou",
-      "id": 4116,
+      "id": "0394",
       "fullname": "河南/周口",
       "sortLetters": "z"
     },
     {
       "name": "舟山",
       "spellName": "zhoushan",
-      "id": 3309,
+      "id": "0580",
       "fullname": "浙江/舟山",
       "sortLetters": "z"
     },
     {
       "name": "珠海",
       "spellName": "zhuhai",
-      "id": 4404,
+      "id": "0756",
       "fullname": "广东/珠海",
       "sortLetters": "z"
     },
     {
       "name": "驻马店",
       "spellName": "zhumadian",
-      "id": 4117,
+      "id": "0396",
       "fullname": "河南/驻马店",
       "sortLetters": "z"
     },
     {
       "name": "株洲",
       "spellName": "zhuzhou",
-      "id": 4302,
+      "id": "0733",
       "fullname": "湖南/株洲",
       "sortLetters": "z"
     },
     {
       "name": "淄博",
       "spellName": "zibo",
-      "id": 3703,
+      "id": "0533",
       "fullname": "山东/淄博",
       "sortLetters": "z"
     },
     {
       "name": "自贡",
       "spellName": "zigong",
-      "id": 5103,
+      "id": "0813",
       "fullname": "四川/自贡",
       "sortLetters": "z"
     },
     {
       "name": "资阳",
       "spellName": "ziyang",
-      "id": 5120,
+      "id": "0832",
       "fullname": "四川/资阳",
       "sortLetters": "z"
     },
     {
       "name": "遵义",
       "spellName": "zunyi",
-      "id": 5203,
+      "id": "0852",
       "fullname": "贵州/遵义",
       "sortLetters": "z"
     }
