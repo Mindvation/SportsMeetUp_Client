@@ -10,25 +10,25 @@ import {
     View,
     Text,
     TouchableOpacity,
-    ScrollView
+    RefreshControl,
+    ListView,
+    ActivityIndicator
 } from 'react-native';
+import FetchUtil from '../util/FetchUtil';
+import {matchTypeMapping, sportTypeMapping} from '../data/Mapping';
 
-const matchs = [{
-    "title": "5V5篮球赛",
-    "location": "石油大学篮球场",
-    "startTime": "2017/7/31 17:30"
-},
-    {
-        "title": "11V11足球赛",
-        "location": "西安市雁塔区雁南五路与雁塔南路十字西南 曲江圣卡纳",
-        "startTime": "2017/7/31 17:30"
-    }];
-
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const pageSize = 6;
 export default class MatchHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectIndex: ""
+            selectIndex: "",
+            isRefreshing: false,
+            page: 0,
+            matchHistory: [],
+            isShowBottomRefresh: false,
+            isEnded: false
         };
     }
 
@@ -38,45 +38,130 @@ export default class MatchHistory extends Component {
         })
     }
 
+    componentDidMount() {
+        this.getMatchHistory();
+    }
+
+    getMatchHistory(action = 'fresh') {
+        let page = this.state.page;
+        if (action === 'fresh') {
+            page = 0;
+            this.setState({
+                isRefreshing: true,
+                selectIndex: ""
+            })
+        } else {
+            this.setState({
+                isShowBottomRefresh: true
+            })
+        }
+        const options = {
+            "url": '8086/sports-meetup-papi/matches/getOldApplyMatches',
+            "params": {
+                "userId": globalUserInfo.userId,
+                "pageAndSize": page + "," + pageSize,
+            }
+        };
+        FetchUtil.get(options).then((res) => {
+            let tempMatch = action === 'fresh' ? [] : this.state.matchHistory;
+            if (res.responseBody && res.responseBody.length > 0) {
+                tempMatch = tempMatch.concat(res.responseBody);
+                console.info('Match Length === ' + tempMatch.length);
+                page++;
+                this.setState({
+                    isRefreshing: false,
+                    page: page,
+                    matchHistory: tempMatch,
+                    isShowBottomRefresh: false
+                });
+            } else {
+                this.setState({isRefreshing: false, isShowBottomRefresh: false});
+            }
+
+            if (res.responseBody && res.responseBody.length < pageSize) {
+                this.setState({
+                    isEnded: true
+                })
+            }
+        }).catch((error) => {
+            this.setState({
+                isRefreshing: false,
+                isShowBottomRefresh: false
+            });
+        })
+    }
+
+    onEndReached() {
+        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded) return;
+        console.info('onEndReached');
+        this.getMatchHistory('load');
+    }
+
+    _renderFooter() {
+        if (this.state && this.state.isShowBottomRefresh) {
+            return (<View style={{marginVertical: 10}}>
+                <ActivityIndicator/>
+            </View>);
+        }
+        return <View style={{marginVertical: 10}}/>;
+    }
+
+    _renderRow(rowData, sectionID, rowID) {
+        return (
+            <View style={styles.matchCont}>
+                <View
+                    style={[styles.borderLine, this.state.selectIndex === rowID ? {display: 'none'} : null]}>
+                    <TouchableOpacity onPress={() => this.selectApplication(rowID)}>
+                        <View style={styles.closeInviteCont}>
+                            <Text
+                                style={styles.closeHistoryText}>{rowData["startTime"]}</Text>
+                            <Text
+                                style={styles.closeHistoryText}>{matchTypeMapping[rowData["matchType"]] + " " + sportTypeMapping[rowData["fieldType"]]}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View
+                    style={[styles.borderLine, this.state.selectIndex === rowID ? null : {display: 'none'}]}>
+                    <View style={styles.handleInviteCont}>
+                        <View style={styles.invitePersonalCont}>
+                            <Text
+                                style={styles.appPersonalText}>{matchTypeMapping[rowData["matchType"]] + " " + sportTypeMapping[rowData["fieldType"]]}</Text>
+                            <Text style={styles.appTimeText}>时间：{rowData["startTime"]}</Text>
+                        </View>
+                        <View style={styles.locationCont}>
+                            <Text style={styles.locationText}>地点：{rowData["address"]}</Text>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+
     render() {
+        const {matchHistory, isRefreshing} = this.state;
         return (
             <View>
-                <ScrollView
-                    ref={(scrollView) => {
-                        _scrollView = scrollView;
-                    }}
-                    automaticallyAdjustContentInsets={false}
-                    horizontal={false}
-                    keyboardShouldPersistTaps="handled"
-                >
-                    {
-                        matchs.map((result, i) => {
-                            return <View key={i} style={styles.matchCont}>
-                                <View
-                                    style={[styles.borderLine, this.state.selectIndex === i ? {display: 'none'} : null]}>
-                                    <TouchableOpacity onPress={() => this.selectApplication(i)}>
-                                        <View style={styles.closeInviteCont}>
-                                            <Text
-                                                style={styles.closeAppPersonalText}>{result["startTime"] + "  " + result["title"]}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                                <View
-                                    style={[styles.borderLine, this.state.selectIndex === i ? null : {display: 'none'}]}>
-                                    <View style={styles.handleInviteCont}>
-                                        <View style={styles.invitePersonalCont}>
-                                            <Text style={styles.appPersonalText}>{result["title"]}</Text>
-                                            <Text style={styles.appTimeText}>时间：{result["startTime"]}</Text>
-                                        </View>
-                                        <View style={styles.locationCont}>
-                                            <Text style={styles.locationText}>地点：{result["location"]}</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                            </View>;
-                        })
+                <ListView
+                    dataSource={ds.cloneWithRows(matchHistory)}
+                    renderRow={this._renderRow.bind(this)}
+                    renderFooter={this._renderFooter.bind(this)}
+                    onEndReached={this.onEndReached.bind(this)}
+                    onEndReachedThreshold={1}
+                    enableEmptySections={true}
+                    automaticallyAdjustContentInserts={false}
+                    showsVerticalScrollIndicator={false}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isRefreshing}
+                            onRefresh={() => this.getMatchHistory('fresh')}
+                            tintColor="#ff0000"
+                            title="Loading..."
+                            titleColor="#00ff00"
+                            colors={['#ff0000', '#00ff00', '#0000ff']}
+                            progressBackgroundColor="#fff"
+                        />
                     }
-                </ScrollView>
+                />
             </View>
         );
     }
@@ -84,8 +169,7 @@ export default class MatchHistory extends Component {
 
 const styles = StyleSheet.create({
     matchCont: {
-        backgroundColor: '#ffffff',
-        marginBottom: 15
+        backgroundColor: '#ffffff'
     },
     borderLine: {
         borderBottomColor: '#f1f1f1',
@@ -103,7 +187,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        padding: 15
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 30,
+        paddingBottom: 30
     },
     invitePersonalCont: {
         justifyContent: 'space-between',
@@ -132,10 +219,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
-    closeAppPersonalText: {
-        fontSize: 16,
-        color: '#000000',
-        paddingLeft: 15
+    closeHistoryText: {
+        fontSize: 18,
+        color: '#000000'
     }
 });
 

@@ -54,12 +54,11 @@ export default class PhoneNumber extends Component {
 
     _getVrfCodeFromServer() {
         const options = {
-            "url": '8888/sports-meetup/users/getVerificationCode',
+            "url": '8090/sports-meetup-user/users/getVerificationCode',
             "params": {
                 "phoneNumber": this.state.phoneNumber,
                 "option": 1
-            },
-            "schema": "getVerificationCode"
+            }
         };
 
         FetchUtil.get(options).then((res) => {
@@ -71,7 +70,7 @@ export default class PhoneNumber extends Component {
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
-                { cancelable: false }
+                {cancelable: false}
             );
         })
     }
@@ -92,7 +91,7 @@ export default class PhoneNumber extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header navigator = {this.props.navigator}/>
+                <Header navigator={this.props.navigator}/>
                 <View style={styles.mainCont}>
                     <ScrollView
                         ref={(scrollView) => {

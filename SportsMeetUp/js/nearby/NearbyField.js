@@ -10,11 +10,13 @@ import {
     Text,
     View,
     Dimensions,
-    ScrollView,
+    ListView,
     TouchableOpacity,
-    Image
+    Image,
+    ActivityIndicator,
+    RefreshControl
 } from 'react-native';
-import CommonUtil from '../util/CommonUtil';
+import FetchUtil from '../util/FetchUtil';
 
 import FieldInfo from './FieldInfo';
 import Filter from '../common/Filter';
@@ -81,15 +83,102 @@ const filterData = [
     }
 ];
 
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const pageSize = 6;
+
 export default class NearbyField extends Component {
     constructor(props) {
         super(props);
         this._toggleFilter = this._toggleFilter.bind(this);
         this.state = {
-            dailyMatch: [],
             filter: [],
-            filterVisible: false
+            filterVisible: false,
+            isRefreshing: false,
+            page: 0,
+            fields: [],
+            isShowBottomRefresh: false,
+            isEnded: false
         };
+    }
+
+    componentDidMount() {
+        this.getNearbyFields();
+    }
+
+    getNearbyFields(action = 'fresh') {
+        let page = this.state.page;
+        if (action === 'fresh') {
+            page = 0;
+            this.setState({
+                isRefreshing: true
+            })
+        } else {
+            this.setState({
+                isShowBottomRefresh: true
+            })
+        }
+        const options = {
+            "url": '8086/sports-meetup-papi/matches/getApplyMatches',
+            "params": {
+                "userId": globalUserInfo.userId,
+                "pageAndSize": page + "," + pageSize,
+            }
+        };
+        FetchUtil.get(options).then((res) => {
+            let tempFields = action === 'fresh' ? [] : this.state.fields;
+            if (res.responseBody && res.responseBody.length > 0) {
+                tempFields = tempFields.concat(res.responseBody);
+                console.info('Fields Length === ' + tempFields.length);
+                page++;
+                this.setState({
+                    isRefreshing: false,
+                    page: page,
+                    fields: tempFields,
+                    isShowBottomRefresh: false
+                });
+            } else {
+                this.setState({isRefreshing: false, isShowBottomRefresh: false});
+            }
+
+            if (res.responseBody) {
+                if (res.responseBody.length < pageSize) {
+                    this.setState({
+                        isEnded: true
+                    })
+                } else {
+                    this.setState({
+                        isEnded: false
+                    })
+                }
+
+            }
+        }).catch((error) => {
+            this.setState({
+                isRefreshing: false,
+                isShowBottomRefresh: false
+            });
+        })
+    }
+
+    onEndReached() {
+        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded) return;
+        console.info('onEndReached');
+        this.getNearbyFields('load');
+    }
+
+    _renderFooter() {
+        if (this.state && this.state.isShowBottomRefresh) {
+            return (<View size="large">
+                <ActivityIndicator/>
+            </View>);
+        }
+        return <View/>;
+    }
+
+    _renderRow(rowData, sectionID, rowID) {
+        return (
+            <FieldInfo field={rowData} rowId={rowID}/>
+        );
     }
 
     _toggleFilter() {
@@ -99,6 +188,7 @@ export default class NearbyField extends Component {
     }
 
     render() {
+        const {fields, isRefreshing} = this.state;
         return ( <View>
                 <View style={styles.filterTitle}>
                     <TouchableOpacity
@@ -110,17 +200,27 @@ export default class NearbyField extends Component {
                                source={require('../../res/images/arrow.png')}/>
                     </TouchableOpacity>
                 </View>
-                <ScrollView
-                    ref={(scrollView) => {
-                        _scrollView = scrollView;
-                    }}
-                    automaticallyAdjustContentInsets={false}
-                    horizontal={false}
-                    keyboardShouldPersistTaps="handled"
-                    style={{marginBottom:40}}
-                >
-                    <FieldInfo fields={fields}/>
-                </ScrollView>
+                <ListView
+                    dataSource={ds.cloneWithRows(fields)}
+                    renderRow={this._renderRow.bind(this)}
+                    renderFooter={this._renderFooter.bind(this)}
+                    onEndReached={this.onEndReached.bind(this)}
+                    onEndReachedThreshold={1}
+                    enableEmptySections={true}
+                    automaticallyAdjustContentInserts={false}
+                    showsVerticalScrollIndicator={false}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isRefreshing}
+                            onRefresh={() => this.getNearbyFields('fresh')}
+                            tintColor="#ff0000"
+                            title="Loading..."
+                            titleColor="#00ff00"
+                            colors={['#ff0000', '#00ff00', '#0000ff']}
+                            progressBackgroundColor="#fff"
+                        />
+                    }
+                />
                 <Filter isMultiple={true}
                         data={filterData}
                         visible={this.state.filterVisible}

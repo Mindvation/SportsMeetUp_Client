@@ -12,57 +12,18 @@ import {
     Dimensions,
     ScrollView,
     TouchableOpacity,
-    Image
+    Image,
+    ListView,
+    RefreshControl,
+    ActivityIndicator
 } from 'react-native';
 import CommonUtil from '../util/CommonUtil';
 
 import NearbyMatch from './NearbyMatch';
 import Filter from '../common/Filter';
+import FetchUtil from '../util/FetchUtil';
 
 const {width} = Dimensions.get('window');
-const matchs = [
-    {
-        "sponsor": "Darcy",
-        "title": "11V11足球赛",
-        "location": "西安市雁塔区雁南五路与雁塔南路十字西南 曲江圣卡纳",
-        "date": "2017/08/09",
-        "time": "17:30-19:30",
-        "teamBlueLeft": 8,
-        "teamRedLeft": 5,
-        "total": 22,
-        "distance": "31m"
-    }, {
-        "sponsor": "Frank",
-        "title": "2V2足球赛",
-        "location": "曲江圣卡纳1",
-        "date": "2017/08/09",
-        "time": "16:30-17:30",
-        "teamBlueLeft": 1,
-        "teamRedLeft": 0,
-        "total": 4,
-        "distance": "5.5km"
-    }, {
-        "sponsor": "Bob",
-        "title": "4V4足球赛",
-        "location": "曲江圣卡纳2",
-        "date": "2017/08/11",
-        "time": "20:30-22:30",
-        "teamBlueLeft": 1,
-        "teamRedLeft": 3,
-        "total": 8,
-        "distance": "3km"
-    }, {
-        "sponsor": "Frank",
-        "title": "1V1乒乓球赛",
-        "location": "曲江圣卡纳3",
-        "date": "2017/08/09",
-        "time": "17:30-19:30",
-        "teamBlueLeft": 1,
-        "teamRedLeft": 0,
-        "total": 2,
-        "distance": "5.5km"
-    },
-];
 
 const filterData = [
     {
@@ -92,36 +53,106 @@ const filterData = [
     }
 ];
 
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const pageSize = 6;
+
 export default class NearbyDailyMatch extends Component {
     constructor(props) {
         super(props);
         this._toggleFilter = this._toggleFilter.bind(this);
         this.state = {
-            dailyMatch: [],
-            filter: [],
-            filterVisible: false
+            isRefreshing: false,
+            page: 0,
+            matches: [],
+            isShowBottomRefresh: false,
+            isEnded: false,
+            dailyMatch: []
         };
     }
 
     componentDidMount() {
-        this._filterMatchInfo();
+        //this._filterMatchInfo();
+        this.getNearbyMatches();
     }
 
-    _filterMatchInfo() {
-        //TODO dummy data 之后日期改为当天
-        let todayDate = new Date("2017/8/9");
-        let firstDay = CommonUtil.dateFormat(new Date("2017/8/9"), "yyyy/MM/dd");
-        let secondDay = CommonUtil.dateFormat(new Date(todayDate.setDate(todayDate.getDate() + 1)), "yyyy/MM/dd");
-        let thirdDay = CommonUtil.dateFormat(new Date(todayDate.setDate(todayDate.getDate() + 1)), "yyyy/MM/dd");
-        let matchArr = {
-            [firstDay]: [],
-            [secondDay]: [],
-            [thirdDay]: []
+    getNearbyMatches(action = 'fresh') {
+        let page = this.state.page;
+        if (action === 'fresh') {
+            page = 0;
+            this.setState({
+                isRefreshing: true
+            })
+        } else {
+            this.setState({
+                isShowBottomRefresh: true
+            })
+        }
+        const options = {
+            "url": '8086/sports-meetup-papi/matches/getNearbyMatches',
+            "params": {
+                "longitude": 108.948866,
+                "latitude": 34.254534,
+                "pageAndSize": page + "," + pageSize
+            }
         };
-        matchs.map(match => {
-            Object.keys(matchArr).map(day => {
-                if (day === match.date) {
-                    matchArr[day].push(match);
+        FetchUtil.get(options).then((res) => {
+            let tempMatch = action === 'fresh' ? [] : this.state.matches;
+            if (res.responseBody && res.responseBody.length > 0) {
+                tempMatch = tempMatch.concat(res.responseBody);
+                console.info('Match Length === ' + tempMatch.length);
+                page++;
+                this._filterMatchInfo(tempMatch);
+                this.setState({
+                    isRefreshing: false,
+                    page: page,
+                    matches: tempMatch,
+                    isShowBottomRefresh: false
+                });
+
+            } else {
+                this.setState({isRefreshing: false, isShowBottomRefresh: false});
+            }
+
+            if (res.responseBody) {
+                if (res.responseBody.length < pageSize) {
+                    this.setState({
+                        isEnded: true
+                    })
+                } else {
+                    this.setState({
+                        isEnded: false
+                    })
+                }
+
+            }
+        }).catch((error) => {
+            this.setState({
+                isRefreshing: false,
+                isShowBottomRefresh: false
+            });
+        })
+    }
+
+    _filterMatchInfo(matches) {
+        //TODO dummy data 之后日期改为当天
+        let todayDate = new Date("2017/9/28");
+        let firstDay = CommonUtil.dateFormat(new Date("2017/9/28"), "yyyy-MM-dd");
+        let secondDay = CommonUtil.dateFormat(new Date(todayDate.setDate(todayDate.getDate() + 1)), "yyyy-MM-dd");
+        let thirdDay = CommonUtil.dateFormat(new Date(todayDate.setDate(todayDate.getDate() + 1)), "yyyy-MM-dd");
+        let matchArr = [{
+            "date": firstDay,
+            "matches": []
+        }, {
+            "date": secondDay,
+            "matches": []
+        }, {
+            "date": thirdDay,
+            "matches": []
+        }];
+        matches.map(match => {
+            matchArr.map(dayMatch => {
+                if (dayMatch.date === match.date) {
+                    dayMatch.matches.push(this._formatMatch(match));
                 }
             })
         });
@@ -131,14 +162,49 @@ export default class NearbyDailyMatch extends Component {
         })
     }
 
+    _formatMatch(match) {
+        match.blueTeam = Math.round(match.joinedAmmount / 2);
+        match.redTeam = match.joinedAmmount - match.blueTeam;
+        match.startTime = CommonUtil.dateFormat(new Date(match.startTime), "hh:mm:ss");
+        match.endTime = CommonUtil.dateFormat(new Date(match.endTime), "hh:mm:ss");
+        match.icon = match.icon ? {uri: match.icon} : '';
+        return match;
+    }
+
     _toggleFilter() {
         this.setState({
             filterVisible: !this.state.filterVisible
         })
     }
 
+    onEndReached() {
+        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded) return;
+        console.info('onEndReached');
+        this.getNearbyMatches('load');
+    }
+
+    _renderFooter() {
+        if (this.state && this.state.isShowBottomRefresh) {
+            return (<View size="large">
+                <ActivityIndicator/>
+            </View>);
+        }
+        return <View/>;
+    }
+
+    _renderRow(rowData, sectionID, rowID) {
+        return rowData.matches.length ?
+            <View style={styles.itemCont}>
+                <Text style={styles.matchDate}>{rowData.date}</Text>
+                {rowData.matches.map((match, j) => {
+                    return <NearbyMatch key={"match_" + j} match={match}/>
+                })}
+            </View> : null
+    }
+
     render() {
-        return ( <View>
+        const {dailyMatch, isRefreshing} = this.state;
+        return ( <View style={styles.nearbyDailyCont}>
                 <View style={styles.filterTitle}>
                     <TouchableOpacity
                         onPress={this._toggleFilter}
@@ -149,29 +215,27 @@ export default class NearbyDailyMatch extends Component {
                                source={require('../../res/images/arrow.png')}/>
                     </TouchableOpacity>
                 </View>
-                <ScrollView
-                    ref={(scrollView) => {
-                        _scrollView = scrollView;
-                    }}
-                    automaticallyAdjustContentInsets={false}
-                    horizontal={false}
-                    keyboardShouldPersistTaps="handled"
-                    style={{marginBottom:25}}
-                >
-                    {
-                        Object.keys(this.state.dailyMatch).map((date, i) => {
-                            return this.state.dailyMatch[date].length ?
-                                (<View style={styles.itemCont} key={"date_" + i}>
-                                        <Text style={styles.matchDate}>{date}</Text>
-                                        {this.state.dailyMatch[date].map((match, j) => {
-                                            return <NearbyMatch key={"match_" + j} match={match}/>
-                                        })}
-                                    </View>
-                                ) : null
-                        })
+                <ListView
+                    dataSource={ds.cloneWithRows(dailyMatch)}
+                    renderRow={this._renderRow.bind(this)}
+                    renderFooter={this._renderFooter.bind(this)}
+                    onEndReached={this.onEndReached.bind(this)}
+                    onEndReachedThreshold={1}
+                    enableEmptySections={true}
+                    automaticallyAdjustContentInserts={false}
+                    showsVerticalScrollIndicator={false}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isRefreshing}
+                            onRefresh={() => this.getNearbyMatches('fresh')}
+                            tintColor="#ff0000"
+                            title="Loading..."
+                            titleColor="#00ff00"
+                            colors={['#ff0000', '#00ff00', '#0000ff']}
+                            progressBackgroundColor="#fff"
+                        />
                     }
-
-                </ScrollView>
+                />
                 <Filter isMultiple={true}
                         data={filterData}
                         visible={this.state.filterVisible}
@@ -192,6 +256,9 @@ export default class NearbyDailyMatch extends Component {
 }
 
 const styles = StyleSheet.create({
+    nearbyDailyCont: {
+        flex: 1
+    },
     itemCont: {
         backgroundColor: '#ffffff',
         marginBottom: 15

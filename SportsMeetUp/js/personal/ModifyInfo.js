@@ -188,7 +188,7 @@ export default class ModifyInfo extends Component {
         this.setState({
             "name": res.name,
             "gender": res.gender,
-            "photo": {uri: res.icon},
+            "photo": res.icon ? {uri: res.icon} : '',
             "weekFreeTime": freeTimeOptions[res.weekday],
             "weekendFreeTime": freeTimeOptions[res.weekend],
             "location": this._getLocationById(res.city)
@@ -345,7 +345,7 @@ export default class ModifyInfo extends Component {
                                     textStyle={styles.dropdownText}
                                     dropdownStyle={{width: this.state.ftWidth1}}
                                     dropdownTextStyle={styles.dropdownTextStyle}
-                                    defaultValue={this.state.weekendFreeTime}
+                                    defaultValue={this.state.weekendFreeTime ? this.state.weekendFreeTime : '请选择'}
                                     options={Object.values(freeTimeOptions)}
                                     animated={false}
                                     onSelect={(index) => this._pickWeekendFreeTime(index)}/>
@@ -362,7 +362,7 @@ export default class ModifyInfo extends Component {
                                     textStyle={styles.dropdownText}
                                     dropdownStyle={{width: this.state.ftWidth2}}
                                     dropdownTextStyle={styles.dropdownTextStyle}
-                                    defaultValue={this.state.weekFreeTime}
+                                    defaultValue={this.state.weekFreeTime ? this.state.weekFreeTime : '请选择'}
                                     options={Object.values(freeTimeOptions)}
                                     animated={false}
                                     onSelect={(index) => this._pickWeekFreeTime(index)}/>

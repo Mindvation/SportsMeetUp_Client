@@ -61,14 +61,12 @@ export default class WelcomePage extends Component {
         const {navigator} = this.props;
 
         FetchUtil.post(options).then((res) => {
-            this.timer = setTimeout(() => {
-                navigator.resetTo({
-                    component: TabPage,
-                    name: 'TabPageComponent',
-                    params: {
-                        "userInfo": res.responseBody
-                    }
-                });
+            navigator.resetTo({
+                component: TabPage,
+                name: 'TabPageComponent',
+                params: {
+                    "userInfo": res.responseBody
+                }
             });
         }).catch((error) => {
             this.timer = setTimeout(() => {

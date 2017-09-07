@@ -79,11 +79,11 @@ export default class Register extends Component {
 
     _getVrfCodeFromServer() {
         const options = {
-            "url": '8888/sports-meetup/users/getVerificationCode',
+            "url": '8090/sports-meetup-user/users/getVerificationCode',
             "params": {
-                "phoneNumber": this.state.phoneNumber
-            },
-            "schema": "getVerificationCode"
+                "phoneNumber": this.state.phoneNumber,
+                "action": 0
+            }
         }
 
         FetchUtil.get(options).then((res) => {
@@ -182,7 +182,7 @@ export default class Register extends Component {
                 overlayVisible: false
             });
 
-            DataUtil.saveData('userLogonInfo',{
+            DataUtil.saveData('userLogonInfo', {
                 "phoneNumber": this.state.phoneNumber,
                 "password": this.state.passWord
             });

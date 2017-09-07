@@ -9,11 +9,13 @@ import {
     StyleSheet,
     Platform,
     View,
-    Text
+    Dimensions
 } from 'react-native';
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import NearbyDailyMatch from './NearbyDailyMatch';
 import NearbyField from "./NearbyField";
+
+const {width} = Dimensions.get('window');
 
 export default class NearbyMain extends Component {
     constructor(props) {
@@ -56,9 +58,11 @@ const styles = StyleSheet.create({
         height: 60,
         borderWidth: 0,
         backgroundColor: '#323232',
+        width: width
     },
     tabStyle: {
-        height: 60
+        height: 60,
+        width: width / 2
     },
     tabBarUnderline: {
         height: 0

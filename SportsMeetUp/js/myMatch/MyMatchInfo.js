@@ -21,14 +21,29 @@ export default class MyMatchInfo extends Component {
     render() {
         //const test = [{"date":"2017-09-28","startTime":"2017-09-28 14:46:28","endTime":"2017-09-28 14:44:18","matchType":"5","fieldType":"080104","totalNumber":"10","joinedAmmount":4,"address":"兴庆南路135号"}];
         const {match} = this.props;
+        let matchStartTime = new Date(match["startTime"]);
+        let matchEndTime = new Date(match["endTime"]);
+        let now = new Date();
+        let timeDiff = parseInt(matchStartTime - now) / 1000 / 60;//两个时间相差的小时数
+        let matchEnded = matchEndTime < now;
+        let matchStarted = timeDiff < 0;
+        let willStart = 0 < timeDiff && timeDiff < 2;
         return ( <View style={styles.matchCont}>
                 <View style={styles.basicInfoCont}>
                     <Text
                         style={styles.basicInfoTitle}>{matchTypeMapping[match["matchType"]] + " " + sportTypeMapping[match["fieldType"]]}</Text>
-                    <View style={styles.rectangle}>
+                    {willStart ? <View style={[styles.rectangle, styles.green]}>
                         <Text style={styles.basicInfoAlert}>即将开始</Text>
-                        <View style={styles.triangle}/>
-                    </View>
+                        <View style={[styles.triangle, styles.green]}/>
+                    </View> : null}
+                    {matchStarted && !matchEnded ? <View style={[styles.rectangle, styles.amber]}>
+                        <Text style={styles.basicInfoAlert}>比赛已经开始</Text>
+                        <View style={[styles.triangle, styles.amber]}/>
+                    </View> : null}
+                    {matchEnded ? <View style={[styles.rectangle, styles.red]}>
+                        <Text style={styles.basicInfoAlert}>比赛已经结束</Text>
+                        <View style={[styles.triangle, styles.red]}/>
+                    </View> : null}
                 </View>
                 <View style={styles.locationCont}>
                     <Text style={styles.locationText}>{match["address"]}</Text>
@@ -86,8 +101,7 @@ const styles = StyleSheet.create({
     rectangle: {
         alignItems: 'center',
         flexDirection: 'row',
-        height: 20,
-        backgroundColor: 'red'
+        height: 20
     },
     triangle: {
         position: 'absolute',
@@ -96,12 +110,25 @@ const styles = StyleSheet.create({
         width: 0,
         height: 0,
         borderBottomWidth: 10,
-        borderBottomColor: 'red',
         borderRightWidth: 5,
         borderRightColor: '#ffffff',
         borderLeftWidth: 0,
-        borderTopWidth: 10,
-        borderTopColor: 'red',
+        borderTopWidth: 10
+    },
+    green: {
+        borderBottomColor: 'green',
+        backgroundColor: 'green',
+        borderTopColor: 'green'
+    },
+    amber: {
+        borderBottomColor: '#CA4C26',
+        backgroundColor: '#CA4C26',
+        borderTopColor: '#CA4C26'
+    },
+    red: {
+        borderBottomColor: 'red',
+        backgroundColor: 'red',
+        borderTopColor: 'red'
     },
     locationText: {
         fontSize: 15

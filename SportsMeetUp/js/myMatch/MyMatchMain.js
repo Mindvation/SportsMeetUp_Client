@@ -8,13 +8,16 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     Platform,
-    View
+    View,
+    Dimensions
 } from 'react-native';
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import MyInvite from './MyInvite';
 import MyMatch from './MyMatch';
 import Header from '../common/Header';
 import MatchHistory from './MatchHistory';
+
+const {width} = Dimensions.get('window');
 
 export default class MyMatchMain extends Component {
     constructor(props) {
@@ -26,7 +29,7 @@ export default class MyMatchMain extends Component {
 
         return (
             <View style={styles.container}>
-                <Header title="比赛" hiddenLeftBtn={true} hiddenRightBtn={true}/>
+                {/*<Header title="比赛" hiddenLeftBtn={true} hiddenRightBtn={true}/>*/}
                 <ScrollableTabView
                     renderTabBar={() => <ScrollableTabBar style={styles.tabBarStyle}
                                                           tabStyle={styles.tabStyle}
@@ -59,9 +62,11 @@ const styles = StyleSheet.create({
         height: 60,
         borderWidth: 0,
         backgroundColor: '#323232',
+        width: width
     },
     tabStyle: {
-        height: 60
+        height: 60,
+        width: width / 3
     },
     tabBarUnderline: {
         height: 0

@@ -66,12 +66,12 @@ export default class ModifyPwd extends Component {
 
     _getVrfCodeFromServer() {
         const options = {
-            "url": '8888/sports-meetup/users/getVerificationCode',
+            "url": '8090/sports-meetup-user/users/getVerificationCode',
             "params": {
-                "phoneNumber": this.state.phoneNumber
-            },
-            "schema": "getVerificationCode"
-        }
+                "phoneNumber": this.state.phoneNumber,
+                "action": 1
+            }
+        };
 
         FetchUtil.get(options).then((res) => {
 

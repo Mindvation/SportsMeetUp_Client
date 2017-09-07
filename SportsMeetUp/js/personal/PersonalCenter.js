@@ -112,7 +112,9 @@ export default class PersonalCenter extends Component {
                                 />}
                             <View style={styles.nameInfo}>
                                 <Text style={styles.nameText}>{this.state.name}</Text>
-                                <Text style={styles.freeTimeText}>周末  {this.state.weekendFreeTime}    周内  {this.state.weekFreeTime}</Text>
+                                <Text
+                                    style={styles.freeTimeText}>{'周末  ' + (this.state.weekendFreeTime ? this.state.weekendFreeTime : '未知')
+                                + '    周内  ' + (this.state.weekFreeTime ? this.state.weekFreeTime : '未知')}</Text>
                             </View>
                             <TouchableOpacity onPress={this.editPersonalInfo}>
                                 <View style={{

@@ -38,56 +38,53 @@ export default class FieldInfo extends Component {
     }
 
     render() {
-        const {fields} = this.props;
+        const {field, rowId} = this.props;
 
         return ( <View>
-                {
-                    fields.map((field, i) => {
-                        return <View style={styles.borderLine} key={i}>
-                            <TouchableOpacity onPress={() => {
-                                this.setState({
-                                    selectedIndex: i
-                                })
-                            }}>
-                                <View style={styles.matchInfoCont}>
-                                    <Image source={require('../../res/images/field_default.png')}
-                                           style={styles.fieldImg}/>
-                                    <View style={styles.otherInfoCont}>
-                                        <Text style={styles.fieldLocation}>{field.location}</Text>
-                                        <View style={styles.typeAndCost}>
-                                            <Text style={styles.fieldType}>{field.type}</Text>
-                                            {
-                                                field.cost ? <Text style={[styles.fieldType,{marginLeft:15}]}>{field.cost}/小时</Text> : null
-                                            }
-                                        </View>
-                                        <Text style={styles.fieldDistance}>{field.distance}</Text>
-                                    </View>
+                <View style={styles.borderLine} key={rowId}>
+                    <TouchableOpacity onPress={() => {
+                        this.setState({
+                            selectedIndex: rowId
+                        })
+                    }}>
+                        <View style={styles.matchInfoCont}>
+                            <Image source={require('../../res/images/field_default.png')}
+                                   style={styles.fieldImg}/>
+                            <View style={styles.otherInfoCont}>
+                                <Text style={styles.fieldLocation}>{field.location}</Text>
+                                <View style={styles.typeAndCost}>
+                                    <Text style={styles.fieldType}>{field.type}</Text>
+                                    {
+                                        field.cost ? <Text
+                                            style={[styles.fieldType, {marginLeft: 15}]}>{field.cost}/小时</Text> : null
+                                    }
                                 </View>
-                                <Text style={styles.fieldOpenTime}>周内  {field.weekTime}    周末  {field.weekendTime}</Text>
-                            </TouchableOpacity>
-                            <View
-                                style={[styles.bottomCont, this.state.selectedIndex === i ? null : {display: 'none'}]}>
-                                <View style={styles.shareCont}>
-                                    <TouchableOpacity onPress={() => this._shareMatch()}>
-                                        <View style={styles.sharePressRange}>
-                                            <Image style={styles.shareImg}
-                                                   source={require('../../res/images/matchInfo/share.png')}/>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.acceptCont}>
-                                    <TouchableOpacity onPress={() => {
-
-                                    }}>
-                                        <View>
-                                            <Text style={styles.ignoreText}> 预约比赛 </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
+                                <Text style={styles.fieldDistance}>{field.distance}</Text>
                             </View>
                         </View>
-                    })
-                }
+                        <Text style={styles.fieldOpenTime}>周内 {field.weekTime} 周末 {field.weekendTime}</Text>
+                    </TouchableOpacity>
+                    <View
+                        style={[styles.bottomCont, this.state.selectedIndex === rowId ? null : {display: 'none'}]}>
+                        <View style={styles.shareCont}>
+                            <TouchableOpacity onPress={() => this._shareMatch()}>
+                                <View style={styles.sharePressRange}>
+                                    <Image style={styles.shareImg}
+                                           source={require('../../res/images/matchInfo/share.png')}/>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.acceptCont}>
+                            <TouchableOpacity onPress={() => {
+
+                            }}>
+                                <View>
+                                    <Text style={styles.ignoreText}> 预约比赛 </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
 
                 <ShareMatch
                     closeHandle={() => {
@@ -180,7 +177,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#f1f1f1',
         borderBottomWidth: 1
     },
-    typeAndCost:{
+    typeAndCost: {
         flexDirection: 'row',
     }
 });

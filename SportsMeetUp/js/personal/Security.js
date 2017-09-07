@@ -41,12 +41,11 @@ export default class Security extends Component {
 
     _getVrfCodeFromServer() {
         const options = {
-            "url": '8888/sports-meetup/users/getVerificationCode',
+            "url": '8090/sports-meetup-user/users/getVerificationCode',
             "params": {
                 "phoneNumber": globalUserInfo.phoneNumber,
                 "option": 1
-            },
-            "schema": "getVerificationCode"
+            }
         };
 
         FetchUtil.get(options).then((res) => {

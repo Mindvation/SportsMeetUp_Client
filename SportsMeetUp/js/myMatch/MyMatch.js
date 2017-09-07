@@ -8,7 +8,6 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     ListView,
     RefreshControl,
     Text,
@@ -19,77 +18,73 @@ import FetchUtil from '../util/FetchUtil';
 import MyMatchInfo from './MyMatchInfo';
 import MyApplication from './MyApplication';
 
-const matches = [
-    {
-        "title": "5V5篮球赛",
-        "date": "2017/7/31",
-        "location": "石油大学篮球场",
-        "time": "17:30 - 19:30"
-    },
-    {
-        "title": "1V1乒乓球赛",
-        "date": "2017/7/31",
-        "location": "北京大学乒乓球场",
-        "time": "17:30 - 19:30"
-    },
-    {
-        "title": "11V11足球赛",
-        "date": "2017/7/31",
-        "location": "陕西省体育场",
-        "time": "17:30 - 19:30"
-    },
-];
-
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const pageSize = 6;
 export default class MyMatch extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: ds.cloneWithRows([]),
             isRefreshing: false,
             page: 0,
             matches: [],
-            isShowBottomRefresh: false
+            isShowBottomRefresh: false,
+            isEnded: false
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getMyMatches();
     }
 
     getMyMatches(action = 'fresh') {
-        action === 'fresh' ? this.setState({
-            page: 0,
-            isRefreshing: true
-        }) : this.setState({
-            isShowBottomRefresh: true
-        });
+        let page = this.state.page;
+        if (action === 'fresh') {
+            page = 0;
+            this.setState({
+                isRefreshing: true
+            })
+        } else {
+            this.setState({
+                isShowBottomRefresh: true
+            })
+        }
         const options = {
             "url": '8086/sports-meetup-papi/matches/getApplyMatches',
             "params": {
                 "userId": globalUserInfo.userId,
-                "pageAndSize": this.state.page + "," + 6,
+                "pageAndSize": page + "," + pageSize,
             }
         };
         FetchUtil.get(options).then((res) => {
-            let tempPage = action === 'fresh' ? 0 : this.state.page + 1;
             let tempMatch = action === 'fresh' ? [] : this.state.matches;
-            this.isFirstTime = true;
             if (res.responseBody && res.responseBody.length > 0) {
                 tempMatch = tempMatch.concat(res.responseBody);
+                console.info('Match Length === ' + tempMatch.length);
+                page++;
                 this.setState({
                     isRefreshing: false,
-                    page: tempPage,
+                    page: page,
                     matches: tempMatch,
-                    dataSource: ds.cloneWithRows(tempMatch),
                     isShowBottomRefresh: false
                 });
             } else {
                 this.setState({isRefreshing: false, isShowBottomRefresh: false});
             }
+
+            if (res.responseBody) {
+                if (res.responseBody.length < pageSize) {
+                    this.setState({
+                        isEnded: true
+                    })
+                } else {
+                    this.setState({
+                        isEnded: false
+                    })
+                }
+
+            }
         }).catch((error) => {
-            this.isFirstTime = true;
             this.setState({
                 isRefreshing: false,
                 isShowBottomRefresh: false
@@ -98,25 +93,18 @@ export default class MyMatch extends Component {
     }
 
     onEndReached() {
-        if (this.isFirstTime) {
-            if (!this.state.isShowBottomRefresh) {
-                this.isFirstTime = false;
-            }
-            return;
-        }
-
-        this.isFirstTime = true;
-        this.setState({isShowBottomRefresh: true});
+        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded) return;
+        console.info('onEndReached');
         this.getMyMatches('load');
     }
 
     _renderFooter() {
         if (this.state && this.state.isShowBottomRefresh) {
-            return (<View style={{marginVertical: 10}}>
+            return (<View size="large">
                 <ActivityIndicator/>
             </View>);
         }
-        return <View style={{marginVertical: 10}}/>;
+        return <View/>;
     }
 
     _renderRow(rowData, sectionID, rowID) {
@@ -126,39 +114,15 @@ export default class MyMatch extends Component {
     }
 
     render() {
-        const {dataSource, isRefreshing} = this.state;
+        const {matches, isRefreshing} = this.state;
         return (
             <View style={styles.myMatchCont}>
-                {/*<ScrollView
-                    ref={(scrollView) => {
-                        _scrollView = scrollView;
-                    }}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={isRefreshing}
-                            onRefresh={() => {
-                                this.getMyMatches()
-                            }}
-                            tintColor="#ff0000"
-                            colors={['#ff0000', '#00ff00', '#0000ff']}
-                            progressBackgroundColor="#ffffff"
-                        />
-                    }
-                    automaticallyAdjustContentInsets={false}
-                    horizontal={false}
-                    keyboardShouldPersistTaps="handled"
-                >
-
-                    <MyMatchInfo matches={matches}/>
-                    <MyApplication/>
-
-                </ScrollView>*/}
                 <ListView
-                    dataSource={dataSource}
+                    dataSource={ds.cloneWithRows(matches)}
                     renderRow={this._renderRow.bind(this)}
                     renderFooter={this._renderFooter.bind(this)}
                     onEndReached={this.onEndReached.bind(this)}
-                    onEndReachedThreshold={100}
+                    onEndReachedThreshold={1}
                     enableEmptySections={true}
                     automaticallyAdjustContentInserts={false}
                     showsVerticalScrollIndicator={false}

@@ -41,12 +41,12 @@ export default class AcceptMatch extends Component {
                     style={{
                         color: '#ff8400',
                         fontSize: 16
-                    }}>{data.total - (data.teamBlueLeft + data.teamRedLeft)}</Text><Text
-                    style={{color: '#000000', fontSize: 16}}>/{data.total}</Text></Text>,
+                    }}>{data.totalNumber - (data.joinedAmmount)}</Text><Text
+                    style={{color: '#000000', fontSize: 16}}>/{data.totalNumber}</Text></Text>,
                 "image": playerImg
             },
             {
-                "text": data.location,
+                "text": data.address,
                 "image": localImg
             },
             {
@@ -54,7 +54,7 @@ export default class AcceptMatch extends Component {
                 "image": calendarImg
             },
             {
-                "text": data.time,
+                "text": data.startTime + " - " + data.endTime,
                 "image": clockImg
             }
         ];

@@ -10,15 +10,12 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity,
-    Dimensions,
-    ScrollView
+    TouchableOpacity
 } from 'react-native';
-
-const {width} = Dimensions.get('window');
-
 import AcceptMatch from '../common/AcceptMatch';
 import ShareMatch from '../common/ShareMatch';
+import {matchTypeMapping, sportTypeMapping} from '../data/Mapping';
+
 
 export default class NearbyMatch extends Component {
     constructor(props) {
@@ -48,21 +45,22 @@ export default class NearbyMatch extends Component {
 
         return ( <View>
                 <View style={styles.matchInfoCont}>
-                    <Image source={require('../../res/images/me/photo.png')}
+                    <Image source={match.icon ? match.icon : require('../../res/images/me/photo.png')}
                            style={styles.photoImg}/>
                     <View style={styles.otherInfoCont}>
-                        <Text style={[styles.otherInfoText, {fontSize: 18, color: '#393939'}]}>{match.sponsor}</Text>
-                        <Text style={styles.otherInfoText}>{match.time}</Text>
-                        <Text style={[styles.otherInfoText, {marginBottom: 5}]}>{match.location}</Text>
+                        <Text style={[styles.otherInfoText, {fontSize: 18, color: '#393939'}]}>{match.name}</Text>
+                        <Text style={styles.otherInfoText}>{match.startTime + " - " + match.endTime}</Text>
+                        <Text style={[styles.otherInfoText, {marginBottom: 5}]}>{match.address}</Text>
                         <Text style={[styles.otherInfoText, {
                             marginBottom: 0,
                             textAlign: 'right',
                             paddingRight: 30
-                        }]}>{match.distance}</Text>
+                        }]}>{match.distance + " km"}</Text>
                     </View>
                 </View>
                 <View style={styles.handleInviteCont}>
-                    <Text style={styles.appPersonalText}>{match.title}</Text>
+                    <Text
+                        style={styles.appPersonalText}>{matchTypeMapping[match.matchType] + " " + sportTypeMapping[match.fieldType]}</Text>
                     <View style={styles.teamCont}>
                         <Image style={styles.teamImg} source={require('../../res/images/matchInfo/team_blue.png')}/>
                         <View style={{flexDirection: 'row'}}>
@@ -70,12 +68,12 @@ export default class NearbyMatch extends Component {
                                 style={{
                                     fontSize: 15, color: '#f5f5f5',
                                     textAlignVertical: 'bottom'
-                                }}>{match.total / 2 - match.teamBlueLeft}/</Text>
+                                }}>{match.totalNumber / 2 - match.blueTeam}/</Text>
                             <Text style={{
                                 fontSize: 13,
                                 color: '#d7d7d7',
                                 textAlignVertical: 'bottom'
-                            }}>{match.total / 2}</Text>
+                            }}>{match.totalNumber / 2}</Text>
                         </View>
                     </View>
                     <View style={styles.teamCont}>
@@ -84,12 +82,12 @@ export default class NearbyMatch extends Component {
                             <Text style={{
                                 fontSize: 15, color: '#f5f5f5',
                                 textAlignVertical: 'bottom'
-                            }}>{match.total / 2 - match.teamRedLeft}/</Text>
+                            }}>{match.totalNumber / 2 - match.redTeam}/</Text>
                             <Text style={{
                                 fontSize: 13,
                                 color: '#d7d7d7',
                                 textAlignVertical: 'bottom'
-                            }}>{match.total / 2}</Text>
+                            }}>{match.totalNumber / 2}</Text>
                         </View>
                     </View>
                 </View>

@@ -66,9 +66,10 @@ export default class ModifyPwd extends Component {
 
     _getVrfCodeFromServer() {
         const options = {
-            "url": '8888/sports-meetup/users/getVerificationCode',
+            "url": '8090/sports-meetup-user/users/getVerificationCode',
             "params": {
-                "phoneNumber": this.state.phoneNumber
+                "phoneNumber": this.state.phoneNumber,
+                "action": 1
             },
             "schema": "getVerificationCode"
         }
@@ -171,13 +172,12 @@ export default class ModifyPwd extends Component {
 
     _submitPwdData() {
         const options = {
-            "url": '8888/sports-meetup/users/updatePassword',
+            "url": '8090/sports-meetup-user/users/updatePassword',
             "params": {
                 "phoneNumber": this.state.phoneNumber,
                 "verificationCode": this.state.vrfCode,
                 "password": this.state.newPassWord
-            },
-            "schema": "addUser"
+            }
         };
 
         this.setState({
@@ -190,11 +190,14 @@ export default class ModifyPwd extends Component {
                 overlayVisible: false
             });
 
-            DataUtil.removeData('userLogonInfo');
+            DataUtil.saveData('userLogonInfo', {
+                "phoneNumber": this.state.phoneNumber,
+                "password": this.state.newPassWord
+            });
 
             interval2 = setInterval(() => {
+                this.goBack();
                 interval2 && clearInterval(interval2);
-                this._goToMainPage();
             }, 1000)
         }).catch((error) => {
             this.setState({
@@ -212,14 +215,13 @@ export default class ModifyPwd extends Component {
 
     }
 
-    _goToMainPage() {
+    goBack() {
+        this.setState({
+            succModalVisible: false
+        });
         const {navigator} = this.props;
         if (navigator) {
-            navigator.resetTo({
-                component: MainPage,
-                name: 'MainPageComponent',
-                params: {}
-            });
+            navigator.pop();
         }
     }
 
