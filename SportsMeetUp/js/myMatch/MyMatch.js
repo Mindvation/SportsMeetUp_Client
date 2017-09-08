@@ -29,7 +29,7 @@ export default class MyMatch extends Component {
             page: 0,
             matches: [],
             isShowBottomRefresh: false,
-            isEnded: false
+            isEnded: true
         };
     }
 

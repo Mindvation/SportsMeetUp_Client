@@ -20,5 +20,41 @@ export const sportTypeMapping = {
     "080112": "乒乓球",
     "080113": "台球",
     "080118": "羽毛球",
-    "080201": "高尔夫"
+    "080201": "排球"
+};
+
+export const filterData = [
+    {
+        "key": "080104",
+        "value": "篮球"
+    }, {
+        "key": "080105",
+        "value": "足球"
+    }, {
+        "key": "080103",
+        "value": "网球"
+    }, {
+        "key": "080118",
+        "value": "羽毛球"
+    }, {
+        "key": "080201",
+        "value": "排球"
+    }, {
+        "key": "080113",
+        "value": "台球"
+    }, {
+        "key": "080112",
+        "value": "乒乓球"
+    }, {
+        "key": "080102",
+        "value": "保龄球"
+    }
+];
+
+export const freeTimeMapping = {
+    am: '上午',
+    nn: '中午',
+    pm: '下午',
+    nt: '晚上',
+    ad: "全天"
 };

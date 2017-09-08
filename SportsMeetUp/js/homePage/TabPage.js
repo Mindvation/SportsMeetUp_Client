@@ -16,14 +16,7 @@ import Util from '../util/CommonUtil';
 import Guide from './Guide';
 import DataUtil from '../util/DataUtil';
 import DATA_JSON from '../pickCity/city-list.json';
-
-const freeTimeOptions = {
-    am: '上午',
-    nn: '中午',
-    pm: '下午',
-    nt: '晚上',
-    ad: "全天"
-};
+import {freeTimeMapping} from '../data/Mapping';
 
 class TabPage extends Component {
 
@@ -39,8 +32,8 @@ class TabPage extends Component {
             "name": userInfo.name,
             "photo": userInfo.icon ? {uri: userInfo.icon} : '',
             "gender": userInfo.gender,
-            "weekFreeTime": userInfo.weekday ? freeTimeOptions[userInfo.weekday] : '',
-            "weekendFreeTime": userInfo.weekend ? freeTimeOptions[userInfo.weekend] : '',
+            "weekFreeTime": userInfo.weekday ? freeTimeMapping[userInfo.weekday] : '',
+            "weekendFreeTime": userInfo.weekend ? freeTimeMapping[userInfo.weekend] : '',
             "location": this._getLocationById(userInfo.city),
             "tags": userInfo.hobbies ? userInfo.hobbies.split(",") : []
         });

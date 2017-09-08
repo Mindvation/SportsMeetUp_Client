@@ -17,6 +17,22 @@ export default class CommonUtil {
         return fmt;
     };
 
+    static parseDate = function (date) {
+        let isoExp, parts;
+        isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s(\d\d):(\d\d):(\d\d)\s*$/;
+        try {
+            parts = isoExp.exec(date);
+        } catch (e) {
+            return null;
+        }
+        if (parts) {
+            date = new Date(parts[1], parts[2] - 1, parts[3], parts[4], parts[5], parts[6]);
+        } else {
+            return null;
+        }
+        return date;
+    };
+
     static isEmpty = function (text) {
         if (text === null || text === undefined || text === "") {
             return true;
@@ -47,5 +63,17 @@ export default class CommonUtil {
         } else if ("080201" === typeCode) {
             return "高尔夫";
         }
+    }
+
+    static getPosition(callback, errorHandle) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                callback && callback(position);
+            },
+            (error) => {
+                errorHandle && errorHandle(error.message)
+            },
+            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+        );
     }
 }

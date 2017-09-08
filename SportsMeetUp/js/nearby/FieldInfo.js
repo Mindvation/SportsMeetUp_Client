@@ -18,6 +18,7 @@ import {
 const {width} = Dimensions.get('window');
 
 import ShareMatch from '../common/ShareMatch';
+import {sportTypeMapping} from '../data/Mapping';
 
 export default class FieldInfo extends Component {
     constructor(props) {
@@ -38,34 +39,59 @@ export default class FieldInfo extends Component {
     }
 
     render() {
-        const {field, rowId} = this.props;
+        const {field, rowId, selectedIndex, setSelectedIndex} = this.props;
+        /* const test = {
+             "fieldId": 2247,
+             "creatorId": null,
+             "fieldName": "凯跃桌球俱乐部",
+             "address": "太乙宫正街东50米",
+             "fieldType": "080113",
+             "adminPhone": "13186139558",
+             "picsOfField": "",
+             "isApproved": null,
+             "longitude": 109.006277,
+             "latitude": 34.024003,
+             "createdDate": null,
+             "isFree": null,
+             "hasMatch": null,
+             "pricePerHour": null,
+             "fieldDetail": null,
+             "distance": 4.84
+         }*/
 
+        const icon = field.picsOfField ? {uri: field.picsOfField.split(",")[0]} : '';
         return ( <View>
                 <View style={styles.borderLine} key={rowId}>
                     <TouchableOpacity onPress={() => {
-                        this.setState({
-                            selectedIndex: rowId
-                        })
+                        setSelectedIndex ? setSelectedIndex(rowId) : {}
                     }}>
                         <View style={styles.matchInfoCont}>
-                            <Image source={require('../../res/images/field_default.png')}
+                            <Image source={icon ? icon : require('../../res/images/field_default.png')}
                                    style={styles.fieldImg}/>
                             <View style={styles.otherInfoCont}>
-                                <Text style={styles.fieldLocation}>{field.location}</Text>
+                                <Text style={styles.fieldName}>{field.fieldName}</Text>
                                 <View style={styles.typeAndCost}>
-                                    <Text style={styles.fieldType}>{field.type}</Text>
                                     {
-                                        field.cost ? <Text
-                                            style={[styles.fieldType, {marginLeft: 15}]}>{field.cost}/小时</Text> : null
+                                        field.pricePerHour ? <Text
+                                            style={[styles.fieldType, {marginLeft: 15}]}>{field.pricePerHour}/小时</Text> : null
                                     }
+
                                 </View>
-                                <Text style={styles.fieldDistance}>{field.distance}</Text>
+                                {
+                                    field.address ?
+                                        <Text style={styles.fieldLocation}>{"地址:" + field.address}</Text> : null
+                                }
+                                {
+                                    field.adminPhone ?
+                                        <Text style={styles.fieldLocation}>{"电话:" + field.adminPhone}</Text> : null
+                                }
+                                <Text style={styles.fieldDistance}>{field.distance + 'km'}</Text>
                             </View>
                         </View>
-                        <Text style={styles.fieldOpenTime}>周内 {field.weekTime} 周末 {field.weekendTime}</Text>
+                        {/*<Text style={styles.fieldOpenTime}>周内 {field.weekTime} 周末 {field.weekendTime}</Text>*/}
                     </TouchableOpacity>
                     <View
-                        style={[styles.bottomCont, this.state.selectedIndex === rowId ? null : {display: 'none'}]}>
+                        style={[styles.bottomCont, selectedIndex === rowId ? null : {display: 'none'}]}>
                         <View style={styles.shareCont}>
                             <TouchableOpacity onPress={() => this._shareMatch()}>
                                 <View style={styles.sharePressRange}>
@@ -103,7 +129,9 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginTop: 22,
         marginRight: 22,
-        marginBottom: 22
+        marginBottom: 22,
+        width: 120,
+        height: 80
     },
     bottomCont: {
         height: 40,
@@ -155,17 +183,24 @@ const styles = StyleSheet.create({
     fieldLocation: {
         fontSize: 15,
         color: '#000000',
-        paddingRight: 30
+        paddingRight: 15,
+        marginTop: 5
     },
     fieldType: {
         fontSize: 20,
         color: '#f39700',
-        marginTop: 5,
+        fontWeight: 'bold'
+    },
+    fieldName: {
+        fontSize: 18,
+        color: '#f39700',
         fontWeight: 'bold'
     },
     fieldDistance: {
         textAlign: 'right',
-        paddingRight: 15
+        paddingRight: 15,
+        paddingTop: 5,
+        paddingBottom: 10
     },
     fieldOpenTime: {
         paddingTop: 0,
@@ -178,6 +213,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     typeAndCost: {
+        marginTop: 5,
         flexDirection: 'row',
     }
 });

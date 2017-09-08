@@ -9,6 +9,7 @@ import {
     Alert
 } from 'react-native';
 import ModalConpt from '../common/ModalConpt';
+import CommonUtil from '../util/CommonUtil';
 
 const {width} = Dimensions.get('window');
 
@@ -34,10 +35,10 @@ export default class MatchDetail extends Component {
     }
 
     _joinMatch() {
-        if(this.state.isJoined || this.state.isSendReq){
+        if (this.state.isJoined || this.state.isSendReq) {
             Alert.alert(
                 "提示",
-                this.state.isJoined?"您已加入":"您已发送申请",
+                this.state.isJoined ? "您已加入" : "您已发送申请",
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
@@ -59,8 +60,25 @@ export default class MatchDetail extends Component {
     }
 
     render() {
-        const matchInfo = this.props.matchInfo;
-        let arrangeInfo = Arrangement[matchInfo.playAccount];
+        const {matchInfo} = this.props;
+        if (!matchInfo.fieldType) {
+            return;
+        }
+        /*const test = {
+            "date": null,
+            "startTime": "2017-09-01 16:00:00",
+            "endTime": "2017-09-21 18:00:00",
+            "matchType": "4",
+            "fieldType": "080104",
+            "totalNumber": "8",
+            "joinedAmmount": 4,
+            "address": null
+        };*/
+        const blueTeam = Math.round(matchInfo.joinedAmmount / 2);
+        const redTeam = matchInfo.joinedAmmount - blueTeam;
+        const startTime = CommonUtil.dateFormat(CommonUtil.parseDate(matchInfo.startTime), "hh:mm:ss");
+        const endTime = CommonUtil.dateFormat(CommonUtil.parseDate(matchInfo.endTime), "hh:mm:ss");
+        let arrangeInfo = Arrangement[matchInfo.totalNumber];
         let teamAAccount = 0;
         let teamBAccount = 0;
         const UniformRed = arrangeInfo.icon == 2 ?
@@ -103,7 +121,7 @@ export default class MatchDetail extends Component {
                 <View style={styles.matchTimeCont}>
                     <Image style={styles.matchTimeImg} source={require('../../res/images/matchInfo/time.png')}/>
                     <Text style={styles.matchTimeText}>
-                        {"时间：" + matchInfo.startTime + "  -  " + matchInfo.endTime}
+                        {"时间：" + startTime + "  -  " + endTime}
                     </Text>
                 </View>
                 <View style={styles.playerInfoCont}>
@@ -112,7 +130,7 @@ export default class MatchDetail extends Component {
                             return <View key={i} style={styles.columnCont}>
                                 {result.map((innerRes, j) => {
                                     teamAAccount++;
-                                    return (teamAAccount - 1 + matchInfo.teamALeft >= matchInfo.playAccount) ?
+                                    return (teamAAccount - 1 + redTeam >= matchInfo.totalNumber) ?
                                         <View key={j} style={styles.imageCont}>{UniformAdd}</View> :
                                         <View key={j} style={styles.imageCont}>{UniformRed}</View>;
                                 })}
@@ -128,7 +146,7 @@ export default class MatchDetail extends Component {
                             return <View key={i} style={styles.columnCont}>
                                 {result.map((innerRes, j) => {
                                     teamBAccount++;
-                                    return (teamBAccount - 1 + matchInfo.teamBLeft >= matchInfo.playAccount) ?
+                                    return (teamBAccount - 1 + blueTeam >= matchInfo.totalNumber) ?
                                         <View key={j} style={styles.imageCont}>{UniformAdd}</View> :
                                         <View key={j} style={styles.imageCont}>{UniformBlue}</View>;
                                 })}
@@ -145,7 +163,8 @@ export default class MatchDetail extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.joinCont,{backgroundColor: this.state.isSendReq ? (this.state.isJoined ? "#f1a025" : "#25bff1") : '#f12b2c'}]}>
+                    <View
+                        style={[styles.joinCont, {backgroundColor: this.state.isSendReq ? (this.state.isJoined ? "#f1a025" : "#25bff1") : '#f12b2c'}]}>
                         <TouchableOpacity onPress={this._joinMatch}>
                             <View>
                                 <Text

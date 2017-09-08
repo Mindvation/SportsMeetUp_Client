@@ -10,7 +10,6 @@ import {
     Text,
     View,
     Dimensions,
-    ScrollView,
     TouchableOpacity,
     Image,
     ListView,
@@ -24,34 +23,7 @@ import Filter from '../common/Filter';
 import FetchUtil from '../util/FetchUtil';
 
 const {width} = Dimensions.get('window');
-
-const filterData = [
-    {
-        "key": "basketBall",
-        "value": "篮球"
-    }, {
-        "key": "footBall",
-        "value": "足球"
-    }, {
-        "key": "tennis",
-        "value": "网球"
-    }, {
-        "key": "badminton",
-        "value": "羽毛球"
-    }, {
-        "key": "volleyball",
-        "value": "排球"
-    }, {
-        "key": "billiard",
-        "value": "台球"
-    }, {
-        "key": "pingPang",
-        "value": "乒乓球"
-    }, {
-        "key": "bowling",
-        "value": "保龄球"
-    }
-];
+import {filterData} from '../data/Mapping';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const pageSize = 6;
@@ -66,7 +38,11 @@ export default class NearbyDailyMatch extends Component {
             matches: [],
             isShowBottomRefresh: false,
             isEnded: false,
-            dailyMatch: []
+            positioning: false,
+            dailyMatch: [],
+            latitude: '',
+            longitude: '',
+            filter: []
         };
     }
 
@@ -76,6 +52,37 @@ export default class NearbyDailyMatch extends Component {
     }
 
     getNearbyMatches(action = 'fresh') {
+        if (action === 'fresh') {
+            this.setState({
+                positioning: true,
+                isRefreshing: true
+            });
+            CommonUtil.getPosition((position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    positioning: false
+                });
+                this.getNearbyMatchesByPosition(action);
+            }, (error) => {
+                this.setState({
+                    positioning: false
+                });
+                if (this.state.latitude && this.state.longitude) {
+                    this.getNearbyMatchesByPosition(action);
+                } else {
+                    this.setState({
+                        isRefreshing: false
+                    });
+                    alert("获取位置失败");
+                }
+            })
+        } else {
+            this.getNearbyMatchesByPosition(action);
+        }
+    }
+
+    getNearbyMatchesByPosition(action) {
         let page = this.state.page;
         if (action === 'fresh') {
             page = 0;
@@ -90,8 +97,9 @@ export default class NearbyDailyMatch extends Component {
         const options = {
             "url": '8086/sports-meetup-papi/matches/getNearbyMatches',
             "params": {
-                "longitude": 108.948866,
-                "latitude": 34.254534,
+                "longitude": this.state.longitude,
+                "latitude": this.state.latitude,
+                "filter": this.state.filter.length > 0 ? this.state.filter.join(",") : null,
                 "pageAndSize": page + "," + pageSize
             }
         };
@@ -165,8 +173,8 @@ export default class NearbyDailyMatch extends Component {
     _formatMatch(match) {
         match.blueTeam = Math.round(match.joinedAmmount / 2);
         match.redTeam = match.joinedAmmount - match.blueTeam;
-        match.startTime = CommonUtil.dateFormat(new Date(match.startTime), "hh:mm:ss");
-        match.endTime = CommonUtil.dateFormat(new Date(match.endTime), "hh:mm:ss");
+        match.startTime = CommonUtil.dateFormat(CommonUtil.parseDate(match.startTime), "hh:mm:ss");
+        match.endTime = CommonUtil.dateFormat(CommonUtil.parseDate(match.endTime), "hh:mm:ss");
         match.icon = match.icon ? {uri: match.icon} : '';
         return match;
     }
@@ -178,7 +186,7 @@ export default class NearbyDailyMatch extends Component {
     }
 
     onEndReached() {
-        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded) return;
+        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded || this.state.positioning) return;
         console.info('onEndReached');
         this.getNearbyMatches('load');
     }
@@ -248,7 +256,8 @@ export default class NearbyDailyMatch extends Component {
                             this.setState({
                                 filter: value,
                                 filterVisible: false
-                            })
+                            });
+                            this.getNearbyMatches('fresh');
                         }}/>
             </View>
         );

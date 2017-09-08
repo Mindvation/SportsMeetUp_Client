@@ -20,68 +20,11 @@ import FetchUtil from '../util/FetchUtil';
 
 import FieldInfo from './FieldInfo';
 import Filter from '../common/Filter';
+import CommonUtil from '../util/CommonUtil';
 
 const {width} = Dimensions.get('window');
 
-const fields = [
-    {
-        "type": "足球场",
-        "location": "西安市雁塔区雁南五路与雁塔南路十字西南 曲江圣卡纳",
-        "weekTime": "9:00 - 21:00",
-        "weekendTime": "8:00 - 22:00",
-        "cost": 30,
-        "distance": "31m"
-    }, {
-        "type": "篮球场",
-        "location": "曲江圣卡纳1",
-        "weekTime": "9:00 - 21:00",
-        "weekendTime": "8:00 - 22:00",
-        "cost": 0,
-        "distance": "1.5km"
-    }, {
-        "type": "兵乓球场",
-        "location": "曲江圣卡纳2",
-        "weekTime": "9:00 - 21:00",
-        "weekendTime": "8:00 - 22:00",
-        "cost": 120,
-        "distance": "5.5km"
-    }, {
-        "type": "足球场",
-        "location": "曲江圣卡纳3",
-        "weekTime": "9:00 - 21:00",
-        "weekendTime": "8:00 - 22:00",
-        "cost": 0,
-        "distance": "31m"
-    }
-];
-
-const filterData = [
-    {
-        "key": "basketBall",
-        "value": "篮球"
-    }, {
-        "key": "footBall",
-        "value": "足球"
-    }, {
-        "key": "tennis",
-        "value": "网球"
-    }, {
-        "key": "badminton",
-        "value": "羽毛球"
-    }, {
-        "key": "volleyball",
-        "value": "排球"
-    }, {
-        "key": "billiard",
-        "value": "台球"
-    }, {
-        "key": "pingPang",
-        "value": "乒乓球"
-    }, {
-        "key": "bowling",
-        "value": "保龄球"
-    }
-];
+import {filterData} from '../data/Mapping';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const pageSize = 6;
@@ -97,7 +40,11 @@ export default class NearbyField extends Component {
             page: 0,
             fields: [],
             isShowBottomRefresh: false,
-            isEnded: false
+            isEnded: true,
+            positioning: false,
+            longitude: '',
+            latitude: '',
+            selectedRow: ''
         };
     }
 
@@ -106,6 +53,37 @@ export default class NearbyField extends Component {
     }
 
     getNearbyFields(action = 'fresh') {
+        if (action === 'fresh') {
+            this.setState({
+                positioning: true,
+                isRefreshing: true
+            });
+            CommonUtil.getPosition((position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    positioning: false
+                });
+                this.getNearbyFieldsByPosition(action);
+            }, () => {
+                this.setState({
+                    positioning: false
+                });
+                if (this.state.latitude && this.state.longitude) {
+                    this.getNearbyFieldsByPosition(action);
+                } else {
+                    this.setState({
+                        isRefreshing: false
+                    });
+                    alert("获取位置失败");
+                }
+            })
+        } else {
+            this.getNearbyFieldsByPosition(action);
+        }
+    }
+
+    getNearbyFieldsByPosition(action) {
         let page = this.state.page;
         if (action === 'fresh') {
             page = 0;
@@ -118,15 +96,17 @@ export default class NearbyField extends Component {
             })
         }
         const options = {
-            "url": '8086/sports-meetup-papi/matches/getApplyMatches',
+            "url": '8084/sports-meetup-papi/sportfields/getNearbySportFields',
             "params": {
-                "userId": globalUserInfo.userId,
+                "longitude": this.state.longitude,
+                "latitude": this.state.latitude,
+                "filter": this.state.filter.length > 0 ? this.state.filter.join(",") : null,
                 "pageAndSize": page + "," + pageSize,
             }
         };
         FetchUtil.get(options).then((res) => {
             let tempFields = action === 'fresh' ? [] : this.state.fields;
-            if (res.responseBody && res.responseBody.length > 0) {
+            if (res.responseBody) {
                 tempFields = tempFields.concat(res.responseBody);
                 console.info('Fields Length === ' + tempFields.length);
                 page++;
@@ -134,7 +114,8 @@ export default class NearbyField extends Component {
                     isRefreshing: false,
                     page: page,
                     fields: tempFields,
-                    isShowBottomRefresh: false
+                    isShowBottomRefresh: false,
+                    selectedRow: ''
                 });
             } else {
                 this.setState({isRefreshing: false, isShowBottomRefresh: false});
@@ -161,7 +142,7 @@ export default class NearbyField extends Component {
     }
 
     onEndReached() {
-        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded) return;
+        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded || this.state.positioning) return;
         console.info('onEndReached');
         this.getNearbyFields('load');
     }
@@ -177,7 +158,9 @@ export default class NearbyField extends Component {
 
     _renderRow(rowData, sectionID, rowID) {
         return (
-            <FieldInfo field={rowData} rowId={rowID}/>
+            <FieldInfo field={rowData} rowId={rowID} selectedIndex={this.state.selectedRow}
+                       setSelectedIndex={(index) => this.setSelectedIndex(index)}
+            />
         );
     }
 
@@ -187,9 +170,15 @@ export default class NearbyField extends Component {
         })
     }
 
+    setSelectedIndex(index) {
+        this.setState({
+            selectedRow: index
+        })
+    }
+
     render() {
         const {fields, isRefreshing} = this.state;
-        return ( <View>
+        return ( <View style={styles.nearbyFieldsCont}>
                 <View style={styles.filterTitle}>
                     <TouchableOpacity
                         onPress={this._toggleFilter}
@@ -233,7 +222,8 @@ export default class NearbyField extends Component {
                             this.setState({
                                 filter: value,
                                 filterVisible: false
-                            })
+                            });
+                            this.getNearbyFields('fresh');
                         }}/>
             </View>
         );
@@ -241,6 +231,9 @@ export default class NearbyField extends Component {
 }
 
 const styles = StyleSheet.create({
+    nearbyFieldsCont: {
+        flex: 1
+    },
     itemCont: {
         backgroundColor: '#ffffff',
         marginBottom: 15

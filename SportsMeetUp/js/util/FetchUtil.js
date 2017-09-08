@@ -8,7 +8,7 @@ import {
 
 import ErrorMessage from '../../res/data/errorMessage.json';
 
-const gateWay = "http://192.168.0.108:";
+const gateWay = "http://192.168.0.102:";
 export default class FetchUitl {
     /*
      *  get请求
@@ -38,13 +38,15 @@ export default class FetchUitl {
             options.url += '/' + paramsArray.join('/')
         }
 
-        const myFetch = fetch(gateWay + options.url, {
+        /*const myFetch = fetch(gateWay + options.url, {
             method: 'GET'
-        });
+        });*/
 
         return new Promise((resolve, reject) => {
             // this._checkNet().then((res) => {
-            this._fetch(myFetch)
+            fetch(gateWay + options.url, {
+                method: 'GET'
+            })
                 .then(response => {
                     return response.json();
                 })
@@ -56,11 +58,6 @@ export default class FetchUitl {
                     let errorInfo = this._errorHandle(error);
                     reject(errorInfo);
                 });
-            //     }
-            // ).catch(error => {
-            //     let errorInfo = this._errorHandle(error);
-            //     reject(errorInfo);
-            // });
         });
     }
 
@@ -72,18 +69,25 @@ export default class FetchUitl {
      * */
     static post(options, method = "POST") {
 
-        const myFetch = fetch(gateWay + options.url, {
+        /*const myFetch = fetch(gateWay + options.url, {
             method: method,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(options.params),
-        });
+        });*/
 
         return new Promise((resolve, reject) => {
             // this._checkNet().then((res) => {
-            this._fetch(myFetch)
+            fetch(gateWay + options.url, {
+                method: method,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(options.params),
+            })
                 .then(response => {
                     return response.json();
                 })

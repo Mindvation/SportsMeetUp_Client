@@ -27,6 +27,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import FetchUtil from '../util/FetchUtil';
 import DATA_JSON from '../pickCity/city-list.json';
 import ImagePicker from 'react-native-image-picker';
+import {freeTimeMapping} from '../data/Mapping';
 
 //import Camera from '../common/Camera';
 const options = {
@@ -51,17 +52,6 @@ const gender_props = [
     {label: '女', value: "F"}
 ];
 
-/*
-const freeTimeOptions = ['上午', '中午', '下午', '晚上', '全天'];
-*/
-const freeTimeOptions = {
-    am: '上午',
-    nn: '中午',
-    pm: '下午',
-    nt: '晚上',
-    ad: "全天"
-};
-
 export default class ModifyInfo extends Component {
     constructor(props) {
         super(props);
@@ -76,6 +66,46 @@ export default class ModifyInfo extends Component {
             location: globalUserInfo.location,
             overlayVisible: false
         };
+    }
+
+    componentDidMount() {
+        let timer = setTimeout(() => {
+            this.getCityInfo();
+            timer && clearTimeout(timer);
+        }, 500);
+    }
+
+    getCityInfo() {
+        if (!globalUserInfo.location.id) {
+            Util.getPosition(this._getCityInfoByCoord)
+        }
+    }
+
+    _getCityInfoByCoord = (position) => {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        const options = {
+            "url": 'http://restapi.amap.com/v3/geocode/regeo?key=e71c5eb8c026dda36e7b8b8e4b0cbf57&' +
+            'location=' + longitude + ',' + latitude + '&poitype=&radius=&extensions=base&batch=false&roadlevel=1'
+        };
+
+        fetch(options.url)
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.status === "1") {
+                    if (res.regeocode && res.regeocode.addressComponent && res.regeocode.addressComponent.citycode) {
+                        this.setState({
+                            "location": this._getLocationById(res.regeocode.addressComponent.citycode),
+                        });
+                        Util.updateGobalData("globalUserInfo", {
+                            "location": this.state.location
+                        });
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     _pickImages() {
@@ -152,8 +182,8 @@ export default class ModifyInfo extends Component {
                 "name": this.state.name,
                 "gender": this.state.gender,
                 "icon": this.imageUrl,
-                "weekday": this._getKey(freeTimeOptions, this.state.weekFreeTime),
-                "weekend": this._getKey(freeTimeOptions, this.state.weekendFreeTime),
+                "weekday": this._getKey(freeTimeMapping, this.state.weekFreeTime),
+                "weekend": this._getKey(freeTimeMapping, this.state.weekendFreeTime),
                 "city": this.state.location.id
             }
         };
@@ -189,8 +219,8 @@ export default class ModifyInfo extends Component {
             "name": res.name,
             "gender": res.gender,
             "photo": res.icon ? {uri: res.icon} : '',
-            "weekFreeTime": freeTimeOptions[res.weekday],
-            "weekendFreeTime": freeTimeOptions[res.weekend],
+            "weekFreeTime": freeTimeMapping[res.weekday],
+            "weekendFreeTime": freeTimeMapping[res.weekend],
             "location": this._getLocationById(res.city)
         });
         Util.updateGobalData("globalUserInfo", {
@@ -249,13 +279,13 @@ export default class ModifyInfo extends Component {
 
     _pickWeekFreeTime(index) {
         this.setState({
-            weekFreeTime: Object.values(freeTimeOptions)[index]
+            weekFreeTime: Object.values(freeTimeMapping)[index]
         })
     }
 
     _pickWeekendFreeTime(index) {
         this.setState({
-            weekendFreeTime: Object.values(freeTimeOptions)[index]
+            weekendFreeTime: Object.values(freeTimeMapping)[index]
         })
     }
 
@@ -346,7 +376,7 @@ export default class ModifyInfo extends Component {
                                     dropdownStyle={{width: this.state.ftWidth1}}
                                     dropdownTextStyle={styles.dropdownTextStyle}
                                     defaultValue={this.state.weekendFreeTime ? this.state.weekendFreeTime : '请选择'}
-                                    options={Object.values(freeTimeOptions)}
+                                    options={Object.values(freeTimeMapping)}
                                     animated={false}
                                     onSelect={(index) => this._pickWeekendFreeTime(index)}/>
 
@@ -363,7 +393,7 @@ export default class ModifyInfo extends Component {
                                     dropdownStyle={{width: this.state.ftWidth2}}
                                     dropdownTextStyle={styles.dropdownTextStyle}
                                     defaultValue={this.state.weekFreeTime ? this.state.weekFreeTime : '请选择'}
-                                    options={Object.values(freeTimeOptions)}
+                                    options={Object.values(freeTimeMapping)}
                                     animated={false}
                                     onSelect={(index) => this._pickWeekFreeTime(index)}/>
 

@@ -28,7 +28,7 @@ export default class MatchHistory extends Component {
             page: 0,
             matchHistory: [],
             isShowBottomRefresh: false,
-            isEnded: false
+            isEnded: true
         };
     }
 
