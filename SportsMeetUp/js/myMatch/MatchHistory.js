@@ -39,10 +39,10 @@ export default class MatchHistory extends Component {
     }
 
     componentDidMount() {
-        this.getMatchHistory();
+        this.getMatchHistory('fresh');
     }
 
-    getMatchHistory(action = 'fresh') {
+    getMatchHistory(action) {
         let page = this.state.page;
         if (action === 'fresh') {
             page = 0;
@@ -137,37 +137,62 @@ export default class MatchHistory extends Component {
         );
     }
 
+    _renderRowForNoData() {
+        return <View style={styles.noDataCont}>
+            <Text style={styles.noDataText}>没有比赛记录...</Text>
+        </View>
+    }
+
     render() {
         const {matchHistory, isRefreshing} = this.state;
         return (
-            <View>
-                <ListView
-                    dataSource={ds.cloneWithRows(matchHistory)}
-                    renderRow={this._renderRow.bind(this)}
-                    renderFooter={this._renderFooter.bind(this)}
-                    onEndReached={this.onEndReached.bind(this)}
-                    onEndReachedThreshold={1}
-                    enableEmptySections={true}
-                    automaticallyAdjustContentInserts={false}
-                    showsVerticalScrollIndicator={false}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={isRefreshing}
-                            onRefresh={() => this.getMatchHistory('fresh')}
-                            tintColor="#ff0000"
-                            title="Loading..."
-                            titleColor="#00ff00"
-                            colors={['#ff0000', '#00ff00', '#0000ff']}
-                            progressBackgroundColor="#fff"
-                        />
-                    }
-                />
+            <View style={styles.matchHistoryCont}>
+                {!isRefreshing && (!matchHistory || matchHistory.length === 0) ?
+                    <ListView
+                        dataSource={ds.cloneWithRows(['noData'])}
+                        renderRow={this._renderRowForNoData.bind(this)}
+                        enableEmptySections={true}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={() => this.getMatchHistory('fresh')}
+                                tintColor="#ff0000"
+                                title="Loading..."
+                                titleColor="#00ff00"
+                                colors={['#ff0000', '#00ff00', '#0000ff']}
+                                progressBackgroundColor="#fff"
+                            />
+                        }
+                    /> : <ListView
+                        dataSource={ds.cloneWithRows(matchHistory)}
+                        renderRow={this._renderRow.bind(this)}
+                        renderFooter={this._renderFooter.bind(this)}
+                        onEndReached={this.onEndReached.bind(this)}
+                        onEndReachedThreshold={1}
+                        enableEmptySections={true}
+                        automaticallyAdjustContentInserts={false}
+                        showsVerticalScrollIndicator={false}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={() => this.getMatchHistory('fresh')}
+                                tintColor="#ff0000"
+                                title="Loading..."
+                                titleColor="#00ff00"
+                                colors={['#ff0000', '#00ff00', '#0000ff']}
+                                progressBackgroundColor="#fff"
+                            />
+                        }
+                    />}
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    matchHistoryCont: {
+        flex: 1
+    },
     matchCont: {
         backgroundColor: '#ffffff'
     },
@@ -222,6 +247,15 @@ const styles = StyleSheet.create({
     closeHistoryText: {
         fontSize: 18,
         color: '#000000'
+    },
+    noDataCont: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    noDataText: {
+        fontSize: 20,
+        marginTop: 50
     }
 });
 

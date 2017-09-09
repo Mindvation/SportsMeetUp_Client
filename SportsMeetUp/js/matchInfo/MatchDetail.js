@@ -8,12 +8,12 @@ import {
     Dimensions,
     Alert
 } from 'react-native';
-import ModalConpt from '../common/ModalConpt';
+import ShareMatch from '../common/ShareMatch';
 import CommonUtil from '../util/CommonUtil';
 
 const {width} = Dimensions.get('window');
 
-import Arrangement from '../../res/data/arrangement.json';
+import {matchArrange} from '../data/Arrangement';
 
 let interval;
 export default class MatchDetail extends Component {
@@ -78,24 +78,24 @@ export default class MatchDetail extends Component {
         const redTeam = matchInfo.joinedAmmount - blueTeam;
         const startTime = CommonUtil.dateFormat(CommonUtil.parseDate(matchInfo.startTime), "hh:mm:ss");
         const endTime = CommonUtil.dateFormat(CommonUtil.parseDate(matchInfo.endTime), "hh:mm:ss");
-        let arrangeInfo = Arrangement[matchInfo.totalNumber];
+        let arrangeInfo = matchArrange[matchInfo.totalNumber];
         let teamAAccount = 0;
         let teamBAccount = 0;
-        const UniformRed = arrangeInfo.icon == 2 ?
+        const UniformRed = arrangeInfo.icon === 2 ?
             <Image style={styles.uniform2x}
                    source={require('../../res/images/matchInfo/uniform_red2x.png')}/> :
             <Image style={styles.uniform3x}
                    source={require('../../res/images/matchInfo/uniform_red3x.png')}/>;
-        const UniformBlue = arrangeInfo.icon == 2 ? <Image style={styles.uniform2x}
+        const UniformBlue = arrangeInfo.icon === 2 ? <Image style={styles.uniform2x}
                                                            source={require('../../res/images/matchInfo/uniform_blue2x.png')}/> :
             <Image style={styles.uniform3x}
                    source={require('../../res/images/matchInfo/uniform_blue3x.png')}/>;
-        const UniformAdd = arrangeInfo.icon == 2 ? <Image style={styles.uniform2x}
+        const UniformAdd = arrangeInfo.icon === 2 ? <Image style={styles.uniform2x}
                                                           source={require('../../res/images/matchInfo/uniform_add2x.png')}/> :
             <Image style={styles.uniform3x}
                    source={require('../../res/images/matchInfo/uniform_add3x.png')}/>;
 
-        const shareModal = <View style={styles.shareTrdCont}>
+        /*const shareModal = <View style={styles.shareTrdCont}>
             <View style={styles.shareImageCont}>
                 <Image style={styles.shareImage}
                        source={require('../../res/images/share_weChat.png')}/>
@@ -111,7 +111,7 @@ export default class MatchDetail extends Component {
                        source={require('../../res/images/share_qq.png')}/>
                 <Text style={styles.shareImageText}>QQ</Text>
             </View>
-        </View>;
+        </View>;*/
         const arrangeArray = arrangeInfo.arrange;
         const contHeight = arrangeInfo.contHeight;
         return (<View style={[styles.mainCont, {height: contHeight}]}>
@@ -174,18 +174,13 @@ export default class MatchDetail extends Component {
                     </View>
                 </View>
             </View>
-            <ModalConpt
-                allowClose={true}
-                modalCont={shareModal}
-                modalVisible={this.state.shareModalVisible}
-                opacity={0}
-                position="bottom"
+            <ShareMatch
                 closeHandle={() => {
                     this.setState({
                         shareModalVisible: false
                     })
                 }}
-            />
+                modalVisible={this.state.shareModalVisible}/>
         </View>)
     }
 }

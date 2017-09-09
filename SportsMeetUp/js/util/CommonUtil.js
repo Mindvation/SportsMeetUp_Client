@@ -71,9 +71,9 @@ export default class CommonUtil {
                 callback && callback(position);
             },
             (error) => {
-                errorHandle && errorHandle(error.message)
+                errorHandle && errorHandle(error)
             },
-            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+            {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
         );
     }
 }

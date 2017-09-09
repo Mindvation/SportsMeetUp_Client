@@ -49,10 +49,10 @@ export default class NearbyField extends Component {
     }
 
     componentDidMount() {
-        this.getNearbyFields();
+        this.getNearbyFields('fresh');
     }
 
-    getNearbyFields(action = 'fresh') {
+    getNearbyFields(action) {
         if (action === 'fresh') {
             this.setState({
                 positioning: true,
@@ -65,7 +65,7 @@ export default class NearbyField extends Component {
                     positioning: false
                 });
                 this.getNearbyFieldsByPosition(action);
-            }, () => {
+            }, (error) => {
                 this.setState({
                     positioning: false
                 });
@@ -75,7 +75,11 @@ export default class NearbyField extends Component {
                     this.setState({
                         isRefreshing: false
                     });
-                    alert("获取位置失败");
+                    if (error.code === 1) {
+                        alert("请打开手机定位");
+                    } else {
+                        alert(error.message);
+                    }
                 }
             })
         } else {
@@ -176,6 +180,12 @@ export default class NearbyField extends Component {
         })
     }
 
+    _renderRowForNoData() {
+        return <View style={styles.noDataCont}>
+            <Text style={styles.noDataText}>附近没有球场赛...</Text>
+        </View>
+    }
+
     render() {
         const {fields, isRefreshing} = this.state;
         return ( <View style={styles.nearbyFieldsCont}>
@@ -189,27 +199,46 @@ export default class NearbyField extends Component {
                                source={require('../../res/images/arrow.png')}/>
                     </TouchableOpacity>
                 </View>
-                <ListView
-                    dataSource={ds.cloneWithRows(fields)}
-                    renderRow={this._renderRow.bind(this)}
-                    renderFooter={this._renderFooter.bind(this)}
-                    onEndReached={this.onEndReached.bind(this)}
-                    onEndReachedThreshold={1}
-                    enableEmptySections={true}
-                    automaticallyAdjustContentInserts={false}
-                    showsVerticalScrollIndicator={false}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={isRefreshing}
-                            onRefresh={() => this.getNearbyFields('fresh')}
-                            tintColor="#ff0000"
-                            title="Loading..."
-                            titleColor="#00ff00"
-                            colors={['#ff0000', '#00ff00', '#0000ff']}
-                            progressBackgroundColor="#fff"
-                        />
-                    }
-                />
+                {!isRefreshing && (!fields || fields.length === 0) ?
+                    <ListView
+                        dataSource={ds.cloneWithRows(['noData'])}
+                        renderRow={this._renderRowForNoData.bind(this)}
+                        enableEmptySections={true}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={() => this.getNearbyFields('fresh')}
+                                tintColor="#ff0000"
+                                title="Loading..."
+                                titleColor="#00ff00"
+                                colors={['#ff0000', '#00ff00', '#0000ff']}
+                                progressBackgroundColor="#fff"
+                            />
+                        }
+                    /> :
+                    <ListView
+                        dataSource={ds.cloneWithRows(fields)}
+                        renderRow={this._renderRow.bind(this)}
+                        renderFooter={this._renderFooter.bind(this)}
+                        onEndReached={this.onEndReached.bind(this)}
+                        onEndReachedThreshold={1}
+                        enableEmptySections={true}
+                        automaticallyAdjustContentInserts={false}
+                        showsVerticalScrollIndicator={false}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={() => this.getNearbyFields('fresh')}
+                                tintColor="#ff0000"
+                                title="Loading..."
+                                titleColor="#00ff00"
+                                colors={['#ff0000', '#00ff00', '#0000ff']}
+                                progressBackgroundColor="#fff"
+                            />
+                        }
+                    />
+                }
+
                 <Filter isMultiple={true}
                         data={filterData}
                         visible={this.state.filterVisible}
@@ -262,5 +291,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
+    },
+    noDataCont: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    noDataText: {
+        fontSize: 20,
+        marginTop: 50
     }
 });

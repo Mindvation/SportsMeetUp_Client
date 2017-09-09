@@ -251,7 +251,7 @@ export default class ModifyInfo extends Component {
         let returnCity = {};
         if (id) {
             DATA_JSON.allCityList.some((city) => {
-                if (city.id == id) {
+                if (city.id === id) {
                     returnCity = city;
                     return true;
                 }
@@ -366,7 +366,7 @@ export default class ModifyInfo extends Component {
                                 <Text style={{color: '#000000', fontSize: 15}}>周末</Text>
                                 <ModalDropdown
                                     onLayout={(event) => {
-                                        var {width} = event.nativeEvent.layout;
+                                        let {width} = event.nativeEvent.layout;
                                         this.setState({
                                             ftWidth1: width
                                         })
@@ -383,7 +383,7 @@ export default class ModifyInfo extends Component {
                                 <Text style={{color: '#000000', fontSize: 15, marginLeft: 15}}>周内</Text>
                                 <ModalDropdown
                                     onLayout={(event) => {
-                                        var {width} = event.nativeEvent.layout;
+                                        let {width} = event.nativeEvent.layout;
                                         this.setState({
                                             ftWidth2: width
                                         })

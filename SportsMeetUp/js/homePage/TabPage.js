@@ -25,8 +25,19 @@ class TabPage extends Component {
         this.state = {selectedTab: 'home', notFirstUse: true};
 
         const {userInfo} = props;
-
         Util.updateGobalData("globalUserInfo", {
+            "userId": 11,
+            "phoneNumber": '123123123',
+            "name": 'Bob',
+            "photo": '',
+            "gender": '',
+            "weekFreeTime": '',
+            "weekendFreeTime": '',
+            "location": '',
+            "tags": []
+        });
+
+        /*Util.updateGobalData("globalUserInfo", {
             "userId": userInfo.userId,
             "phoneNumber": userInfo.phoneNumber,
             "name": userInfo.name,
@@ -36,7 +47,7 @@ class TabPage extends Component {
             "weekendFreeTime": userInfo.weekend ? freeTimeMapping[userInfo.weekend] : '',
             "location": this._getLocationById(userInfo.city),
             "tags": userInfo.hobbies ? userInfo.hobbies.split(",") : []
-        });
+        });*/
     }
 
     componentWillMount() {

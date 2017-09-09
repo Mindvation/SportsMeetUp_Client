@@ -4,7 +4,8 @@ import {
     View,
     RefreshControl,
     ActivityIndicator,
-    ListView
+    ListView,
+    Text
 } from 'react-native';
 
 import MatchDetail from './MatchDetail';
@@ -26,15 +27,11 @@ export default class DailyMatch extends Component {
     }
 
     componentDidMount() {
-        let timer = setTimeout(() => {
-            this._getMatchInfo();
-            timer && clearTimeout(timer);
-        }, 1000);
-
+        this._getMatchInfo('fresh');
     }
 
     //get match info from server
-    _getMatchInfo(action = 'fresh') {
+    _getMatchInfo(action) {
         let page = this.state.page;
         if (action === 'fresh') {
             page = 0;
@@ -108,31 +105,53 @@ export default class DailyMatch extends Component {
         );
     }
 
+    _renderRowForNoData() {
+        return <View style={styles.noDataCont}>
+            <Text style={styles.noDataText}>没有比赛...</Text>
+        </View>
+    }
+
     render() {
         const {matches, isRefreshing} = this.state;
 
         return (<View style={styles.mainCont}>
-            <ListView
-                dataSource={ds.cloneWithRows(matches)}
-                renderRow={this._renderRow.bind(this)}
-                renderFooter={this._renderFooter.bind(this)}
-                onEndReached={this.onEndReached.bind(this)}
-                onEndReachedThreshold={1}
-                enableEmptySections={true}
-                automaticallyAdjustContentInserts={false}
-                showsVerticalScrollIndicator={false}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={isRefreshing}
-                        onRefresh={() => this._getMatchInfo('fresh')}
-                        tintColor="#ff0000"
-                        title="Loading..."
-                        titleColor="#00ff00"
-                        colors={['#ff0000', '#00ff00', '#0000ff']}
-                        progressBackgroundColor="#fff"
-                    />
-                }
-            />
+            {!isRefreshing && (!matches || matches.length === 0) ?
+                <ListView
+                    dataSource={ds.cloneWithRows(['noData'])}
+                    renderRow={this._renderRowForNoData.bind(this)}
+                    enableEmptySections={true}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isRefreshing}
+                            onRefresh={() => this._getMatchInfo('fresh')}
+                            tintColor="#ff0000"
+                            title="Loading..."
+                            titleColor="#00ff00"
+                            colors={['#ff0000', '#00ff00', '#0000ff']}
+                            progressBackgroundColor="#fff"
+                        />
+                    }
+                /> : <ListView
+                    dataSource={ds.cloneWithRows(matches)}
+                    renderRow={this._renderRow.bind(this)}
+                    renderFooter={this._renderFooter.bind(this)}
+                    onEndReached={this.onEndReached.bind(this)}
+                    onEndReachedThreshold={1}
+                    enableEmptySections={true}
+                    automaticallyAdjustContentInserts={false}
+                    showsVerticalScrollIndicator={false}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isRefreshing}
+                            onRefresh={() => this._getMatchInfo('fresh')}
+                            tintColor="#ff0000"
+                            title="Loading..."
+                            titleColor="#00ff00"
+                            colors={['#ff0000', '#00ff00', '#0000ff']}
+                            progressBackgroundColor="#fff"
+                        />
+                    }
+                />}
         </View>)
     }
 }
@@ -147,5 +166,14 @@ const styles = StyleSheet.create({
     },
     scrollview: {
         flex: 1,
+    },
+    noDataCont: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    noDataText: {
+        fontSize: 20,
+        marginTop: 50
     }
 });

@@ -74,7 +74,11 @@ export default class NearbyDailyMatch extends Component {
                     this.setState({
                         isRefreshing: false
                     });
-                    alert("获取位置失败");
+                    if (error.code === 1) {
+                        alert("请打开手机定位");
+                    } else {
+                        alert(error.message);
+                    }
                 }
             })
         } else {
@@ -200,6 +204,12 @@ export default class NearbyDailyMatch extends Component {
         return <View/>;
     }
 
+    _renderRowForNoData() {
+        return <View style={styles.noDataCont}>
+            <Text style={styles.noDataText}>附近没有比赛...</Text>
+        </View>
+    }
+
     _renderRow(rowData, sectionID, rowID) {
         return rowData.matches.length ?
             <View style={styles.itemCont}>
@@ -211,7 +221,7 @@ export default class NearbyDailyMatch extends Component {
     }
 
     render() {
-        const {dailyMatch, isRefreshing} = this.state;
+        const {dailyMatch, isRefreshing, matches} = this.state;
         return ( <View style={styles.nearbyDailyCont}>
                 <View style={styles.filterTitle}>
                     <TouchableOpacity
@@ -223,27 +233,45 @@ export default class NearbyDailyMatch extends Component {
                                source={require('../../res/images/arrow.png')}/>
                     </TouchableOpacity>
                 </View>
-                <ListView
-                    dataSource={ds.cloneWithRows(dailyMatch)}
-                    renderRow={this._renderRow.bind(this)}
-                    renderFooter={this._renderFooter.bind(this)}
-                    onEndReached={this.onEndReached.bind(this)}
-                    onEndReachedThreshold={1}
-                    enableEmptySections={true}
-                    automaticallyAdjustContentInserts={false}
-                    showsVerticalScrollIndicator={false}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={isRefreshing}
-                            onRefresh={() => this.getNearbyMatches('fresh')}
-                            tintColor="#ff0000"
-                            title="Loading..."
-                            titleColor="#00ff00"
-                            colors={['#ff0000', '#00ff00', '#0000ff']}
-                            progressBackgroundColor="#fff"
-                        />
-                    }
-                />
+                {!isRefreshing && (!matches || matches.length === 0) ?
+                    <ListView
+                        dataSource={ds.cloneWithRows(['noData'])}
+                        renderRow={this._renderRowForNoData.bind(this)}
+                        enableEmptySections={true}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={() => this.getNearbyMatches('fresh')}
+                                tintColor="#ff0000"
+                                title="Loading..."
+                                titleColor="#00ff00"
+                                colors={['#ff0000', '#00ff00', '#0000ff']}
+                                progressBackgroundColor="#fff"
+                            />
+                        }
+                    /> :
+                    <ListView
+                        dataSource={ds.cloneWithRows(dailyMatch)}
+                        renderRow={this._renderRow.bind(this)}
+                        renderFooter={this._renderFooter.bind(this)}
+                        onEndReached={this.onEndReached.bind(this)}
+                        onEndReachedThreshold={1}
+                        enableEmptySections={true}
+                        automaticallyAdjustContentInserts={false}
+                        showsVerticalScrollIndicator={false}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={() => this.getNearbyMatches('fresh')}
+                                tintColor="#ff0000"
+                                title="Loading..."
+                                titleColor="#00ff00"
+                                colors={['#ff0000', '#00ff00', '#0000ff']}
+                                progressBackgroundColor="#fff"
+                            />
+                        }
+                    />
+                }
                 <Filter isMultiple={true}
                         data={filterData}
                         visible={this.state.filterVisible}
@@ -296,5 +324,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
+    },
+    noDataCont: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    noDataText: {
+        fontSize: 20,
+        marginTop: 50
     }
 });

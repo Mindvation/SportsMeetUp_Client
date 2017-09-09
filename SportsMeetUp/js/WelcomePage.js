@@ -21,15 +21,15 @@ export default class WelcomePage extends Component {
     componentDidMount() {
         const {navigator} = this.props;
 
-        /*this.timer = setTimeout(() => {
-            InteractionManager.runAfterInteractions(() => {
-                navigator.resetTo({
-                    component: TabPage,
-                    name: 'TabPage',
-                    params: {}
-                });
-            });
-        }, 500);*/
+        /* this.timer = setTimeout(() => {
+             InteractionManager.runAfterInteractions(() => {
+                 navigator.resetTo({
+                     component: TabPage,
+                     name: 'TabPage',
+                     params: {}
+                 });
+             });
+         }, 500);*/
 
         DataUtil.getData('userLogonInfo').then((res) => {
             this._logOnWithLocalData(res);
