@@ -7,8 +7,6 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    Text,
-    BackHandler,
     Platform,
     View
 } from 'react-native';
@@ -84,10 +82,10 @@ const styles = StyleSheet.create({
     tabStyle: {
         height: 60
     },
-    tabBarUnderline:{
+    tabBarUnderline: {
         height: 0
     },
-    tabBarTextStyle:{
+    tabBarTextStyle: {
         fontWeight: 'bold',
         fontSize: 20
     }

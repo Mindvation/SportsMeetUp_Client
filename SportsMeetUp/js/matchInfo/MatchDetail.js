@@ -10,21 +10,19 @@ import {
 } from 'react-native';
 import ShareMatch from '../common/ShareMatch';
 import CommonUtil from '../util/CommonUtil';
+import FetchUtil from '../util/FetchUtil';
+import Overlay from '../common/Overlay';
 
 const {width} = Dimensions.get('window');
 
 import {matchArrange} from '../data/Arrangement';
 
-let interval;
 export default class MatchDetail extends Component {
     constructor(props) {
         super(props);
-        this._joinMatch = this._joinMatch.bind(this);
         this._shareMatch = this._shareMatch.bind(this);
         this.state = {
-            shareModalVisible: false,
-            isJoined: props.matchInfo.isJoined,
-            isSendReq: props.matchInfo.isSendReq
+            shareModalVisible: false
         };
     }
 
@@ -34,11 +32,11 @@ export default class MatchDetail extends Component {
         })
     }
 
-    _joinMatch() {
-        if (this.state.isJoined || this.state.isSendReq) {
+    _joinMatch(matchInfo, status) {
+        if (status === "y") {
             Alert.alert(
                 "提示",
-                this.state.isJoined ? "您已加入" : "您已发送申请",
+                "您已加入该比赛",
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
@@ -47,16 +45,48 @@ export default class MatchDetail extends Component {
             return;
         }
 
-        this.setState({
-            isSendReq: true
-        })
+        const options = {
+            "url": '8081/sports-meetup-papi/users/login',
+            "params": {
+                "phoneNumber": this.state.phoneNumber,
+                "password": this.state.passWord
+            }
+        };
 
-        interval = setInterval(() => {
+        this.setState({
+            overlayVisible: true,
+        });
+
+        FetchUtil.post(options).then((res) => {
             this.setState({
-                isJoined: true
+                overlayVisible: false
             });
-            interval && clearInterval(interval);
-        }, 2000)
+
+        }).catch((error) => {
+            this.setState({
+                overlayVisible: false,
+            });
+            Alert.alert(
+                error.code,
+                error.message,
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+        })
+    }
+
+    getUserStatusInMatch(appUsers) {
+        let status = 'n';
+        appUsers.some((appUser) => {
+            if (appUser.userId === globalUserInfo.userId) {
+                status = appUser.applyResult;
+                return true;
+            }
+        });
+
+        return status;
     }
 
     render() {
@@ -81,17 +111,18 @@ export default class MatchDetail extends Component {
         let arrangeInfo = matchArrange[matchInfo.totalNumber];
         let teamAAccount = 0;
         let teamBAccount = 0;
+        const status = this.getUserStatusInMatch(matchInfo.appliedUsersInfo);
         const UniformRed = arrangeInfo.icon === 2 ?
             <Image style={styles.uniform2x}
                    source={require('../../res/images/matchInfo/uniform_red2x.png')}/> :
             <Image style={styles.uniform3x}
                    source={require('../../res/images/matchInfo/uniform_red3x.png')}/>;
         const UniformBlue = arrangeInfo.icon === 2 ? <Image style={styles.uniform2x}
-                                                           source={require('../../res/images/matchInfo/uniform_blue2x.png')}/> :
+                                                            source={require('../../res/images/matchInfo/uniform_blue2x.png')}/> :
             <Image style={styles.uniform3x}
                    source={require('../../res/images/matchInfo/uniform_blue3x.png')}/>;
         const UniformAdd = arrangeInfo.icon === 2 ? <Image style={styles.uniform2x}
-                                                          source={require('../../res/images/matchInfo/uniform_add2x.png')}/> :
+                                                           source={require('../../res/images/matchInfo/uniform_add2x.png')}/> :
             <Image style={styles.uniform3x}
                    source={require('../../res/images/matchInfo/uniform_add3x.png')}/>;
 
@@ -164,11 +195,11 @@ export default class MatchDetail extends Component {
                         </TouchableOpacity>
                     </View>
                     <View
-                        style={[styles.joinCont, {backgroundColor: this.state.isSendReq ? (this.state.isJoined ? "#f1a025" : "#25bff1") : '#f12b2c'}]}>
-                        <TouchableOpacity onPress={this._joinMatch}>
+                        style={[styles.joinCont, {backgroundColor: status === "y" ? "#f1a025" : '#f12b2c'}]}>
+                        <TouchableOpacity onPress={() => this._joinMatch(matchInfo, status)}>
                             <View>
                                 <Text
-                                    style={styles.joinText}>{this.state.isSendReq ? (this.state.isJoined ? " 已加入 " : " 已发送申请 ") : " 立即加入 "}</Text>
+                                    style={styles.joinText}>{status === "y" ? " 已加入 " : " 立即加入 "}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -181,6 +212,10 @@ export default class MatchDetail extends Component {
                     })
                 }}
                 modalVisible={this.state.shareModalVisible}/>
+            <Overlay
+                allowClose={false}
+                modalVisible={this.state.overlayVisible}
+            />
         </View>)
     }
 }

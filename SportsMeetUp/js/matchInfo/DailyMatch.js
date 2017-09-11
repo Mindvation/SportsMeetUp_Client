@@ -10,6 +10,7 @@ import {
 
 import MatchDetail from './MatchDetail';
 import FetchUtil from '../util/FetchUtil';
+import CommonUtil from '../util/CommonUtil';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const pageSize = 6;
@@ -47,6 +48,7 @@ export default class DailyMatch extends Component {
             "url": '8086/sports-meetup-papi/matches/getMatchesByFieldId',
             "params": {
                 "fieldId": "1875",
+                "date": CommonUtil.dateFormat(this.props.matchDate.date, "yyyy-MM-dd"),
                 "pageAndSize": page + "," + pageSize
             }
         };
@@ -55,7 +57,6 @@ export default class DailyMatch extends Component {
             if (res.responseBody) {
                 tempMatch = tempMatch.concat(res.responseBody);
                 console.info('Match Length === ' + tempMatch.length);
-                alert(tempMatch.length);
                 page++;
                 this.setState({
                     isRefreshing: false,
@@ -174,6 +175,7 @@ const styles = StyleSheet.create({
     },
     noDataText: {
         fontSize: 20,
-        marginTop: 50
+        marginTop: 50,
+        color: '#E8E8E8'
     }
 });
