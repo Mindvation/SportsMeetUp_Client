@@ -7,20 +7,19 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    View,
-    ListView,
-    RefreshControl,
     Text,
+    View,
+    RefreshControl,
+    ListView,
     ActivityIndicator
 } from 'react-native';
 import FetchUtil from '../util/FetchUtil';
-
-import MyMatchInfo from './MyMatchInfo';
+import {matchTypeMapping, sportTypeMapping} from '../data/Mapping';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const pageSize = 6;
-export default class MyMatch extends Component {
 
+export default class MyPublication extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,7 +48,7 @@ export default class MyMatch extends Component {
             })
         }
         const options = {
-            "url": '8086/sports-meetup-papi/matches/getApplyMatches',
+            "url": '8086/sports-meetup-papi/matches/getMyOldMatches',
             "params": {
                 "userId": globalUserInfo.userId,
                 "pageAndSize": page + "," + pageSize,
@@ -108,7 +107,19 @@ export default class MyMatch extends Component {
 
     _renderRow(rowData, sectionID, rowID) {
         return (
-            <MyMatchInfo match={rowData}/>
+            <View style={styles.borderLine}>
+                <View style={styles.closeInviteCont}>
+                    <View style={styles.invitePersonalCont}>
+                        <Text
+                            style={styles.appPersonalText}>{matchTypeMapping[rowData.matchType] + " " + sportTypeMapping[rowData.fieldType]}</Text>
+                        <Text style={styles.appTimeText}>时间：{rowData.startTime}</Text>
+                    </View>
+                    <View style={styles.locationCont}>
+                        <Text style={styles.locationText}>地点：{rowData.address}</Text>
+                        <Text style={styles.titleText}>人数：{rowData.joinedAmmount + "/" + rowData.totalNumber}</Text>
+                    </View>
+                </View>
+            </View>
         );
     }
 
@@ -169,9 +180,52 @@ const styles = StyleSheet.create({
     myMatchCont: {
         flex: 1
     },
-    centering: {
+    locationCont: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    appPersonalText: {
+        fontSize: 18,
+        color: '#000000',
+        fontWeight: 'bold',
+        flex: 1,
+        marginRight: 10
+    },
+    appTimeText: {
+        color: '#000000'
+    },
+    closeInviteCont: {
+        backgroundColor: '#ffffff',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'column',
+        padding: 15
+    },
+    locationText: {
+        fontSize: 15,
+        color: '#000000',
+        flex: 1,
+        marginRight: 10
+    },
+    timeText: {
+        fontSize: 15,
+        color: '#000000'
+    },
+    invitePersonalCont: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center'
+        marginBottom: 15
+    },
+    titleText: {
+        fontSize: 18,
+        color: '#000000',
+        fontWeight: 'bold'
+    },
+    borderLine: {
+        borderBottomColor: '#e8e8e8',
+        borderBottomWidth: 1
     },
     noDataCont: {
         flex: 1,

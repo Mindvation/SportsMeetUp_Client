@@ -162,21 +162,13 @@ export default class NearbyField extends Component {
 
     _renderRow(rowData, sectionID, rowID) {
         return (
-            <FieldInfo field={rowData} rowId={rowID} selectedIndex={this.state.selectedRow}
-                       setSelectedIndex={(index) => this.setSelectedIndex(index)}
-            />
+            <FieldInfo field={rowData} rowId={rowID}/>
         );
     }
 
     _toggleFilter() {
         this.setState({
             filterVisible: !this.state.filterVisible
-        })
-    }
-
-    setSelectedIndex(index) {
-        this.setState({
-            selectedRow: index
         })
     }
 

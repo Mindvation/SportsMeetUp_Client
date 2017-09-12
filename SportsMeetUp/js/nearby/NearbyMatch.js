@@ -40,8 +40,21 @@ export default class NearbyMatch extends Component {
         })
     }
 
+    getUserStatusInMatch(appUsers) {
+        let status = 'n';
+        appUsers.some((appUser) => {
+            if (appUser.userId === globalUserInfo.userId) {
+                status = appUser.applyResult;
+                return true;
+            }
+        });
+
+        return status;
+    }
+
     render() {
         const {match} = this.props;
+        const status = this.getUserStatusInMatch(match.appliedUsersInfo);
 
         return ( <View>
                 <View style={styles.matchInfoCont}>
@@ -105,9 +118,9 @@ export default class NearbyMatch extends Component {
                         <TouchableOpacity onPress={() => {
                             this._acceptInvitation()
                         }}>
-                            <View>
+                            <View style={{backgroundColor: status === "y" ? "#f1a025" : '#f12b2c'}}>
                                 <Text
-                                    style={styles.ignoreText}> 申请加入 </Text>
+                                    style={styles.ignoreText}> {status === "y" ? " 已加入 " : " 申请加入 "} </Text>
                             </View>
                         </TouchableOpacity>
                     </View>

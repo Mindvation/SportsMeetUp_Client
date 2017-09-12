@@ -12,9 +12,8 @@ import {
     Dimensions
 } from 'react-native';
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
-import MyInvite from './MyInvite';
+import MyPublication from './MyPublication';
 import MyMatch from './MyMatch';
-import Header from '../common/Header';
 import MatchHistory from './MatchHistory';
 
 const {width} = Dimensions.get('window');
@@ -43,7 +42,7 @@ export default class MyMatchMain extends Component {
                     }}
                 >
                     <MyMatch tabLabel="我的比赛"/>
-                    <MyInvite tabLabel="我的邀请"/>
+                    <MyPublication tabLabel="我的发布"/>
                     <MatchHistory tabLabel="比赛历史"/>
                 </ScrollableTabView>
             </View>

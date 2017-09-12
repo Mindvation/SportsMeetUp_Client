@@ -35,7 +35,8 @@ export default class Feedback extends Component {
         super(props);
         this.state = {
             question: '',
-            questionDes: ''
+            questionDes: '',
+            overlayVisible: false
         };
     }
 
@@ -56,14 +57,51 @@ export default class Feedback extends Component {
             return;
         }
 
-        const {navigator} = this.props;
-        if (navigator) {
-            navigator.pop();
-        }
+        this.submitFeedbackToServer();
+    }
+
+    submitFeedbackToServer() {
+        const options = {
+            "url": '8081/sports-meetup-papi/users/user/comments',
+            "params": {
+                "title": this.state.question,
+                "content": this.state.questionDes,
+                "userId": globalUserInfo.userId
+            }
+        };
+
+        this.setState({
+            overlayVisible: true,
+        });
+
+        FetchUtil.post(options).then((res) => {
+            this.setState({
+                overlayVisible: false
+            });
+
+            const {navigator} = this.props;
+            if (navigator) {
+                navigator.pop();
+            }
+        }).catch((error) => {
+            this.setState({
+                overlayVisible: false,
+            });
+
+            Alert.alert(
+                error.code,
+                error.message,
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+
+        })
+
     }
 
     render() {
-
         return (
             <View style={styles.container}>
                 <Header navigator={this.props.navigator} title="意见反馈" hiddenRightBtn={true}/>
@@ -116,6 +154,10 @@ export default class Feedback extends Component {
                     </ScrollView>
                 </View>
                 <Toast ref="toast" position='center' style={styles.toastStyle}/>
+                <Overlay
+                    allowClose={false}
+                    modalVisible={this.state.overlayVisible}
+                />
             </View>
         );
     }

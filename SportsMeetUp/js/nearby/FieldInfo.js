@@ -24,7 +24,7 @@ export default class FieldInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectIndex: "",
+            selected: false,
             modalVisible: false,
             modalCont: null,
             shareModalVisible: false,
@@ -39,7 +39,7 @@ export default class FieldInfo extends Component {
     }
 
     render() {
-        const {field, rowId, selectedIndex, setSelectedIndex} = this.props;
+        const {field, rowId} = this.props;
         /* const test = {
              "fieldId": 2247,
              "creatorId": null,
@@ -63,7 +63,9 @@ export default class FieldInfo extends Component {
         return ( <View>
                 <View style={styles.borderLine} key={rowId}>
                     <TouchableOpacity onPress={() => {
-                        setSelectedIndex ? setSelectedIndex(rowId) : {}
+                        this.setState({
+                            selected: !this.state.selected
+                        })
                     }}>
                         <View style={styles.matchInfoCont}>
                             <Image source={icon ? icon : require('../../res/images/field_default.png')}
@@ -91,7 +93,7 @@ export default class FieldInfo extends Component {
                         {/*<Text style={styles.fieldOpenTime}>周内 {field.weekTime} 周末 {field.weekendTime}</Text>*/}
                     </TouchableOpacity>
                     <View
-                        style={[styles.bottomCont, selectedIndex === rowId ? null : {display: 'none'}]}>
+                        style={[styles.bottomCont, this.state.selected ? null : {display: 'none'}]}>
                         <View style={styles.shareCont}>
                             <TouchableOpacity onPress={() => this._shareMatch()}>
                                 <View style={styles.sharePressRange}>
