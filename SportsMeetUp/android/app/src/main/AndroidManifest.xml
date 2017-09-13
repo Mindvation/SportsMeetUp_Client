@@ -36,7 +36,6 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="ca5ddefdb5182f225c09f52e39dcc875" />
-
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"

@@ -38,7 +38,7 @@ class FieldInfoView extends Component {
     }
 
     _renderImages() {
-        let urls = this.props.fieldInfo.picsOfField.split("&");
+        let urls = this.props.fieldInfo.picsOfField.split(",");
         let images = [];
         for (var i = urls.length - 1; i >= 0; i--) {
             if (!CommonUtil.isEmpty(urls[i])) {

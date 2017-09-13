@@ -19,6 +19,8 @@ import FieldInfoView from './FieldInfoView'
 import NewMatchView from './NewMatchView'
 import MatchInfo from '../matchInfo/MatchInfo'
 
+import FetchUtil, {gateWay} from '../util/FetchUtil';
+
 var EARTH_RADIUS = 6378137.0;    //单位M  
 var PI = Math.PI;
 
@@ -148,26 +150,21 @@ class HomePage extends Component {
 
     // 查询附近的运动场
     _getData(location) {
-        fetch('http://192.168.0.101:8084/sports-meetup-papi/sportfields/getNearbySportFields', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(location)
-        })
-        .then((response)=>response.json())
-        .then((result) => {
-            if (result.responseCode === '000') {
-                console.log(result.responseBody);
+        const options = {
+            "url": `8084/sports-meetup-papi/sportfields/getNearbySportFields/${location.longitude}/${location.latitude}/0,10`,
+        };
+
+        FetchUtil.get(options).then((result) => {
+            console.log(result.responseBody);
                 for (var i = result.responseBody.length - 1; i >= 0; i--) {
                     if(!this._contains(this.playgrounds,result.responseBody[i])){
                         this.playgrounds.push(result.responseBody[i]);
                     }
                 }
                 this.setState({dataReady:true})
-            }
-        })
-        .catch((error) => console.log(error));
+        }).catch((error) => {
+            console.log(error)
+        });
     }
 
     _contains(arr, obj) {
@@ -258,6 +255,33 @@ class HomePage extends Component {
             return;
         }
 
+        // 移动地图到用户当前位置
+        if (this.userLocation) {
+            this.refs.map.animateTo({
+                coordinate: this.userLocation,
+            })
+        }
+
+
+        // 发起网络请求获取数据
+        const options = {
+            "url": `8084/sports-meetup-papi/sportfields/findNearFieldsHaveMatches/${this.userLocation.longitude}/${this.userLocation.latitude}/0,10`,
+        };
+        FetchUtil.get(options).then((result) => {
+            console.log(result.responseBody);
+            this.playgrounds = result.responseBody;
+            this.setState({
+                dataReady: true
+            })
+
+            this._onFindNearbyFieldsHaveMatchesSuccess();
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
+
+
+    _onFindNearbyFieldsHaveMatchesSuccess() {
         if (this.playgrounds.length <= 0) {
             Alert.alert('附近还没有发现运动场');
             return;
@@ -291,9 +315,13 @@ class HomePage extends Component {
                 }
             })
         } else {
+            this.setState({
+                selectedPlayground: null,
+                createGameEnabled: false,
+                gameInfoEnabled: false,
+            });
             Alert.alert('附近暂时没有发现比赛');
         }
-
     }
 
     _submitNewField(data) {
