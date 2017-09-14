@@ -202,7 +202,7 @@ class HomePage extends Component {
         navigator.push({
             component: MatchInfo,
             name: 'MatchInfoPage',
-            params: {}
+            params: {field: this.state.selectedPlayground}
         });
     }
 
