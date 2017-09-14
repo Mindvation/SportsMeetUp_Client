@@ -146,9 +146,8 @@ export default class NearbyDailyMatch extends Component {
     }
 
     _filterMatchInfo(matches) {
-        //TODO dummy data 之后日期改为当天
-        let todayDate = new Date("2017/9/28");
-        let firstDay = CommonUtil.dateFormat(new Date("2017/9/28"), "yyyy-MM-dd");
+        let todayDate = new Date();
+        let firstDay = CommonUtil.dateFormat(new Date(), "yyyy-MM-dd");
         let secondDay = CommonUtil.dateFormat(new Date(todayDate.setDate(todayDate.getDate() + 1)), "yyyy-MM-dd");
         let thirdDay = CommonUtil.dateFormat(new Date(todayDate.setDate(todayDate.getDate() + 1)), "yyyy-MM-dd");
         let matchArr = [{
@@ -179,7 +178,7 @@ export default class NearbyDailyMatch extends Component {
         match.redTeam = match.joinedAmmount - match.blueTeam;
         match.startTime = CommonUtil.dateFormat(CommonUtil.parseDate(match.startTime), "hh:mm:ss");
         match.endTime = CommonUtil.dateFormat(CommonUtil.parseDate(match.endTime), "hh:mm:ss");
-        match.icon = match.icon ? {uri: match.icon} : '';
+        match.icon = match.createdUserInfo && match.createdUserInfo.icon ? {uri: match.createdUserInfo.icon} : '';
         return match;
     }
 
@@ -215,9 +214,23 @@ export default class NearbyDailyMatch extends Component {
             <View style={styles.itemCont}>
                 <Text style={styles.matchDate}>{rowData.date}</Text>
                 {rowData.matches.map((match, j) => {
-                    return <NearbyMatch key={"match_" + j} match={match}/>
+                    return <NearbyMatch key={"match_" + j} match={match}
+                                        update={(matchInfo) => this.updateMatchInfo(matchInfo)}/>
                 })}
             </View> : null
+    }
+
+    updateMatchInfo(matchInfo) {
+        let tempMatches = this.state.matches;
+        tempMatches.some((tempMatch) => {
+            if (tempMatch.matchId === matchInfo.matchId) {
+                Object.assign(tempMatch, this._formatMatch(matchInfo));
+                return true;
+            }
+        });
+        this.setState({
+            matches: tempMatches
+        })
     }
 
     render() {

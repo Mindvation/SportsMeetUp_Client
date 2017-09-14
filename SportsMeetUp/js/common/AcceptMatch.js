@@ -37,12 +37,10 @@ export default class AcceptMatch extends Component {
 
         let ivt = [
             {
-                "text": <Text><Text
-                    style={{
-                        color: '#ff8400',
-                        fontSize: 16
-                    }}>{data.totalNumber - (data.joinedAmmount)}</Text><Text
-                    style={{color: '#000000', fontSize: 16}}>/{data.totalNumber}</Text></Text>,
+                "text": <Text>
+                    <Text style={{color: '#ff8400', fontSize: 16}}>{data.joinedAmmount}</Text>
+                    <Text style={{color: '#000000', fontSize: 16}}>/{data.totalNumber}</Text>
+                </Text>,
                 "image": playerImg
             },
             {

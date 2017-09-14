@@ -21,15 +21,6 @@ import CityList from './IndexListView';
 // 下面是数据部分
 import DATA_JSON from './city-list.json';
 
-const NOW_CITY_LIST = [
-    {
-        "name": "西安",
-        "spellName": "xian",
-        "id": 6101,
-        "fullname": "陕西/西安",
-        "sortLetters": "x"
-    }
-];
 const ALL_CITY_LIST = DATA_JSON.allCityList;
 const HOT_CITY_LIST = DATA_JSON.hotCityList;
 const LAST_VISIT_CITY_LIST = DATA_JSON.lastVisitCityList;
@@ -61,7 +52,6 @@ export default class SimpleSelectCity extends Component {
     }
 
     filterCityData(text) {
-        console.log('search for list', text);
 
         let rst = [];
         for (let idx = 0; idx < ALL_CITY_LIST.length; idx++) {
@@ -95,7 +85,7 @@ export default class SimpleSelectCity extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header navigator={this.props.navigator} title={"当前城市：" + this.state.nowCityList.name}
+                <Header navigator={this.props.navigator} title={"当前城市：" + (this.state.nowCityList.name || '未知')}
                         hiddenRightBtn={true}/>
                 {/*<SearchBox
                     keyword={this.state.keyword}

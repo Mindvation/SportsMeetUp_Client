@@ -69,7 +69,7 @@ export default class Register extends Component {
                 this.refs.toast.show(errorMsg, 500);
             } else {
                 this.setState({
-                    timeRemaining: 10
+                    timeRemaining: 60
                 });
                 this._getVrfCodeFromServer();
                 this._countDownAction();
@@ -163,7 +163,7 @@ export default class Register extends Component {
 
     _submitUserData() {
         const options = {
-            "url": '8888/sports-meetup/users/addUser',
+            "url": '8090/sports-meetup-user/users/addUser',
             "params": {
                 "phoneNumber": this.state.phoneNumber,
                 "verificationCode": this.state.vrfCode,
@@ -189,7 +189,7 @@ export default class Register extends Component {
 
             interval = setInterval(() => {
                 interval && clearInterval(interval);
-                this._goToHomePage();
+                this._goToHomePage(res.responseBody);
             }, 1000)
 
         }).catch((error) => {
@@ -209,13 +209,15 @@ export default class Register extends Component {
 
     }
 
-    _goToHomePage() {
+    _goToHomePage(res) {
         const {navigator} = this.props;
         if (navigator) {
             navigator.resetTo({
                 component: TabPage,
                 name: 'TabPageComponent',
-                params: {}
+                params: {
+                    "userInfo": res
+                }
             });
         }
     }

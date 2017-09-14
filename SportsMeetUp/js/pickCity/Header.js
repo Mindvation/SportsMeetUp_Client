@@ -1,15 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
 import {
-    Alert,
     View,
     Text,
-    TextInput,
     StyleSheet,
     Platform,
-    NavigatorIOS,
-    TouchableOpacity,
-    StatusBar
+    TouchableOpacity
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 

@@ -10,12 +10,14 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 import AcceptMatch from '../common/AcceptMatch';
 import ShareMatch from '../common/ShareMatch';
 import {matchTypeMapping, sportTypeMapping} from '../data/Mapping';
-
+import FetchUtil from '../util/FetchUtil';
+import Overlay from '../common/Overlay';
 
 export default class NearbyMatch extends Component {
     constructor(props) {
@@ -24,13 +26,69 @@ export default class NearbyMatch extends Component {
             selectIndex: "",
             modalVisible: false,
             modalCont: null,
-            shareModalVisible: false
+            shareModalVisible: false,
+            overlayVisible: false
         };
     }
 
-    _acceptInvitation() {
+    _acceptInvitation(matchInfo, status) {
+        const {update} = this.props;
+        if (status === "y") {
+            Alert.alert(
+                "提示",
+                "您已加入该比赛!",
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+            return;
+        }
+
+        if (matchInfo.joinedAmmount === matchInfo.totalNumber) {
+            Alert.alert(
+                "提示",
+                "该比赛人数已满!",
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+            return;
+        }
+
+        const options = {
+            "url": '8086/sports-meetup-papi/matches/joinMatch',
+            "params": {
+                "matchId": matchInfo.matchId,
+                "userId": globalUserInfo.userId
+            }
+        };
+
         this.setState({
-            modalVisible: true
+            overlayVisible: true,
+        });
+
+        FetchUtil.post(options).then((res) => {
+            update && update(res.responseBody);
+
+            this.setState({
+                overlayVisible: false,
+                modalVisible: true
+            })
+
+        }).catch((error) => {
+            this.setState({
+                overlayVisible: false,
+            });
+            Alert.alert(
+                error.code,
+                error.message,
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
         })
     }
 
@@ -40,21 +98,23 @@ export default class NearbyMatch extends Component {
         })
     }
 
-    getUserStatusInMatch(appUsers) {
+    getUserStatusInMatch(creator, appUsers) {
         let status = 'n';
+        if (creator && creator.createdId === globalUserInfo.userId) {
+            return 'y';
+        }
         appUsers.some((appUser) => {
             if (appUser.userId === globalUserInfo.userId) {
                 status = appUser.applyResult;
                 return true;
             }
         });
-
         return status;
     }
 
     render() {
         const {match} = this.props;
-        const status = this.getUserStatusInMatch(match.appliedUsersInfo);
+        const status = this.getUserStatusInMatch(match.createdUserInfo, match.appliedUsersInfo);
 
         return ( <View>
                 <View style={styles.matchInfoCont}>
@@ -81,7 +141,7 @@ export default class NearbyMatch extends Component {
                                 style={{
                                     fontSize: 15, color: '#f5f5f5',
                                     textAlignVertical: 'bottom'
-                                }}>{match.totalNumber / 2 - match.blueTeam}/</Text>
+                                }}>{match.blueTeam}/</Text>
                             <Text style={{
                                 fontSize: 13,
                                 color: '#d7d7d7',
@@ -95,7 +155,7 @@ export default class NearbyMatch extends Component {
                             <Text style={{
                                 fontSize: 15, color: '#f5f5f5',
                                 textAlignVertical: 'bottom'
-                            }}>{match.totalNumber / 2 - match.redTeam}/</Text>
+                            }}>{match.redTeam}/</Text>
                             <Text style={{
                                 fontSize: 13,
                                 color: '#d7d7d7',
@@ -114,11 +174,11 @@ export default class NearbyMatch extends Component {
                         </TouchableOpacity>
                     </View>
                     <View
-                        style={styles.acceptCont}>
+                        style={[styles.acceptCont, {backgroundColor: status === "y" ? "#f1a025" : '#f12b2c'}]}>
                         <TouchableOpacity onPress={() => {
-                            this._acceptInvitation()
+                            this._acceptInvitation(match, status)
                         }}>
-                            <View style={{backgroundColor: status === "y" ? "#f1a025" : '#f12b2c'}}>
+                            <View>
                                 <Text
                                     style={styles.ignoreText}> {status === "y" ? " 已加入 " : " 申请加入 "} </Text>
                             </View>
@@ -141,6 +201,10 @@ export default class NearbyMatch extends Component {
                         })
                     }}
                     modalVisible={this.state.shareModalVisible}/>
+                <Overlay
+                    allowClose={false}
+                    modalVisible={this.state.overlayVisible}
+                />
             </View>
         );
     }
@@ -183,8 +247,7 @@ const styles = StyleSheet.create({
         width: 170,
         height: 40,
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#f12b2c'
+        alignItems: 'center'
     },
     locationText: {
         fontSize: 15,

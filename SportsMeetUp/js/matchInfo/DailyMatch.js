@@ -102,8 +102,21 @@ export default class DailyMatch extends Component {
 
     _renderRow(rowData, sectionID, rowID) {
         return (
-            <MatchDetail matchInfo={rowData}/>
+            <MatchDetail matchInfo={rowData} update={(matchInfo) => this.updateMatchInfo(matchInfo)}/>
         );
+    }
+
+    updateMatchInfo(matchInfo) {
+        let tempMatches = this.state.matches;
+        tempMatches.some((tempMatch) => {
+            if (tempMatch.matchId === matchInfo.matchId) {
+                Object.assign(tempMatch, matchInfo);
+                return true;
+            }
+        });
+        this.setState({
+            matches: tempMatches
+        })
     }
 
     _renderRowForNoData() {

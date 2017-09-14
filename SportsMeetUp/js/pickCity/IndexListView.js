@@ -81,7 +81,6 @@ export default class CityIndexListView extends Component {
                     ? (thisRow.length / 3)
                     : parseInt(thisRow.length / 3) + 1;
 
-                console.log('sectionIDs===>' + sectionIDs + ", rowNum=====>" + rowNum);
 
                 eachheight = SECTIONHEIGHT + ROWHEIGHT_BOX * rowNum;
             }
@@ -91,9 +90,6 @@ export default class CityIndexListView extends Component {
             return thisRow;
         });
 
-        console.log(sectionIDs);
-        console.log(rowIDs);
-        console.log(dataBlob);
 
         let ds = new ListView.DataSource({
             getRowData: getRowData,
@@ -149,6 +145,7 @@ export default class CityIndexListView extends Component {
         //this.refs.toast.show(cityJson.name, DURATION.LENGTH_SHORT);
         // this.props.nav.pop();
         // alert('选择了城市====》' + cityJson.id + '#####' + cityJson.name);
+        if (!cityJson.id) return;
         this.props.onSelectCity(cityJson);
     }
 
@@ -193,7 +190,7 @@ export default class CityIndexListView extends Component {
                     that._cityNameClick(cityJson)
                 }}>
                     <View style={styles.rowNowdataBox}>
-                        <Text style={styles.rowdatatextBox}>{cityJson.name}</Text>
+                        <Text style={styles.rowdatatextBox}>{cityJson.name || '未知'}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -201,7 +198,6 @@ export default class CityIndexListView extends Component {
     }
 
     _renderListRow(cityJson, rowId) {
-        console.log('rowId===>' + rowId + ", cityJson====>" + JSON.stringify(cityJson));
         if (rowId === key_now) {
             return that._renderCurrentListBox(cityJson, rowId);
         }

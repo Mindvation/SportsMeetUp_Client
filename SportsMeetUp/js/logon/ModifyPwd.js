@@ -34,7 +34,7 @@ export default class ModifyPwd extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeRemaining: 10,
+            timeRemaining: 60,
             phoneNumber: props.phoneNumber,
             vrfCode: '',
             newPassWord: '',
@@ -57,7 +57,7 @@ export default class ModifyPwd extends Component {
 
         if (!this.state.timeRemaining) {
             this.setState({
-                timeRemaining: 10
+                timeRemaining: 60
             });
             this._getVrfCodeFromServer();
             this._countDownAction();

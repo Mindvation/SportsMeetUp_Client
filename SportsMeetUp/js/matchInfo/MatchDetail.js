@@ -22,7 +22,8 @@ export default class MatchDetail extends Component {
         super(props);
         this._shareMatch = this._shareMatch.bind(this);
         this.state = {
-            shareModalVisible: false
+            shareModalVisible: false,
+            overlayVisible: false
         };
     }
 
@@ -33,6 +34,7 @@ export default class MatchDetail extends Component {
     }
 
     _joinMatch(matchInfo, status) {
+        const {update} = this.props;
         if (status === "y") {
             Alert.alert(
                 "提示",
@@ -45,11 +47,23 @@ export default class MatchDetail extends Component {
             return;
         }
 
+        if (matchInfo.joinedAmmount === matchInfo.totalNumber) {
+            Alert.alert(
+                "提示",
+                "该比赛人数已满!",
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            );
+            return;
+        }
+
         const options = {
-            "url": '8081/sports-meetup-papi/users/login',
+            "url": '8086/sports-meetup-papi/matches/joinMatch',
             "params": {
-                "phoneNumber": this.state.phoneNumber,
-                "password": this.state.passWord
+                "matchId": matchInfo.matchId,
+                "userId": globalUserInfo.userId
             }
         };
 
@@ -61,6 +75,8 @@ export default class MatchDetail extends Component {
             this.setState({
                 overlayVisible: false
             });
+
+            update && update(res.responseBody);
 
         }).catch((error) => {
             this.setState({
@@ -77,8 +93,11 @@ export default class MatchDetail extends Component {
         })
     }
 
-    getUserStatusInMatch(appUsers) {
+    getUserStatusInMatch(creator, appUsers) {
         let status = 'n';
+        if (creator && creator.createdId === globalUserInfo.userId) {
+            return 'y';
+        }
         appUsers.some((appUser) => {
             if (appUser.userId === globalUserInfo.userId) {
                 status = appUser.applyResult;
@@ -106,12 +125,14 @@ export default class MatchDetail extends Component {
         };*/
         const blueTeam = Math.round(matchInfo.joinedAmmount / 2);
         const redTeam = matchInfo.joinedAmmount - blueTeam;
+        const blueTeamLeft = matchInfo.totalNumber / 2 - blueTeam;
+        const redTeamLeft = matchInfo.totalNumber / 2 - redTeam;
         const startTime = CommonUtil.dateFormat(CommonUtil.parseDate(matchInfo.startTime), "hh:mm:ss");
         const endTime = CommonUtil.dateFormat(CommonUtil.parseDate(matchInfo.endTime), "hh:mm:ss");
-        let arrangeInfo = matchArrange[matchInfo.totalNumber];
+        let arrangeInfo = matchArrange[matchInfo.totalNumber / 2];
         let teamAAccount = 0;
         let teamBAccount = 0;
-        const status = this.getUserStatusInMatch(matchInfo.appliedUsersInfo);
+        const status = this.getUserStatusInMatch(matchInfo.createdUserInfo, matchInfo.appliedUsersInfo);
         const UniformRed = arrangeInfo.icon === 2 ?
             <Image style={styles.uniform2x}
                    source={require('../../res/images/matchInfo/uniform_red2x.png')}/> :
@@ -126,23 +147,6 @@ export default class MatchDetail extends Component {
             <Image style={styles.uniform3x}
                    source={require('../../res/images/matchInfo/uniform_add3x.png')}/>;
 
-        /*const shareModal = <View style={styles.shareTrdCont}>
-            <View style={styles.shareImageCont}>
-                <Image style={styles.shareImage}
-                       source={require('../../res/images/share_weChat.png')}/>
-                <Text style={styles.shareImageText}>微信</Text>
-            </View>
-            <View style={styles.shareImageCont}>
-                <Image style={styles.shareImage}
-                       source={require('../../res/images/share_weiBo.png')}/>
-                <Text style={styles.shareImageText}>微博</Text>
-            </View>
-            <View style={styles.shareImageCont}>
-                <Image style={styles.shareImage}
-                       source={require('../../res/images/share_qq.png')}/>
-                <Text style={styles.shareImageText}>QQ</Text>
-            </View>
-        </View>;*/
         const arrangeArray = arrangeInfo.arrange;
         const contHeight = arrangeInfo.contHeight;
         return (<View style={[styles.mainCont, {height: contHeight}]}>
@@ -161,7 +165,7 @@ export default class MatchDetail extends Component {
                             return <View key={i} style={styles.columnCont}>
                                 {result.map((innerRes, j) => {
                                     teamAAccount++;
-                                    return (teamAAccount - 1 + redTeam >= matchInfo.totalNumber) ?
+                                    return (teamAAccount - 1 + redTeamLeft >= matchInfo.totalNumber / 2) ?
                                         <View key={j} style={styles.imageCont}>{UniformAdd}</View> :
                                         <View key={j} style={styles.imageCont}>{UniformRed}</View>;
                                 })}
@@ -177,7 +181,7 @@ export default class MatchDetail extends Component {
                             return <View key={i} style={styles.columnCont}>
                                 {result.map((innerRes, j) => {
                                     teamBAccount++;
-                                    return (teamBAccount - 1 + blueTeam >= matchInfo.totalNumber) ?
+                                    return (teamBAccount - 1 + blueTeamLeft >= matchInfo.totalNumber / 2) ?
                                         <View key={j} style={styles.imageCont}>{UniformAdd}</View> :
                                         <View key={j} style={styles.imageCont}>{UniformBlue}</View>;
                                 })}
