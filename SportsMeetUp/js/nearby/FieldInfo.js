@@ -19,6 +19,7 @@ const {width} = Dimensions.get('window');
 
 import ShareMatch from '../common/ShareMatch';
 import {sportTypeMapping} from '../data/Mapping';
+import NewMatchView from '../homePage/NewMatchView';
 
 export default class FieldInfo extends Component {
     constructor(props) {
@@ -36,6 +37,10 @@ export default class FieldInfo extends Component {
         this.setState({
             shareModalVisible: true
         })
+    }
+
+    _newMatch() {
+        this.refs.newMatchView.visible(true);
     }
 
     render() {
@@ -58,6 +63,8 @@ export default class FieldInfo extends Component {
              "fieldDetail": null,
              "distance": 4.84
          }*/
+
+         console.log(this.props);
 
         const icon = field.picsOfField ? {uri: field.picsOfField.split(",")[0]} : '';
         return ( <View>
@@ -104,7 +111,7 @@ export default class FieldInfo extends Component {
                         </View>
                         <View style={styles.acceptCont}>
                             <TouchableOpacity onPress={() => {
-
+                                this._newMatch();
                             }}>
                                 <View>
                                     <Text style={styles.ignoreText}> 预约比赛 </Text>
@@ -113,7 +120,7 @@ export default class FieldInfo extends Component {
                         </View>
                     </View>
                 </View>
-
+                <NewMatchView ref='newMatchView' fieldId={field.fieldId}/>
                 <ShareMatch
                     closeHandle={() => {
                         this.setState({

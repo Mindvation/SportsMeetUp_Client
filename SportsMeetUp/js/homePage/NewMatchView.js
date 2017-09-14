@@ -95,7 +95,7 @@ class NewMatchView extends Component {
             "url": '8086/sports-meetup-papi/matches/initialMatch',
             "params": {
                 "match": {
-                    "creatorId": 1234,
+                    "creatorId": globalUserInfo.userId,
                     "fieldId": this.props.fieldId,
                     "createdTime": CommonUtil.dateFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
                     "startTime": new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.startTime + ":00" ,
