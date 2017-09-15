@@ -54,34 +54,16 @@ export default class NearbyField extends Component {
 
     getNearbyFields(action) {
         if (action === 'fresh') {
+            if (!globalUserInfo.userLocation || !globalUserInfo.userLocation.latitude || !globalUserInfo.userLocation.longitude) {
+                alert("定位失败，请检查手机设置");
+                return;
+            }
             this.setState({
-                positioning: true,
-                isRefreshing: true
+                isRefreshing: true,
+                latitude: globalUserInfo.userLocation.latitude,
+                longitude: globalUserInfo.userLocation.longitude
             });
-            CommonUtil.getPosition((position) => {
-                this.setState({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    positioning: false
-                });
-                this.getNearbyFieldsByPosition(action);
-            }, (error) => {
-                this.setState({
-                    positioning: false
-                });
-                if (this.state.latitude && this.state.longitude) {
-                    this.getNearbyFieldsByPosition(action);
-                } else {
-                    this.setState({
-                        isRefreshing: false
-                    });
-                    if (error.code === 1) {
-                        alert("请打开手机定位");
-                    } else {
-                        alert(error.message);
-                    }
-                }
-            })
+            this.getNearbyFieldsByPosition(action);
         } else {
             this.getNearbyFieldsByPosition(action);
         }
@@ -135,7 +117,6 @@ export default class NearbyField extends Component {
                         isEnded: false
                     })
                 }
-
             }
         }).catch((error) => {
             this.setState({
@@ -146,7 +127,7 @@ export default class NearbyField extends Component {
     }
 
     onEndReached() {
-        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded || this.state.positioning) return;
+        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded) return;
         console.info('onEndReached');
         this.getNearbyFields('load');
     }

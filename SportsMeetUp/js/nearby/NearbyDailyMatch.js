@@ -53,34 +53,17 @@ export default class NearbyDailyMatch extends Component {
 
     getNearbyMatches(action = 'fresh') {
         if (action === 'fresh') {
+            if (!globalUserInfo.userLocation || !globalUserInfo.userLocation.latitude || !globalUserInfo.userLocation.longitude) {
+                alert("定位失败，请检查手机设置");
+                return;
+            }
             this.setState({
-                positioning: true,
-                isRefreshing: true
+                isRefreshing: true,
+                latitude: globalUserInfo.userLocation.latitude,
+                longitude: globalUserInfo.userLocation.longitude,
             });
-            CommonUtil.getPosition((position) => {
-                this.setState({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    positioning: false
-                });
-                this.getNearbyMatchesByPosition(action);
-            }, (error) => {
-                this.setState({
-                    positioning: false
-                });
-                if (this.state.latitude && this.state.longitude) {
-                    this.getNearbyMatchesByPosition(action);
-                } else {
-                    this.setState({
-                        isRefreshing: false
-                    });
-                    if (error.code === 1) {
-                        alert("请打开手机定位");
-                    } else {
-                        alert(error.message);
-                    }
-                }
-            })
+            this.getNearbyMatchesByPosition(action);
+
         } else {
             this.getNearbyMatchesByPosition(action);
         }
@@ -189,7 +172,7 @@ export default class NearbyDailyMatch extends Component {
     }
 
     onEndReached() {
-        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded || this.state.positioning) return;
+        if (this.state.isRefreshing || this.state.isShowBottomRefresh || this.state.isEnded) return;
         console.info('onEndReached');
         this.getNearbyMatches('load');
     }

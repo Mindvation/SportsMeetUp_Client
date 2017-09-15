@@ -25,7 +25,7 @@ export default class AddTag extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            myTags: props.myTags
+            myTags: Object.assign([],props.myTags)
         };
     }
 

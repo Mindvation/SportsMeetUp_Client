@@ -20,6 +20,7 @@ import NewMatchView from './NewMatchView'
 import MatchInfo from '../matchInfo/MatchInfo'
 
 import FetchUtil, {gateWay} from '../util/FetchUtil';
+import CommonUtil from '../util/CommonUtil';
 
 var EARTH_RADIUS = 6378137.0;    //单位M  
 var PI = Math.PI;
@@ -118,6 +119,9 @@ class HomePage extends Component {
         // 用户当前位置
         this.userLocation = {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude};
         console.log(`onLocation ${nativeEvent.latitude}, ${nativeEvent.longitude}`);
+        CommonUtil.updateGobalData("globalUserInfo", {
+            "userLocation": this.userLocation
+        });
 
         if (!this.hasInitLocation) {
             this.refs.map.animateTo({coordinate: {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude}});
@@ -156,12 +160,12 @@ class HomePage extends Component {
 
         FetchUtil.get(options).then((result) => {
             console.log(result.responseBody);
-                for (var i = result.responseBody.length - 1; i >= 0; i--) {
-                    if(!this._contains(this.playgrounds,result.responseBody[i])){
-                        this.playgrounds.push(result.responseBody[i]);
-                    }
+            for (var i = result.responseBody.length - 1; i >= 0; i--) {
+                if (!this._contains(this.playgrounds, result.responseBody[i])) {
+                    this.playgrounds.push(result.responseBody[i]);
                 }
-                this.setState({dataReady:true})
+            }
+            this.setState({dataReady: true})
         }).catch((error) => {
             console.log(error)
         });
@@ -169,7 +173,7 @@ class HomePage extends Component {
 
     _contains(arr, obj) {
         let index = arr.length;
-        while(index--) {
+        while (index--) {
             if (arr[index].fieldId === obj.fieldId) {
                 return true;
             }
@@ -416,7 +420,8 @@ class HomePage extends Component {
                         <Image source={require('../../res/images/action_match.png')}/>
                     </TouchableOpacity>
                 </View>
-        <NewFieldPage ref='newField' visible={true} location={this.centerLocation} commitCallback={(data) => this._submitNewField(data)}/>
+                <NewFieldPage ref='newField' visible={true} location={this.centerLocation}
+                              commitCallback={(data) => this._submitNewField(data)}/>
                 {this.renderFieldModal()}
                 <NewMatchView ref='newMatchView' newMatchCallback={(data) => this._submitNewMatch(data)}/>
             </View>

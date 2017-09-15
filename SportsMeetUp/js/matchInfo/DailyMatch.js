@@ -47,7 +47,7 @@ export default class DailyMatch extends Component {
         const options = {
             "url": '8086/sports-meetup-papi/matches/getMatchesByFieldId',
             "params": {
-                "fieldId": "1875",
+                "fieldId": "1875", //TODO 改成this.props.fieldId
                 "date": CommonUtil.dateFormat(this.props.matchDate.date, "yyyy-MM-dd"),
                 "pageAndSize": page + "," + pageSize
             }

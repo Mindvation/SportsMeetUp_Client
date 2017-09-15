@@ -59,7 +59,7 @@ export default class MatchInfo extends Component {
                     tabBarInactiveTextColor="#afaeae"
                 >
                     {matchDate.map((result, i) => {
-                        return <DailyMatch key={i} matchDate={result} tabLabel={result.value}/>
+                        return <DailyMatch key={i} matchDate={result} fieldId={this.props.field} tabLabel={result.value}/>
                     })}
                 </ScrollableTabView>
             </View>
