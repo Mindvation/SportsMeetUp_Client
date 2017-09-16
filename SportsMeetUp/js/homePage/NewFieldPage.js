@@ -250,6 +250,16 @@ class NewFieldPage extends Component {
     // });
   }
 
+  _onClose = () => {
+      // 关闭界面时清楚数据
+      this.imageArray = new Array();
+      this.setState({
+        address: '',
+        fieldType: '',
+        adminTel: '',
+        description: '',
+      });
+  };
 
   render() {
     let buttonColor = Platform.select({ios: '#ffffff', android:'#df3939'});
@@ -259,7 +269,7 @@ class NewFieldPage extends Component {
           animationType={"fade"}
           transparent={true}
           visible={this.state.visible}
-          onRequestClose={() => {}}
+          onRequestClose={this._onClose}
           >
           <TouchableOpacity style={{flex:1}} activeOpacity ={1} onPress={() => console.log('click outside')}>
             <View style={styles.modalBackground} onPress={() => {}}>
