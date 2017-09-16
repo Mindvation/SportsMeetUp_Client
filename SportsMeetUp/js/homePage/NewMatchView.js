@@ -19,11 +19,13 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import Toast, {DURATION} from 'react-native-easy-toast'
 import CommonUtil from '../util/CommonUtil'
 import FetchUtil from '../util/FetchUtil'
+import {matchTypeMapping} from '../data/Mapping'
 
 const {
     width,
     height,
 } = Dimensions.get('window');
+const dismissKeyboard = require('dismissKeyboard');
 
 const matchTypes = ['1v1', '3v3', "5v5", '8v8', '11v11'];
 const matchTypeValues = ['football', 'basketball', 'badminton', 'billiards', 'bowling', 'tennis', 'tabletennis', 'volleyball'];
@@ -53,6 +55,7 @@ class NewMatchView extends Component {
     }
 
     onClickSubmit() {
+        dismissKeyboard();
         if (CommonUtil.isEmpty(this.state.matchDate)) {
             this.refs.toast.show('请选择比赛日期');
             return;
@@ -89,17 +92,17 @@ class NewMatchView extends Component {
         // }
 
         console.log(this.state);
-        console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.startTime + ":00" );
-        console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.endTime + ":00" );
+        console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.startTime + ":00");
+        console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.endTime + ":00");
         let options = {
             "url": '8086/sports-meetup-papi/matches/initialMatch',
             "params": {
                 "match": {
                     "creatorId": globalUserInfo.userId,
-                    "fieldId": this.props.fieldId,
-                    "createdTime": CommonUtil.dateFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
-                    "startTime": new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.startTime + ":00" ,
-                    "endTime": new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.endTime + ":00" ,
+                    "fieldId": this.props.field.fieldId,
+                    "date": new Date().getFullYear() + "-" + this.state.matchDate,
+                    "startTime": new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.startTime + ":00",
+                    "endTime": new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.endTime + ":00",
                     "matchType": this.state.type,
                     "joinedAmount": parseInt(this.state.number),
                     "creatorPhone": this.state.phone,
@@ -128,13 +131,14 @@ class NewMatchView extends Component {
                 }}>
                 <View style={styles.modalBackground}>
                     <View style={styles.modalBox}>
-                        <TouchableOpacity style={{alignSelf:'flex-end', marginRight:14, marginTop:14}} onPress={() => this.visible(false)}> 
+                        <TouchableOpacity style={{alignSelf: 'flex-end', marginRight: 14, marginTop: 14}}
+                                          onPress={() => this.visible(false)}>
                             <Image source={require('../../res/images/close.png')}/>
                         </TouchableOpacity>
                         <View style={{paddingLeft: 28, paddingRight: 38, paddingTop: 9}}>
                             <View style={[styles.itemLine, {alignItems: 'center'}]}>
                                 <Text style={styles.text}>日期</Text>
-                                <DatePicker style={[styles.datePicker, {marginRight:8}]}
+                                <DatePicker style={[styles.datePicker, {marginRight: 8}]}
                                             mode='date'
                                             date={this.state.matchDate}
                                             placeholder=' '
@@ -152,7 +156,7 @@ class NewMatchView extends Component {
                                                     borderLeftWidth: 0,
                                                     borderRightWidth: 0,
                                                     borderColor: '#8b8b83',
-                                                    padding:0
+                                                    padding: 0
                                                 },
                                                 dateTouchBody: {
                                                     padding: 0,
@@ -163,7 +167,7 @@ class NewMatchView extends Component {
                                                 this.setState({matchDate: matchDate})
                                             }}/>
                                 <Text style={styles.text}>起</Text>
-                                <DatePicker style={[styles.datePicker, {marginRight:8}]}
+                                <DatePicker style={[styles.datePicker, {marginRight: 8}]}
                                             mode='time'
                                             date={this.state.startTime}
                                             placeholder=' '
@@ -179,7 +183,7 @@ class NewMatchView extends Component {
                                                     borderLeftWidth: 0,
                                                     borderRightWidth: 0,
                                                     borderColor: '#8b8b83',
-                                                    padding:0
+                                                    padding: 0
                                                 },
                                                 dateTouchBody: {
                                                     padding: 0,
@@ -190,7 +194,7 @@ class NewMatchView extends Component {
                                                 this.setState({startTime: startTime})
                                             }}/>
                                 <Text style={styles.text}>止</Text>
-                                <DatePicker style={[styles.datePicker, {marginLeft:0}]}
+                                <DatePicker style={[styles.datePicker, {marginLeft: 0}]}
                                             mode='time'
                                             date={this.state.endTime}
                                             placeholder=' '
@@ -206,7 +210,7 @@ class NewMatchView extends Component {
                                                     borderLeftWidth: 0,
                                                     borderRightWidth: 0,
                                                     borderColor: '#8b8b83',
-                                                    padding:0
+                                                    padding: 0
                                                 },
                                                 dateTouchBody: {
                                                     padding: 0,
@@ -225,8 +229,8 @@ class NewMatchView extends Component {
                                                    dropdownStyle={styles.dropdownStyle}
                                                    dropdownTextStyle={styles.dropdownTextStyle}
                                                    defaultValue='请选择比赛类型'
-                                                   options={matchTypes}
-                                                   onSelect={(index) => this.setState({type: matchTypes[index]})}/>
+                                                   options={Object.values(matchTypeMapping)}
+                                                   onSelect={(index) => this.setState({type: Object.keys(matchTypeMapping)[index]})}/>
                                 </View>
                             </View>
                             <View style={styles.itemLine}>
@@ -299,7 +303,7 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        marginRight:8,
+        marginRight: 8,
         fontSize: 15,
     },
 
@@ -334,7 +338,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 12,
         color: '#595959',
-        padding:0,
+        padding: 0,
     },
 
     description: {

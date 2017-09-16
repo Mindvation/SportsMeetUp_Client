@@ -148,6 +148,7 @@ export default class MyMatch extends Component {
                         enableEmptySections={true}
                         automaticallyAdjustContentInserts={false}
                         showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
                         refreshControl={
                             <RefreshControl
                                 refreshing={isRefreshing}

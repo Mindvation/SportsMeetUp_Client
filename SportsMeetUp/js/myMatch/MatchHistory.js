@@ -172,6 +172,7 @@ export default class MatchHistory extends Component {
                         enableEmptySections={true}
                         automaticallyAdjustContentInserts={false}
                         showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
                         refreshControl={
                             <RefreshControl
                                 refreshing={isRefreshing}

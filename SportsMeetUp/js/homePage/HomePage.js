@@ -395,7 +395,7 @@ class HomePage extends Component {
                             <Text style={styles.buttonText}>发起比赛</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button}
-                                          disabled={false}
+                                          disabled={!this.state.gameInfoEnabled}
                                           onPress={() => {
                                               this._onPressGameInfo(this.state.selectedPlayground);
                                           }}>
@@ -423,7 +423,8 @@ class HomePage extends Component {
                 <NewFieldPage ref='newField' visible={true} location={this.centerLocation}
                               commitCallback={(data) => this._submitNewField(data)}/>
                 {this.renderFieldModal()}
-                <NewMatchView ref='newMatchView' newMatchCallback={(data) => this._submitNewMatch(data)}/>
+                <NewMatchView ref='newMatchView' field={this.state.selectedPlayground}
+                              newMatchCallback={(data) => this._submitNewMatch(data)}/>
             </View>
         );
     }

@@ -44,7 +44,7 @@ export default class FieldInfo extends Component {
     }
 
     render() {
-        const {field, rowId} = this.props;
+        const {field, rowIdm} = this.props;
         /* const test = {
              "fieldId": 2247,
              "creatorId": null,
@@ -64,8 +64,6 @@ export default class FieldInfo extends Component {
              "distance": 4.84
          }*/
 
-         console.log(this.props);
-
         const icon = field.picsOfField ? {uri: field.picsOfField.split(",")[0]} : '';
         return ( <View>
                 <View style={styles.borderLine} key={rowId}>
@@ -84,7 +82,6 @@ export default class FieldInfo extends Component {
                                         field.pricePerHour ? <Text
                                             style={[styles.fieldType, {marginLeft: 15}]}>{field.pricePerHour}/小时</Text> : null
                                     }
-
                                 </View>
                                 {
                                     field.address ?
@@ -120,7 +117,7 @@ export default class FieldInfo extends Component {
                         </View>
                     </View>
                 </View>
-                <NewMatchView ref='newMatchView' fieldId={field.fieldId}/>
+                <NewMatchView ref='newMatchView' field={field}/>
                 <ShareMatch
                     closeHandle={() => {
                         this.setState({

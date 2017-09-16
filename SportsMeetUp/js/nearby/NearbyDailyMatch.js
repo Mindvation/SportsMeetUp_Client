@@ -57,10 +57,9 @@ export default class NearbyDailyMatch extends Component {
                 alert("定位失败，请检查手机设置");
                 return;
             }
+            this.location = globalUserInfo.userLocation;
             this.setState({
-                isRefreshing: true,
-                latitude: globalUserInfo.userLocation.latitude,
-                longitude: globalUserInfo.userLocation.longitude,
+                isRefreshing: true
             });
             this.getNearbyMatchesByPosition(action);
 
@@ -84,8 +83,8 @@ export default class NearbyDailyMatch extends Component {
         const options = {
             "url": '8086/sports-meetup-papi/matches/getNearbyMatches',
             "params": {
-                "longitude": this.state.longitude,
-                "latitude": this.state.latitude,
+                "longitude": this.location.longitude,
+                "latitude": this.location.latitude,
                 "filter": this.state.filter.length > 0 ? this.state.filter.join(",") : null,
                 "pageAndSize": page + "," + pageSize
             }
@@ -255,6 +254,7 @@ export default class NearbyDailyMatch extends Component {
                         enableEmptySections={true}
                         automaticallyAdjustContentInserts={false}
                         showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
                         refreshControl={
                             <RefreshControl
                                 refreshing={isRefreshing}

@@ -159,6 +159,7 @@ export default class MyPublication extends Component {
                         enableEmptySections={true}
                         automaticallyAdjustContentInserts={false}
                         showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
                         refreshControl={
                             <RefreshControl
                                 refreshing={isRefreshing}
