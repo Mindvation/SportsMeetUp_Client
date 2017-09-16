@@ -76,14 +76,15 @@ export default class ModifyInfo extends Component {
     }
 
     getCityInfo() {
-        if (!globalUserInfo.location.id) {
-            Util.getPosition(this._getCityInfoByCoord)
+        if (!globalUserInfo.location.id && globalUserInfo.userLocation) {
+            this._getCityInfoByCoord(globalUserInfo.userLocation)
         }
     }
 
     _getCityInfoByCoord = (position) => {
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
+        let latitude = position.latitude;
+        let longitude = position.longitude;
+        if (!longitude || !latitude) return;
         const options = {
             "url": 'http://restapi.amap.com/v3/geocode/regeo?key=e71c5eb8c026dda36e7b8b8e4b0cbf57&' +
             'location=' + longitude + ',' + latitude + '&poitype=&radius=&extensions=base&batch=false&roadlevel=1'

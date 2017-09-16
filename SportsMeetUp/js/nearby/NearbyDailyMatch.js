@@ -161,6 +161,7 @@ export default class NearbyDailyMatch extends Component {
         match.startTime = CommonUtil.dateFormat(CommonUtil.parseDate(match.startTime), "hh:mm:ss");
         match.endTime = CommonUtil.dateFormat(CommonUtil.parseDate(match.endTime), "hh:mm:ss");
         match.icon = match.createdUserInfo && match.createdUserInfo.icon ? {uri: match.createdUserInfo.icon} : '';
+        match.name = match.createdUserInfo && match.createdUserInfo.name ? match.createdUserInfo.name : '未知';
         return match;
     }
 
@@ -281,7 +282,11 @@ export default class NearbyDailyMatch extends Component {
                                 filter: value,
                                 filterVisible: false
                             });
-                            this.getNearbyMatches('fresh');
+                            let timer = setTimeout(() => {
+                                this.getNearbyMatches('fresh');
+                                timer && clearTimeout(timer);
+                            }, 0);
+
                         }}/>
             </View>
         );

@@ -36,7 +36,7 @@ import Toast, {DURATION} from 'react-native-easy-toast'
 import CommonUtil from '../util/CommonUtil'
 import Overlay from '../common/Overlay'
 import FetchUtil from '../util/FetchUtil'
-
+import {sportTypeMapping} from '../data/Mapping';
 
 const {width, height} = Dimensions.get('window');
 
@@ -45,34 +45,35 @@ const fieldTypeValues = ['football', 'basketball', 'badminton', 'billiards', 'bo
 
 class NewFieldPage extends Component {
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.imageArray = new Array(3);
+        this.imageArray = new Array(3);
 
-    this.state = {
-      visible: false,
-      address: '',
-      fieldType: '',
-      adminTel: '',
-      description: '',
-      image1: null,
-      image2: null,
-      image3: null,
-      ftWidth: 0,
-      overlayVisible: false,
-    };
-  }
-
-  componentDidMount() {}
-
-  _visibleModel(visible) {
-    if (visible == this.state.visible) {
-      return;
+        this.state = {
+            visible: false,
+            address: '',
+            fieldType: '',
+            adminTel: '',
+            description: '',
+            image1: null,
+            image2: null,
+            image3: null,
+            ftWidth: 0,
+            overlayVisible: false,
+        };
     }
-    this.state.visible = visible;
-    this.setState({visible:visible})
-  }
+
+    componentDidMount() {
+    }
+
+    _visibleModel(visible) {
+        if (visible == this.state.visible) {
+            return;
+        }
+        this.state.visible = visible;
+        this.setState({visible: visible})
+    }
 
     _handleSubmitClick() {
         if (CommonUtil.isEmpty(this.state.address)) {
@@ -99,7 +100,7 @@ class NewFieldPage extends Component {
     }
 
     _onSelected(index) {
-        this.setState({fieldType: fieldTypeValues[index]})
+        this.setState({fieldType: Object.keys(sportTypeMapping)[index]})
     }
 
     _pickImages(postion) {
@@ -132,237 +133,276 @@ class NewFieldPage extends Component {
         });
     }
 
-  _uploadImages() {
-    // show loading 
-    this.setState({overlayVisible: true});
-    console.log(this.props.location);
+    _uploadImages() {
+        // show loading
+        this.setState({overlayVisible: true});
+        console.log(this.props.location);
 
 
-    let filesToUpload = new Array();
-    if (this.imageArray[0]) {filesToUpload.push(this.imageArray[0])};
-    if (this.imageArray[1]) {filesToUpload.push(this.imageArray[1])};
-    if (this.imageArray[2]) {filesToUpload.push(this.imageArray[2])};
+        let filesToUpload = new Array();
+        if (this.imageArray[0]) {
+            filesToUpload.push(this.imageArray[0])
+        }
+        ;
+        if (this.imageArray[1]) {
+            filesToUpload.push(this.imageArray[1])
+        }
+        ;
+        if (this.imageArray[2]) {
+            filesToUpload.push(this.imageArray[2])
+        }
+        ;
 
-    const options = {
-      "url": '8084/sports-meetup-papi/sportfields/uploadBase64',
-      "params": {
-        uploadFiles: filesToUpload
-      }
+        const options = {
+            "url": '8084/sports-meetup-papi/sportfields/uploadBase64',
+            "params": {
+                uploadFiles: filesToUpload
+            }
+        };
+
+        FetchUtil.post(options).then((responseJson) => {
+            console.log(responseJson);
+            let urls = '';
+            /*for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
+                urls += responseJson.responseBody[i]
+                if (i != 0) {
+                    urls += "&"
+                }
+            }*/
+
+            if (responseJson.responseBody && responseJson.responseBody.length) {
+                urls = responseJson.responseBody.join(",")
+            }
+
+            const options2 = {
+                "url": '8084/sports-meetup-papi/sportfields/addSportField',
+                "params": {
+                    creatorId: globalUserInfo.userId,
+                    address: this.state.address,
+                    fieldType: this.state.fieldType,
+                    adminPhone: this.state.adminTel,
+                    fieldDetail: this.state.description ? this.state.description : '',
+                    longitude: this.props.location.longitude,
+                    latitude: this.props.location.latitude,
+                    picsOfField: urls,
+                }
+            }
+            // options2.params.picsOfField = urls;
+
+            return FetchUtil.post(options2)
+                .then((result) => {
+                    this.setState({
+                        overlayVisible: false
+                    });
+                    this.refs.toast.show('添加成功');
+                    this._visibleModel(false);
+                });
+        })
+            .catch((error) => {
+                this.refs.toast.show('添加失败，请重试');
+                this.setState({overlayVisible: false});
+            });
+
+
+        //     fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/uploadBase64', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             uploadFiles: filesToUpload
+        //         })
+        //     })
+        //         .then((response) => response.json())
+        //         .then((responseJson) => {
+        //             console.log(responseJson);
+        //             if (responseJson.responseCode === '000') {
+        //                 let urls = '';
+        //                 for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
+        //                     urls += responseJson.responseBody[i]
+        //                     if (i != 0) {
+        //                         urls += "&"
+        //                     }
+        //                 }
+        //                 console.log(urls);
+
+        //       return fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/addSportField', {
+        //         method: 'POST',
+        //         headers: {
+        //           'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //           creatorId: 1000,
+        //           fieldLocation: this.state.address,
+        //           fieldType: this.state.fieldType,
+        //           adminPhone: this.state.adminTel,
+        //           fieldDetail: this.state.description ? this.state.description : '',
+        //           longitude: this.props.location.longitude,
+        //           latitude: this.props.location.latitude,
+        //           picsOfField: urls,
+        //         })
+        //       });
+        //     } else {
+        //       this.refs.toast.show('上传图片失败，请重试');
+        //       this.setState({overlayVisible: false});
+        //     }
+        //  })
+        // .then((response2) => response2.json())
+        // .then((result) => {
+        //   console.log(result);
+        //   if (result.responseCode != '000') {
+        //     this.refs.toast.show('提交数据失败，请重试');
+        //   } else {
+        //     this.refs.toast.show('添加成功');
+        //     this._visibleModel(false);
+        //   }
+        //   this.setState({overlayVisible: false});
+        // })
+        // .catch((error) => {
+        //     console.error(error);
+        //     this.setState({overlayVisible: false});
+        // });
+    }
+
+    _onClose = () => {
+        // 关闭界面时清楚数据
+        this.imageArray = new Array();
+        this.setState({
+            address: '',
+            fieldType: '',
+            adminTel: '',
+            description: '',
+        });
     };
 
-    FetchUtil.post(options).then((responseJson) => {
-      console.log(responseJson);
-      let urls = '';
-      for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
-        urls += responseJson.responseBody[i]
-        if (i != 0) {
-          urls += "&"
-        }
-      }
-
-      const options2 = {
-        "url": '8084/sports-meetup-papi/sportfields/addSportField',
-        "params": {
-          creatorId: 1000,
-          address: this.state.address,
-          fieldType: this.state.fieldType,
-          adminPhone: this.state.adminTel,
-          fieldDetail: this.state.description ? this.state.description : '',
-          longitude: this.props.location.longitude,
-          latitude: this.props.location.latitude,
-          picsOfField: urls,
-        }
-      }
-      // options2.params.picsOfField = urls;
-
-      return FetchUtil.post(options2)
-        .then((result) => {
-          this.setState({
-            overlayVisible: false
-          });
-          this.refs.toast.show('添加成功');
-          this._visibleModel(false);
-        });
-    })
-    .catch((error) => {
-        this.refs.toast.show('添加失败，请重试');
-        this.setState({overlayVisible: false});
-    });
-
-
-    //     fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/uploadBase64', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             uploadFiles: filesToUpload
-    //         })
-    //     })
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //             console.log(responseJson);
-    //             if (responseJson.responseCode === '000') {
-    //                 let urls = '';
-    //                 for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
-    //                     urls += responseJson.responseBody[i]
-    //                     if (i != 0) {
-    //                         urls += "&"
-    //                     }
-    //                 }
-    //                 console.log(urls);
-
-    //       return fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/addSportField', {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //           creatorId: 1000,
-    //           fieldLocation: this.state.address,
-    //           fieldType: this.state.fieldType,
-    //           adminPhone: this.state.adminTel,
-    //           fieldDetail: this.state.description ? this.state.description : '',
-    //           longitude: this.props.location.longitude,
-    //           latitude: this.props.location.latitude,
-    //           picsOfField: urls,
-    //         })
-    //       });
-    //     } else {
-    //       this.refs.toast.show('上传图片失败，请重试');
-    //       this.setState({overlayVisible: false});
-    //     }
-    //  })
-    // .then((response2) => response2.json())
-    // .then((result) => {
-    //   console.log(result);
-    //   if (result.responseCode != '000') {
-    //     this.refs.toast.show('提交数据失败，请重试');
-    //   } else {
-    //     this.refs.toast.show('添加成功');
-    //     this._visibleModel(false);
-    //   }
-    //   this.setState({overlayVisible: false});
-    // })
-    // .catch((error) => {
-    //     console.error(error);
-    //     this.setState({overlayVisible: false});
-    // });
-  }
-
-  _onClose = () => {
-      // 关闭界面时清楚数据
-      this.imageArray = new Array();
-      this.setState({
-        address: '',
-        fieldType: '',
-        adminTel: '',
-        description: '',
-      });
-  };
-
-  render() {
-    let buttonColor = Platform.select({ios: '#ffffff', android:'#df3939'});
-    return (
-      <Modal
-          ref='modal'
-          animationType={"fade"}
-          transparent={true}
-          visible={this.state.visible}
-          onRequestClose={this._onClose}
-          >
-          <TouchableOpacity style={{flex:1}} activeOpacity ={1} onPress={() => console.log('click outside')}>
-            <View style={styles.modalBackground} onPress={() => {}}>
-              <View style={styles.modalBox}>
-                <TouchableOpacity style={{alignSelf:'flex-end', marginRight:14, marginTop:14}} onPress={() => this._visibleModel(false)}> 
-                  <Image source={require('../../res/images/close.png')}/>
+    render() {
+        let buttonColor = Platform.select({ios: '#ffffff', android: '#df3939'});
+        return (
+            <Modal
+                ref='modal'
+                animationType={"fade"}
+                transparent={true}
+                visible={this.state.visible}
+                onRequestClose={this._onClose}
+            >
+                <TouchableOpacity style={{flex: 1}} activeOpacity={1} onPress={() => console.log('click outside')}>
+                    <View style={styles.modalBackground} onPress={() => {
+                    }}>
+                        <View style={styles.modalBox}>
+                            <TouchableOpacity style={{alignSelf: 'flex-end', marginRight: 14, marginTop: 14}}
+                                              onPress={() => this._visibleModel(false)}>
+                                <Image source={require('../../res/images/close.png')}/>
+                            </TouchableOpacity>
+                            <View style={{justifyContent: 'center', paddingHorizontal: 18, paddingTop: 9}}>
+                                <View style={styles.modalItemRow}>
+                                    <Text style={styles.text}>地点</Text>
+                                    <View style={{
+                                        flex: 1,
+                                        borderWidth: 0,
+                                        borderBottomWidth: 1,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                        borderColor: '#8b8b83'
+                                    }}>
+                                        <TextInput
+                                            style={styles.textInput}
+                                            underlineColorAndroid='transparent'
+                                            keyboardType='default'
+                                            placeholder='请输入地址或名称'
+                                            placeholderTextColor='#b5b2b2'
+                                            multiline={false}
+                                            onChangeText={(address) => this.setState({address})}
+                                            value={this.state.address}/>
+                                    </View>
+                                </View>
+                                <View style={styles.modalItemRow}>
+                                    <Text style={styles.text}>场地类型</Text>
+                                    <ModalDropdown style={styles.dropdownButton}
+                                                   textStyle={styles.dropdownText}
+                                                   dropdownStyle={[styles.dropdownStyle, {width: this.state.ftWidth}]}
+                                                   dropdownTextStyle={styles.dropdownTextStyle}
+                                                   defaultValue='请选择场地类型'
+                                                   options={Object.values(sportTypeMapping)}
+                                                   onSelect={(index) => this._onSelected(index)}
+                                                   onLayout={(event) => {
+                                                       var {width} = event.nativeEvent.layout;
+                                                       this.setState({ftWidth: width})
+                                                   }}/>
+                                </View>
+                                <View style={styles.modalItemRow}>
+                                    <Text style={styles.text}>电话号码</Text>
+                                    <View style={{
+                                        flex: 1,
+                                        borderWidth: 0,
+                                        borderBottomWidth: 1,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                        borderColor: '#8b8b83'
+                                    }}>
+                                        <TextInput style={styles.textInput}
+                                                   underlineColorAndroid='transparent'
+                                                   keyboardType='numeric'
+                                                   placeholder='清输入你的电话号码'
+                                                   maxLength={11}
+                                                   placeholderTextColor='#b5b2b2'
+                                                   onChangeText={(adminTel) => this.setState({adminTel})}
+                                                   value={this.state.adminTel}/>
+                                    </View>
+                                </View>
+                                <Text style={styles.text}>详细信息</Text>
+                                <TextInput
+                                    style={[styles.textInput, {
+                                        flex: 0,
+                                        borderRadius: 4,
+                                        borderWidth: 1,
+                                        marginTop: 8,
+                                        marginBottom: 10,
+                                        padding: 6,
+                                        textAlignVertical: 'top'
+                                    }]}
+                                    multiline={true}
+                                    numberOfLines={3}
+                                    underlineColorAndroid="transparent"
+                                    placeholder='请添加场地描述'
+                                    placeholderTextColor='#b5b2b2'
+                                    onChangeText={(description) => this.setState({description})}
+                                    value={this.state.description}/>
+                                <Text style={styles.text}>添加图片</Text>
+                                <View style={styles.imageContainer}>
+                                    <TouchableOpacity onPress={() => this._pickImages(1)}>
+                                        <Image style={styles.image}
+                                               resizeMode='cover'
+                                               source={this.state.image1 ? this.state.image1 : require('../../res/images/add_pic.png')}/>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this._pickImages(2)}>
+                                        <Image style={styles.image}
+                                               resizeMode='cover'
+                                               source={this.state.image2 ? this.state.image2 : require('../../res/images/add_pic.png')}/>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this._pickImages(3)}>
+                                        <Image style={styles.image}
+                                               resizeMode='cover'
+                                               source={this.state.image3 ? this.state.image3 : require('../../res/images/add_pic.png')}/>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <Button style={styles.button}
+                                    title='提交'
+                                    color="#df3939"
+                                    onPress={() => this._handleSubmitClick()}/>
+                        </View>
+                        <Toast ref='toast'/>
+                    </View>
                 </TouchableOpacity>
-              	<View style={{justifyContent:'center', paddingHorizontal:18, paddingTop:9}}>
-				        <View style={styles.modalItemRow}>
-                  <Text style={styles.text}>地点</Text>
-                  <View style={{flex:1, borderWidth:0, borderBottomWidth:1, borderTopWidth:0, borderLeftWidth:0, borderRightWidth:0, borderColor:'#8b8b83'}}>
-                    <TextInput
-                    style={styles.textInput}
-                    underlineColorAndroid='transparent'
-                    keyboardType='default'
-                    placeholder='请输入地址或名称'
-                    placeholderTextColor='#b5b2b2'
-                    multiline={false}
-                    onChangeText={(address) => this.setState({address})}
-                    value={this.state.address}/>
-                  </View>
-                </View>
-                <View style={styles.modalItemRow}>
-                  <Text style={styles.text}>场地类型</Text>
-                  <ModalDropdown style={styles.dropdownButton}
-                  	textStyle={styles.dropdownText}
-                  	dropdownStyle={[styles.dropdownStyle, {width:this.state.ftWidth}]}
-                  	dropdownTextStyle={styles.dropdownTextStyle}
-                  	defaultValue='请选择场地类型'
-                  	options={fieldTyleLabels}
-                  	onSelect={(index) => this._onSelected(index)}
-                    onLayout={(event) => {
-                              var {width} = event.nativeEvent.layout;
-                              this.setState({ftWidth: width})
-                              }}/>
-                </View>
-                <View style={styles.modalItemRow}>
-                  <Text style={styles.text}>电话号码</Text>
-                  <View style={{flex:1, borderWidth:0, borderBottomWidth:1, borderTopWidth:0, borderLeftWidth:0, borderRightWidth:0, borderColor:'#8b8b83'}}>
-                    <TextInput style={styles.textInput}
-                    underlineColorAndroid='transparent'
-                    keyboardType='numeric'
-                    placeholder='清输入你的电话号码'
-                    maxLength={11}
-                    placeholderTextColor='#b5b2b2'
-                    onChangeText={(adminTel) => this.setState({adminTel})}
-                    value={this.state.adminTel}/>
-                  </View>
-                </View>
-                <Text style={styles.text}>详细信息</Text>
-                <TextInput 
-                  style={[styles.textInput, {flex:0, borderRadius:4, borderWidth:1, marginTop:8, marginBottom:10, padding:6, textAlignVertical:'top'}]}
-                  multiline={true}
-                  numberOfLines={3}
-                  underlineColorAndroid="transparent"
-                  placeholder='请添加场地描述'
-                  placeholderTextColor='#b5b2b2'
-                  onChangeText={(description) => this.setState({description})}
-                  value={this.state.description}/>
-                <Text style={styles.text}>添加图片</Text>
-                <View style={styles.imageContainer}>
-                  <TouchableOpacity onPress={() => this._pickImages(1)}>
-                    <Image style={styles.image} 
-                      resizeMode='cover'
-                      source={this.state.image1 ? this.state.image1 : require('../../res/images/add_pic.png')}/>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => this._pickImages(2)}>
-                    <Image style={styles.image} 
-                      resizeMode='cover'
-                      source={this.state.image2 ? this.state.image2 : require('../../res/images/add_pic.png')}/>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => this._pickImages(3)}>
-                    <Image style={styles.image} 
-                      resizeMode='cover'
-                      source={this.state.image3 ? this.state.image3 : require('../../res/images/add_pic.png')}/>
-                  </TouchableOpacity>
-                </View>
-              	</View>
-	            <Button style={styles.button} 
-                title='提交' 
-                color="#df3939" 
-                onPress={() => this._handleSubmitClick()}/>
-              </View>
-              <Toast ref='toast'/>
-            </View>
-          </TouchableOpacity>
-          <Overlay
-            allowClose={false}
-            modalVisible={this.state.overlayVisible}
-            />
-        </Modal>
-    );
-  }
+                <Overlay
+                    allowClose={false}
+                    modalVisible={this.state.overlayVisible}
+                />
+            </Modal>
+        );
+    }
 }
 
 const styles = StyleSheet.create({

@@ -56,7 +56,7 @@ export default class MatchHistory extends Component {
             })
         }
         const options = {
-            "url": '8086/sports-meetup-papi/matches/getOldApplyMatches',
+            "url": '8086/sports-meetup-papi/matches/getApplyMatches',
             "params": {
                 "userId": globalUserInfo.userId,
                 "pageAndSize": page + "," + pageSize,

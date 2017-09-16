@@ -48,7 +48,7 @@ export default class MyPublication extends Component {
             })
         }
         const options = {
-            "url": '8086/sports-meetup-papi/matches/getMyOldMatches',
+            "url": '8086/sports-meetup-papi/matches/getMyMatches',
             "params": {
                 "userId": globalUserInfo.userId,
                 "pageAndSize": page + "," + pageSize,

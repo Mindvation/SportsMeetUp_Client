@@ -10,12 +10,8 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity,
-    Dimensions,
-    ScrollView
+    TouchableOpacity
 } from 'react-native';
-
-const {width} = Dimensions.get('window');
 
 import ShareMatch from '../common/ShareMatch';
 import {sportTypeMapping} from '../data/Mapping';
@@ -44,7 +40,7 @@ export default class FieldInfo extends Component {
     }
 
     render() {
-        const {field, rowIdm} = this.props;
+        const {field, rowId} = this.props;
         /* const test = {
              "fieldId": 2247,
              "creatorId": null,
@@ -76,17 +72,18 @@ export default class FieldInfo extends Component {
                             <Image source={icon ? icon : require('../../res/images/field_default.png')}
                                    style={styles.fieldImg}/>
                             <View style={styles.otherInfoCont}>
-                                <Text style={styles.fieldName}>{field.fieldName}</Text>
+                                <Text
+                                    style={styles.fieldName}>{field.address + sportTypeMapping[field.fieldType] + "场"}</Text>
                                 <View style={styles.typeAndCost}>
                                     {
                                         field.pricePerHour ? <Text
                                             style={[styles.fieldType, {marginLeft: 15}]}>{field.pricePerHour}/小时</Text> : null
                                     }
                                 </View>
-                                {
+                                {/*{
                                     field.address ?
                                         <Text style={styles.fieldLocation}>{"地址:" + field.address}</Text> : null
-                                }
+                                }*/}
                                 {
                                     field.adminPhone ?
                                         <Text style={styles.fieldLocation}>{"电话:" + field.adminPhone}</Text> : null

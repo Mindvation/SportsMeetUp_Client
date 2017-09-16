@@ -223,7 +223,10 @@ export default class NearbyField extends Component {
                                 filter: value,
                                 filterVisible: false
                             });
-                            this.getNearbyFields('fresh');
+                            let timer = setTimeout(() => {
+                                this.getNearbyFields('fresh');
+                                timer && clearTimeout(timer);
+                            }, 0)
                         }}/>
             </View>
         );
