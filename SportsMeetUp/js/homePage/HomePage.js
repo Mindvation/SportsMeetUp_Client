@@ -94,7 +94,19 @@ class HomePage extends Component {
             return <Image source={require('../../res/images/football.png')}/>;
         } else if (fieldType === '080104') {
             return <Image source={require('../../res/images/basketball.png')}/>;
-        } else {
+        }else if (fieldType === '080102') {
+            return <Image source={require('../../res/images/bowling.png')}/>;
+        } else if (fieldType === "080103") {
+            return <Image source={require('../../res/images/tennis.png')}/>;
+        } else if (fieldType === "080112") {
+            return <Image source={require('../../res/images/tabletennis.png')}/>;
+        } else if (fieldType === "080113") {
+            return <Image source={require('../../res/images/billiards.png')}/>;
+        } else if (fieldType === "080118") {
+            return <Image source={require('../../res/images/badminton.png')}/>;
+        } else if (fieldType === "080201") {
+            return <Image source={require('../../res/images/football.png')}/>;
+        }else {
             return <Image source={require('../../res/images/football.png')}/>;
         }
     }
