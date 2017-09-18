@@ -28,9 +28,7 @@ const {
 } = Dimensions.get('window');
 const dismissKeyboard = require('dismissKeyboard');
 
-const matchTypeMappingData = [
-    {key: '', section: true, label: '请选择比赛类型'}
-];
+let matchTypeMappingData = [];
 
 class NewMatchView extends Component {
     constructor(props) {
@@ -49,9 +47,13 @@ class NewMatchView extends Component {
     }
 
     componentDidMount() {
+        let tempArray = [
+            {key: '', section: true, label: '请选择比赛类型'}
+        ];
         Object.keys(matchTypeMapping).map((mapKey) => {
-            matchTypeMappingData.push({key: mapKey, label: matchTypeMapping[mapKey]})
+            tempArray.push({key: mapKey, label: matchTypeMapping[mapKey]})
         });
+        Object.assign(matchTypeMappingData, tempArray);
     }
 
     visible(visible) {
@@ -262,7 +264,7 @@ class NewMatchView extends Component {
                                         style={{
                                             fontSize: 14
                                         }}>
-                                        {this.state.type ? matchTypeMapping[this.state.type] : "请选择场地类型"}
+                                        {this.state.type ? matchTypeMapping[this.state.type] : "请选择比赛类型"}
                                     </Text>
                                 </ModalPicker>
                             </View>

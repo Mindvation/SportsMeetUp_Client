@@ -52,9 +52,7 @@ const gender_props = [
     {label: '女', value: "F"}
 ];
 
-const freeTimeMappingData = [
-    {key: '', section: true, label: '请选择空闲时间'}
-];
+let freeTimeMappingData = [];
 
 export default class ModifyInfo extends Component {
     constructor(props) {
@@ -73,9 +71,11 @@ export default class ModifyInfo extends Component {
     }
 
     componentDidMount() {
+        let tempArray = [{key: '', section: true, label: '请选择空闲时间'}];
         Object.keys(freeTimeMapping).map((mapKey) => {
-            freeTimeMappingData.push({key: mapKey, label: freeTimeMapping[mapKey]})
+            tempArray.push({key: mapKey, label: freeTimeMapping[mapKey]})
         });
+        Object.assign(freeTimeMappingData, tempArray);
         let timer = setTimeout(() => {
             this.getCityInfo();
             timer && clearTimeout(timer);

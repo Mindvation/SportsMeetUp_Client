@@ -40,9 +40,7 @@ import {sportTypeMapping} from '../data/Mapping';
 
 const {width, height} = Dimensions.get('window');
 
-const sportTypeMappingData = [
-    {key: '', section: true, label: '请选择场地类型'}
-];
+let sportTypeMappingData = [];
 
 class NewFieldPage extends Component {
 
@@ -66,9 +64,13 @@ class NewFieldPage extends Component {
     }
 
     componentDidMount() {
+        let tempArray = [
+            {key: '', section: true, label: '请选择场地类型'}
+        ];
         Object.keys(sportTypeMapping).map((mapKey) => {
-            sportTypeMappingData.push({key: mapKey, label: sportTypeMapping[mapKey]})
+            tempArray.push({key: mapKey, label: sportTypeMapping[mapKey]})
         });
+        Object.assign(sportTypeMappingData, tempArray);
     }
 
     _visibleModel(visible) {
