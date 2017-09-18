@@ -60,6 +60,7 @@ class NewMatchView extends Component {
         this.setState({
             modalVisible: visible,
         });
+        this.onModalClose();
     }
 
     onClickSubmit() {

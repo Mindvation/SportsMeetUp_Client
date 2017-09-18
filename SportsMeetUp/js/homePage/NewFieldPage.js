@@ -79,6 +79,7 @@ class NewFieldPage extends Component {
         }
         this.state.visible = visible;
         this.setState({visible: visible})
+        this._onClose();
     }
 
     _handleSubmitClick() {
@@ -213,6 +214,9 @@ class NewFieldPage extends Component {
             fieldType: '',
             adminTel: '',
             description: '',
+            image1: null,
+            image2: null,
+            image3: null
         });
     };
 
