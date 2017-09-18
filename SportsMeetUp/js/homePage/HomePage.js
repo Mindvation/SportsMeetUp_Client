@@ -340,7 +340,7 @@ class HomePage extends Component {
 
     renderFieldModal() {
         if (this.state.selectedPlayground) return <FieldInfoView ref='fieldInfoView'
-                                                                 fieldInfo={this.state.selectedPlayground}/>;
+            fieldInfo={this.state.selectedPlayground}/>;
     }
 
     render() {
@@ -351,7 +351,7 @@ class HomePage extends Component {
                         style={styles.map}
                         ref='map'
                         zoomLevel={16}
-                        locationEnabled={true}
+                        locationEnabled={false}
                         showsLocationButton={true}
                         onLocation={({nativeEvent}) => this._onLocation(nativeEvent)}
                         showsTraffic={false}
@@ -364,14 +364,12 @@ class HomePage extends Component {
                     >
                         {this.renderMarker()}
                     </MapView>
-                    <Image style={{position: 'absolute', alignSelf: 'center'}}
-                           source={require('../../res/images/center.png')}/>
+                    <Image style={{position: 'absolute', alignSelf: 'center'}} source={require('../../res/images/center.png')}/>
                 </View>
                 <View style={styles.info}>
                     <View style={{flexDirection: 'row', alignItems: 'center', padding: 20}}>
                         <Image source={require('../../res/images/location.png')}/>
-                        <Text style={styles.fieldTitle}
-                              numberOfLines={1}>{this.state.selectedPlayground ? this.state.selectedPlayground.address : '正在获取位置'}</Text>
+                        <Text style={styles.fieldTitle} numberOfLines={1}>{this.state.selectedPlayground ? this.state.selectedPlayground.address : '正在获取位置'}</Text>
                     </View>
                     <View style={styles.line}/>
                     <View style={styles.buttonContainer}>
@@ -394,8 +392,7 @@ class HomePage extends Component {
                                 source={this.state.createGameEnabled ? require('../../res/images/create_game_normal.png') : require('../../res/images/create_game_diable.png')}/>
                             <Text style={styles.buttonText}>发起比赛</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}
-                                          disabled={!this.state.gameInfoEnabled}
+                        <TouchableOpacity style={styles.button} disabled={!this.state.gameInfoEnabled}
                                           onPress={() => {
                                               this._onPressGameInfo(this.state.selectedPlayground);
                                           }}>

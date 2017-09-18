@@ -7,7 +7,6 @@ import {
     Text,
     Button,
     Modal,
-    TouchableHighlight,
     TouchableOpacity,
     TextInput,
     Dimensions,
@@ -18,7 +17,7 @@ import {
 import ModalDropdown from 'react-native-modal-dropdown';
 import ImagePicker from 'react-native-image-picker';
 
-var options = {
+const options = {
     title: '选择图片',
     takePhotoButtonTitle: '拍照',
     chooseFromLibraryButtonTitle: '相册',
@@ -68,7 +67,7 @@ class NewFieldPage extends Component {
     }
 
     _visibleModel(visible) {
-        if (visible == this.state.visible) {
+        if (visible === this.state.visible) {
             return;
         }
         this.state.visible = visible;
@@ -118,14 +117,13 @@ class NewFieldPage extends Component {
                     name: response.fileName,
                     data: response.data
                 };
-                if (postion == 1) {
+                if (postion === 1) {
                     this.setState({image1: source});
-                    this.testData = response.data;
                     this.imageArray[0] = uploadData;
-                } else if (postion == 2) {
+                } else if (postion === 2) {
                     this.setState({image2: source});
                     this.imageArray[1] = uploadData;
-                } else if (postion == 3) {
+                } else if (postion === 3) {
                     this.setState({image3: source});
                     this.imageArray[2] = uploadData;
                 }
@@ -138,20 +136,16 @@ class NewFieldPage extends Component {
         this.setState({overlayVisible: true});
         console.log(this.props.location);
 
-
-        let filesToUpload = new Array();
+        let filesToUpload = [];
         if (this.imageArray[0]) {
             filesToUpload.push(this.imageArray[0])
         }
-        ;
         if (this.imageArray[1]) {
             filesToUpload.push(this.imageArray[1])
         }
-        ;
         if (this.imageArray[2]) {
             filesToUpload.push(this.imageArray[2])
         }
-        ;
 
         const options = {
             "url": '8084/sports-meetup-papi/sportfields/uploadBase64',
@@ -186,7 +180,7 @@ class NewFieldPage extends Component {
                     latitude: this.props.location.latitude,
                     picsOfField: urls,
                 }
-            }
+            };
             // options2.params.picsOfField = urls;
 
             return FetchUtil.post(options2)
@@ -202,66 +196,6 @@ class NewFieldPage extends Component {
                 this.refs.toast.show('添加失败，请重试');
                 this.setState({overlayVisible: false});
             });
-
-
-        //     fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/uploadBase64', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             uploadFiles: filesToUpload
-        //         })
-        //     })
-        //         .then((response) => response.json())
-        //         .then((responseJson) => {
-        //             console.log(responseJson);
-        //             if (responseJson.responseCode === '000') {
-        //                 let urls = '';
-        //                 for (var i = responseJson.responseBody.length - 1; i >= 0; i--) {
-        //                     urls += responseJson.responseBody[i]
-        //                     if (i != 0) {
-        //                         urls += "&"
-        //                     }
-        //                 }
-        //                 console.log(urls);
-
-        //       return fetch('http://192.168.0.102:8084/sports-meetup-papi/sportfields/addSportField', {
-        //         method: 'POST',
-        //         headers: {
-        //           'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //           creatorId: 1000,
-        //           fieldLocation: this.state.address,
-        //           fieldType: this.state.fieldType,
-        //           adminPhone: this.state.adminTel,
-        //           fieldDetail: this.state.description ? this.state.description : '',
-        //           longitude: this.props.location.longitude,
-        //           latitude: this.props.location.latitude,
-        //           picsOfField: urls,
-        //         })
-        //       });
-        //     } else {
-        //       this.refs.toast.show('上传图片失败，请重试');
-        //       this.setState({overlayVisible: false});
-        //     }
-        //  })
-        // .then((response2) => response2.json())
-        // .then((result) => {
-        //   console.log(result);
-        //   if (result.responseCode != '000') {
-        //     this.refs.toast.show('提交数据失败，请重试');
-        //   } else {
-        //     this.refs.toast.show('添加成功');
-        //     this._visibleModel(false);
-        //   }
-        //   this.setState({overlayVisible: false});
-        // })
-        // .catch((error) => {
-        //     console.error(error);
-        //     this.setState({overlayVisible: false});
-        // });
     }
 
     _onClose = () => {
