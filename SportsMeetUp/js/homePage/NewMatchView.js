@@ -47,9 +47,7 @@ class NewMatchView extends Component {
     }
 
     componentDidMount() {
-        let tempArray = [
-            {key: '', section: true, label: '请选择比赛类型'}
-        ];
+        let tempArray = [];
         Object.keys(matchTypeMapping).map((mapKey) => {
             tempArray.push({key: mapKey, label: matchTypeMapping[mapKey]})
         });
@@ -260,6 +258,7 @@ class NewMatchView extends Component {
                                         this.setState({type: option.key})
                                     }}
                                     cancelText="取消"
+                                    title="请选择比赛类型"
                                 >
                                     <Text
                                         style={{

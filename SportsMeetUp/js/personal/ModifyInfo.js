@@ -71,7 +71,7 @@ export default class ModifyInfo extends Component {
     }
 
     componentDidMount() {
-        let tempArray = [{key: '', section: true, label: '请选择空闲时间'}];
+        let tempArray = [];
         Object.keys(freeTimeMapping).map((mapKey) => {
             tempArray.push({key: mapKey, label: freeTimeMapping[mapKey]})
         });
@@ -368,6 +368,7 @@ export default class ModifyInfo extends Component {
                                         this.setState({weekendFreeTime: option.key})
                                     }}
                                     cancelText="取消"
+                                    title="请选择空闲时间"
                                 >
                                     <Text
                                         style={{
@@ -387,6 +388,7 @@ export default class ModifyInfo extends Component {
                                         this.setState({weekFreeTime: option.key})
                                     }}
                                     cancelText="取消"
+                                    title="请选择空闲时间"
                                 >
                                     <Text
                                         style={{

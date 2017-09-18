@@ -64,9 +64,7 @@ class NewFieldPage extends Component {
     }
 
     componentDidMount() {
-        let tempArray = [
-            {key: '', section: true, label: '请选择场地类型'}
-        ];
+        let tempArray = [];
         Object.keys(sportTypeMapping).map((mapKey) => {
             tempArray.push({key: mapKey, label: sportTypeMapping[mapKey]})
         });
@@ -280,6 +278,7 @@ class NewFieldPage extends Component {
                                             this.setState({fieldType: option.key})
                                         }}
                                         cancelText="取消"
+                                        title="请选择场地类型"
                                     >
                                         <Text
                                             style={{

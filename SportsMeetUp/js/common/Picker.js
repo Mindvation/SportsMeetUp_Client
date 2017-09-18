@@ -21,7 +21,10 @@ const propTypes = {
     data: PropTypes.array,
     onChange: PropTypes.func,
     initValue: PropTypes.string,
+    title: PropTypes.string,
     style: View.propTypes.style,
+    titleStyle: View.propTypes.style,
+    titleTextStyle: View.propTypes.style,
     selectStyle: View.propTypes.style,
     optionStyle: View.propTypes.style,
     selectedOptionStyle: View.propTypes.style,
@@ -39,7 +42,10 @@ const defaultProps = {
     onChange: () => {
     },
     initValue: 'Select me!',
+    title: 'Please select',
     style: {},
+    titleStyle: {},
+    titleTextStyle: {},
     selectStyle: {},
     optionStyle: {},
     optionTextStyle: {},
@@ -55,7 +61,7 @@ const PADDING = 8;
 const BORDER_RADIUS = 5;
 const FONT_SIZE = 16;
 const HIGHLIGHT_COLOR = 'rgba(0,118,255,0.9)';
-const OPTION_CONTAINER_HEIGHT = 400;
+const OPTION_CONTAINER_HEIGHT = 350;
 
 export default class ModalPicker extends Component {
 
@@ -132,6 +138,9 @@ export default class ModalPicker extends Component {
 
         return (
             <View style={[styles.overlayStyle, this.props.overlayStyle]} key={'modalPicker' + (componentIndex++)}>
+                <View style={[styles.titleStyle, this.props.titleStyle]}>
+                    <Text style={[styles.titleTextStyle, this.props.titleTextStyle]}>{this.props.title}</Text>
+                </View>
                 <View style={styles.optionContainer}>
                     <ScrollView keyboardShouldPersistTaps="always">
                         <View style={{paddingHorizontal: 10}}>
@@ -194,18 +203,39 @@ const styles = StyleSheet.create({
     },
 
     optionContainer: {
-        borderRadius: BORDER_RADIUS,
+        borderBottomLeftRadius: BORDER_RADIUS,
+        borderBottomRightRadius: BORDER_RADIUS,
         width: width * 0.8,
         height: OPTION_CONTAINER_HEIGHT,
         backgroundColor: '#ffffff',
         left: width * 0.1,
-        top: (height - OPTION_CONTAINER_HEIGHT - 60) / 2
+        top: (height - OPTION_CONTAINER_HEIGHT - 110) / 2 + 1
     },
 
     cancelContainer: {
         left: width * 0.1,
         width: width * 0.8,
-        top: (height - OPTION_CONTAINER_HEIGHT - 60) / 2 + 10
+        top: (height - OPTION_CONTAINER_HEIGHT - 110) / 2 + 10
+    },
+
+    titleStyle: {
+        borderTopLeftRadius: BORDER_RADIUS,
+        borderTopRightRadius: BORDER_RADIUS,
+        left: width * 0.1,
+        width: width * 0.8,
+        height: 50,
+        backgroundColor: '#ffffff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomColor: '#000000',
+        borderBottomWidth: 1,
+        top: (height - OPTION_CONTAINER_HEIGHT - 110) / 2
+    },
+
+    titleTextStyle: {
+        textAlign: 'center',
+        color: '#000000',
+        fontSize: FONT_SIZE
     },
 
     selectStyle: {
