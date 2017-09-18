@@ -199,13 +199,13 @@ const styles = StyleSheet.create({
         height: OPTION_CONTAINER_HEIGHT,
         backgroundColor: '#ffffff',
         left: width * 0.1,
-        top: (height - OPTION_CONTAINER_HEIGHT) / 2
+        top: (height - OPTION_CONTAINER_HEIGHT - 60) / 2
     },
 
     cancelContainer: {
         left: width * 0.1,
         width: width * 0.8,
-        top: (height - OPTION_CONTAINER_HEIGHT) / 2 + 10
+        top: (height - OPTION_CONTAINER_HEIGHT - 60) / 2 + 10
     },
 
     selectStyle: {
