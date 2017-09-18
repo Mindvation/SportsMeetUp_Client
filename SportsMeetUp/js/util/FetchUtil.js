@@ -8,7 +8,7 @@ import {
 
 import ErrorMessage from '../../res/data/errorMessage.json';
 
-const gateWay = "http://112.74.45.247:";
+const gateWay = "http://192.168.0.103:";
 export default class FetchUitl {
     /*
      *  get请求

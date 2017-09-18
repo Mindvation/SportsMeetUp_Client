@@ -16,6 +16,7 @@ import {
 
 import ModalDropdown from 'react-native-modal-dropdown';
 import ImagePicker from 'react-native-image-picker';
+import ModalPicker from '../common/Picker';
 
 const options = {
     title: '选择图片',
@@ -39,8 +40,9 @@ import {sportTypeMapping} from '../data/Mapping';
 
 const {width, height} = Dimensions.get('window');
 
-const fieldTyleLabels = ['足球场', '篮球场', "羽毛球", '台球', '保龄球', '网球', '乒乓球', '排球'];
-const fieldTypeValues = ['football', 'basketball', 'badminton', 'billiards', 'bowling', 'tennis', 'tabletennis', 'volleyball'];
+const sportTypeMappingData = [
+    {key: '', section: true, label: '请选择场地类型'}
+];
 
 class NewFieldPage extends Component {
 
@@ -64,6 +66,9 @@ class NewFieldPage extends Component {
     }
 
     componentDidMount() {
+        Object.keys(sportTypeMapping).map((mapKey) => {
+            sportTypeMappingData.push({key: mapKey, label: sportTypeMapping[mapKey]})
+        });
     }
 
     _visibleModel(visible) {
@@ -86,7 +91,7 @@ class NewFieldPage extends Component {
         }
 
         if (CommonUtil.isEmpty(this.state.adminTel)) {
-            this.refs.toast.show('请输入管理员电话');
+            this.refs.toast.show('请输入场地电话');
             return;
         }
 
@@ -252,7 +257,7 @@ class NewFieldPage extends Component {
                                 </View>
                                 <View style={styles.modalItemRow}>
                                     <Text style={styles.text}>场地类型</Text>
-                                    <ModalDropdown style={styles.dropdownButton}
+                                    {/*<ModalDropdown style={styles.dropdownButton}
                                                    textStyle={styles.dropdownText}
                                                    dropdownStyle={[styles.dropdownStyle, {width: this.state.ftWidth}]}
                                                    dropdownTextStyle={styles.dropdownTextStyle}
@@ -262,10 +267,24 @@ class NewFieldPage extends Component {
                                                    onLayout={(event) => {
                                                        var {width} = event.nativeEvent.layout;
                                                        this.setState({ftWidth: width})
-                                                   }}/>
+                                                   }}/>*/}
+                                    <ModalPicker
+                                        data={sportTypeMappingData}
+                                        onChange={(option) => {
+                                            this.setState({fieldType: option.key})
+                                        }}
+                                        cancelText="取消"
+                                    >
+                                        <Text
+                                            style={{
+                                                fontSize: 14
+                                            }}>
+                                            {this.state.fieldType ? sportTypeMapping[this.state.fieldType] : "请选择场地类型"}
+                                        </Text>
+                                    </ModalPicker>
                                 </View>
                                 <View style={styles.modalItemRow}>
-                                    <Text style={styles.text}>电话号码</Text>
+                                    <Text style={styles.text}>场地电话</Text>
                                     <View style={{
                                         flex: 1,
                                         borderWidth: 0,
@@ -278,7 +297,7 @@ class NewFieldPage extends Component {
                                         <TextInput style={styles.textInput}
                                                    underlineColorAndroid='transparent'
                                                    keyboardType='numeric'
-                                                   placeholder='清输入你的电话号码'
+                                                   placeholder='请输入场地电话'
                                                    maxLength={11}
                                                    placeholderTextColor='#b5b2b2'
                                                    onChangeText={(adminTel) => this.setState({adminTel})}

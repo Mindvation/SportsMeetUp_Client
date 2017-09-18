@@ -19,6 +19,7 @@ import Setting from './Setting';
 import ModifyInfo from './ModifyInfo';
 import AddTag from './AddTag';
 import MyInterest from "./MyInterest";
+import {freeTimeMapping} from '../data/Mapping';
 
 const {width} = Dimensions.get('window');
 
@@ -113,8 +114,8 @@ export default class PersonalCenter extends Component {
                             <View style={styles.nameInfo}>
                                 <Text style={styles.nameText}>{this.state.name}</Text>
                                 <Text
-                                    style={styles.freeTimeText}>{'周末  ' + (this.state.weekendFreeTime ? this.state.weekendFreeTime : '未知')
-                                + '    周内  ' + (this.state.weekFreeTime ? this.state.weekFreeTime : '未知')}</Text>
+                                    style={styles.freeTimeText}>{'周末  ' + (this.state.weekendFreeTime ? freeTimeMapping[this.state.weekendFreeTime] : '未知')
+                                + '    周内  ' + (this.state.weekFreeTime ? freeTimeMapping[this.state.weekFreeTime] : '未知')}</Text>
                             </View>
                             <TouchableOpacity onPress={this.editPersonalInfo}>
                                 <View style={{

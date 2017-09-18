@@ -57,7 +57,7 @@ export default class MyMatch extends Component {
         };
         FetchUtil.get(options).then((res) => {
             let tempMatch = action === 'fresh' ? [] : this.state.matches;
-            if (res.responseBody && res.responseBody.length > 0) {
+            if (res.responseBody) {
                 tempMatch = tempMatch.concat(res.responseBody);
                 console.info('Match Length === ' + tempMatch.length);
                 page++;

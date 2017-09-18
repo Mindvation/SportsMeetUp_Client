@@ -20,6 +20,7 @@ import Toast, {DURATION} from 'react-native-easy-toast'
 import CommonUtil from '../util/CommonUtil'
 import FetchUtil from '../util/FetchUtil'
 import {matchTypeMapping} from '../data/Mapping'
+import ModalPicker from '../common/Picker';
 
 const {
     width,
@@ -27,10 +28,9 @@ const {
 } = Dimensions.get('window');
 const dismissKeyboard = require('dismissKeyboard');
 
-const matchTypes = ['1v1', '3v3', "5v5", '8v8', '11v11'];
-const matchTypeValues = ['football', 'basketball', 'badminton', 'billiards', 'bowling', 'tennis', 'tabletennis', 'volleyball'];
-const memberNums = ['1v1', '2v2', '3v3', '4v4', '5v5', '6v7', '7v7', '8v8', '11v11'];
-const memberNumValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const matchTypeMappingData = [
+    {key: '', section: true, label: '请选择比赛类型'}
+];
 
 class NewMatchView extends Component {
     constructor(props) {
@@ -46,6 +46,12 @@ class NewMatchView extends Component {
             phone: '',
             description: '',
         };
+    }
+
+    componentDidMount() {
+        Object.keys(matchTypeMapping).map((mapKey) => {
+            matchTypeMappingData.push({key: mapKey, label: matchTypeMapping[mapKey]})
+        });
     }
 
     visible(visible) {
@@ -91,9 +97,9 @@ class NewMatchView extends Component {
         //     return;
         // }
 
-        console.log(this.state);
+        /*console.log(this.state);
         console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.startTime + ":00");
-        console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.endTime + ":00");
+        console.log(new Date().getFullYear() + "-" + this.state.matchDate + " " + this.state.endTime + ":00");*/
         let options = {
             "url": '8086/sports-meetup-papi/matches/initialMatch',
             "params": {
@@ -122,7 +128,7 @@ class NewMatchView extends Component {
     render() {
         let today = new Date();
         let endDay = new Date(new Date().setDate(new Date().getDate() + 10));
-        console.log(endDay);
+        //console.log(endDay);
         return (
             <Modal
                 visible={this.state.modalVisible}
@@ -223,7 +229,7 @@ class NewMatchView extends Component {
                             </View>
                             <View style={styles.itemLine}>
                                 <Text style={styles.text}>比赛类型</Text>
-                                <View style={styles.textInputBorder}>
+                                {/*<View style={styles.textInputBorder}>
                                     <ModalDropdown style={styles.dropdownButton}
                                                    textStyle={styles.dropdownText}
                                                    dropdownStyle={styles.dropdownStyle}
@@ -231,7 +237,22 @@ class NewMatchView extends Component {
                                                    defaultValue='请选择比赛类型'
                                                    options={Object.values(matchTypeMapping)}
                                                    onSelect={(index) => this.setState({type: Object.keys(matchTypeMapping)[index]})}/>
-                                </View>
+
+                                </View>*/}
+                                <ModalPicker
+                                    data={matchTypeMappingData}
+                                    onChange={(option) => {
+                                        this.setState({type: option.key})
+                                    }}
+                                    cancelText="取消"
+                                >
+                                    <Text
+                                        style={{
+                                            fontSize: 14
+                                        }}>
+                                        {this.state.type ? matchTypeMapping[this.state.type] : "请选择场地类型"}
+                                    </Text>
+                                </ModalPicker>
                             </View>
                             <View style={styles.itemLine}>
                                 <Text style={styles.text}>人数信息</Text>

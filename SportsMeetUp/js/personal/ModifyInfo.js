@@ -23,11 +23,11 @@ import Header from '../common/Header';
 import Radio from '../common/Radio';
 import Util from '../util/CommonUtil';
 import SimpleSelectCity from '../pickCity/SimpleSelectCity';
-import ModalDropdown from 'react-native-modal-dropdown';
 import FetchUtil from '../util/FetchUtil';
 import DATA_JSON from '../pickCity/city-list.json';
 import ImagePicker from 'react-native-image-picker';
 import {freeTimeMapping} from '../data/Mapping';
+import ModalPicker from '../common/Picker';
 
 //import Camera from '../common/Camera';
 const options = {
@@ -52,6 +52,10 @@ const gender_props = [
     {label: '女', value: "F"}
 ];
 
+const freeTimeMappingData = [
+    {key: '', section: true, label: '请选择空闲时间'}
+];
+
 export default class ModifyInfo extends Component {
     constructor(props) {
         super(props);
@@ -69,6 +73,9 @@ export default class ModifyInfo extends Component {
     }
 
     componentDidMount() {
+        Object.keys(freeTimeMapping).map((mapKey) => {
+            freeTimeMappingData.push({key: mapKey, label: freeTimeMapping[mapKey]})
+        });
         let timer = setTimeout(() => {
             this.getCityInfo();
             timer && clearTimeout(timer);
@@ -183,8 +190,8 @@ export default class ModifyInfo extends Component {
                 "name": this.state.name,
                 "gender": this.state.gender,
                 "icon": this.imageUrl,
-                "weekday": this._getKey(freeTimeMapping, this.state.weekFreeTime),
-                "weekend": this._getKey(freeTimeMapping, this.state.weekendFreeTime),
+                "weekday": this.state.weekFreeTime,
+                "weekend": this.state.weekendFreeTime,
                 "city": this.state.location.id
             }
         };
@@ -220,8 +227,8 @@ export default class ModifyInfo extends Component {
             "name": res.name,
             "gender": res.gender,
             "photo": res.icon ? {uri: res.icon} : '',
-            "weekFreeTime": freeTimeMapping[res.weekday],
-            "weekendFreeTime": freeTimeMapping[res.weekend],
+            "weekFreeTime": res.weekday,
+            "weekendFreeTime": res.weekend,
             "location": this._getLocationById(res.city)
         });
         Util.updateGobalData("globalUserInfo", {
@@ -278,17 +285,6 @@ export default class ModifyInfo extends Component {
         }
     }
 
-    _pickWeekFreeTime(index) {
-        this.setState({
-            weekFreeTime: Object.values(freeTimeMapping)[index]
-        })
-    }
-
-    _pickWeekendFreeTime(index) {
-        this.setState({
-            weekendFreeTime: Object.values(freeTimeMapping)[index]
-        })
-    }
 
     render() {
         const succModal = <View style={styles.succModalMainCont}>
@@ -365,39 +361,42 @@ export default class ModifyInfo extends Component {
                             </View>
                             <View style={styles.editItem}>
                                 <Text style={{color: '#000000', fontSize: 15}}>周末</Text>
-                                <ModalDropdown
-                                    onLayout={(event) => {
-                                        let {width} = event.nativeEvent.layout;
-                                        this.setState({
-                                            ftWidth1: width
-                                        })
+                                <ModalPicker
+                                    data={freeTimeMappingData}
+                                    initValue={this.state.weekendFreeTime}
+                                    onChange={(option) => {
+                                        this.setState({weekendFreeTime: option.key})
                                     }}
-                                    style={styles.dropdownButton}
-                                    textStyle={styles.dropdownText}
-                                    dropdownStyle={{width: this.state.ftWidth1}}
-                                    dropdownTextStyle={styles.dropdownTextStyle}
-                                    defaultValue={this.state.weekendFreeTime ? this.state.weekendFreeTime : '请选择'}
-                                    options={Object.values(freeTimeMapping)}
-                                    animated={false}
-                                    onSelect={(index) => this._pickWeekendFreeTime(index)}/>
+                                    cancelText="取消"
+                                >
+                                    <Text
+                                        style={{
+                                            width: 100,
+                                            padding: 10,
+                                            fontSize: 15
+                                        }}>
+                                        {this.state.weekendFreeTime ? freeTimeMapping[this.state.weekendFreeTime] : "请选择"}
+                                    </Text>
+                                </ModalPicker>
 
                                 <Text style={{color: '#000000', fontSize: 15, marginLeft: 15}}>周内</Text>
-                                <ModalDropdown
-                                    onLayout={(event) => {
-                                        let {width} = event.nativeEvent.layout;
-                                        this.setState({
-                                            ftWidth2: width
-                                        })
+                                <ModalPicker
+                                    data={freeTimeMappingData}
+                                    initValue={this.state.weekFreeTime}
+                                    onChange={(option) => {
+                                        this.setState({weekFreeTime: option.key})
                                     }}
-                                    style={styles.dropdownButton}
-                                    textStyle={styles.dropdownText}
-                                    dropdownStyle={{width: this.state.ftWidth2}}
-                                    dropdownTextStyle={styles.dropdownTextStyle}
-                                    defaultValue={this.state.weekFreeTime ? this.state.weekFreeTime : '请选择'}
-                                    options={Object.values(freeTimeMapping)}
-                                    animated={false}
-                                    onSelect={(index) => this._pickWeekFreeTime(index)}/>
-
+                                    cancelText="取消"
+                                >
+                                    <Text
+                                        style={{
+                                            width: 100,
+                                            padding: 10,
+                                            fontSize: 15
+                                        }}>
+                                        {this.state.weekFreeTime ? freeTimeMapping[this.state.weekFreeTime] : "请选择"}
+                                    </Text>
+                                </ModalPicker>
                             </View>
                         </View>
 

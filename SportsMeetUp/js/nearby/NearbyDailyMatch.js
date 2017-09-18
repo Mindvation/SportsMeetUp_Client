@@ -91,7 +91,7 @@ export default class NearbyDailyMatch extends Component {
         };
         FetchUtil.get(options).then((res) => {
             let tempMatch = action === 'fresh' ? [] : this.state.matches;
-            if (res.responseBody && res.responseBody.length > 0) {
+            if (res.responseBody) {
                 tempMatch = tempMatch.concat(res.responseBody);
                 console.info('Match Length === ' + tempMatch.length);
                 page++;
@@ -216,8 +216,16 @@ export default class NearbyDailyMatch extends Component {
         })
     }
 
+    hasData(dailyMatch) {
+        let length = 0;
+        dailyMatch.map((day) => {
+            length += day.matches.length;
+        });
+        return length;
+    }
+
     render() {
-        const {dailyMatch, isRefreshing, matches} = this.state;
+        const {dailyMatch, isRefreshing} = this.state;
         return ( <View style={styles.nearbyDailyCont}>
                 <View style={styles.filterTitle}>
                     <TouchableOpacity
@@ -229,7 +237,7 @@ export default class NearbyDailyMatch extends Component {
                                source={require('../../res/images/arrow.png')}/>
                     </TouchableOpacity>
                 </View>
-                {!isRefreshing && (!matches || matches.length === 0) ?
+                {!isRefreshing && (this.hasData(dailyMatch) === 0) ?
                     <ListView
                         dataSource={ds.cloneWithRows(['noData'])}
                         renderRow={this._renderRowForNoData.bind(this)}

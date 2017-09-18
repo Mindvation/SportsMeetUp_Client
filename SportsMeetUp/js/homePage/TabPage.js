@@ -43,8 +43,8 @@ class TabPage extends Component {
             "name": userInfo.name,
             "photo": userInfo.icon ? {uri: userInfo.icon} : '',
             "gender": userInfo.gender,
-            "weekFreeTime": userInfo.weekday ? freeTimeMapping[userInfo.weekday] : '',
-            "weekendFreeTime": userInfo.weekend ? freeTimeMapping[userInfo.weekend] : '',
+            "weekFreeTime": userInfo.weekday,
+            "weekendFreeTime": userInfo.weekend,
             "location": this._getLocationById(userInfo.city),
             "tags": userInfo.hobbies ? userInfo.hobbies.split(",") : []
         });
