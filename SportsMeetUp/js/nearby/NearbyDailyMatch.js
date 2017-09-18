@@ -58,6 +58,7 @@ export default class NearbyDailyMatch extends Component {
                 return;
             }
             this.location = globalUserInfo.userLocation;
+            this.nearbyDailyMatch && this.nearbyDailyMatch.scrollTo({y: 0, animated: true});
             this.setState({
                 isRefreshing: true
             });
@@ -255,6 +256,7 @@ export default class NearbyDailyMatch extends Component {
                         }
                     /> :
                     <ListView
+                        ref={node => this.nearbyDailyMatch = node}
                         dataSource={ds.cloneWithRows(dailyMatch)}
                         renderRow={this._renderRow.bind(this)}
                         renderFooter={this._renderFooter.bind(this)}

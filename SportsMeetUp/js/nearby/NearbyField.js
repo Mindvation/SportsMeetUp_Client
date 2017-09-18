@@ -57,6 +57,7 @@ export default class NearbyField extends Component {
                 return;
             }
             this.location = globalUserInfo.userLocation;
+            this.nearbyFieldList && this.nearbyFieldList.scrollTo({y: 0, animated: true});
             this.setState({
                 isRefreshing: true
             });
@@ -187,6 +188,7 @@ export default class NearbyField extends Component {
                         }
                     /> :
                     <ListView
+                        ref={node => this.nearbyFieldList = node}
                         dataSource={ds.cloneWithRows(fields)}
                         renderRow={this._renderRow.bind(this)}
                         renderFooter={this._renderFooter.bind(this)}
