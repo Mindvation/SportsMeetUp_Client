@@ -125,6 +125,19 @@ class NewMatchView extends Component {
         });
     }
 
+    // 关闭时清除界面上的数据。
+    onModalClose = () => {
+        this.setState({
+            matchDate: null,
+            startTime: null,
+            endTime: null,
+            type: '',
+            number: '',
+            phone: '',
+            description: '',
+        });
+    };
+
     render() {
         let today = new Date();
         let endDay = new Date(new Date().setDate(new Date().getDate() + 10));
@@ -133,8 +146,7 @@ class NewMatchView extends Component {
             <Modal
                 visible={this.state.modalVisible}
                 transparent={true}
-                onRequestClose={() => {
-                }}>
+                onRequestClose={this.onModalClose}>
                 <View style={styles.modalBackground}>
                     <View style={styles.modalBox}>
                         <TouchableOpacity style={{alignSelf: 'flex-end', marginRight: 14, marginTop: 14}}
