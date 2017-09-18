@@ -9,15 +9,16 @@ import {
     Image,
     TouchableOpacity,
     Alert,
+    PermissionsAndroid,
 } from 'react-native';
 
 // import {MapView, Geolocation} from 'react-native-baidu-map';
-import {MapView, Marker, Polyline} from 'react-native-amap3d'
+import {MapView, Marker, Polyline} from 'react-native-amap3d';
 
-import NewFieldPage from './NewFieldPage'
-import FieldInfoView from './FieldInfoView'
-import NewMatchView from './NewMatchView'
-import MatchInfo from '../matchInfo/MatchInfo'
+import NewFieldPage from './NewFieldPage';
+import FieldInfoView from './FieldInfoView';
+import NewMatchView from './NewMatchView';
+import MatchInfo from '../matchInfo/MatchInfo';
 
 import FetchUtil, {gateWay} from '../util/FetchUtil';
 import CommonUtil from '../util/CommonUtil';
@@ -50,6 +51,21 @@ function getGreatCircleDistance(lat1, lng1, lat2, lng2) {
     return s;
 }
 
+async function requestLocationPermission() {
+    try {
+        const granted = await PermissionsAndroid.requestMultiple(
+            [PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION, PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION]
+        )
+        console.log(granted);
+        if (granted[PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION] === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log("现在你获得定位权限了");
+        } else {
+            console.log("用户并不屌你");
+        }
+    } catch (err) {
+        console.warn(err);
+    }
+}
 
 class HomePage extends Component {
     constructor(props) {
@@ -69,7 +85,8 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
-
+        // 申请定位权限
+        requestLocationPermission();
     }
 
     createMakerIcon(fieldType) {
@@ -103,12 +120,12 @@ class HomePage extends Component {
     }
 
     _onMarkerClick(index) {
-        console.log("_onMarkerClick ", index);
+        console.log('_onMarkerClick ', index);
         this.setState({
             selectedPlayground: this.playgrounds[index],
             createGameEnabled: true,
             gameInfoEnabled: true
-        })
+        });
     }
 
     _onLocation(nativeEvent) {
@@ -119,8 +136,8 @@ class HomePage extends Component {
         // 用户当前位置
         this.userLocation = {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude};
         console.log(`onLocation ${nativeEvent.latitude}, ${nativeEvent.longitude}`);
-        CommonUtil.updateGobalData("globalUserInfo", {
-            "userLocation": this.userLocation
+        CommonUtil.updateGobalData('globalUserInfo', {
+            'userLocation': this.userLocation
         });
 
         if (!this.hasInitLocation) {
@@ -132,7 +149,7 @@ class HomePage extends Component {
 
     _onCenterLocationChange(nativeEvent) {
         this.centerLocation = {latitude: nativeEvent.latitude, longitude: nativeEvent.longitude};
-        console.log("mapCenterChange:", nativeEvent);
+        console.log('mapCenterChange:', nativeEvent);
 
         if (this.state.selectedPlayground) {
             // 存在激活的marker
@@ -155,7 +172,7 @@ class HomePage extends Component {
     // 查询附近的运动场
     _getData(location) {
         const options = {
-            "url": `8084/sports-meetup-papi/sportfields/getNearbySportFields/${location.longitude}/${location.latitude}/0,10`,
+            'url': `8084/sports-meetup-papi/sportfields/getNearbySportFields/${location.longitude}/${location.latitude}/0,10`,
         };
 
         FetchUtil.get(options).then((result) => {
@@ -165,9 +182,9 @@ class HomePage extends Component {
                     this.playgrounds.push(result.responseBody[i]);
                 }
             }
-            this.setState({dataReady: true})
+            this.setState({dataReady: true});
         }).catch((error) => {
-            console.log(error)
+            console.log(error);
         });
     }
 
@@ -187,7 +204,7 @@ class HomePage extends Component {
     _onPressField(fieldInfo) {
         if (fieldInfo) {
             // 显示场地信息
-            this.refs.fieldInfoView.visible(true)
+            this.refs.fieldInfoView.visible(true);
         } else {
             // 添加场地
             this.refs.newField._visibleModel(true);
@@ -196,7 +213,7 @@ class HomePage extends Component {
 
     // 发起比赛
     _onPressCreateGame(fieldInfo) {
-        console.log("发起比赛");
+        console.log('发起比赛');
         this.refs.newMatchView.visible(true);
     }
 
@@ -248,7 +265,7 @@ class HomePage extends Component {
                     latitude: this.playgrounds[minIndex].latitude,
                     longitude: this.playgrounds[minIndex].longitude
                 }
-            })
+            });
         }
     }
 
@@ -263,24 +280,24 @@ class HomePage extends Component {
         if (this.userLocation) {
             this.refs.map.animateTo({
                 coordinate: this.userLocation,
-            })
+            });
         }
 
 
         // 发起网络请求获取数据
         const options = {
-            "url": `8084/sports-meetup-papi/sportfields/findNearFieldsHaveMatches/${this.userLocation.longitude}/${this.userLocation.latitude}/0,10`,
+            'url': `8084/sports-meetup-papi/sportfields/findNearFieldsHaveMatches/${this.userLocation.longitude}/${this.userLocation.latitude}/0,10`,
         };
         FetchUtil.get(options).then((result) => {
             console.log(result.responseBody);
             this.playgrounds = result.responseBody;
             this.setState({
                 dataReady: true
-            })
+            });
 
             this._onFindNearbyFieldsHaveMatchesSuccess();
         }).catch((error) => {
-            console.log(error)
+            console.log(error);
         });
     }
 
@@ -317,7 +334,7 @@ class HomePage extends Component {
                     latitude: this.playgrounds[minIndex].latitude,
                     longitude: this.playgrounds[minIndex].longitude
                 }
-            })
+            });
         } else {
             this.setState({
                 selectedPlayground: null,
@@ -340,7 +357,7 @@ class HomePage extends Component {
 
     renderFieldModal() {
         if (this.state.selectedPlayground) return <FieldInfoView ref='fieldInfoView'
-            fieldInfo={this.state.selectedPlayground}/>;
+                                                                 fieldInfo={this.state.selectedPlayground}/>;
     }
 
     render() {
@@ -351,8 +368,8 @@ class HomePage extends Component {
                         style={styles.map}
                         ref='map'
                         zoomLevel={16}
-                        locationEnabled={false}
-                        showsLocationButton={true}
+                        locationEnabled={true}
+                        showsLocationButton={false}
                         onLocation={({nativeEvent}) => this._onLocation(nativeEvent)}
                         showsTraffic={false}
                         rotateEnabled={false}
@@ -364,12 +381,14 @@ class HomePage extends Component {
                     >
                         {this.renderMarker()}
                     </MapView>
-                    <Image style={{position: 'absolute', alignSelf: 'center'}} source={require('../../res/images/center.png')}/>
+                    <Image style={{position: 'absolute', alignSelf: 'center'}}
+                           source={require('../../res/images/center.png')}/>
                 </View>
                 <View style={styles.info}>
                     <View style={{flexDirection: 'row', alignItems: 'center', padding: 20}}>
                         <Image source={require('../../res/images/location.png')}/>
-                        <Text style={styles.fieldTitle} numberOfLines={1}>{this.state.selectedPlayground ? this.state.selectedPlayground.address : '正在获取位置'}</Text>
+                        <Text style={styles.fieldTitle}
+                              numberOfLines={1}>{this.state.selectedPlayground ? this.state.selectedPlayground.address : '正在获取位置'}</Text>
                     </View>
                     <View style={styles.line}/>
                     <View style={styles.buttonContainer}>
@@ -405,7 +424,7 @@ class HomePage extends Component {
                 <View style={styles.floatContainer}>
                     <TouchableOpacity
                         onPress={() => {
-                            this._onPressActionField()
+                            this._onPressActionField();
                         }}>
                         <Image source={require('../../res/images/action_field.png')}/>
                     </TouchableOpacity>
@@ -443,7 +462,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f1f1f1'
     },
     info: {
-        backgroundColor: "#ffffff",
+        backgroundColor: '#ffffff',
         paddingHorizontal: 16,
     },
     buttonContainer: {

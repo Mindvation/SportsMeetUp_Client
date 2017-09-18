@@ -10,11 +10,13 @@ import {
     Image,
     InteractionManager,
     Platform,
-} from 'react-native'
-import MainPage from './MainPage'
+} from 'react-native';
+import MainPage from './MainPage';
 import FetchUtil from './util/FetchUtil';
 import TabPage from './homePage/TabPage';
 import DataUtil from './util/DataUtil';
+
+
 
 export default class WelcomePage extends Component {
 
@@ -43,7 +45,7 @@ export default class WelcomePage extends Component {
                     });
                 });
             }, 500);
-        })
+        });
     }
 
     componentWillUnmount() {
