@@ -242,7 +242,7 @@ export default class Register extends Component {
 
         return (
             <View style={styles.container}>
-                <Header navigator={this.props.navigator}/>
+                <Header navigator={this.props.navigator} hiddenRightBtn={true}/>
                 <View style={styles.mainCont}>
                     <ScrollView
                         ref={(scrollView) => {
