@@ -199,29 +199,25 @@ const styles = StyleSheet.create({
     overlayStyle: {
         width: width,
         height: height,
-        backgroundColor: 'rgba(0,0,0,0.7)'
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-
     optionContainer: {
         borderBottomLeftRadius: BORDER_RADIUS,
         borderBottomRightRadius: BORDER_RADIUS,
         width: width * 0.8,
         height: OPTION_CONTAINER_HEIGHT,
-        backgroundColor: '#ffffff',
-        left: width * 0.1,
-        top: (height - OPTION_CONTAINER_HEIGHT - 110) / 2 + 1
+        backgroundColor: '#ffffff'
     },
-
     cancelContainer: {
-        left: width * 0.1,
         width: width * 0.8,
-        top: (height - OPTION_CONTAINER_HEIGHT - 110) / 2 + 10
+        marginTop: 20
     },
-
     titleStyle: {
         borderTopLeftRadius: BORDER_RADIUS,
         borderTopRightRadius: BORDER_RADIUS,
-        left: width * 0.1,
         width: width * 0.8,
         height: 50,
         backgroundColor: '#ffffff',
@@ -229,15 +225,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
-        top: (height - OPTION_CONTAINER_HEIGHT - 110) / 2
+        marginBottom: 1
     },
-
     titleTextStyle: {
         textAlign: 'center',
         color: '#000000',
         fontSize: FONT_SIZE
     },
-
     selectStyle: {
         flex: 1,
         borderColor: '#ccc',
@@ -245,20 +239,17 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: BORDER_RADIUS
     },
-
     selectTextStyle: {
         textAlign: 'center',
         color: '#333',
         fontSize: FONT_SIZE
     },
-
     cancelStyle: {
         borderRadius: BORDER_RADIUS,
         width: width * 0.8,
         backgroundColor: '#ffffff',
         padding: PADDING
     },
-
     cancelTextStyle: {
         textAlign: 'center',
         color: '#333',
@@ -266,17 +257,14 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5
     },
-
     optionStyle: {
         padding: PADDING,
         borderBottomWidth: 1,
         borderBottomColor: '#ccc'
     },
-
     selectedOptionStyle: {
         backgroundColor: '#e8e8e8'
     },
-
     optionTextStyle: {
         textAlign: 'center',
         fontSize: FONT_SIZE,
@@ -284,13 +272,11 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5
     },
-
     sectionStyle: {
         padding: PADDING * 2,
         borderBottomWidth: 1,
         borderBottomColor: '#ccc'
     },
-
     sectionTextStyle: {
         textAlign: 'center',
         fontSize: FONT_SIZE,

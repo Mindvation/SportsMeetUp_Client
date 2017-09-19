@@ -38,15 +38,16 @@ export default class FetchUitl {
             options.url += '/' + paramsArray.join('/')
         }
 
-        /*const myFetch = fetch(gateWay + options.url, {
+        const myFetch = fetch(gateWay + options.url, {
             method: 'GET'
-        });*/
+        });
 
         return new Promise((resolve, reject) => {
             // this._checkNet().then((res) => {
-            fetch(gateWay + options.url, {
+            /*fetch(gateWay + options.url, {
                 method: 'GET'
-            })
+            })*/
+            this._fetch(myFetch)
                 .then(response => {
                     return response.json();
                 })
@@ -69,25 +70,26 @@ export default class FetchUitl {
      * */
     static post(options, method = "POST") {
 
-        /*const myFetch = fetch(gateWay + options.url, {
+        const myFetch = fetch(gateWay + options.url, {
             method: method,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(options.params),
-        });*/
+        });
 
         return new Promise((resolve, reject) => {
             // this._checkNet().then((res) => {
-            fetch(gateWay + options.url, {
+            /*fetch(gateWay + options.url, {
                 method: method,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(options.params),
-            })
+            })*/
+            this._fetch(myFetch)
                 .then(response => {
                     return response.json();
                 })

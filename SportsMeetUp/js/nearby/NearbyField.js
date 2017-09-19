@@ -153,7 +153,7 @@ export default class NearbyField extends Component {
 
     _renderRowForNoData() {
         return <View style={styles.noDataCont}>
-            <Text style={styles.noDataText}>附近没有球场赛...</Text>
+            <Text style={styles.noDataText}>附近没有球场...</Text>
         </View>
     }
 
